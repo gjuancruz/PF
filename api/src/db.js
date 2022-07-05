@@ -1,11 +1,11 @@
-require('dotenv').config
+require('dotenv').config()
 const { Sequelize } = require('sequelize')
 const fs = require('fs');
 const path = require('path');
 const {
     DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
-  
+
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cinema`,{logging:false,native:false})
 
 const basename = path.basename(__filename)
