@@ -1,0 +1,41 @@
+const {DataTypes} = require('sequelize')
+
+module.exports = (sequelize) =>{
+    sequelize.define('movie',{
+        id:{
+            primaryKey:true,
+            type:DataTypes.UUID,
+            defaultValue:DataTypes.UUIDV4,
+            allowNull:false
+        },
+        name:{
+            type:DataTypes.CHAR(30),
+            allowNull:false
+        },
+        synopsis:{
+            type:DataTypes.TEXT,
+            allowNull:false
+        },
+        gender:{
+            type:DataTypes.CHAR(15),
+            allowNull:false
+        },
+        clasif:{
+            type:DataTypes.CHAR(15),
+            allowNull:false
+        },
+        trailer:{
+            type:DataTypes.CHAR(100),
+            allowNull:false
+        },
+        minutes:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        showid:{
+            foreignKey:true,
+            type:DataTypes.INTEGER,
+            allowNull:false
+        }
+    },{timestamps:false})
+}

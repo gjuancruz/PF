@@ -1,26 +1,23 @@
 const {DataTypes} = require('sequelize')
 
 module.exports = (sequelize) =>{
-    sequelize.define('user',{
+    sequelize.define('show',{
         id:{
             primaryKey:true,
-            type:DataTypes.UUID,
-            defaultValue:DataTypes.UUIDV4,
-            allowNull:false
-        },
-        username:{
-            type:DataTypes.CHAR(20),
-            allowNull:false
-        },
-        password:{
-            type:DataTypes.CHAR(20),
-            allowNull:false
-        },
-        role:{
             type:DataTypes.INTEGER,
             allowNull:false
         },
-        sale:{
+        movieid:{
+            foreignKey:true,
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        ticketid:{
+            foreignKey:true,
+            type:DataTypes.INTEGER,
+            allowNull:false
+        },
+        roomid:{
             foreignKey:true,
             type:DataTypes.INTEGER,
             allowNull:false
