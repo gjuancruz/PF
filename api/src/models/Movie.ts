@@ -1,0 +1,48 @@
+// import { RandomUUIDOptions } from 'crypto';
+import {Model, Column, Table, CreatedAt, UpdatedAt, DataType, AllowNull, ForeignKey} from 'sequelize-typescript';
+// import { UUIDV4, UUID } from 'sequelize/types';
+
+@Table({timestamps: false})
+export class Movie extends Model<Movie> {
+    @Column({primaryKey: true , defaultValue: DataType.UUIDV4, type: DataType.UUID })
+    id!: string;
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(30)})
+    name!: string;
+
+    @AllowNull(false)
+    @Column({type: DataType.TEXT})
+    synopsis!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    gender!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    clasif!: string;
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(100)})
+    trailer!: string;
+
+    @AllowNull(false)
+    @Column({type: DataType.INTEGER})
+    minutes!: number;
+
+    //relacion tabla
+
+    // @AllowNull(false)
+    // @Column({type: DataType.INTEGER,})
+    // showid!: number;
+
+    // @CreatedAt
+    // @Column
+    // createdAt!: Date;
+
+    // @UpdatedAt
+    // @Column
+    // updatedAt!: Date;
+
+}
