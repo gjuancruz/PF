@@ -2,10 +2,15 @@ import React from 'react'
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom'
+import FilterCartelera from './Components/FilterCartelera';
 
 function App() {
   return (
-    <h1>andando</h1>
+    <div>
+      <BrowserRouter>
+        <Route exact path='/' component={FilterCartelera} />
+      </BrowserRouter>
+    </div>
   );
 }
 
