@@ -1,8 +1,9 @@
 import React,{ useEffect  }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getMovieDetail } from "../Redux/actions";
-import './styles/movieDetail.styles.css'
+import { getMovieDetail } from "../../Redux/actions";
+import '../styles/MovieDetail.styles.css'
+
 
 
 export default function MovieDetail(){

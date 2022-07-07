@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom'
-import MovieDetail from './Components/movieDetail';
+import MovieDetail from './Components/Detail/MovieDetail'
 import NavBar from './Components/NavBar/NavBar';
 import Carousel from './Components/Carousel/Carousel';
 
