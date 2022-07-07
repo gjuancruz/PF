@@ -9,14 +9,14 @@ datasource db {
 
 model Movie {
   id       String @id @default(uuid()) @db.Uuid
-  Title    String @db.Char(30)
-  Plot     String
-  Genre    String @db.Char(15)
-  Actors   String @db.Char(15)
-  Language String @db.Char(15)
-  Director String @db.Char(15)
+  Title    String @db.Char(60)
+  Plot     String @db.Text
+  Genre    String @db.Char(60)
+  Actors   String @db.Char(60)
+  Language String @db.Char(50)
+  Director String @db.Char(30)
   Release  String @db.Char(15)
-  Poster   String @db.Char(15)
+  Poster   String @db.Text
   Rated    String @db.Char(15)
   Type     String @db.Char(15)
   Trailer  String @db.Char(100)
