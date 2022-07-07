@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 
 // import config from '../lib/config';
-// import routes from './routes/index'
+import routes from './routes/index'
 
 const prisma = new PrismaClient();
 
@@ -39,14 +39,14 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
     res.status(status).send(message);
 });
 
-// app.use('/api', routes);
+app.use('/api', routes);
 
 
 //Traer todos los registros
-app.get('/movies', async(req: Request, res: Response) => {
-    const post = await prisma.movie.findMany();
-    res.send(post);
-});
+// app.get('/movies', async(req: Request, res: Response) => {
+//     const post = await prisma.movie.findMany();
+//     res.send(post);
+// });
 
 interface movies {
     Title: string;
@@ -62,32 +62,6 @@ interface movies {
     Runtime: number;
 }
 
-app.post("/", async (req:Request, res:Response) =>{
-    // console.log("CLICK")
-    // res.send("OK")
-    const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Trailer,Runtime} = req.body
-    const a = await prisma.movie.create({
-        data: {
-            Title,
-            Plot,
-            Genre,
-            Actors,
-            Language,
-            Director,
-            Release,
-            Poster,
-            Rated,
-            Trailer,
-            Runtime
-        },
-      })
-
-
-    // const allUsers = await prisma.product.findMany()
-    // console.log(allUsers)
-    res.json(a)
-
-})
 
 // crear registro db
 // app.post('/post', async(req: Request, res: Response):any => {
