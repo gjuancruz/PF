@@ -1,12 +1,17 @@
 import React from 'react'
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import Home from './ComponentesLauti/Home/Home';
 
 function App() {
   return (
-    <h1>andando</h1>
-  );
+    <BrowserRouter>
+    <Switch>
+    <Route exact path= '/' component= {Home}/>
+    </Switch>
+    </BrowserRouter>
+    );
 }
 
 export default App;
