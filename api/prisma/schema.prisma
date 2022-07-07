@@ -33,6 +33,7 @@ model Movie {
   Release   String  @db.Char(15)
   Poster    String  @db.Char(15)
   Rated     String  @db.Char(15)
+  Type      String  @db.Char(15)
   Trailer   String  @db.Char(100)
   Runtime   Int     @db.Integer
   show      Show[]

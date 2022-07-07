@@ -41,14 +41,10 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 
 // app.use('/api', routes);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('hola typescript!');
-});
-
 
 //Traer todos los registros
 // app.get('/movies', async(req: Request, res: Response) => {
-//     const post = await prisma.post.findMany();
+//     const post = await prisma.movie.findMany();
 //     res.send(post);
 // });
 
@@ -65,6 +61,33 @@ interface movies {
     Trailer: string;
     Runtime: number;
 }
+
+// app.post("/", async (req:Request, res:Response) =>{
+//     // console.log("CLICK")
+//     // res.send("OK")
+//     const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Trailer,Runtime} = req.body
+//     const a = await prisma.movie.create({
+//         data: {
+//             Title,
+//             Plot,
+//             Genre,
+//             Actors,
+//             Language,
+//             Director,
+//             Release,
+//             Poster,
+//             Rated,
+//             Trailer,
+//             Runtime
+//         },
+//       })
+
+
+//     // const allUsers = await prisma.product.findMany()
+//     // console.log(allUsers)
+//     res.json(a)
+
+// })
 
 // crear registro db
 // app.post('/post', async(req: Request, res: Response):any => {
