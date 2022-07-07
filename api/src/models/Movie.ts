@@ -9,27 +9,47 @@ export class Movie extends Model<Movie> {
 
     @AllowNull(false)
     @Column({type: DataType.CHAR(30)})
-    name!: string;
+    Title!: string;
 
     @AllowNull(false)
     @Column({type: DataType.TEXT})
-    synopsis!: string
+    Plot!: string
 
     @AllowNull(false)
     @Column({type: DataType.CHAR(15)})
-    gender!: string
+    Genre!: string
 
     @AllowNull(false)
     @Column({type: DataType.CHAR(15)})
-    clasif!: string;
+    Actors!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    Language!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    Director!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    Release!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    Poster!: string
+
+    @AllowNull(false)
+    @Column({type: DataType.CHAR(15)})
+    Rated!: string;
 
     @AllowNull(false)
     @Column({type: DataType.CHAR(100)})
-    trailer!: string;
+    Trailer!: string;
 
     @AllowNull(false)
     @Column({type: DataType.INTEGER})
-    minutes!: number;
+    Runtime!: number;
 
     //relacion tabla
 
