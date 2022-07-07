@@ -6,6 +6,10 @@ import morgan from 'morgan';
 
 import routes from './routes/index'
 
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 const app: Application = express();
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
 app.use(express.json({limit: '50mb'}));
@@ -36,10 +40,6 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use('/api', routes);
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('hola typescript!');
-});
 
 
 
