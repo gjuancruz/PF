@@ -19,9 +19,19 @@ const rootReducer = ( state = initialState, action ) => {
                 ...state,
                 moviesFiltered: filteredByType
             }
+        case FILTER_GENRE:
+            const moviesAll = state.allMovies
+            const filteredByGenre = action.payload === 'All'
+            ?
+            moviesAll:
+            moviesAll.filter( (movie) => movie.Genre === action.payload )
+            return {
+                ...state,
+                moviesFiltered : filteredByGenre
+            } 
     
         default:
-            break;
+            return state
     }
 }
 
