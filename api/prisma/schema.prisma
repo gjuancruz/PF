@@ -7,191 +7,69 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Movies {
-  id                          String  @id @db.Uuid
-  Title                       String  @db.Char(30)
-  Plot                        String
-  Genre                       String  @db.Char(15)
-  Actors                      String  @db.Char(15)
-  Language                    String  @db.Char(15)
-  Director                    String  @db.Char(15)
-  Release                     String  @db.Char(15)
-  Poster                      String  @db.Char(15)
-  Rated                       String  @db.Char(15)
-  Trailer                     String  @db.Char(100)
-  Runtime                     Int
-  ShowId                      Int?
-  Shows_Movies_ShowIdToShows  Shows?  @relation("Movies_ShowIdToShows", fields: [ShowId], references: [id])
-  Shows_MoviesToShows_MovieId Shows[] @relation("MoviesToShows_MovieId")
+model Movie {
+  id       String @id @default(uuid()) @db.Uuid
+  Title    String @db.Char(30)
+  Plot     String
+  Genre    String @db.Char(15)
+  Actors   String @db.Char(15)
+  Language String @db.Char(15)
+  Director String @db.Char(15)
+  Release  String @db.Char(15)
+  Poster   String @db.Char(15)
+  Rated    String @db.Char(15)
+  Type     String @db.Char(15)
+  Trailer  String @db.Char(100)
+  Runtime  Int
+  show     Show[]
 }
 
-model Rooms {
-  id                              Int       @id
-  SeatId                          Int?
-  TicketId                        Int?
-  ShowId                          Int?
-  Seats_Rooms_SeatIdToSeats       Seats?    @relation("Rooms_SeatIdToSeats", fields: [SeatId], references: [id])
-  Shows_Rooms_ShowIdToShows       Shows?    @relation("Rooms_ShowIdToShows", fields: [ShowId], references: [id])
-  Tickets_Rooms_TicketIdToTickets Tickets?  @relation("Rooms_TicketIdToTickets", fields: [TicketId], references: [id])
-  Seats_RoomsToSeats_RoomId       Seats[]   @relation("RoomsToSeats_RoomId")
-  Shows_RoomsToShows_RoomId       Shows[]   @relation("RoomsToShows_RoomId")
-  Tickets_RoomsToTickets_RoomId   Tickets[] @relation("RoomsToTickets_RoomId")
+model Room {
+  id     Int      @id
+  seat   Seat[]
+  show   Show[]
+  ticket Ticket[]
 }
 
-model Sales {
-  id                              Int       @id
-  TicketId                        Int?
-  UserId                          String?   @db.Uuid
-  Tickets_Sales_TicketIdToTickets Tickets?  @relation("Sales_TicketIdToTickets", fields: [TicketId], references: [id])
-  Users_Sales_UserIdToUsers       Users?    @relation("Sales_UserIdToUsers", fields: [UserId], references: [id])
-  Tickets_SalesToTickets_SaleId   Tickets[] @relation("SalesToTickets_SaleId")
-  Users_SalesToUsers_SaleId       Users[]   @relation("SalesToUsers_SaleId")
+model Sale {
+  id     Int      @id
+  userId String   @db.Uuid
+  user   User     @relation(fields: [userId], references: [id])
+  ticket Ticket[]
 }
 
-model Seats {
-  id                              Int       @id
-  RoomId                          Int?
-  TicketId                        Int?
-  Rooms_RoomsToSeats_RoomId       Rooms?    @relation("RoomsToSeats_RoomId", fields: [RoomId], references: [id])
-  Tickets_Seats_TicketIdToTickets Tickets?  @relation("Seats_TicketIdToTickets", fields: [TicketId], references: [id])
-  Rooms_Rooms_SeatIdToSeats       Rooms[]   @relation("Rooms_SeatIdToSeats")
-  Tickets_SeatsToTickets_SeatId   Tickets[] @relation("SeatsToTickets_SeatId")
+model Seat {
+  id     Int     @id
+  roomId Int
+  room   Room    @relation(fields: [roomId], references: [id])
+  ticket Ticket?
 }
 
-model Shows {
-  id                              Int       @id
-  RoomId                          Int?
-  MovieId                         String?   @db.Uuid
-  TicketId                        Int?
-  Movies_MoviesToShows_MovieId    Movies?   @relation("MoviesToShows_MovieId", fields: [MovieId], references: [id])
-  Rooms_RoomsToShows_RoomId       Rooms?    @relation("RoomsToShows_RoomId", fields: [RoomId], references: [id])
-  Tickets_Shows_TicketIdToTickets Tickets?  @relation("Shows_TicketIdToTickets", fields: [TicketId], references: [id])
-  Movies_Movies_ShowIdToShows     Movies[]  @relation("Movies_ShowIdToShows")
-  Rooms_Rooms_ShowIdToShows       Rooms[]   @relation("Rooms_ShowIdToShows")
-  Tickets_ShowsToTickets_ShowId   Tickets[] @relation("ShowsToTickets_ShowId")
+model Show {
+  id      Int      @id
+  roomId  Int
+  movieId String   @db.Uuid
+  movie   Movie    @relation(fields: [movieId], references: [id])
+  room    Room     @relation(fields: [roomId], references: [id])
+  ticket  Ticket[]
 }
 
-model Tickets {
-  id                            Int     @id
-  SeatId                        Int?
-  RoomId                        Int?
-  SaleId                        Int?
-  ShowId                        Int?
-  Rooms_RoomsToTickets_RoomId   Rooms?  @relation("RoomsToTickets_RoomId", fields: [RoomId], references: [id])
-  Sales_SalesToTickets_SaleId   Sales?  @relation("SalesToTickets_SaleId", fields: [SaleId], references: [id])
-  Seats_SeatsToTickets_SeatId   Seats?  @relation("SeatsToTickets_SeatId", fields: [SeatId], references: [id])
-  Shows_ShowsToTickets_ShowId   Shows?  @relation("ShowsToTickets_ShowId", fields: [ShowId], references: [id])
-  Rooms_Rooms_TicketIdToTickets Rooms[] @relation("Rooms_TicketIdToTickets")
-  Sales_Sales_TicketIdToTickets Sales[] @relation("Sales_TicketIdToTickets")
-  Seats_Seats_TicketIdToTickets Seats[] @relation("Seats_TicketIdToTickets")
-  Shows_Shows_TicketIdToTickets Shows[] @relation("Shows_TicketIdToTickets")
+model Ticket {
+  id     Int  @id
+  seatId Int  @unique
+  roomId Int
+  saleId Int
+  showId Int
+  room   Room @relation(fields: [roomId], references: [id])
+  sale   Sale @relation(fields: [saleId], references: [id])
+  seat1  Seat @relation(fields: [seatId], references: [id])
+  show   Show @relation(fields: [showId], references: [id])
 }
 
-model Users {
-  id                        String  @id @db.Uuid
-  username                  String  @db.Char(20)
-  password                  String  @db.Char(20)
-  role                      Int
-  SaleId                    Int?
-  Sales_SalesToUsers_SaleId Sales?  @relation("SalesToUsers_SaleId", fields: [SaleId], references: [id])
-  Sales_Sales_UserIdToUsers Sales[] @relation("Sales_UserIdToUsers")
-}
-
-model movies {
-  id                          String  @id @db.Uuid
-  name                        String  @db.Char(30)
-  synopsis                    String
-  gender                      String  @db.Char(15)
-  clasif                      String  @db.Char(15)
-  trailer                     String  @db.Char(100)
-  minutes                     Int
-  showid                      Int
-  showId                      Int?
-  shows_movies_showIdToshows  shows?  @relation("movies_showIdToshows", fields: [showId], references: [id])
-  shows_moviesToshows_movieId shows[] @relation("moviesToshows_movieId")
-}
-
-model rooms {
-  id                              Int       @id
-  seatid                          Int
-  seatId                          Int?
-  ticketId                        Int?
-  showId                          Int?
-  seats_rooms_seatIdToseats       seats?    @relation("rooms_seatIdToseats", fields: [seatId], references: [id])
-  shows_rooms_showIdToshows       shows?    @relation("rooms_showIdToshows", fields: [showId], references: [id])
-  tickets_rooms_ticketIdTotickets tickets?  @relation("rooms_ticketIdTotickets", fields: [ticketId], references: [id])
-  seats_roomsToseats_roomId       seats[]   @relation("roomsToseats_roomId")
-  shows_roomsToshows_roomId       shows[]   @relation("roomsToshows_roomId")
-  tickets_roomsTotickets_roomId   tickets[] @relation("roomsTotickets_roomId")
-}
-
-model sales {
-  id                              Int       @id
-  ticketid                        Int
-  userid                          String    @db.Uuid
-  ticketId                        Int?
-  userId                          String?   @db.Uuid
-  tickets_sales_ticketIdTotickets tickets?  @relation("sales_ticketIdTotickets", fields: [ticketId], references: [id])
-  users_sales_userIdTousers       users?    @relation("sales_userIdTousers", fields: [userId], references: [id])
-  tickets_salesTotickets_saleId   tickets[] @relation("salesTotickets_saleId")
-  users_salesTousers_saleId       users[]   @relation("salesTousers_saleId")
-}
-
-model seats {
-  id                              Int       @id
-  roomid                          Int
-  ticketid                        Int
-  roomId                          Int?
-  ticketId                        Int?
-  rooms_roomsToseats_roomId       rooms?    @relation("roomsToseats_roomId", fields: [roomId], references: [id])
-  tickets_seats_ticketIdTotickets tickets?  @relation("seats_ticketIdTotickets", fields: [ticketId], references: [id])
-  rooms_rooms_seatIdToseats       rooms[]   @relation("rooms_seatIdToseats")
-  tickets_seatsTotickets_seatId   tickets[] @relation("seatsTotickets_seatId")
-}
-
-model shows {
-  id                              Int       @id
-  movieid                         Int
-  ticketid                        Int
-  roomid                          Int
-  roomId                          Int?
-  movieId                         String?   @db.Uuid
-  ticketId                        Int?
-  movies_moviesToshows_movieId    movies?   @relation("moviesToshows_movieId", fields: [movieId], references: [id])
-  rooms_roomsToshows_roomId       rooms?    @relation("roomsToshows_roomId", fields: [roomId], references: [id])
-  tickets_shows_ticketIdTotickets tickets?  @relation("shows_ticketIdTotickets", fields: [ticketId], references: [id])
-  movies_movies_showIdToshows     movies[]  @relation("movies_showIdToshows")
-  rooms_rooms_showIdToshows       rooms[]   @relation("rooms_showIdToshows")
-  tickets_showsTotickets_showId   tickets[] @relation("showsTotickets_showId")
-}
-
-model tickets {
-  id                            Int     @id
-  seatid                        Int
-  roomid                        Int
-  showid                        Int
-  saleid                        Int
-  seatId                        Int?
-  roomId                        Int?
-  saleId                        Int?
-  showId                        Int?
-  rooms_roomsTotickets_roomId   rooms?  @relation("roomsTotickets_roomId", fields: [roomId], references: [id])
-  sales_salesTotickets_saleId   sales?  @relation("salesTotickets_saleId", fields: [saleId], references: [id])
-  seats_seatsTotickets_seatId   seats?  @relation("seatsTotickets_seatId", fields: [seatId], references: [id])
-  shows_showsTotickets_showId   shows?  @relation("showsTotickets_showId", fields: [showId], references: [id])
-  rooms_rooms_ticketIdTotickets rooms[] @relation("rooms_ticketIdTotickets")
-  sales_sales_ticketIdTotickets sales[] @relation("sales_ticketIdTotickets")
-  seats_seats_ticketIdTotickets seats[] @relation("seats_ticketIdTotickets")
-  shows_shows_ticketIdTotickets shows[] @relation("shows_ticketIdTotickets")
-}
-
-model users {
-  id                        String  @id @db.Uuid
-  username                  String  @db.Char(20)
-  password                  String  @db.Char(20)
-  role                      Int
-  sale                      Int
-  saleId                    Int?
-  sales_salesTousers_saleId sales?  @relation("salesTousers_saleId", fields: [saleId], references: [id])
-  sales_sales_userIdTousers sales[] @relation("sales_userIdTousers")
+model User {
+  id       String @id @db.Uuid
+  username String @db.Char(20)
+  password String @db.Char(20)
+  role     Int
+  sale     Sale[]
 }
