@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model Post {
+//   id       Int    @id @default(autoincrement())
+//   title    String
+//   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+//   authorId Int
+// }
+
+// model User {
+//   id    Int    @id @default(autoincrement())
+//   posts Post[]
+// }
+
+model Movie {
+  id        String  @id @db.Uuid @default(uuid())
+  Title     String  @db.Char(30) 
+  Plot      String  @db.Text
+  Genre     String  @db.Char(15)
+  Actors    String  @db.Char(15)
+  Language  String  @db.Char(15)
+  Director  String  @db.Char(15)
+  Release   String  @db.Char(15)
+  Poster    String  @db.Char(15)
+  Rated     String  @db.Char(15)
+  Trailer   String  @db.Char(100)
+  Runtime   Int     @db.Integer
+  show      Show[]
+}
+
+model Room {
+  id      Int   @db.Integer @id
+  seat    Seat[]
+  ticket  Ticket[]
+  show    Show[]
+}
+
+model Sale {
+  id      Int       @db.Integer @id
+  ticket  Ticket[]
+  user    User      @relation(fields: [userId], references: [id])
+  userId  String    @db.Uuid
+}
+
+model Seat {
+  id    Int   @db.Integer @id
+  room  Room  @relation(fields: [roomId], references: [id])
+  roomId  Int
+  ticket  Ticket?
+}
+
+model Show {
+  id      Int     @db.Integer @id
+  room    Room    @relation(fields: [roomId], references: [id])
+  roomId  Int
+  movie   Movie   @relation(fields: [movieId], references: [id])
+  movieId String  @db.Uuid
+  ticket  Ticket[]
+}
+
+model Ticket {
+  id        Int   @db.Integer @id
+  seat1     Seat  @relation(fields: [seatId], references: [id])
+  seatId    Int   @unique
+  room      Room  @relation(fields: [roomId], references: [id])
+  roomId    Int      
+  sale      Sale  @relation(fields: [saleId], references: [id])
+  saleId    Int
+  show      Show  @relation(fields: [showId], references: [id])
+  showId    Int
+}
+
+model User {
+  id        String  @db.Uuid @id
+  username  String  @db.Char(20)
+  password  String  @db.Char(20)  
+  role      Int     @db.Integer
+  sale      Sale[]  
+}
