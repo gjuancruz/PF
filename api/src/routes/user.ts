@@ -1,9 +1,10 @@
+import { PrismaClient } from '@prisma/client';
 import {Response, Request, Router, NextFunction} from 'express';
-import { ArrayTypeNode } from 'typescript';
-import {Movie} from '../models/Movie';
 // import {sequelize} from '../db'
 
 const router = Router();
+
+const prisma = new PrismaClient()
 
 // router.get('/', (req: Request, res: Response) => {
 //     res.send('soy la ruta get!');
@@ -14,7 +15,7 @@ const router = Router();
 // });
 
 router.get('/movie', (req: Request, res: Response, next: NextFunction) => {
-    Movie.findAll()
+    prisma.movie.findAll()
      .then((movie:any) => {
         let movielist : Object[] = movie.map((e:Object)=>{
 
@@ -28,7 +29,7 @@ router.get('/movie', (req: Request, res: Response, next: NextFunction) => {
 router.get("/movie/:title", async(req:Request,res:Response,next:NextFunction)=>{
     const title = req.params.title
     try{
-        const movie = await Movie.findOne({where:{Title:title}})
+        const movie = await prisma.movie.findOne({where:{Title:title}})
         res.send(movie)
         }catch(err:unknown){
         res.send(err)
@@ -39,11 +40,11 @@ router.post('/movie', (req: Request, res: Response, next: NextFunction) => {
     const movie = req.body;
     console.log(movie);
     
-    Movie.create(movie)
-     .then((createdMovie) => {
+    prisma.movie.create(movie)
+     .then((createdMovie:any) => {
       res.send(createdMovie);
      })
-     .catch((error) => next(error));
+     .catch((error:unknown) => next(error));
 });
 
 export default router;
