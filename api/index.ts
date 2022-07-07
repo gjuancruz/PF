@@ -1,4 +1,4 @@
-import { sequelize } from './src/db';
+// import { sequelize } from './src/db';
 import app from './src/app';
 
 // sequelize
