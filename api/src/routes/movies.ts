@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const {Movie,Room} = require("../db");
+// const {Movie,Room} = require("../db");
 
 const router = Router()
 
@@ -23,7 +23,6 @@ router.get("/billboard", async (req:Request, res:Response) =>{
             where:{
                 Release:{}
             }
-
         })
 
     }catch (error) {

@@ -10,10 +10,6 @@ import morgan from 'morgan';
 
 const prisma = new PrismaClient();
 
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
-
 const app: Application = express();
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
 app.use(express.json({limit: '50mb'}));
@@ -65,6 +61,33 @@ interface movies {
     Trailer: string;
     Runtime: number;
 }
+
+app.post("/", async (req:Request, res:Response) =>{
+    // console.log("CLICK")
+    // res.send("OK")
+    const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Trailer,Runtime} = req.body
+    const a = await prisma.movie.create({
+        data: {
+            Title,
+            Plot,
+            Genre,
+            Actors,
+            Language,
+            Director,
+            Release,
+            Poster,
+            Rated,
+            Trailer,
+            Runtime
+        },
+      })
+
+
+    // const allUsers = await prisma.product.findMany()
+    // console.log(allUsers)
+    res.json(a)
+
+})
 
 // crear registro db
 // app.post('/post', async(req: Request, res: Response):any => {
