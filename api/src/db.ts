@@ -9,6 +9,7 @@ import { Seat } from './models/Seat'
 import { Show } from './models/Show'
 import { Ticket } from './models/Ticket'
 import { User } from './models/User'
+import { Comment } from './models/Comment';
 
 import config from '../lib/config';
 // import { DataTypes } from 'sequelize/types';
@@ -29,6 +30,7 @@ sequelize.addModels([Seat]);
 sequelize.addModels([Show]);
 sequelize.addModels([Ticket]);
 sequelize.addModels([User]);
+sequelize.addModels([Comment]);
 
 Room.hasMany(Seat)
 Seat.hasOne(Room)
@@ -53,10 +55,12 @@ Movie.hasMany(Show)
 //-----------------------------------------------------------------------------------------------------------------//
 Ticket.hasOne(Show)
 Show.hasMany(Ticket)
-
-
-
-
+//-----------------------------------------------------------------------------------------------------------------//
+Comment.hasOne(Movie)
+Movie.hasMany(Comment)
+//-----------------------------------------------------------------------------------------------------------------//
+Comment.hasOne(User)
+User.hasMany(Comment)
 
 // const basename = path.basename(__filename);
 

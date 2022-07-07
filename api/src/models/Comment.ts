@@ -1,16 +1,15 @@
-// import { RandomUUIDOptions } from 'crypto';
+
 import {Model, Column, Table, CreatedAt, UpdatedAt, DataType, AllowNull, ForeignKey} from 'sequelize-typescript';
-// import { UUIDV4, UUID } from 'sequelize/types';
 
 @Table({timestamps: false})
-export class Room extends Model<Room> {
+export class Comment extends Model<Comment> {
     @AllowNull(false)
     @Column({primaryKey: true , type: DataType.INTEGER })
     id!: number;
 
     @AllowNull(false)
-    @Column({type: DataType.INTEGER })
-    seats!: number;
+    @Column({type: DataType.TEXT })
+    text!: number;
 
     // @Column({type: DataType.INTEGER,})
     // @AllowNull(false)
