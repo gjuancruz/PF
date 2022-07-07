@@ -15,6 +15,9 @@ const prisma = new PrismaClient()
 //  .catch((err) => console.error(err));
 
 app.listen(3001, async () => {
+
+   const del = await prisma.movie.deleteMany({})
+
    const movie = await prisma.movie.createMany({
       data: [cars, spider]
   })
