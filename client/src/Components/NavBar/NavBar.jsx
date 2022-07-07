@@ -4,6 +4,7 @@ import React from 'react'
 const NavBar = () =>{
 
     return(
+      <div>
       <nav class="navbar navbar-expand-lg bg-dark text-light">
       <div class="container-fluid">
         <a class="navbar-brand text-light" href="/">Henry Cinema</a>
@@ -45,6 +46,7 @@ const NavBar = () =>{
         </div>
       </div>
     </nav>
+    </div>
     )
 }
 
