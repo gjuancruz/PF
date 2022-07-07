@@ -1,6 +1,6 @@
 import express, {Application, Request, Response, NextFunction}  from 'express';
 
-import {PrismaClient} from '@prisma/client'
+import {PrismaClient, Prisma} from '@prisma/client'
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
@@ -67,15 +67,15 @@ interface movies {
 }
 
 // crear registro db
-// app.post('/post', async(req: Request, res: Response):any => {
-//     const { Title, Plot, Genre, Actors, Language, Director, Release, Poster, Rated, Trailer, Runtime }:movies = req.body;
-//     const result = await prisma.movie.create({
-//         data: {
-//             Title, Plot, Genre
-//         }
-//     })
-//     res.json(result);
-// })
+app.post('/post', async(req: Request, res: Response) => {
+    const { Title, Plot, Genre, Actors, Language, Director, Release, Poster, Rated, Trailer, Runtime }:movies = req.body;
+    const result = await prisma.movie.create({
+        data: {
+            Title, Plot, Genre, Actors, Language, Director, Release, Poster, Rated, Trailer, Runtime
+        }
+    })
+    res.json(result);
+});
 
 //actualizar contenido
 // app.put('/post/:id', async(req, res) => {
