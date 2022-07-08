@@ -9,7 +9,7 @@ import { Seat } from './models/Seat'
 import { Show } from './models/Show'
 import { Ticket } from './models/Ticket'
 import { User } from './models/User'
-import { Comment } from './models/Comment';
+import { Comment } from './models/comment';
 
 import config from '../lib/config';
 // import { DataTypes } from 'sequelize/types';

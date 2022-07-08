@@ -8,7 +8,7 @@ export class Movie extends Model<Movie> {
     id!: string;
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(30)})
+    @Column({type: DataType.CHAR(50)})
     Title!: string;
 
     @AllowNull(false)
@@ -16,27 +16,27 @@ export class Movie extends Model<Movie> {
     Plot!: string
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(15)})
+    @Column({type: DataType.CHAR(30)})
     Genre!: string
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(15)})
+    @Column({type: DataType.CHAR(60)})
     Actors!: string
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(15)})
+    @Column({type: DataType.CHAR(60)})
     Language!: string
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(15)})
+    @Column({type: DataType.CHAR(60)})
     Director!: string
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(15)})
+    @Column({type: DataType.CHAR(60)})
     Release!: string
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(15)})
+    @Column({type: DataType.STRING})
     Poster!: string
 
     @AllowNull(false)
@@ -44,8 +44,12 @@ export class Movie extends Model<Movie> {
     Rated!: string;
 
     @AllowNull(false)
-    @Column({type: DataType.CHAR(100)})
+    @Column({type: DataType.STRING})
     Trailer!: string;
+
+    @AllowNull(false)
+    @Column({type: DataType.STRING})
+    Type!: string;
 
     @AllowNull(false)
     @Column({type: DataType.INTEGER})

@@ -16,7 +16,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
     try{
 
         const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-        const movie = await prisma.movie.create({
+        const movie = await prisma.movies.create({
             data: {
                 Title,
                 Plot,
@@ -27,7 +27,6 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
                 Release,
                 Poster,
                 Rated,
-                Type,
                 Trailer,
                 Runtime
         },
@@ -45,7 +44,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
-        const list = await prisma.movie.findMany({
+        const list = await prisma.movies.findMany({
             // where:{
                 //     Release:{}
             // }
@@ -61,7 +60,7 @@ router.get("/billboard", async (req:Request, res:Response) =>{
 router.get("/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
-        const movie = await prisma.movie.findUnique({
+        const movie = await prisma.movies.findUnique({
             where:{id:id}
         })
         res.json(movie)
@@ -75,7 +74,7 @@ router.post("/moviesDefault", async (req:Request, res:Response) =>{
     try{
 
         // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-        const movie = await prisma.movie.createMany({
+        const movie = await prisma.movies.createMany({
             data: [cars, spider]
         })
     
