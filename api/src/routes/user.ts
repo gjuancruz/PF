@@ -12,7 +12,7 @@ const router = Router();
 //     res.send('soy la ruta post!');
 // });
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
+router.get('/', (_req, res: Response, next: NextFunction) => {
     Movie.findAll()
      .then((movie:any) => {
       res.send(movie);
