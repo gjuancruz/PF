@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> e05234a8b1d85a4a59709c457341b6bc0bbd460f
 export const GET_MOVIE_DETAIL='GET_MOVIE_DETAIL';
 const Apikey='8de7320'
 
