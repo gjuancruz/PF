@@ -59,7 +59,7 @@ router.get("/billboard", async (req:Request, res:Response) =>{
 })
 
 //http://localhost:3001/movies/:id
-router.get("/:id", async (req:Request,res:Response) =>{
+router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
         const movie = await prisma.movie.findUnique({
@@ -93,7 +93,7 @@ router.get('/', async (req: Request, res:Response) =>{
 })
 
 //http://localhost:3001/movies?genre=Comedy
-router.get('/', async (req: Request, res:Response) =>{
+router.get('/genre/', async (req: Request, res:Response) =>{
     const {genre} = req.query;
     try {
         const filterByGenre = await prisma.movie.findMany({
@@ -129,30 +129,26 @@ router.get('/', async (req: Request, res:Response) =>{
 
 // })
 
+const compare = (Release:any) =>{
 
-// router.get("/next_releases", async (req:Request, res:Response) =>{
+}
 
-//     try {
-//         const list: [] = await Movie.findAll({
-//             // include: Room
-//             where: {
-//                 Release:{
-//                     [Op.and]: {
-//                         day:{
-//                             [Op.gte]: day
-//                         },
-//                         month:{
-//                             [Op.gte]: month
-//                         }
-//                       }
-//                 }
-//             }
-//         })
-//         res.json(list)
-//     } catch (error) {
-//         res.status(404).json("No se obtuvieron datos")
-//     }
-// })
+router.get("/next_releases", async (req:Request, res:Response) =>{
+
+    try {
+        const list = await prisma.movie.findMany({
+            // include: Room
+            where: {
+                Release:{
+                    // equals: {compare(Release)}
+                }
+            }
+        })
+        res.json(list)
+    } catch (error) {
+        res.status(404).json("No se obtuvieron datos")
+    }
+})
 
 
 
