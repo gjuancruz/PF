@@ -119,7 +119,32 @@ export const lightyear = {
     Runtime: 100
 }
 
+export const topGun= {
+    Title: "Top Gun: Maverick",
+    Plot: "After more than thirty years of service as one of the Navy's top aviators, Pete Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground",
+    Genre: "Action, Drama",
+    Actors: "Tom Cruise, Jennifer Connelly, Miles Teller",
+    Language: "English",
+    Director: "Joseph Kosinski",
+    Release: "27 May 2022",
+    Poster: "https://m.media-amazon.com/images/M/MV5BOWQwOTA1ZDQtNzk3Yi00ZmVmLWFiZGYtNjdjNThiYjJhNzRjXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
+    Rated: "PG-13",
+    Type: "2D",
+    Trailer: "link",
+    Runtime: 130
+}
 
-// const movies = [cars,spider]
-
-// export default movies
+export const DrStranger = {
+    Title: "Doctor Strange in the Multiverse of Madness",
+    Plot: "Doctor Strange teams up with a mysterious teenage girl from his dreams who can travel across multiverses, to battle multiple threats, including other-universe versions of himself",
+    Genre: "Action, Adventure, Fantasy",
+    Actors: "Benedict Cumberbatch, Elizabeth Olsen, Chiwetel Ejiofor",
+    Language: "English",
+    Director: "Sam Raimi",
+    Release: "06 May 2022",
+    Poster: "https://m.media-amazon.com/images/M/MV5BNWM0ZGJlMzMtZmYwMi00NzI3LTgzMzMtNjMzNjliNDRmZmFlXkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_SX300.jpg",
+    Rated: "PG-13",
+    Type: "3D",
+    Trailer: "link",
+    Runtime: 126
+}
