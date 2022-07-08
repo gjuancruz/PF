@@ -8,8 +8,8 @@ export const cars = {
     Release: "09 Jun 2006",
     Poster: "https://m.media-amazon.com/images/M/MV5BMTg5NzY0MzA2MV5BMl5BanBnXkFtZTYwNDc3NTc2._V1_SX300.jpg",
     Rated: "G",
-    Type: "3D",
     Trailer: "link",
+    Type: "3D",
     Runtime: 117
 }
 
@@ -23,10 +23,9 @@ export const spider = {
     Release: "17 Dec 2021",
     Poster: "https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_SX300.jpg",
     Rated: "PG-13",
-    Type: "2D",
     Trailer: "link",
+    Type: "2D",
     Runtime: 148
-    
 }
 
 export const sonic = {
