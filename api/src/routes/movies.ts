@@ -1,6 +1,6 @@
 import {Router, Request, Response}  from 'express'
 import { PrismaClient } from '@prisma/client'
-import {cars, spider} from "./data"
+// import {cars, spider} from "./data"
 
 const prisma = new PrismaClient()
 
@@ -15,7 +15,8 @@ let year = date.getFullYear()
 router.post("/createMovie", async (req:Request, res:Response) =>{
     try{
 
-        const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
+        const {Title, Plot, Genre, Actors, Language, Director, Release,
+                Poster, Rated, Type, Trailer, Runtime} = req.body
         const movie = await prisma.movie.create({
             data: {
                 Title,
@@ -33,7 +34,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
         },
     })
     
-    res.json(movie)
+    res.status(201).json(movie)
     
     }catch(e){
         res.status(404).json("no se pudo crear la movie")
@@ -71,21 +72,21 @@ router.get("/:id", async (req:Request,res:Response) =>{
     }
 })
 
-router.post("/moviesDefault", async (req:Request, res:Response) =>{
-    try{
+// router.post("/moviesDefault", async (req:Request, res:Response) =>{
+//     try{
 
-        // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-        const movie = await prisma.movie.createMany({
-            data: [cars, spider]
-        })
+//         // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
+//         const movie = await prisma.movie.createMany({
+//             data: [cars, spider]
+//         })
     
-        res.json(movie)
+//         res.json(movie)
     
-    }catch(e:any){
-        res.status(404).json(e.message)
-    }
+//     }catch(e:any){
+//         res.status(404).json(e.message)
+//     }
 
-})
+// })
 
 
 // router.get("/billboard", async (req:Request, res:Response) =>{

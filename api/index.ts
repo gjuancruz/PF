@@ -1,7 +1,7 @@
 // import { sequelize } from './src/db';
 import app from './src/app';
 import {PrismaClient} from '@prisma/client'
-import {cars, spider} from "./src/routes/data"
+import {cars, spider, sonic, iceAge, thor, jurassic, minions, lightyear} from "./src/routes/data"
 
 const prisma = new PrismaClient()
 // sequelize
@@ -18,8 +18,8 @@ app.listen(3001, async () => {
 
    const del = await prisma.movie.deleteMany({})
 
-   const movie = await prisma.movie.createMany({
-      data: [cars, spider]
+   const movie = await prisma.movie.createMany({   
+      data: [cars, spider, sonic, iceAge, thor, jurassic, minions, lightyear]
   })
    console.log(`Server ready at: http://localhost:3001`);
 })

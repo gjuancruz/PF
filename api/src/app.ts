@@ -41,28 +41,6 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
 
 app.use('/api', routes);
 
-
-//Traer todos los registros
-// app.get('/movies', async(req: Request, res: Response) => {
-//     const post = await prisma.movie.findMany();
-//     res.send(post);
-// });
-
-interface movies {
-    Title: string;
-    Plot: string;
-    Genre: string;
-    Actors: string;
-    Language: string;
-    Director: string;
-    Release: string;
-    Poster: string;
-    Rated: string;
-    Trailer: string;
-    Runtime: number;
-}
-
-
 // crear registro db
 // app.post('/post', async(req: Request, res: Response):any => {
 //     const { Title, Plot, Genre, Actors, Language, Director, Release, Poster, Rated, Trailer, Runtime }:movies = req.body;
