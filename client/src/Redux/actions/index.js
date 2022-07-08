@@ -1,7 +1,19 @@
 import axios from "axios";
 
 export const GET_MOVIE_DETAIL='GET_MOVIE_DETAIL';
+export const GET_BILLBOARD='GET_BILLBOARD';
 
+
+export function getBillboard(){
+    return async function(dispatch){
+        var json = await axios.get("http://localhost:3001/movies/billboard",{
+        });
+        return dispatch({
+            type:GET_BILLBOARD,
+            payload: json.data
+        })
+    }
+}
 
 export function getMovieDetail(idMovie){
     return async function(dispatch){
