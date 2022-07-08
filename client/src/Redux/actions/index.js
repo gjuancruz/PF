@@ -1,5 +1,18 @@
+import axios from 'axios';
 export const GET_MOVIE_DETAIL='GET_MOVIE_DETAIL';
+export const GET_BILLBOARD='GET_BILLBOARD';
 const Apikey='8de7320'
+
+export function getBillboard(){
+    return async function(dispatch){
+        var json = await axios.get("https://www.omdbapi.com/?apikey=508ad5e2&s=cars",{
+        });
+        return dispatch({
+            type:GET_BILLBOARD,
+            payload: json.data.Search
+        })
+    }
+}
 
 export function getMovieDetail(idMovie){
     return  function(dispatch){
@@ -12,5 +25,4 @@ export function getMovieDetail(idMovie){
                 })
             })
     }
-    
 }
