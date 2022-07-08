@@ -70,6 +70,46 @@ router.get("/:id", async (req:Request,res:Response) =>{
     }
 })
 
+//http://localhost:3001/api/movies?name=cars
+router.get('/', async (req: Request, res:Response) =>{
+    const {name} = req.query;
+    try {
+        const seachByName = await prisma.movie.findMany({
+            where: {
+                Title: {
+                    contains: `${name}`,
+                    mode: 'insensitive'
+                }
+            }
+        })
+        res.json(seachByName)
+    } catch (error) {
+        res.status(404).json("no se encontro peli con ese nombre")
+    }
+   
+})
+
+//http://localhost:3001/api/movies?genre=Comedy
+router.get('/', async (req: Request, res:Response) =>{
+    const {genre} = req.query;
+    try {
+        const filterByGenre = await prisma.movie.findMany({
+            where: {
+                Genre: {
+                    contains: `${genre}`,
+                    mode: 'insensitive'
+                }
+            }
+        })
+        console.log(filterByGenre)
+        res.json(filterByGenre)
+    } catch (e:any) {
+        res.status(404).json(e.message)
+    }
+})
+
+
+
 router.post("/moviesDefault", async (req:Request, res:Response) =>{
     try{
 
