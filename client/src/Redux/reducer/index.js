@@ -11,7 +11,7 @@ switch(action.type){
         ...state,
         cartelera: action.payload
     }
-     
+
     case GET_MOVIE_DETAIL:
         return{
             ...state,
@@ -28,8 +28,10 @@ switch(action.type){
     return state;
 }
 }
+export default rootReducer
 
- export default rootReducer
 
 
- 
+
+
+
