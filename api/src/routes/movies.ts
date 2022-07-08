@@ -1,5 +1,6 @@
 import {Router, Request, Response}  from 'express'
 import { PrismaClient } from '@prisma/client'
+import {cars, spider} from "./data"
 
 const prisma = new PrismaClient()
 
@@ -68,6 +69,22 @@ router.get("/:id", async (req:Request,res:Response) =>{
     }catch(e){
         res.status(404).json("no se encontró la movie")
     }
+})
+
+router.post("/moviesDefault", async (req:Request, res:Response) =>{
+    try{
+
+        // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
+        const movie = await prisma.movie.createMany({
+            data: [cars, spider]
+        })
+    
+        res.json(movie)
+    
+    }catch(e:any){
+        res.status(404).json(e.message)
+    }
+
 })
 
 
