@@ -28,7 +28,27 @@ return(
 </div>
 
 </div>
+<div class="card p-3">
 
+<div class="d-flex justify-content-between align-items-center"/>
+
+<div class="user d-flex flex-row align-items-center"/>
+
+
+<span><small class="font-weight-bold text-primary">Axel Castillo </small> <small class="font-weight-bold">spoiler: Excelente PF! felicitaciones </small></span>
+
+</div>
+
+<div class="card p-3">
+
+<div class="d-flex justify-content-between align-items-center"/>
+
+<div class="user d-flex flex-row align-items-center"/>
+
+
+<span><small class="font-weight-bold text-primary">Lautaro Ocampo</small> <small class="font-weight-bold">Muy buena</small></span>
+
+</div>
 
 
     </div>
