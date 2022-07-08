@@ -128,7 +128,7 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 //http://localhost:3001/movies?genre=Comedy
 router.get('/genres', async (req: Request, res:Response) =>{
-    const genre = req.query.genre;
+    const {genre} = req.query;
     try {
         const filterByGenre = await prisma.movie.findMany({
             where: {
