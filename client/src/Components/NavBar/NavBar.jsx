@@ -1,8 +1,26 @@
 import React from 'react'
-import '../NavBar/NavBar.css'
+import { useDispatch } from "react-redux";
+import { searchMovieName } from '../../Redux/actions';
+
 
 const NavBar = () =>{
+    const [state, setState]= React.useState({
+      name:''
+    })
 
+    const handleChange = function(event){
+      event.preventDefault()
+      setState(event.target.value)
+    }
+
+  const dispatch = useDispatch()
+
+  const handleSubmit = (event) =>{
+      event.preventDefault()
+        setTimeout(() =>dispatch(searchMovieName(state)), 500)
+        setState('')
+  } 
+  
     return(
       <div>
       <nav class="navbar navbar-expand-lg bg-dark text-light">
@@ -39,8 +57,8 @@ const NavBar = () =>{
             </li>
             
           </ul>
-          <form class="d-inline-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
+          <form class="d-inline-flex" role="search" onSubmit={(event)=>handleSubmit(event)}>
+            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" name='name' onChange={(event) => handleChange(event) } />
             <button class="btn btn-warning" type="submit">Search</button>
           </form>
         </div>
