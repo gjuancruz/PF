@@ -1,5 +1,6 @@
 import { GET_MOVIE_DETAIL } from "../actions"
 
+
 const initialState={
     movieDetail:{}
 }
@@ -14,3 +15,4 @@ const rootReducer = (state=initialState, action) =>{
         default:
             return state
 }}
+ export default rootReducer

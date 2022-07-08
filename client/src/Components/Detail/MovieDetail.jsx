@@ -2,7 +2,7 @@ import React,{ useEffect  }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getMovieDetail } from "../../Redux/actions";
-import '../styles/MovieDetail.styles.css'
+import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 
 
