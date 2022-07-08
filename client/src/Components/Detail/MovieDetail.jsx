@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getMovieDetail } from "../../Redux/actions";
 import '../styles/MovieDetail.styles.css'
+import Comment from "../Comment/Comment";
 
 
 
@@ -49,6 +50,7 @@ export default function MovieDetail(){
             <div className="botont">
             <button className="botoncomprar">Comprar</button>
             </div>
+            <Comment/>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 export const GET_MOVIE_DETAIL='GET_MOVIE_DETAIL';
 const Apikey='8de7320'
 

@@ -4,7 +4,7 @@ const initialState={
     movieDetail:{}
 }
 
- const rootReducer = (state=initialState, action) =>{
+const rootReducer = (state=initialState, action) =>{
     switch(action.type){
         case GET_MOVIE_DETAIL:
             return{
@@ -14,6 +14,6 @@ const initialState={
             default:
                 return state
     }
- }
+}
 
- export default rootReducer
+export default rootReducer
