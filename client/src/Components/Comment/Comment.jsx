@@ -6,12 +6,12 @@ const Comment= () =>{
 return(
     <div>
         <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Ingrese su Nombre</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder=""/>
+            <label for="exampleFormControlInput1" class="form-label">Ingrese su Nombre</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder=""/>
 </div>
 <div class="mb-4">
-  <label for="exampleFormControlTextarea1" class="form-label">Escribe un comentario</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="exampleFormControlTextarea1" class="form-label">Escribe un comentario</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 </div>
 <button className="comentar">Comentar</button>
 <div className="writecomment">
@@ -23,8 +23,8 @@ return(
 <div class="user d-flex flex-row align-items-center"/>
 
 
-<span><small class="font-weight-bold text-primary">Juan Galaz</small> <small class="font-weight-bold">Me gusto la pelicula!</small></span>
-  
+<span><small class="font-weight-bold text-primary">Juan Galaz: </small> <small class="font-weight-bold">Me gusto la pelicula!</small></span>
+
 </div>
 
 </div>
