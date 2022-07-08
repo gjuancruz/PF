@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { FILTER_GENRE } from "../actions"; 
 import { FILTER_TYPE } from "../actions";
 import { data } from "../../Assets/apilocal";
@@ -36,3 +37,35 @@ const rootReducer = ( state = initialState, action ) => {
 }
 
 export default rootReducer
+=======
+import { GET_MOVIE_DETAIL, GET_BILLBOARD } from "../actions"
+
+
+const initialState = {
+    cartelera: [],
+    movieDetail:{}
+ }
+ 
+function rootReducer (state= initialState, action){
+switch(action.type){
+    case GET_BILLBOARD:
+    return{
+        ...state,
+        cartelera: action.payload
+    }
+     
+    case GET_MOVIE_DETAIL:
+        return{
+            ...state,
+            movieDetail:action.payload
+        }
+
+    default: return state;
+}
+}
+
+ export default rootReducer
+
+
+ 
+>>>>>>> 72dfcd779b43d6c140dba005af6ff45f67294c7a
