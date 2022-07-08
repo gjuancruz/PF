@@ -5,6 +5,7 @@ import { getBillboard } from "../../Redux/actions";
 import Carousel from "../Carousel/Carousel";
 import Card from "../Card/Card";
 import s from "./Home.module.css"
+import { Link } from "react-router-dom";
 
 export default function Home(){
 
@@ -51,10 +52,12 @@ return(
     {carteleraActual?.map((c) => {
     return (
         <div>
-            <Card            
+           <Link to={"/movies/" + c.id}>
+            <Card
             Poster={c.Poster}
             Title={c.Title}
             />
+            </Link>
         </div>
     )
 })

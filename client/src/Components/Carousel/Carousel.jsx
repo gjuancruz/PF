@@ -1,6 +1,7 @@
 import React from 'react';
 import './Carousel.css'
 
+
 const Carousel = () =>{
 
    return(
@@ -30,7 +31,7 @@ const Carousel = () =>{
     <span class="visually-hidden"></span>
   </button>
 </div>
-   )
+)
         
     }
 
