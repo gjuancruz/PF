@@ -1,9 +1,9 @@
-import { GET_MOVIE_DETAIL, GET_BILLBOARD, SEARCH_MOVIES} from "../actions"
+import { GET_MOVIE_DETAIL, GET_BILLBOARD } from "../actions"
 
 const initialState = {
     cartelera: [],
     movieDetail:{}
- }
+}
 function rootReducer (state= initialState, action){
 switch(action.type){
     case GET_BILLBOARD:
@@ -17,15 +17,8 @@ switch(action.type){
             ...state,
             movieDetail:action.payload
         }
-
-    case SEARCH_MOVIES:
-        return{
-            ...state,
-            cartelera: action.payload
-        }
-        
-    default:
-    return state;
+        default:
+            return state
 }
 }
 export default rootReducer

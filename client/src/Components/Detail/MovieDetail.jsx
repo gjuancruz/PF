@@ -38,6 +38,7 @@ export default function MovieDetail(){
             </div>
             <div className="select">
                 <select className="selectHora"name="Hora" id="">
+                <option value="">18:30</option>
                 <option value="">20:30</option>
                 <option value="">22:30</option>
                 <option value="">00:30</option>
@@ -45,6 +46,7 @@ export default function MovieDetail(){
                 <select className="selectDia" name="Dia" id="">
                 <option value="">Hoy</option>
                 <option value="">Mañana</option>
+                <option value="">Proxima Fecha</option>
                 <option value="">Proxima Fecha</option>
                 </select>
             </div>

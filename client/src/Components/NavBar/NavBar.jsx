@@ -1,4 +1,5 @@
 import React from 'react'
+import '../NavBar/NavBar.css'
 import { useDispatch } from "react-redux";
 import { searchMovieName } from '../../Redux/actions';
 
@@ -58,8 +59,8 @@ const NavBar = () =>{
             
           </ul>
           <form class="d-inline-flex" role="search" onSubmit={(event)=>handleSubmit(event)}>
-            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" name='name' onChange={(event) => handleChange(event) } />
-            <button class="btn btn-warning" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" name='name' onChange={(event) => handleChange(event) } />
+            <button class="btn btn-warning" type="submit">Buscar</button>
           </form>
         </div>
       </div>
