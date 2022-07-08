@@ -11,17 +11,10 @@ model Movie {
   id       String @id @default(uuid()) @db.Uuid
   Title    String @db.Text
   Plot     String @db.Text
-<<<<<<< HEAD
-  Genre    String @db.Char(60)
-  Actors   String @db.Char(60)
-  Language String @db.Char(50)
-  Director String @db.Char(30)
-=======
   Genre    String @db.Text
   Actors   String @db.Text
   Language String @db.Text
   Director String @db.Text
->>>>>>> 1aa089cefad5b4a7bba5232072d8bbe357745327
   Release  String @db.Text
   Poster   String @db.Text
   Rated    String @db.Text

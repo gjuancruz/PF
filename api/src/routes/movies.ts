@@ -58,7 +58,6 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     }
 })
 
-<<<<<<< HEAD
 router.get("/Premieres", async (_req:Request, res:Response) => {
     try {
         const movies = await prisma.movie.findMany({});
@@ -69,9 +68,6 @@ router.get("/Premieres", async (_req:Request, res:Response) => {
     }
 })
 
-=======
-//http://localhost:3001/movies/:id
->>>>>>> 1aa089cefad5b4a7bba5232072d8bbe357745327
 router.get("/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
