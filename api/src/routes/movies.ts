@@ -16,7 +16,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
     try{
 
         const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-        const movie = await prisma.movies.create({
+        const movie = await prisma.movie.create({
             data: {
                 Title,
                 Plot,
@@ -28,6 +28,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
                 Poster,
                 Rated,
                 Trailer,
+                Type,
                 Runtime
         },
     })
@@ -44,7 +45,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
-        const list = await prisma.movies.findMany({
+        const list = await prisma.movie.findMany({
             // where:{
                 //     Release:{}
             // }
@@ -60,13 +61,36 @@ router.get("/billboard", async (req:Request, res:Response) =>{
 router.get("/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
-        const movie = await prisma.movies.findUnique({
+        const movie = await prisma.movie.findUnique({
             where:{id:id}
         })
         res.json(movie)
 
     }catch(e){
         res.status(404).json("no se encontró la movie")
+    }
+})
+
+router.post("/:id", async (req:Request,res:Response) =>{
+    const {id} = req.params
+    const body = req.body
+    try{
+        const movie = await prisma.movie.findUnique({
+            where:{id:id}
+        })
+        const comment = await prisma.movie.update({
+            where:{
+                id:id
+            },
+            data:{
+                comments:{
+                    create:{Text:body.Text}
+                }
+            }
+        })
+        res.json(comment)
+    }catch(e:any){
+        res.status(404).json(e.message)
     }
 })
 
@@ -114,7 +138,7 @@ router.post("/moviesDefault", async (req:Request, res:Response) =>{
     try{
 
         // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-        const movie = await prisma.movies.createMany({
+        const movie = await prisma.movie.createMany({
             data: [cars, spider]
         })
     

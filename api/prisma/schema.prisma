@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Comment {
+  id       String @id @default(uuid()) @db.Uuid
+  Text     String @db.Text
+  movieId  String @db.Uuid
+  movie    Movie  @relation(fields: [movieId], references: [id])
+}
+
 model Movie {
   id       String @id @default(uuid()) @db.Uuid
   Title    String @db.Char(60)
@@ -22,6 +29,7 @@ model Movie {
   Trailer  String @db.Char(100)
   Runtime  Int
   show     Show[]
+  comments Comment[]
 }
 
 model Room {
