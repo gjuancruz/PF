@@ -1,0 +1,27 @@
+.carousel-inner>.item{
+    /*disables white flash*/
+    -webkit-transition: -webkit-transform .6s ease-in-out;
+    -o-transition: -o-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+ }
+ .carousel-control-prev, .carousel-control-prev:hover{
+    background-color: transparent;
+    border: transparent;
+    width:5%;
+ }
+
+ .carousel-control-next, .carousel-control-next:hover{
+    background-color: transparent;
+    border: transparent;
+    width:5%;
+ }
+.carousel-control-prev-icon{
+    z-index: +1;
+}
+ .carousel-inner{
+    /*just incase the flash (style above) comes back*/
+       background: #343a40!important;
+    }
+
+    .carousel-control.left{transition: 0s;} 
+    .carousel-control.right{transition:0s}
