@@ -39,7 +39,7 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
     res.status(status).send(message);
 });
 
-app.use('/api', routes);
+app.use('/', routes);
 
 
 //Traer todos los registros
