@@ -5,10 +5,10 @@ const Apikey='8de7320'
 
 export function getBillboard(){
     return async function(dispatch){
-        var json = await axios.get("http://localhost:3001/api/movies/billboard",{
+        var json = await axios.get("https://www.omdbapi.com/?apikey=508ad5e2&s=cars",{
         });
         return dispatch({
-            type: GET_BILLBOARD,
+            type:GET_BILLBOARD,
             payload: json.data.Search
         })
     }

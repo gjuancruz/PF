@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getBillboard } from "../../Redux/actions";
+import Carousel from "../Carousel/Carousel";
 import Card from "../Card/Card";
 import s from "./Home.module.css"
 
@@ -28,6 +29,7 @@ function paginadoPrev(){
     setPelisActual(pelisActual -1)
     setContador(contador -1)
     console.log(contador)
+   
 }
 
 function paginadoNext(){
@@ -40,25 +42,25 @@ function paginadoNext(){
 
 return(
 <div>
-<h1>este es el home</h1>
-
+    <Carousel/>
 <div className={s.cartelera}>
 
-<button onClick={paginadoPrev}>Anterior</button>
+{contador > 0 && <button onClick={paginadoPrev}>Anterior</button>}
+
 
     {carteleraActual?.map((c) => {
     return (
         <div>
-            <Card
-            Title={c.Title}
+            <Card            
             Poster={c.Poster}
+            Title={c.Title}
             />
         </div>
     )
 })
 }
 
-<button onClick={paginadoNext}>Siguiente</button>
+{contador < allCartelera.length -4 && <button onClick={paginadoNext}>Siguiente</button>}
 
 
 </div>

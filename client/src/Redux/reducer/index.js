@@ -2,7 +2,8 @@ import { GET_MOVIE_DETAIL, GET_BILLBOARD } from "../actions"
 
 
 const initialState = {
-    cartelera: []
+    cartelera: [],
+    movieDetail:{}
  }
  
 function rootReducer (state= initialState, action){
@@ -12,19 +13,12 @@ switch(action.type){
         ...state,
         cartelera: action.payload
     }
-
-const initialState={
-    movieDetail:{}
-}
- 
- const rootReducer = (state=initialState, action) =>{
-    switch(action.type){
+     
     case GET_MOVIE_DETAIL:
         return{
             ...state,
             movieDetail:action.payload
         }
-}}
 
     default: return state;
 }

@@ -11,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
         <Route path='/' component={NavBar} />
-        <Route path='/' component={Carousel} />
+        {/* <Route path='/' component={Carousel} /> */}
         <Route path='/' component={Home} />
         <Route path='/' component={Footer} />
     </BrowserRouter>
