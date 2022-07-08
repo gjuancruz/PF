@@ -138,7 +138,7 @@ router.get('/genres', async (req: Request, res:Response) =>{
                 }
             }
         })
-        res.json(genre)
+        res.json(filterByGenre)
     } catch (e:any) {
         res.status(404).json(e.message)
     }
