@@ -15,7 +15,7 @@ model Movie {
   Actors   String @db.Char(60)
   Language String @db.Char(50)
   Director String @db.Char(30)
-  Release  String @db.Char(15)
+  Release  String @db.Text
   Poster   String @db.Text
   Rated    String @db.Char(15)
   Type     String @db.Char(15)

@@ -58,6 +58,16 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     }
 })
 
+router.get("/Premieres", async (_req:Request, res:Response) => {
+    try {
+        const movies = await prisma.movie.findMany({});
+        const filtrado = movies.find( data => data.Release )
+        res.json(movies[0].Release)
+    } catch (error:any) {
+        res.send(error.message)
+    }
+})
+
 router.get("/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
