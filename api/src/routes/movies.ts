@@ -1,6 +1,5 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
-import { cars } from './data';
 
 const prisma = new PrismaClient()
 
@@ -47,19 +46,15 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
         const list = await prisma.movie.findMany({
-            // where:{
-                //     Release:{}
-            // }
         })
         res.json(list)
-        // res.json(date)
-
+    
     }catch (error) {
         res.status(404).json("No se obtuvieron datos")
     }
 })
 
-//http://localhost:3001/movies/:id
+//http://localhost:3001/movies/search/:id
 router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
@@ -107,81 +102,50 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
     }
 })
 
-//http://localhost:3001/movies?name=cars
+//http://localhost:3001/movies/search?name=cars
+//http://localhost:3001/movies/search?genre=comedy
+//http://localhost:3001/movies/search?type=3d
 router.get('/search', async (req: Request, res:Response) =>{
-    const {name} = req.query;
+    const {name, genre, type} = req.query;
     try {
-        const seachByName = await prisma.movie.findMany({
-            where: {
-                Title: {
-                    contains: `${name}`,
-                    mode: 'insensitive'
+        if(name){
+            const seachByName = await prisma.movie.findMany({
+                where: {
+                    Title: {
+                        contains: `${name}`,
+                        mode: 'insensitive'
+                    }
                 }
-            }
-        })
-        res.json(seachByName)
+            })
+            res.json(seachByName)
+        }
+        else if(genre){
+            const filterByGenre = await prisma.movie.findMany({
+                where: {
+                    Genre: {
+                        contains: `${genre}`,
+                        mode: 'insensitive'
+                    }
+                }
+            })
+            res.json(filterByGenre)
+        }
+        else if(type){
+            const filterByType = await prisma.movie.findMany({
+                where: {
+                    Type: {
+                        contains: `${type}`,
+                        mode: 'insensitive'
+                    }
+                }
+            })
+            res.json(filterByType)
+        }
+        
     } catch (error) {
         res.status(404).json("no se encontro peli con ese nombre")
     }
    
-})
-
-//http://localhost:3001/movies?genre=Comedy
-
-router.get('/genres', async (req: Request, res:Response) =>{
-    const {genre} = req.query;
-    try {
-        const filterByGenre = await prisma.movie.findMany({
-            where: {
-                Genre: {
-                    contains: `${genre}`,
-                    mode: 'insensitive'
-                }
-            }
-        })
-        res.json(filterByGenre)
-    } catch (e:any) {
-        res.status(404).json(e.message)
-    }
-})
-
-
-
-// router.post("/moviesDefault", async (req:Request, res:Response) =>{
-//     try{
-
-//         // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-//         const movie = await prisma.movie.createMany({
-//             data: [cars, spider]
-//         })
-    
-//         res.json(movie)
-    
-//     }catch(e:any){
-//         res.status(404).json(e.message)
-//     }
-
-// })
-
-const compare = (Release:any) =>{
-
-}
-
-router.get("/next_releases", async (req:Request, res:Response) =>{
-
-    try {
-        const list = await prisma.movie.findMany({
-            // include: Room
-            where: {
-                Release:{
-                    // equals: {compare(Release)}
-                }
-            }
-        })
-        res.json(list)
-    } catch (error) {
-        res.status(404).json("No se obtuvieron datos")
-    }
 })
 
 
