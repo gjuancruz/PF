@@ -10,7 +10,7 @@ datasource db {
 model Comment {
   id       String @id @default(uuid()) @db.Uuid
   Text     String @db.Text
-  movieId  String @db.Uuid
+  movieId  String @db.Text
   movie    Movie  @relation(fields: [movieId], references: [id])
 }
 
