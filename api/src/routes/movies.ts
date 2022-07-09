@@ -1,15 +1,39 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
-import { cars } from './data';
 
 const prisma = new PrismaClient()
 
-const router = Router()
+const router = Router();
 
-let date: Date = new Date();
-let day = date.getDate();
-let month = date.getMonth()
-let year = date.getFullYear()
+function isPremier(dateMovie:string):boolean {
+    let date: Date = new Date();
+    let [,m,d,y]:string[] = String(date).split(' ');
+    let ob1 = {
+        Jan: 1,
+        Feb: 2,
+        Mar: 3,
+        Apr: 4,
+        May: 5,
+        Jun: 6,
+        Jul: 7,
+        Aug: 8,
+        Sep: 9,
+        Oct: 10,
+        Nov: 11,
+        Dec: 12
+    };
+    const [dayDb, monthDb, yearDb]:string[] = dateMovie.split(' ');
+    // @ts-ignore
+    const compararMes = ob1[dayDb] > ob1[m]
+    const day = Number(dayDb) > Number(d)
+
+    // @ts-ignore
+    const condicionEstrenos = compararMes ? true : (ob1[monthDb] === ob1[m] && day) ? true : false  
+    return condicionEstrenos;
+}
+// let day = date.getDate();
+// let month = date.getMonth()
+// let year = date.getFullYear()
 
 //http://localhost:3001/movies/createMovie
 router.post("/createMovie", async (req:Request, res:Response) =>{
@@ -47,13 +71,9 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
         const list = await prisma.movie.findMany({
-            // where:{
-                //     Release:{}
-            // }
         })
         res.json(list)
-        // res.json(date)
-
+    
     }catch (error) {
         res.status(404).json("No se obtuvieron datos")
     }
@@ -62,14 +82,16 @@ router.get("/billboard", async (req:Request, res:Response) =>{
 router.get("/Premieres", async (_req:Request, res:Response) => {
     try {
         const movies = await prisma.movie.findMany({});
-        const filtrado = movies.find( data => data.Release )
-        res.json(movies[0].Release)
+        const filtrado = movies.filter( data => isPremier(data.Release))
+        res.json(filtrado)
     } catch (error:any) {
         res.send(error.message)
     }
 })
 
-router.get("/:id", async (req:Request,res:Response) =>{
+// router.get("/:id", async (req:Request,res:Response) =>{
+//http://localhost:3001/movies/search/:id
+router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
         const movie = await prisma.movie.findUnique({
@@ -82,7 +104,7 @@ router.get("/:id", async (req:Request,res:Response) =>{
     }
 })
 
-//http://localhost:3001/movies/:id
+http://localhost:3001/movies/:id
 router.post("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     const body = req.body
@@ -104,10 +126,11 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
                 Runtime: true
             }
         })
-        const comment = await prisma.comment.create({
+        const comment:any = await prisma.comment.create({
             data:{
                 Text:body.Text,
-                movie:{create:movie}
+                // @ts-ignore
+                Movie:{create:movie}
             }
         })
         res.json(comment)
@@ -116,86 +139,52 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
     }
 })
 
-//http://localhost:3001/movies?name=cars
+//http://localhost:3001/movies/search?name=cars
+//http://localhost:3001/movies/search?genre=comedy
+//http://localhost:3001/movies/search?type=3d
 router.get('/search', async (req: Request, res:Response) =>{
-    const {name} = req.query;
+    const {name, genre, type} = req.query;
     try {
-        const seachByName = await prisma.movie.findMany({
-            where: {
-                Title: {
-                    contains: `${name}`,
-                    mode: 'insensitive'
+        if(name){
+            const seachByName = await prisma.movie.findMany({
+                where: {
+                    Title: {
+                        contains: `${name}`,
+                        mode: 'insensitive'
+                    }
                 }
-            }
-        })
-        res.json(seachByName)
+            })
+            res.json(seachByName)
+        }
+        else if(genre){
+            const filterByGenre = await prisma.movie.findMany({
+                where: {
+                    Genre: {
+                        contains: `${genre}`,
+                        mode: 'insensitive'
+                    }
+                }
+            })
+            res.json(filterByGenre)
+        }
+        else if(type){
+            const filterByType = await prisma.movie.findMany({
+                where: {
+                    Type: {
+                        contains: `${type}`,
+                        mode: 'insensitive'
+                    }
+                }
+            })
+            res.json(filterByType)
+        }
+        
     } catch (error) {
         res.status(404).json("no se encontro peli con ese nombre")
     }
    
 })
 
-//http://localhost:3001/movies?genre=Comedy
-router.get('/genres', async (req: Request, res:Response) =>{
-    const {genre} = req.query;
-    try {
-        const filterByGenre = await prisma.movie.findMany({
-            where: {
-                Genre: {
-                    contains: `${genre}`,
-                    mode: 'insensitive'
-                }
-            }
-        })
-        res.json(filterByGenre)
-    } catch (e:any) {
-        res.status(404).json(e.message)
-    }
-})
 
 
-
-// router.post("/moviesDefault", async (req:Request, res:Response) =>{
-//     try{
-
-//         // const {Title,Plot,Genre,Actors,Language,Director,Release,Poster,Rated,Type,Trailer,Runtime} = req.body
-//         const movie = await prisma.movie.createMany({
-//             data: [cars, spider]
-//         })
-    
-//         res.json(movie)
-    
-//     }catch(e:any){
-//         res.status(404).json(e.message)
-//     }
-
-// })
-
-
-// router.get("/next_releases", async (req:Request, res:Response) =>{
-
-//     try {
-//         const list: [] = await Movie.findAll({
-//             // include: Room
-//             where: {
-//                 Release:{
-//                     [Op.and]: {
-//                         day:{
-//                             [Op.gte]: day
-//                         },
-//                         month:{
-//                             [Op.gte]: month
-//                         }
-//                       }
-//                 }
-//             }
-//         })
-//         res.json(list)
-//     } catch (error) {
-//         res.status(404).json("No se obtuvieron datos")
-//     }
-// })
-
-
-
-export default router
+export default router;
