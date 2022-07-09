@@ -1,16 +1,18 @@
 import React from 'react'
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom'
+import MovieDetail from './Components/Detail/MovieDetail'
 import NavBar from './Components/NavBar/NavBar';
-import Carousel from './Components/Carousel/Carousel';
 import Footer from './Components/Footer/Footer';
+import Home from './Components/Home/Home';
+
 
 function App() {
   return (
     <BrowserRouter>
         <Route path='/' component={NavBar} />
-        <Route path='/' component={Carousel} />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route path='/' component={Footer} />
     </BrowserRouter>
   );

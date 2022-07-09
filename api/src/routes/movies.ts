@@ -1,5 +1,6 @@
-import {Router, Request, Response}  from 'express'
+import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
+import { cars } from './data';
 
 const prisma = new PrismaClient()
 
@@ -72,9 +73,42 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
     }
 })
 
+//http://localhost:3001/movies/:id
+router.post("/search/:id", async (req:Request,res:Response) =>{
+    const {id} = req.params
+    const body = req.body
+    try{
+        const movie : any = await prisma.movie.findUnique({
+            where:{id:id},select:{
+                id:false,
+                Title: true,
+                Plot: true,
+                Genre:true,
+                Actors: true,
+                Language: true,
+                Director: true,
+                Release: true,
+                Poster: true,
+                Rated: true,
+                Trailer: true,
+                Type: true,
+                Runtime: true
+            }
+        })
+        const comment = await prisma.comment.create({
+            data:{
+                Text:body.Text,
+                movie:{create:movie}
+            }
+        })
+        res.json(comment)
+    }catch(e:any){
+        res.status(404).json(e.message)
+    }
+})
 
 //http://localhost:3001/movies?name=cars
-router.get('/', async (req: Request, res:Response) =>{
+router.get('/search', async (req: Request, res:Response) =>{
     const {name} = req.query;
     try {
         const seachByName = await prisma.movie.findMany({
@@ -93,7 +127,8 @@ router.get('/', async (req: Request, res:Response) =>{
 })
 
 //http://localhost:3001/movies?genre=Comedy
-router.get('/genre/', async (req: Request, res:Response) =>{
+
+router.get('/genres', async (req: Request, res:Response) =>{
     const {genre} = req.query;
     try {
         const filterByGenre = await prisma.movie.findMany({
@@ -104,7 +139,6 @@ router.get('/genre/', async (req: Request, res:Response) =>{
                 }
             }
         })
-        console.log(filterByGenre)
         res.json(filterByGenre)
     } catch (e:any) {
         res.status(404).json(e.message)
