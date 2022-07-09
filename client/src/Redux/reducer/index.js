@@ -1,11 +1,17 @@
-import { GET_MOVIE_DETAIL } from "../actions"
+import { GET_MOVIE_DETAIL, GET_BILLBOARD } from "../actions"
 
-const initialState={
+const initialState = {
+    cartelera: [],
     movieDetail:{}
 }
- 
- const rootReducer = (state=initialState, action) =>{
-    switch(action.type){
+function rootReducer (state= initialState, action){
+switch(action.type){
+    case GET_BILLBOARD:
+    return{
+        ...state,
+        cartelera: action.payload
+    }
+
     case GET_MOVIE_DETAIL:
         return{
             ...state,
@@ -13,6 +19,12 @@ const initialState={
         }
         default:
             return state
-}}
+}
+}
+export default rootReducer
 
- export default rootReducer
+
+
+
+
+
