@@ -8,8 +8,8 @@ export const cars = {
     Release: "09 Jun 2006",
     Poster: "https://m.media-amazon.com/images/M/MV5BMTg5NzY0MzA2MV5BMl5BanBnXkFtZTYwNDc3NTc2._V1_SX300.jpg",
     Rated: "G",
-    Type: "3D",
     Trailer: "link",
+    Type: "3D",
     Runtime: 117
 }
 
@@ -23,10 +23,9 @@ export const spider = {
     Release: "17 Dec 2021",
     Poster: "https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_SX300.jpg",
     Rated: "PG-13",
-    Type: "2D",
     Trailer: "link",
+    Type: "2D",
     Runtime: 148
-    
 }
 
 export const sonic = {
@@ -96,7 +95,7 @@ export const minions = {
     Actors: "Steve Carell, Pierre Coffin, Taraji P. Henson",
     Language: "English, Vietnamese",
     Director: "Kyle Balda, Brad Ableson",
-    Release: "01 Jul 2022",
+    Release: "13 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BZDQyODUwM2MtNzA0YS00ZjdmLTgzMjItZWRjN2YyYWE5ZTNjXkEyXkFqcGdeQXVyMTI2MzY1MjM1._V1_SX300.jpg",
     Rated: "PG",
     Type: "3D",
@@ -111,7 +110,7 @@ export const lightyear = {
     Actors: "Chris Evans, Keke Palmer, Peter Sohn",
     Language: "English",
     Director: "Angus MacLane",
-    Release: "17 Jun 2022",
+    Release: "17 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BYTg2Zjk0ZTctM2ZmMi00MDRmLWJjOGYtNWM0YjBmZTBjMjRkXkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_SX300.jpg",
     Rated: "PG",
     Type: "2D",

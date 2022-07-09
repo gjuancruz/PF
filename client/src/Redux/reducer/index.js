@@ -17,7 +17,6 @@ switch(action.type){
             ...state,
             movieDetail:action.payload
         }
-
         default:
             return state
 }
