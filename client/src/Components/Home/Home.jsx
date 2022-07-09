@@ -30,7 +30,6 @@ function paginadoPrev(){
     setPelisActual(pelisActual -1)
     setContador(contador -1)
     console.log(contador)
-   
 }
 
 function paginadoNext(){
@@ -44,14 +43,14 @@ function paginadoNext(){
 return(
 <div>
     <Carousel/>
+    <h3>EN CARTELERA</h3>
 <div className={s.cartelera}>
-
-{contador > 0 && <button onClick={paginadoPrev}>Anterior</button>}
+<div className={s.contenedorpag}> {contador > 0 && <button className={s.pag} onClick={paginadoPrev}>Anterior</button>} </div>
 
 
     {carteleraActual?.map((c) => {
     return (
-        <div>
+        <div className={s.card}>
            <Link to={"/movies/" + c.id}>
             <Card
             Poster={c.Poster}
@@ -63,7 +62,7 @@ return(
 })
 }
 
-{contador < allCartelera.length -4 && <button onClick={paginadoNext}>Siguiente</button>}
+<div className={s.contenedorpag}>{contador < allCartelera.length -4 && <button className={s.pag} onClick={paginadoNext}>Siguiente</button>}</div>
 
 
 </div>

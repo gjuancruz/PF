@@ -1,3 +1,26 @@
 .cartelera{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.contenedorpag{
+    width: 8%;
+}
+
+.pag{
+    /* font-size: 20px; */
+    /* padding: 20px; */
+    /* height: 100%; */
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 60px;
+}
+
+.card{
+    width: 21%;
+    justify-content: center;
 }
