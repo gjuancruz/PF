@@ -45,7 +45,7 @@ return(
     <Carousel/>
     <h3>EN CARTELERA</h3>
 <div className={s.cartelera}>
-<div className={s.contenedorpag}> {contador > 0 && <button type="button" class="btn btn-outline-primary" onClick={paginadoPrev}>Anterior</button>} </div>
+<div className={s.contenedorpag}> {contador > 0 && <button className={s.pag} onClick={paginadoPrev}>Anterior</button>} </div>
 
 
     {carteleraActual?.map((c) => {

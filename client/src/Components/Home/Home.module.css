@@ -20,11 +20,6 @@
     height: 60px;
 }
 
-.pag:hover{
-    background-color: aqua;
-}
-
-
 .card{
     width: 21%;
     justify-content: center;

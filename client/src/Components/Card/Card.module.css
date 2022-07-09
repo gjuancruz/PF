@@ -7,6 +7,9 @@
     color: aliceblue;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.title:hover{
     text-decoration: none;
 }
 
