@@ -93,7 +93,7 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
         const comment = await prisma.comment.create({
             data:{
                 Text:body.Text,
-                Movie:{create:movie}
+                movie:{create:movie}
             }
         })
         res.json(comment)

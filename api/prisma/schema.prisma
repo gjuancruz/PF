@@ -8,19 +8,20 @@ datasource db {
 }
 
 model Movie {
-  id       String @id @default(uuid()) @db.Uuid
-  Title    String @db.Char(60)
-  Plot     String @db.Text
-  Genre    String @db.Char(60)
-  Actors   String @db.Char(60)
-  Language String @db.Char(50)
-  Director String @db.Char(30)
-  Release  String @db.Char(15)
-  Poster   String @db.Text
-  Rated    String @db.Char(15)
-  Type     String @db.Char(15)
-  Trailer  String @db.Char(100)
+  id       String    @id @default(uuid()) @db.Uuid
+  Title    String
+  Plot     String
+  Genre    String
+  Actors   String
+  Language String
+  Director String
+  Release  String
+  Poster   String
+  Rated    String
+  Trailer  String
   Runtime  Int
+  Type     String
+  Comment  Comment[]
   show     Show[]
 }
 
@@ -72,4 +73,11 @@ model User {
   password String @db.Char(20)
   role     Int
   sale     Sale[]
+}
+
+model Comment {
+  id      String @id @db.Uuid
+  Text    String
+  movieId String @db.Uuid
+  Movie   Movie  @relation(fields: [movieId], references: [id])
 }
