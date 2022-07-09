@@ -23,7 +23,7 @@ function isPremier(dateMovie:string):boolean {
         Dec: 12
     };
     const [dayDb, monthDb, yearDb]:string[] = dateMovie.split(' ');
-    // @ts-ignore
+    // @ts-ignoreee
     const compararMes = ob1[dayDb] > ob1[m]
     const day = Number(dayDb) > Number(d)
 
@@ -70,9 +70,9 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
-        const list = await prisma.movie.findMany({
-        })
-        res.json(list)
+        const list = await prisma.movie.findMany({})
+        const billboardMovies = list.filter( data => !isPremier(data.Release));
+        res.json(billboardMovies);
     
     }catch (error) {
         res.status(404).json("No se obtuvieron datos")
