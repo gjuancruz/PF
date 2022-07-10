@@ -88,7 +88,7 @@ export const jurassic = {
     Runtime: 147
 }
 
-export const minions = {
+export const MinionsTheRiseofGru = {
     Title: "Minions: The Rise of Gru",
     Plot: "The untold story of one twelve-year-old's dream to become the world's greatest supervillain",
     Genre: "Animation, Adventure, Comedy",
@@ -146,4 +146,49 @@ export const DrStranger = {
     Type: "3D",
     Trailer: "link",
     Runtime: 126
+}
+
+export const Minions = {
+    Title: "Minions",
+    Plot: "Minions Stuart, Kevin, and Bob are recruited by Scarlet Overkill, a supervillain who, alongside her inventor husband Herb, hatches a plot to take over the world.",
+    Genre: "Animation, Adventure, Comedy",    
+    Actors: "Sandra Bullock, Jon Hamm, Michael Keaton",
+    Language: "English, Spanish",
+    Director: "Kyle Balda, Pierre Coffin",
+    Release: "20 Jul 2022",
+    Poster: "https://m.media-amazon.com/images/M/MV5BMTg2MTMyMzU0M15BMl5BanBnXkFtZTgwOTU3ODk4NTE@._V1_SX300.jpg",
+    Rated: "PG",
+    Type: "2D",
+    Trailer: "link",    
+    Runtime: 91,
+}
+
+export const MinionsHolidaySpecial = {
+    Title: "Minions Holiday Special",
+    Plot: "Illumination presents four new mini-movie escapades along with special guest appearances from some of Illumination's beloved characters from their \"The Secret Life of Pets\" and \"Sing\" franchises.",
+    Genre: "Animation, Short, Comedy",
+    Actors: "Carlos Alazraqui, Pierre Coffin, Brian T. Delaney",
+    Language: "English",
+    Director: "Brad Ableson",
+    Release: "27 Jul 2022",
+    Poster: "https://m.media-amazon.com/images/M/MV5BMjFjMzUwZjYtZTM2MC00NThiLTllN2UtNzhmMGE5YjkyYzllXkEyXkFqcGdeQXVyMzY3MDEzMTA@._V1_SX300.jpg",
+    Rated: "TV-PG",
+    Type: "2D",
+    Trailer: "link",    
+    Runtime: 21,
+}
+
+export const SupermanSpidermanorBatman = {
+    Title: "Superman, Spiderman or Batman",
+    Plot: "Aron, a 5-year-old boy, together with his worried father, sets out on a journey at the end of which he wishes, like the superheroes in the comic books, to save his mother who is suffering from a heart condition.",
+    Genre: "Short, Drama",
+    Actors: "Adriana Bailescu, Zsolt Bogdán, Ovidiu Crisan",
+    Language: "Romanian",
+    Director: "Tudor Giurgiu",
+    Release: "29 Jul 2022",
+    Poster: "https://m.media-amazon.com/images/M/MV5BMjQ4MzcxNDU3N15BMl5BanBnXkFtZTgwOTE1MzMxNzE@._V1_SX300.jpg",
+    Rated: "Not Rated",
+    Type: "2D",
+    Trailer: "link",    
+    Runtime: 11,
 }
