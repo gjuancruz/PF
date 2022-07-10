@@ -36,7 +36,7 @@ function rootReducer(state = initialState, action) {
     //       : moviesAll.filter((movie) => movie.Genre.includes(action.payload));
       return {
         ...state,
-        carteleraFiltered: action.payload,
+        carteleraFiltered: action.payload
       };
     case GET_MOVIE_DETAIL:
       return {

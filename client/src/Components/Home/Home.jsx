@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export default function Home(){
 
 const dispatch = useDispatch()
-const allCartelera = useSelector ((state) => state.cartelera)
+const allCartelera = useSelector ((state) => state.carteleraFiltered)
 
 const [pelisActual, setPelisActual] = useState(1)
 const [pelisPorPag, setPelisPorPag] = useState (4)
@@ -44,6 +44,7 @@ function paginadoNext(){
 return(
 <div>
     <Carousel/>
+    <FilterCartelera/>
     <h3>EN CARTELERA</h3>
 <div className={s.cartelera}>
 <div className={s.contenedorpag}> {contador > 0 && <button className={s.pag} onClick={paginadoPrev}>Anterior</button>} </div>

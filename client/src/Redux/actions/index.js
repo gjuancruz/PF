@@ -1,9 +1,9 @@
 import axios from "axios";
-export const FILTER_TYPE = "FILTER_TYPE";
-export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
 export const GET_BILLBOARD = "GET_BILLBOARD";
 export const SEARCH_MOVIES='SEARCH_MOVIES';
+export const FILTER_TYPE = "FILTER_TYPE";
+export const FILTER_GENRE = "FILTER_GENRE";
 
 export function getBillboard() {
   return async function (dispatch) {
