@@ -1,6 +1,4 @@
-import { FILTER_GENRE } from "../actions";
-import { FILTER_TYPE } from "../actions";
-import { GET_MOVIE_DETAIL, GET_BILLBOARD } from "../actions";
+import { GET_MOVIE_DETAIL, GET_BILLBOARD, SEARCH_MOVIES, FILTER_GENRE, FILTER_TYPE } from "../actions";
 
 const initialState = {
   cartelera: [],
@@ -14,37 +12,42 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         cartelera: action.payload,
-        carteleraFiltered: action.payload
+        carteleraFiltered: action.payload,
       };
+    case FILTER_TYPE:
+      const carteleraToFilter = state.cartelera;
+      console.log(carteleraToFilter);
+      const filteredByType =
+        action.payload === "All"
+          ? carteleraToFilter
+          : carteleraToFilter.filter(
+              (movie) => movie.Type.trim() === action.payload
+            );
 
+      return {
+        ...state,
+        carteleraFiltered: filteredByType,
+      };
+    case FILTER_GENRE:
+    //   const moviesAll = state.cartelera;
+    //   const filteredByGenre =
+    //     action.payload === "All"
+    //       ? moviesAll
+    //       : moviesAll.filter((movie) => movie.Genre.includes(action.payload));
+      return {
+        ...state,
+        carteleraFiltered: action.payload,
+      };
     case GET_MOVIE_DETAIL:
       return {
         ...state,
         movieDetail: action.payload,
       };
 
-    case FILTER_TYPE:
-      const carteleraToFilter = state.cartelera;
-      console.log(carteleraToFilter);
-      const filteredByType = action.payload === "All"
-        ? carteleraToFilter
-        : carteleraToFilter.filter(
-            (movie) => movie.Type.trim() === action.payload
-            );
-
+    case SEARCH_MOVIES:
       return {
         ...state,
-        carteleraFiltered: filteredByType
-      };
-    case FILTER_GENRE:
-      const moviesAll = state.cartelera;
-      const filteredByGenre =
-        action.payload === "All"
-          ? moviesAll
-          : moviesAll.filter((movie) => movie.Genre.includes(action.payload));
-      return {
-        ...state,
-        carteleraFiltered: filteredByGenre,
+        cartelera: action.payload,
       };
     default:
       return state;

@@ -3,6 +3,7 @@ export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
 export const GET_BILLBOARD = "GET_BILLBOARD";
+export const SEARCH_MOVIES='SEARCH_MOVIES';
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -14,30 +15,62 @@ export function getBillboard() {
   };
 }
 
-export function getMovieDetail(idMovie) {
-  return async function (dispatch) {
-    try {
-      var res = await axios.get(`http://localhost:3001/movies/${idMovie}`);
-      return dispatch({
-        type: GET_MOVIE_DETAIL,
-        payload: res.data,
-      });
-    } catch (error) {
-      console.log(error);
+
+export function getMovieDetail(idMovie){
+    return async function(dispatch){
+        try{
+            var res=await axios.get(`http://localhost:3001/movies/search/${idMovie}`)
+            return dispatch({
+                type: GET_MOVIE_DETAIL,
+                payload: res.data
+        })
+        } catch(error){
+            console.log(error)
+        }
     }
-  };
 }
 
 export function filterByType(payload) {
-  return {
-    type: FILTER_TYPE,
-    payload,
-  };
+    return {
+      type: FILTER_TYPE,
+      payload,
+    };
 }
+// export function filterByGenre(payload) {
+//   return {
+//     type: FILTER_GENRE,
+//     payload,
+//   };
+// }
 
-export function filterByGenre(payload) {
-  return {
-    type: FILTER_GENRE,
-    payload,
-  };
+export function filterGenre(genre) {
+    return async function (dispatch) {
+        try {
+            var json = await axios.get(`http://localhost:3001/movies/search?genre=${genre}`);
+            return dispatch({
+                type: FILTER_GENRE,
+                payload: json.data,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+            
+        }
+    }
+
+export function searchMovieName(title){
+    return async function (dispatch) {
+        try {
+          var json = await axios.get(`http://localhost:3001/movies/search?name=${title}`)
+          return dispatch({
+            type: SEARCH_MOVIES,
+            payload: json.data
+          })
+        } catch (error) {
+          dispatch({
+            type: SEARCH_MOVIES,
+            payload: []
+          })
+        }
+      }
 }

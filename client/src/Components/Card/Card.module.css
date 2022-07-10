@@ -1,3 +1,18 @@
 .card{
-    padding: 5px;
+    margin: 0px 8px 20px 8px;
+}
+
+.title{
+    font-size: 20px;
+    color: aliceblue;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.title:hover{
+    text-decoration: none;
+}
+
+.contenedortitle{
+    height: 20px;
 }

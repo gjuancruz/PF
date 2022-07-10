@@ -7,6 +7,7 @@ const prisma = new PrismaClient()
 
 app.listen(3001, async () => {
 
+   const del1 = await prisma.comment.deleteMany({})
    const del = await prisma.movie.deleteMany({})
 
    const movie = await prisma.movie.createMany({   
@@ -15,3 +16,4 @@ app.listen(3001, async () => {
    console.log(`Server ready at: http://localhost:3001`);
 })
 
+ 
