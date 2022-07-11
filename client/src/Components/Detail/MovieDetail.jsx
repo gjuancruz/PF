@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { getMovieDetail } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
-import Footer from "../Footer/Footer";
 
 
 
@@ -15,8 +14,9 @@ export default function MovieDetail(){
     console.log(movieDet)
 
     useEffect(()=>{
+        window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getMovieDetail(idMovie.id))
-    },[])
+    },[dispatch])
 
     return( 
         <div className="contenedor">
@@ -30,7 +30,7 @@ export default function MovieDetail(){
             <p><b>Genero: </b> {movieDet.Genre}</p>
             <p><b>Actores: </b> {movieDet.Actors}</p>
             <p><b>Director: </b> {movieDet.Director}</p>
-            <p><b>Duracion: </b> {movieDet.Runtime}</p>
+            <p><b>Duracion: </b> {movieDet.Runtime} min</p>
             <p><b>Lenguage: </b> {movieDet.Language}</p>
             </div>
             <div className="divTrailer">
