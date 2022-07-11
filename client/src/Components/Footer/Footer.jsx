@@ -51,7 +51,7 @@ const Footer = () =>{
               {/* <!--Grid column--> */}
               <div class="col-auto">
                 <p class="pt-2">
-                  <strong>Sign up for our newsletter</strong>
+                  <strong>Suscríbete a nuestro boletín</strong>
                 </p>
               </div>
               {/* <!--Grid column--> */}
@@ -61,7 +61,7 @@ const Footer = () =>{
                 {/* <!-- Email input --> */}
                 <div class="form-outline form-white mb-4">
                   <input type="email" id="form5Example21" class="form-control" />
-                  <label class="form-label" for="form5Example21">Email address</label>
+                  <label class="form-label" for="form5Example21">Direccion de Email</label>
                 </div>
               </div>
               {/* <!--Grid column--> */}
@@ -70,7 +70,7 @@ const Footer = () =>{
               <div class="col-auto">
                 {/* <!-- Submit button --> */}
                 <button type="submit" class="btn btn-outline-warning mb-4">
-                  Subscribe
+                  Suscribirse
                 </button>
               </div>
               {/* <!--Grid column--> */}

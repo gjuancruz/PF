@@ -3,12 +3,37 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const router = Router()
+const router = Router();
 
-let date: Date = new Date();
-let day = date.getDate();
-let month = date.getMonth()
-let year = date.getFullYear()
+function isPremier(dateMovie:string):boolean {
+    let date: Date = new Date();
+    let [,m,d,y]:string[] = String(date).split(' ');
+    let ob1 = {
+        Jan: 1,
+        Feb: 2,
+        Mar: 3,
+        Apr: 4,
+        May: 5,
+        Jun: 6,
+        Jul: 7,
+        Aug: 8,
+        Sep: 9,
+        Oct: 10,
+        Nov: 11,
+        Dec: 12
+    };
+    const [dayDb, monthDb, yearDb]:string[] = dateMovie.split(' ');
+    // @ts-ignoreee
+    const compararMes = ob1[dayDb] > ob1[m]
+    const day = Number(dayDb) > Number(d)
+
+    // @ts-ignore
+    const condicionEstrenos = compararMes ? true : (ob1[monthDb] === ob1[m] && day) ? true : false  
+    return condicionEstrenos;
+}
+// let day = date.getDate();
+// let month = date.getMonth()
+// let year = date.getFullYear()
 
 //http://localhost:3001/movies/createMovie
 router.post("/createMovie", async (req:Request, res:Response) =>{
@@ -45,15 +70,26 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
-        const list = await prisma.movie.findMany({
-        })
-        res.json(list)
+        const list = await prisma.movie.findMany({})
+        const billboardMovies = list.filter( data => !isPremier(data.Release));
+        res.json(billboardMovies);
     
     }catch (error) {
         res.status(404).json("No se obtuvieron datos")
     }
 })
 
+router.get("/Premieres", async (_req:Request, res:Response) => {
+    try {
+        const movies = await prisma.movie.findMany({});
+        const filtrado = movies.filter( data => isPremier(data.Release))
+        res.json(filtrado)
+    } catch (error:any) {
+        res.send(error.message)
+    }
+})
+
+// router.get("/:id", async (req:Request,res:Response) =>{
 //http://localhost:3001/movies/search/:id
 router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
@@ -68,7 +104,7 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
     }
 })
 
-//http://localhost:3001/movies/:id
+http://localhost:3001/movies/search/:id
 router.post("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     const body = req.body
@@ -90,9 +126,10 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
                 Runtime: true
             }
         })
-        const comment = await prisma.comment.create({
+        const comment:any = await prisma.comment.create({
             data:{
                 Text:body.Text,
+                // @ts-ignore
                 movie:{create:movie}
             }
         })
@@ -150,4 +187,4 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 
 
-export default router
+export default router;
