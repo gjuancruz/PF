@@ -126,7 +126,7 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
                 Runtime: true
             }
         })
-        const comment:any = await prisma.comment.create({
+        const comment : any = await prisma.comment.create({
             data:{
                 Text:body.Text,
                 // @ts-ignore
@@ -157,6 +157,7 @@ router.get('/search', async (req: Request, res:Response) =>{
             res.json(seachByName)
         }
         else if(genre){
+            if(genre === 'All') return res.json(await prisma.movie.findMany({}))
             const filterByGenre = await prisma.movie.findMany({
                 where: {
                     Genre: {

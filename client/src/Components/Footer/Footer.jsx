@@ -12,34 +12,29 @@ const Footer = () =>{
         {/* <!-- Section: Social media --> */}
         <section class="mb-4">
           {/* <!-- Facebook --> */}
-          <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/g.juancruz" target="_blank" role="button"
-            ><i class="fab fa-facebook-f"></i
-          ></a>
+          <a class="btn btn-outline-light btn-floating m-1"  target="_blank" role="button"
+            ><i class="bi bi-facebook"></i></a>
     
           {/* <!-- Twitter --> */}
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-            ><i class="fab fa-twitter"></i
-          ></a>
+            ><i class="bi bi-twitter"></i></a>
     
           {/* <!-- Google --> */}
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-            ><i class="fab fa-google"></i
-          ></a>
+            ><i class="bi bi-google"></i></a>
     
           {/* <!-- Instagram --> */}
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-            ><i class="fab fa-instagram"></i
+            ><i class="bi bi-instagram"></i
           ></a>
     
           {/* <!-- Linkedin --> */}
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-            ><i class="fab fa-linkedin-in"></i
-          ></a>
+            ><i class="bi bi-linkedin"></i></a>
     
           {/* <!-- Github --> */}
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-            ><i class="fab fa-github"></i
-          ></a>
+            ><i class="bi bi-github"></i></a>
         </section>
         {/* <!-- Section: Social media --> */}
     

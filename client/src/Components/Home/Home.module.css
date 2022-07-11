@@ -1,3 +1,70 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contenedorcartelera{
+    padding-top: 30px;
+}
+
+.title{
+    padding-left: 6%;
+    font-weight: bold;
+}
+
 .cartelera{
     display: flex;
+    align-items:baseline ;
+    /* width: 100%; */
+    margin-top: 25px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.contenedorpag{
+    width: 8%;
+    display: flex;
+    justify-content: center;
+}
+
+.pag{
+    width: 100%;
+    background-color: transparent;
+    height: 60px;
+    border: 0px;
+    color:aliceblue;
+}
+
+.card{
+    width: 21%;
+}
+
+.card:hover{
+    transform:scale(1.1);
+    transition-duration: 0.3s;
+}
+
+h3{
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+}
+h1:hover{
+    text-decoration: none;
+    color: gray;
+    
+}
+h1{
+    color: white;
+}
+a:hover{
+    text-decoration: none;
+}
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
 }

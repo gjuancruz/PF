@@ -1,3 +1,24 @@
+.general{
+    padding-bottom: 30px;
+}
+
 .card{
-    padding: 5px;
+    margin: 0px 8px 0px 8px;
+}
+
+.contenedortitle{
+    height: 100%;
+}
+
+.title{
+    font-size: 21px;
+    color: aliceblue;
+    margin-top: 10px;
+    height:auto
+}
+
+.info{
+    font-size: 16px;
+    color: rgb(255, 215, 0);
+
 }
