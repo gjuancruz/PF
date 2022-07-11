@@ -19,6 +19,7 @@ const NavBar = () =>{
   const handleSubmit = (event) =>{
       event.preventDefault()
         setTimeout(() =>dispatch(searchMovieName(state)), 500)
+        window.scrollTo({ top: 500, behavior: 'smooth' })
         setState('')
   } 
   
