@@ -4,3 +4,8 @@
 li{
     margin-left: 20px;
 }
+
+.nav-separation {
+    display: flex;
+    justify-content: space-evenly;
+}

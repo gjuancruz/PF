@@ -17,6 +17,9 @@ export default function MovieDetail(){
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getMovieDetail(idMovie.id))
+        return ()=>{
+            console.log('unmounting component')
+        }
     },[])
 
     return( 

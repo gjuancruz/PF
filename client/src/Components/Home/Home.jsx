@@ -3,14 +3,15 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getBillboard, getPremiere } from "../../Redux/actions";
 import Carousel from "../Carousel/Carousel";
+import FilterCartelera from "../FilterCartelera/FilterCartelera";
 import Card from "../Card/Card";
-import s from "./Home.module.css"
+import s from "./Home.module.css";
 import { Link } from "react-router-dom";
 
 export default function Home(){
 
 const dispatch = useDispatch()
-const allCartelera = useSelector ((state) => state.cartelera)
+const allCartelera = useSelector ((state) => state.carteleraFiltered)
 const premiere = useSelector((state) => state.premiere)
 
 const [contador, setContador] = useState(0)
@@ -64,6 +65,8 @@ function nextPremiere(){
 return(
 <div >
     <Carousel/>
+    <FilterCartelera/>
+    
 <div className={s.contenedorcartelera} >
 <h3 className={s.title}>EN CARTELERA</h3>
 <div className={s.cartelera}>
