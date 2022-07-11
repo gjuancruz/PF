@@ -73,7 +73,7 @@ return(
 <div className={s.contenedorcartelera} >
 <h3 className={s.title}>EN CARTELERA</h3>
 <div className={s.cartelera}>
-<div className={s.contenedorpag}> {contador > 0 && <button className={s.pag} onClick={prevBillboard}>Anterior</button>} </div>
+<div className={s.contenedorpag}> {contador > 0 && <i class="bi bi-chevron-left" style={{fontSize: "32px"}} onClick={prevBillboard}></i>} </div>
     {carteleraActual.length === 0 && <div>
         <h2>El título que estás buscando no se encuentra disponible en este momento. Prueba corrigiendo tu búsqueda o inténtalo de nuevo más tarde.</h2>
         <br/>
@@ -94,14 +94,14 @@ return(
 })
 }
 
-<div className={s.contenedorpag}>{contador < allCartelera.length -4 && <button className={s.pag} onClick={nextBillboard}>Siguiente</button>}</div>
+<div className={s.contenedorpag}>{contador < allCartelera.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextBillboard}></i>}</div>
 
 </div>
 </div>
 
 <h3 className={s.title}>PRÓXIMOS ESTRENOS</h3>
 <div className={s.cartelera}>
-<div className={s.contenedorpag}> {counterPremiere > 0 && <button className={s.pag} onClick={prevPremiere}>Anterior</button>} </div>
+<div className={s.contenedorpag}> {counterPremiere > 0 && <i class="bi bi-chevron-left" style={{fontSize: "32px"}} onClick={prevPremiere}></i>} </div>
 
 {premiereActual?.map((c) => {
     return(
@@ -117,7 +117,7 @@ return(
     )
 })}
  
-<div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <button className={s.pag} onClick={nextPremiere}>Siguiente</button>}</div>
+<div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextPremiere}></i>}</div>
 
 </div>
 
