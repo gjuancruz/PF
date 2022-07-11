@@ -18,7 +18,7 @@ export function getBillboard(){
 export function getMovieDetail(idMovie){
     return async function(dispatch){
     try{
-        var res=await axios.get(`http://localhost:3001/movies/${idMovie}`)
+        var res=await axios.get(`http://localhost:3001/movies/search/${idMovie}`)
         return dispatch({
             type: GET_MOVIE_DETAIL,
             payload: res.data
@@ -32,7 +32,7 @@ export function getMovieDetail(idMovie){
 export function searchMovieName(title){
     return async function (dispatch) {
         try {
-          var json = await axios.get(`http://localhost:3001/movies?name=${title}`)
+          var json = await axios.get(`http://localhost:3001/movies/search?name=${title}`)
           return dispatch({
             type: SEARCH_MOVIES,
             payload: json.data

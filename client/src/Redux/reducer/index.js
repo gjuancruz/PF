@@ -1,4 +1,4 @@
-import { GET_MOVIE_DETAIL, GET_BILLBOARD } from "../actions"
+import { GET_MOVIE_DETAIL, GET_BILLBOARD, SEARCH_MOVIES } from "../actions"
 
 const initialState = {
     cartelera: [],
@@ -17,6 +17,11 @@ switch(action.type){
             ...state,
             movieDetail:action.payload
         }
+        case SEARCH_MOVIES:
+            return{
+                ...state,
+                cartelera: action.payload
+            }
         default:
             return state
 }

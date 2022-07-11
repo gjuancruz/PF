@@ -1,3 +1,20 @@
 .cartelera{
-    display: flex;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+h1:hover{
+    text-decoration: none;
+    color: gray;
+    
+}
+h1{
+    color: white;
+}
+a:hover{
+    text-decoration: none;
+}
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
 }

@@ -15,8 +15,9 @@ export default function MovieDetail(){
     console.log(movieDet)
 
     useEffect(()=>{
+        window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getMovieDetail(idMovie.id))
-    },[])
+    },[dispatch])
 
     return( 
         <div className="contenedor">

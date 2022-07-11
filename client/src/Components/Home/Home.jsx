@@ -52,7 +52,7 @@ return(
     {carteleraActual?.map((c) => {
     return (
         <div>
-           <Link to={"/movies/" + c.id}>
+           <Link to={"/movies/" + c.id} >
             <Card
             Poster={c.Poster}
             Title={c.Title}
