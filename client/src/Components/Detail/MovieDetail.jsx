@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { getMovieDetail } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
-import Footer from "../Footer/Footer";
 
 
 
