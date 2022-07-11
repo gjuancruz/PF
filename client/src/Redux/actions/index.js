@@ -8,7 +8,7 @@ export const GET_PREMIERE="GET_PREMIERE";
 
 export function getBillboard() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/movies/billboard", {});
+    var json = await axios.get("http://localhost:3001/movies/billboard");
     return dispatch({
       type: GET_BILLBOARD,
       payload: json.data,

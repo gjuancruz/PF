@@ -57,7 +57,7 @@ function rootReducer(state = initialState, action) {
     case SEARCH_MOVIES:
       return {
         ...state,
-        cartelera: action.payload,
+        carteleraFiltered: action.payload,
       };
     default:
       return state;

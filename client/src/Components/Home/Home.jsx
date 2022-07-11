@@ -33,7 +33,7 @@ const premiereActual = premiere.slice(FirstPremiere, lastPremiere - 1)
 useEffect(() =>{
     dispatch(getBillboard())
     dispatch(getPremiere())
-},[dispatch])
+},[])
 
 
 function prevBillboard(){
