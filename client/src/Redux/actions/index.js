@@ -4,6 +4,7 @@ export const GET_BILLBOARD = "GET_BILLBOARD";
 export const SEARCH_MOVIES='SEARCH_MOVIES';
 export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
+export const GET_PREMIERE="GET_PREMIERE";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -15,6 +16,15 @@ export function getBillboard() {
   };
 }
 
+export function getPremiere(){
+  return async function(dispatch){
+    var json = await axios("http://localhost:3001/movies/Premieres");
+    return dispatch ({
+      type: GET_PREMIERE,
+      payload: json.data
+    })
+  }
+}
 
 export function getMovieDetail(idMovie){
     return async function(dispatch){

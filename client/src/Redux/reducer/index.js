@@ -1,8 +1,16 @@
-import { GET_MOVIE_DETAIL, GET_BILLBOARD, SEARCH_MOVIES, FILTER_GENRE, FILTER_TYPE } from "../actions";
+import {
+  GET_MOVIE_DETAIL,
+  GET_BILLBOARD,
+  SEARCH_MOVIES,
+  FILTER_GENRE,
+  FILTER_TYPE,
+  GET_PREMIERE,
+} from "../actions";
 
 const initialState = {
   cartelera: [],
   carteleraFiltered: [],
+  premiere: [],
   movieDetail: {},
 };
 
@@ -29,15 +37,17 @@ function rootReducer(state = initialState, action) {
         carteleraFiltered: filteredByType,
       };
     case FILTER_GENRE:
-    //   const moviesAll = state.cartelera;
-    //   const filteredByGenre =
-    //     action.payload === "All"
-    //       ? moviesAll
-    //       : moviesAll.filter((movie) => movie.Genre.includes(action.payload));
       return {
         ...state,
-        carteleraFiltered: action.payload
+        carteleraFiltered: action.payload,
       };
+
+    case GET_PREMIERE:
+      return {
+        ...state,
+        premiere: action.payload,
+      };
+
     case GET_MOVIE_DETAIL:
       return {
         ...state,
