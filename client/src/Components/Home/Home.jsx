@@ -61,7 +61,10 @@ function nextPremiere(){
     setCounterPremiere(counterPremiere +1)
 }
 
-
+function handleVolverBtn(event){
+    event.preventDefault()
+    dispatch(getBillboard())
+}
 return(
 <div >
     <Carousel/>
@@ -71,7 +74,12 @@ return(
 <h3 className={s.title}>EN CARTELERA</h3>
 <div className={s.cartelera}>
 <div className={s.contenedorpag}> {contador > 0 && <button className={s.pag} onClick={prevBillboard}>Anterior</button>} </div>
-
+    {carteleraActual.length === 0 && <div>
+        <h2>El título que estás buscando no se encuentra disponible en este momento. Prueba corrigiendo tu búsqueda o inténtalo de nuevo más tarde.</h2>
+        <br/>
+        <button class="btn btn-warning" onClick={(event)=>handleVolverBtn(event)}>Volver</button>
+        </div>}
+    
     {carteleraActual?.map((c) => {
     return (
         <div className={s.card}>

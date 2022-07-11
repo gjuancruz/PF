@@ -5,9 +5,7 @@ import { searchMovieName } from '../../Redux/actions';
 
 
 const NavBar = () =>{
-    const [state, setState]= React.useState({
-      name:''
-    })
+    const [state, setState]= React.useState('')
 
     const handleChange = function(event){
       event.preventDefault()
@@ -17,8 +15,13 @@ const NavBar = () =>{
   const dispatch = useDispatch()
 
   const handleSubmit = (event) =>{
+    if(state === ""){
       event.preventDefault()
-        setTimeout(() =>dispatch(searchMovieName(state)), 500)
+      setState('')
+      return alert('Ingrese un título válido.')
+    }
+      event.preventDefault()
+        dispatch(searchMovieName(state))
         window.scrollTo({ top: 500, behavior: 'smooth' })
         setState('')
   } 
@@ -66,7 +69,7 @@ const NavBar = () =>{
             
           </ul>
           <form class="d-inline-flex" role="search" onSubmit={(event)=>handleSubmit(event)}>
-            <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" name='name' onChange={(event) => handleChange(event) } />
+            <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" name='name' value={state} onChange={(event) => handleChange(event) } />
             <button class="btn btn-warning" type="submit">Buscar</button>
           </form>
         </div>
