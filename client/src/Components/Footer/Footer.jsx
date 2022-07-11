@@ -12,7 +12,7 @@ const Footer = () =>{
         {/* <!-- Section: Social media --> */}
         <section class="mb-4">
           {/* <!-- Facebook --> */}
-          <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/g.juancruz" target="_blank" role="button"
+          <a class="btn btn-outline-light btn-floating m-1"  target="_blank" role="button"
             ><i class="fab fa-facebook-f"></i
           ></a>
     
