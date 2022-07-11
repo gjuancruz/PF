@@ -20,7 +20,7 @@
 }
  .carousel-inner{
     /*just incase the flash (style above) comes back*/
-       background: #343a40!important;
+       background: #000000!important;
     }
 
     .carousel-control.left{transition: 0s;} 

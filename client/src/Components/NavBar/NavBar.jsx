@@ -19,8 +19,15 @@ const NavBar = () =>{
   const handleSubmit = (event) =>{
       event.preventDefault()
         setTimeout(() =>dispatch(searchMovieName(state)), 500)
+        window.scrollTo({ top: 500, behavior: 'smooth' })
         setState('')
   } 
+
+  // temporal //
+  const handleProx = (event) =>{
+    event.preventDefault()
+    window.scrollTo({ top: 1100, behavior: 'smooth' })
+  }
   
     return(
       <div>
@@ -36,7 +43,7 @@ const NavBar = () =>{
               <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="/">Próximos estrenos</a>
+              <a class="nav-link text-light" href="/" onClick={(event)=>handleProx(event)}>Próximos estrenos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-light" href="/">Comida</a>
