@@ -2,9 +2,9 @@ import React from 'react'
 import '../NavBar/NavBar.css'
 import { useDispatch } from "react-redux";
 import { searchMovieName } from '../../Redux/actions';
+import setPelisActual from '../Home/Home'
 
-
-const NavBar = () =>{
+const NavBar = (setPelisActual) =>{
     const [state, setState]= React.useState('')
 
     const handleChange = function(event){
@@ -23,6 +23,7 @@ const NavBar = () =>{
       event.preventDefault()
         dispatch(searchMovieName(state))
         window.scrollTo({ top: 500, behavior: 'smooth' })
+        setPelisActual(1)
         setState('')
   } 
 
