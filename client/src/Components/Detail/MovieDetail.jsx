@@ -1,11 +1,38 @@
-import React,{ useEffect  }  from "react";
+import React,{ useEffect }  from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
-import { getMovieDetail } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 
 
+const CheckoutForm = () =>{
+    const dispatch = useDispatch()
+    const stripe = useStripe()
+
+    const elements = useElements()
+
+    const handleSubmit = async(e) =>{
+        e.preventDefault()
+        
+        const {error,paymentMethod} = await stripe.createPaymentMethod({
+            type:"card",
+            card: elements.getElement(CardElement)
+        })
+        console.log(paymentMethod)
+        if(!error){
+            dispatch(postPaymentMethod(paymentMethod.id))
+        }else console.log(error)
+    }
+
+    
+
+    return  (<div><form onSubmit={handleSubmit} className="form-control">
+    <CardElement/>
+    <button>BUY</button>
+</form></div> )
+}
 
 export default function MovieDetail(){
     const dispatch = useDispatch()
@@ -50,6 +77,7 @@ export default function MovieDetail(){
                 <option value="">Proxima Fecha</option>
                 </select>
             </div>
+            <CheckoutForm/>
             <div className="botont">
             <button className="botoncomprar">Comprar</button>
             </div>

@@ -1,5 +1,6 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
+import Stripe from "stripe";
 
 const prisma = new PrismaClient()
 
@@ -186,6 +187,28 @@ router.get('/search', async (req: Request, res:Response) =>{
    
 })
 
+
+router.post("/checkout",async(req:Request,res:Response)=>{
+
+    const {ticket,amount} = req.body
+    console.log(ticket)
+    const stripe = new Stripe("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ",{apiVersion:"2020-08-27"})
+
+    try{
+        const payment = await stripe.paymentIntents.create({
+            amount,
+            payment_method:ticket,
+            currency:"USD",
+            confirm:true,
+        })
+
+        console.log(payment)
+
+        res.send("Payment received")
+    }catch(error:any){
+        res.send(error.message)
+    }
+})
 
 
 export default router;

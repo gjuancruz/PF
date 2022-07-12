@@ -5,6 +5,7 @@ export const SEARCH_MOVIES='SEARCH_MOVIES';
 export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
+export const POST_PAYMENT_METHOD ="POST_PAYMENT_METHOD"
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -83,4 +84,21 @@ export function searchMovieName(title){
           })
         }
       }
-}
+
+    }
+    export function postPaymentMethod(ticket){
+      return async function (dispatch){
+        try{
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100})
+          console.log(json.data)
+          return dispatch({
+            type:POST_PAYMENT_METHOD,
+            payload: json.data
+          })
+        }catch(error){
+       
+        }
+
+
+      }
+    }
