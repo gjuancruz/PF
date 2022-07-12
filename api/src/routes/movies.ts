@@ -54,6 +54,44 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     }
 })
 
+//http://localhost:3001/movies/update/:id
+router.put("/update/:id", async (req:Request, res:Response) =>{
+    const {id} = req.params
+
+    try{
+
+        const movieUpdate = await prisma.movie.update({
+            where:{
+                id: id
+            },
+            data: req.body
+        })
+
+        res.json("pelicula actualizada con exito")
+
+    }catch(e:any){
+        res.json("no se pudo actualizar la información")
+    }
+})
+
+//http://localhost:3001/movies/delete/:id
+router.delete("/delete/:id", async (req:Request, res:Response) =>{
+    const {id} = req.params
+
+    try{
+        const movieDelete = await prisma.movie.delete({
+            where:{
+                id: id
+            }
+        })
+
+        res.json("película eliminada con éxito")
+
+    }catch(e){
+        res.json("no se pudo eliminar la pelicula")
+    }
+})
+
 //http://localhost:3001/movies/search/:id
 router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
