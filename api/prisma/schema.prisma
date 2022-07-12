@@ -7,6 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Status {
+  CREATED
+  PROCESSING
+  CANCELLED
+  COMPLETED
+}
+
 model Comment {
   id       String @id @default(uuid()) @db.Uuid
   Text     String @db.Text
@@ -81,3 +88,14 @@ model User {
   role     Int
   sale     Sale[]
 }
+
+model Order {
+  id  Int @id
+  status Status
+  paymentId Int
+  paymentStatus String
+  merchantOrderId BigInt
+}
+
+
+
