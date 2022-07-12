@@ -89,13 +89,5 @@ model User {
   sale     Sale[]
 }
 
-model Order {
-  id  Int @id
-  status Status
-  paymentId Int
-  paymentStatus String
-  merchantOrderId BigInt
-}
-
 
 
