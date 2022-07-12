@@ -104,7 +104,7 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
     }
 })
 
-http://localhost:3001/movies/:id
+http://localhost:3001/movies/search/:id
 router.post("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     const body = req.body
@@ -130,7 +130,7 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
             data:{
                 Text:body.Text,
                 // @ts-ignore
-                Movie:{create:movie}
+                movie:{create:movie}
             }
         })
         res.json(comment)
