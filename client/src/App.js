@@ -6,6 +6,7 @@ import NavBar from './Components/NavBar/NavBar';
 import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home';
 import CreateMovie from './Components/CreateMovie/CreateMovie';
+import MenuDashboard from './Components/Dashboard/MenuDashboard';
 
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route exact path= '/create' component={CreateMovie} />
+        <Route path='/admin' component={MenuDashboard} />
         <Route path='/' component={Footer} />
+        
     </BrowserRouter>
   );
 }
