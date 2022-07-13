@@ -40,7 +40,8 @@ model Room {
 }
 
 model Sale {
-  id     Int      @id
+  id     String   @id @default(uuid()) @db.Uuid
+  receipt String  @unique
   userId String   @db.Uuid
   user   User     @relation(fields: [userId], references: [id])
   ticket Ticket[]
@@ -48,13 +49,15 @@ model Sale {
 
 model Seat {
   id     Int     @id
+  occupied Boolean
   roomId Int
   room   Room    @relation(fields: [roomId], references: [id])
   ticket Ticket?
 }
 
 model Show {
-  id      Int      @id
+  id      String   @id @default(uuid()) @db.Uuid
+  schedule String
   roomId  Int
   movieId String   @db.Uuid
   movie   Movie    @relation(fields: [movieId], references: [id])
@@ -63,14 +66,14 @@ model Show {
 }
 
 model Ticket {
-  id     Int  @id
-  seatId Int  @unique
+  id     String   @id @default(uuid()) @db.Uuid
+  seatId Int      @unique
   roomId Int
-  saleId Int
-  showId Int
+  saleId String   @db.Uuid
+  showId String   @db.Uuid
   room   Room @relation(fields: [roomId], references: [id])
-  sale   Sale @relation(fields: [saleId], references: [id])
-  seat1  Seat @relation(fields: [seatId], references: [id])
+  sale   Sale @relation(fields: [saleId],references: [id])
+  seat   Seat @relation(fields: [seatId], references: [id])
   show   Show @relation(fields: [showId], references: [id])
 }
 
