@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import './CreateMovie.module.css'
 import { useState } from "react";
+import {postMovie} from '../../Redux/actions/index';
 
 
 function validate(input){
@@ -34,22 +35,24 @@ const CreateMovie = () => {
 
 const [input, setInput] = useState({
     Title:"",
-    plot:"",
-    Language:[],
+    Plot:"",
+    Language:"",
     Director:"",
-    genre:[],
+    Genre:"",
     Actors:"",
-    Release:"",
+    Release:undefined,
     Rated:"",
-    Type:[],
-    Runtime:"",
+    Type:"",
+    Runtime:undefined,
     Poster:"",
+    Trailer:"",
 })
 
 const handleChange = (e) => {
+    console.log(e.target.name)
     setInput({
         ...input,
-        [e.target.id]: e.target.value
+        [e.target.name]: e.target.value
     })
     setErrors(validate({
         ...input,
@@ -59,12 +62,17 @@ const handleChange = (e) => {
 }
 
 
-const handleSubmit = (e) => {
+function handleSubmit(e){
     e.preventDefault();
+    console.log(input);
+    dispatch(postMovie(
+        input
+    ))
     alert('Pelicula creada');
 }
 
     return (
+        <form  onSubmit={e => handleSubmit(e)}>
         <div>
             <div className="container my-5">
                 <div className="mb-5 d-flex flex-column align-items-center justify-content-between ">
@@ -80,7 +88,7 @@ const handleSubmit = (e) => {
                         <input
                         type="text"
                         class="form-control"
-                        id="Title"
+                        name="Title"
                         placeholder=""
                         value={input.id}
                         onChange={(e) => handleChange(e)}
@@ -89,10 +97,11 @@ const handleSubmit = (e) => {
                     </div>
 
                     <div class="mb-2">
-                        <label for="plot" class="form-label">Trama: </label>
+                        <label for="Plot" class="form-label">Trama: </label>
                         <textarea
+                        type="text"
                         class="form-control"
-                        id="plot"
+                        name="Plot"
                         rows="3"
                         onChange={(e) => handleChange(e)}
                         />
@@ -106,8 +115,9 @@ const handleSubmit = (e) => {
                             <input 
                             type="text" 
                             class="form-control" 
-                            id="Language" 
+                            name="Language" 
                             placeholder="" 
+                            onChange={(e) => handleChange(e)}
                             />
                         </div>
 
@@ -116,19 +126,21 @@ const handleSubmit = (e) => {
                             <input 
                             type="text" 
                             class="form-control" 
-                            id="Director" 
+                            name="Director" 
                             placeholder="" 
                             onChange={(e) => handleChange(e)}
                             />
                             {errors.Director && (<p>{errors.Director} </p> ) }
                         </div>
+
                         <div class="col mb-2">
-                            <label for="genre" class="form-label">Género: </label>
+                            <label for="Genre" class="form-label">Género: </label>
                             <input 
                             type="text" 
                             class="form-control" 
-                            id="genre" 
+                            name="Genre" 
                             placeholder="" 
+                            onChange={(e) => handleChange(e)}
                             />
                         </div>
                     </div>
@@ -138,53 +150,73 @@ const handleSubmit = (e) => {
                         <input 
                         type="text" 
                         class="form-control" 
-                        id="Actors" 
+                        name="Actors" 
                         placeholder=""
                         onChange={(e) => handleChange(e) }
                         />
                         {errors.Actors && (<p>{errors.Actors} </p>) }
                     </div>
                     <div className="row">
+
                         <div class="col mb-2">
                             <label for="Release" class="form-label">Fecha de Estreno: </label>
                             <input 
                             type="date" 
                             class="form-control" 
-                            id="Release" 
+                            name="Release" 
                             placeholder="" 
+                            onChange={(e) => handleChange(e)}
                             />
+                            {/* <label for="Release" class="form-label">Fecha de Estreno: </label>
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            name="Release" 
+                            placeholder="" 
+                            onChange={(e) => handleChange(e)}
+                            /> */}
+
+
                         </div>
+
                         <div class="col mb-2">
                             <label for="Rated" class="form-label">Clasificación: </label>
                             <input 
                             type="text" 
                             class="form-control" 
-                            id="Rated" 
+                            name="Rated" 
                             placeholder="" 
+                            onChange={(e) => handleChange(e)}
                             />
                         </div>
+                        
                         <div class="col mb-2">
                             <label for="Type" class="form-label">Tipo (2D-3D): </label>
                             <input 
                             type="text" 
                             class="form-control" 
-                            id="Type" 
+                            name="Type" 
                             placeholder="" 
+                            onChange={(e) => handleChange(e)}
                             />
                         </div>
+
                     </div>
+
                     <div className="row">
+
                         <div class="col mb-2">
                             <label for="Runtime" class="form-label">Duración: </label>
                             <input 
-                            type="text" 
+                            type="number" 
                             class="form-control" 
-                            id="Runtime" 
+                            name="Runtime" 
                             placeholder="" 
                             onChange={(e) => handleChange(e) }
                             />
                             {errors.Runtime && (<p>{errors.Runtime} </p>) }
                         </div>
+
                         <div class="col mb-2">
                             <label for="Poster" class="form-label">Cargar Póster</label>
                             <input 
@@ -193,13 +225,37 @@ const handleSubmit = (e) => {
                             type="file" 
                             />
                         </div>
+                        {/* <div class="col mb-2">
+                            <label for="Poster" class="form-label">Cargar Póster</label>
+                            <input 
+                            class="form-control" 
+                            name="Poster" 
+                            type="text" 
+                            onChange={(e) => handleChange(e)}
+                            />
+                        </div> */}
+
+
+
+                        <div class="col mb-2">
+                            <label for="Trailer" class="form-label">Trailer</label>
+                            <input 
+                            class="form-control form-control-sm" 
+                            name="Trailer" 
+                            type="text" 
+                            onChange={(e) => handleChange(e)}
+                            />
+                        </div>
+
+
                     </div>
                     <div class="mb-2 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-warning mb-3" onClick={(e) => handleSubmit(e)}>Crear Película</button>
+                        <button type="submit" class="btn btn-warning mb-3">Crear Película</button>
                     </div>
             </div>
         </div>
     </div>
+    </form>
     );
 }
 
