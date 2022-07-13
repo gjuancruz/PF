@@ -3,7 +3,8 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const router = Router();
+const router = Router()
+
 
 function isPremier(dateMovie:string):boolean {
     let date: Date = new Date();
@@ -31,6 +32,9 @@ function isPremier(dateMovie:string):boolean {
     const condicionEstrenos = compararMes ? true : (ob1[monthDb] === ob1[m] && day) ? true : false  
     return condicionEstrenos;
 }
+
+
+// let date: Date = new Date();
 // let day = date.getDate();
 // let month = date.getMonth()
 // let year = date.getFullYear()
@@ -80,6 +84,7 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     }
 })
 
+//http://localhost:3001/movies/premieres
 router.get("/Premieres", async (_req:Request, res:Response) => {
     try {
         const movies = await prisma.movie.findMany({});
@@ -90,7 +95,44 @@ router.get("/Premieres", async (_req:Request, res:Response) => {
     }
 })
 
-// router.get("/:id", async (req:Request,res:Response) =>{
+//http://localhost:3001/movies/update/:id
+router.put("/update/:id", async (req:Request, res:Response) =>{
+    const {id} = req.params
+
+    try{
+
+        const movieUpdate = await prisma.movie.update({
+            where:{
+                id: id
+            },
+            data: req.body
+        })
+
+        res.json("pelicula actualizada con exito")
+
+    }catch(e:any){
+        res.json("no se pudo actualizar la información")
+    }
+})
+
+//http://localhost:3001/movies/delete/:id
+router.delete("/delete/:id", async (req:Request, res:Response) =>{
+    const {id} = req.params
+
+    try{
+        const movieDelete = await prisma.movie.delete({
+            where:{
+                id: id
+            }
+        })
+
+        res.json("película eliminada con éxito")
+
+    }catch(e){
+        res.json("no se pudo eliminar la pelicula")
+    }
+})
+
 //http://localhost:3001/movies/search/:id
 router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
@@ -102,41 +144,6 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
 
     }catch(e){
         res.status(404).json("no se encontró la movie")
-    }
-})
-
-http://localhost:3001/movies/:id
-router.post("/search/:id", async (req:Request,res:Response) =>{
-    const {id} = req.params
-    const body = req.body
-    try{
-        const movie : any = await prisma.movie.findUnique({
-            where:{id:id},select:{
-                id:false,
-                Title: true,
-                Plot: true,
-                Genre:true,
-                Actors: true,
-                Language: true,
-                Director: true,
-                Release: true,
-                Poster: true,
-                Rated: true,
-                Trailer: true,
-                Type: true,
-                Runtime: true
-            }
-        })
-        const comment : any = await prisma.comment.create({
-            data:{
-                Text:body.Text,
-                // @ts-ignore
-                Movie:{create:movie}
-            }
-        })
-        res.json(comment)
-    }catch(e:any){
-        res.status(404).json(e.message)
     }
 })
 
@@ -189,4 +196,4 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 
 
-export default router;
+export default router
