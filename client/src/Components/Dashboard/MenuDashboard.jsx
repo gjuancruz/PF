@@ -15,7 +15,7 @@ export default function MenuDashboard(){
         <>
         <button onClick={toggle}>pueba modal</button>
         <Modal active={active} toggle={toggle}>
-            <h4>Probando modal</h4>
+            <h4>Probando ventana modal sin estilos</h4>
         </Modal>
         <SideBar/>
         <Users/>
