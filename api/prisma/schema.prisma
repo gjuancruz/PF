@@ -14,6 +14,13 @@ model Comment {
   movie    Movie  @relation(fields: [movieId], references: [id])
 }
 
+model Feedback {
+  id       String @id @default(uuid()) @db.Uuid
+  Text     String @db.Text
+  userId   String @db.Uuid
+  user     User @relation(fields: [userId], references: [id])
+}
+
 model Movie {
   id       String @id @default(uuid()) @db.Uuid
   Title    String @db.Text
@@ -80,4 +87,5 @@ model User {
   password String @db.Char(20)
   role     Int
   sale     Sale[]
+  feedback Feedback[]
 }

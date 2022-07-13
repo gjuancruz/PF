@@ -106,40 +106,6 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
     }
 })
 
-//http://localhost:3001/movies/:id
-router.post("/search/:id", async (req:Request,res:Response) =>{
-    const {id} = req.params
-    const body = req.body
-    try{
-        const movie : any = await prisma.movie.findUnique({
-            where:{id:id},select:{
-                id:false,
-                Title: true,
-                Plot: true,
-                Genre:true,
-                Actors: true,
-                Language: true,
-                Director: true,
-                Release: true,
-                Poster: true,
-                Rated: true,
-                Trailer: true,
-                Type: true,
-                Runtime: true
-            }
-        })
-        const comment : any = await prisma.comment.create({
-            data:{
-                Text:body.Text,
-                movie:{create:movie}
-            }
-        })
-        res.json(comment)
-    }catch(e:any){
-        res.status(404).json(e.message)
-    }
-})
-
 //http://localhost:3001/movies/search?name=cars
 //http://localhost:3001/movies/search?genre=comedy
 //http://localhost:3001/movies/search?type=3d
