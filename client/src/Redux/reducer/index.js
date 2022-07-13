@@ -59,6 +59,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         carteleraFiltered: action.payload,
       };
+      case "POST_MOVIE":
+        return{
+          ...state
+        }
+
     default:
       return state;
   }

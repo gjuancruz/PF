@@ -45,6 +45,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 
         const {Title, Plot, Genre, Actors, Language, Director, Release,
                 Poster, Rated, Type, Trailer, Runtime} = req.body
+                console.log(typeof(Runtime))
         const movie = await prisma.movie.create({
             data: {
                 Title,
@@ -58,14 +59,14 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
                 Rated,
                 Type,
                 Trailer,
-                Runtime
+                Runtime: parseInt(Runtime)
         },
     })
     
     res.status(201).json(movie)
     
-    }catch(e){
-        res.status(404).json("no se pudo crear la movie")
+    }catch(e:any){
+        res.status(404).json(e.message)
     }
 
 })
