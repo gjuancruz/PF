@@ -5,6 +5,7 @@ export const SEARCH_MOVIES='SEARCH_MOVIES';
 export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
+export const POST_MOVIE="POST_MOVIE";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -84,3 +85,35 @@ export function searchMovieName(title){
         }
       }
 }
+
+export function postMovie(payload){
+ return async function(dispatch){
+  console.log(payload)
+  try {
+    const json = await axios.post('http://localhost:3001/movies/createMovie', payload);
+    console.log("prueba console.log");
+    return json
+} 
+catch (error) {
+    console.log(error)
+  }
+ } 
+}
+
+
+// export function postMovie(payload){
+//   const requestOptions = {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(payload)
+//   };
+
+//   return function (dispatch){
+//       return fetch('http://localhost:3001/movies/createMovie', requestOptions)
+//       .then(data => data.json())
+//       .then(json => {
+//           dispatch({ type: POST_MOVIE, payload: json})
+//       })
+//       .catch(err => console.log(err))
+//   }
+// }
