@@ -94,11 +94,13 @@ router.delete("/delete/:id", async (req:Request, res:Response) =>{
 
 //http://localhost:3001/movies/search/:id
 router.get("/search/:id", async (req:Request,res:Response) =>{
+
     const {id} = req.params
     try{
         const movie = await prisma.movie.findUnique({
             where:{id:id}
         })
+
         res.json(movie)
 
     }catch(e){
