@@ -1,7 +1,8 @@
 import {Router, Request, Response, NextFunction}  from 'express'
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
+import { prisma } from './index'
 
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 
 const router = Router();
 

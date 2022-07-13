@@ -75,9 +75,10 @@ model Ticket {
 }
 
 model User {
-  id       String @id @db.Uuid
-  username String @db.Char(20)
-  password String @db.Char(20)
-  role     Int
+  id       String @id @default(uuid()) @db.Uuid
+  username String @unique @db.Text
+  password String @db.Text
+  role     String @db.Text   //por defecto estaba como Int modifique a String
   sale     Sale[]
+  
 }
