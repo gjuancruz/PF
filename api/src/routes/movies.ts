@@ -1,6 +1,10 @@
 import {Router, Request, Response, NextFunction}  from 'express'
+import passport from 'passport';
+
 // import { PrismaClient } from '@prisma/client'
 import { prisma } from './index'
+
+import { checkAdminRole } from '../middlewares/auth.handler'
 
 // const prisma = new PrismaClient()
 
@@ -37,7 +41,9 @@ function isPremier(dateMovie:string):boolean {
 // let year = date.getFullYear()
 
 //http://localhost:3001/movies/createMovie
-router.post("/createMovie", async (req:Request, res:Response) =>{
+router.post("/createMovie", 
+    // passport.authenticate('local', {session: false}),
+    async (req:Request, res:Response) =>{
     try{
 
         const {Title, Plot, Genre, Actors, Language, Director, Release,
@@ -68,8 +74,10 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 })
 
 //http://localhost:3001/movies/billboard
-router.get("/billboard", async (req:Request, res:Response) =>{
-    
+router.get("/billboard", 
+    passport.authenticate('jwt', {session: false}),
+    checkAdminRole,
+    async (req:Request, res:Response) =>{
     try{
         const list = await prisma.movie.findMany({})
         const billboardMovies = list.filter( data => !isPremier(data.Release));
