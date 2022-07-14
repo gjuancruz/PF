@@ -7,11 +7,20 @@ const prisma = new PrismaClient()
 //http://localhost:3001/comments
 router.get("/", async (req:Request, res:Response) =>{
     try{
-        const movies = await prisma.movie.findMany({
-            select:{
-                Title: true,
-                comments: true,
-            }
+        const movies = await prisma.comment.findMany({
+            include:{
+                  user: {
+                    select:{
+                        username: true
+                    }
+                  },
+                  movie:{
+                    select:{
+                        Title: true,
+                        Poster: true
+                    }
+                  },
+            }    
         })
 
         res.json(movies)
@@ -21,10 +30,12 @@ router.get("/", async (req:Request, res:Response) =>{
     }
 })
 
-//http://localhost:3001/comments/add/:idMovie
-router.post("/add/:id", async (req:Request,res:Response) =>{
 
-    const {id} = req.params
+//http://localhost:3001/comments/add/:idMovie
+router.post("/add/:movieId", async (req:Request,res:Response) =>{
+
+    const {movieId} = req.params
+    const {userId} = req.query 
     const body = req.body
 
     try{
@@ -33,7 +44,12 @@ router.post("/add/:id", async (req:Request,res:Response) =>{
                 Text:body.Text,
                 movie:{
                     connect:{
-                        id:id
+                        id:movieId
+                    }
+                },
+                user:{
+                    connect:{
+                        id:Number(userId)
                     }
                 }
             }
@@ -56,47 +72,11 @@ router.delete("/delete/:id", async (req:Request, res:Response) =>{
             where:{id:id}
         })
 
-        res.json("comentario eliminado exitosamente")
+        res.json(comment)
 
     }catch(e:any){
         res.json(e.message)
     }
 })
-
-//http://localhost:3001/comments/add/:id
-// router.post("/add/:id", async (req:Request,res:Response) =>{
-
-//     const {id} = req.params
-//     const body = req.body
-//     try{
-//         const movie : any = await prisma.movie.findUnique({
-//             where:{id:id},
-//             select:{
-//                 id:false,
-//                 Title: true,
-//                 Plot: true,
-//                 Genre:true,
-//                 Actors: true,
-//                 Language: true,
-//                 Director: true,
-//                 Release: true,
-//                 Poster: true,
-//                 Rated: true,
-//                 Trailer: true,
-//                 Type: true,
-//                 Runtime: true
-//             }
-//         })
-//         const comment : any = await prisma.comment.create({
-//             data:{
-//                 Text:body.Text,
-//                 movie:{create:movie}
-//             }
-//         })
-//         res.json(comment)
-//     }catch(e:any){
-//         res.status(404).json(e.message)
-//     }
-// })
 
 export default router

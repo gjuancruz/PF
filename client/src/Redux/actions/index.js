@@ -6,6 +6,8 @@ export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
 export const POST_MOVIE="POST_MOVIE";
+export const GET_COMMENTS="GET_COMMENTS";
+export const DELETE_COMMENT="DELETE_COMMENT";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -99,6 +101,29 @@ catch (error) {
   }
  } 
 }
+
+export function getComments(){
+  return async function(dispatch){
+    var json = await axios("http://localhost:3001/comments/");
+    return dispatch ({
+      type: GET_COMMENTS,
+      payload: json.data
+    })
+  }
+}
+
+export function deleteComment(id){
+  return async function(dispatch){
+    console.log(id)
+    var json = await axios.delete(`http://localhost:3001/comments/delete/${id}`);
+    return dispatch ({
+      type: DELETE_COMMENT,
+      payload: json.data
+    })
+  }
+}
+
+
 
 
 // export function postMovie(payload){
