@@ -5,6 +5,7 @@ import {
   FILTER_GENRE,
   FILTER_TYPE,
   GET_PREMIERE,
+  GET_FEEDBACK,
 } from "../actions";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   carteleraFiltered: [],
   premiere: [],
   movieDetail: {},
+  feedback:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -59,10 +61,25 @@ function rootReducer(state = initialState, action) {
         ...state,
         carteleraFiltered: action.payload,
       };
-      case "POST_MOVIE":
+
+    case "POST_MOVIE":
         return{
           ...state
-        }
+      };
+    
+    case GET_FEEDBACK:
+      return {
+        ...state,
+        feedback: action.payload,
+      };
+
+    case "POST_FEEDBACK":
+      return{
+        ...state
+    };
+  
+
+
 
     default:
       return state;

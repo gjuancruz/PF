@@ -1,9 +1,40 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getFeedback, postFeedback } from "../../Redux/actions";
+import Feedback from "../Feedback/Feedback";
+
 
 export default function SideBar(){
+const dispatch = useDispatch()
+const feedback = useSelector((state) => state.feedback)
+console.log(feedback)
+
+useEffect(() => {
+  dispatch(getFeedback())
+},[dispatch])
+
+function handleSubmit(e){
+  e.preventDefault();
+  // console.log(input);
+
+}
+
 
     return (
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+      <div>
+        <p>prueba feedback</p>
+        {feedback?.map((f)=> { 
+          return(
+            <div>
+        <Feedback
+        Text={f.Text}
+        />
+        </div>
+          )
+      })}
+
+      <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <span class="fs-4">Dashboard</span>
     </a>
@@ -54,6 +85,8 @@ export default function SideBar(){
         <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
+  </div>
+
   </div>
     )
 }

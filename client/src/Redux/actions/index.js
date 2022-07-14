@@ -6,6 +6,7 @@ export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
 export const POST_MOVIE="POST_MOVIE";
+export const GET_FEEDBACK="GET_FEEDBACK";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -101,19 +102,29 @@ catch (error) {
 }
 
 
-// export function postMovie(payload){
-//   const requestOptions = {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(payload)
-//   };
+export function getFeedback(){
+  return async function(dispatch){
+    try {
+      const json = await axios.get('http://localhost:3001/feedback')
+      return dispatch({
+        type: GET_FEEDBACK,
+        payload: json.data
+      })
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
+}
 
-//   return function (dispatch){
-//       return fetch('http://localhost:3001/movies/createMovie', requestOptions)
-//       .then(data => data.json())
-//       .then(json => {
-//           dispatch({ type: POST_MOVIE, payload: json})
-//       })
-//       .catch(err => console.log(err))
-//   }
-// }
+export function postFeedback(idUser){
+  return async function(){
+    try {
+      const json = await axios.post('http://localhost:3001/feedback/add/' + idUser)
+      return json
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+}
