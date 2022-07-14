@@ -1,6 +1,28 @@
-.container-center {
+.contImage{
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+}
+
+.image{
+    max-width: 100%;
+    padding-top: 10px;
+}
+.containerElem{
+    display: flex;
+}
+.containerDlt{
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+}
+.deleteBtn{
+    color: firebrick;
+    max-height: 100%;
+    font-size: x-large;
+    padding-right: 6px;
+    background-color: transparent;
+    border: none;
+}
+.deleteBtn:hover{
+font-size: xx-large;
 }

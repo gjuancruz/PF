@@ -75,7 +75,11 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
-        const list = await prisma.movie.findMany({})
+        const list = await prisma.movie.findMany({
+            include:{
+                comments:true
+            }
+        })
         const billboardMovies = list.filter( data => !isPremier(data.Release));
         res.json(billboardMovies);
     
