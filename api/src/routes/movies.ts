@@ -1,5 +1,6 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
+import verifyToken from '../middlewares/middlewares';
 
 const prisma = new PrismaClient()
 
@@ -67,7 +68,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 })
 
 //http://localhost:3001/movies/billboard
-router.get("/billboard", async (req:Request, res:Response) =>{
+router.get("/billboard", [verifyToken], async (req:Request, res:Response) =>{
     
     try{
         const list = await prisma.movie.findMany({})
