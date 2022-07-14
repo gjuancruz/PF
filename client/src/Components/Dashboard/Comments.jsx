@@ -27,7 +27,7 @@ export default function Comments(){
                     </div>
                     {/* <p class="card-text col-9">With supporting</p> */}
                     <div class="col-9 py-3" style={{height: 200, overflowY:"scroll"}}>
-                    {e.comments && e.comments.map(f=>{
+                    {e.comments && e.comments.length>0 ? e.comments.map(f=>{
                         return(
                             <>
                             <div class="row">  
@@ -58,6 +58,7 @@ export default function Comments(){
                             </>
 
                         )})
+                        : <span>No hay comentarios</span>
                         
                     }
                     </div>
