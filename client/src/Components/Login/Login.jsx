@@ -1,18 +1,32 @@
 import React from "react";
 import { useState } from "react";
 import styles from './Login.module.css';
+import axios from "axios";
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSubmit = (event) =>{
+    const handleSubmit = async(event) =>{
         event.preventDefault()
+        const { data } = await axios.post('http://localhost:3001/user/login',
+            {
+                "email": "user1@mail.com",
+                "password": "user@123"
+            }
+            // {
+            //     headers: {
+            //         Authorization: 'Bearer '
+            //     }
+            // }
+        );
+        console.log(data);
     }
+    console.log(email , password);
     return (
         <div className="container">
-            <form className={styles.formLogin}>
+            <form className={styles.formLogin} onSubmit={handleSubmit}>
                 <h1 className="h3 mb-3 font-weight-normal">Log In</h1>
                 <label for="inputEmail" className="sr-only">Email de Usuario</label>
                 <input type="email" id="inputEmail" className="form-control mb-2" placeholder="Email address" required="" autofocus="" value={email} onChange={(event) => setEmail(event.target.value)}/>

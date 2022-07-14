@@ -4,14 +4,17 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import { prisma } from './index'
-import { checkApiKey } from '../middlewares/auth.handler'
+import { checkUserRole } from '../middlewares/auth.handler'
 import config from '../../lib/config'
 // import {Movie} from '../models/Movie';
 // import {sequelize} from '../db'
 
 const router = Router();
 
-router.get('/', checkApiKey, (req: Request, res: Response) => {
+router.get('/', 
+    passport.authenticate('jwt', {session: false}),
+    checkUserRole , 
+    (req: Request, res: Response) => {
     try {
         res.send('soy la ruta get!');
     } catch (error) {
