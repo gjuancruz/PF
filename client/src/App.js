@@ -13,8 +13,8 @@ import CreateFeedback from './Components/CreateFeedback/PostFeedback';
 function App() {
   return (
     <BrowserRouter>
-        <Route exact path='/login' component={Login} />
         <Route path='/' component={NavBar} />
+        <Route exact path='/login' component={Login} />
         <Route exact path='/' component={Home} />
         <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route exact path= '/create' component={CreateMovie} />
