@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Feedback from "../Feedback/Feedback";
 import Comments from "./Comments";
 import Users from "./Users";
+import Movies from "./Movies";
 
 
 
@@ -13,6 +14,7 @@ export default function MenuDashboard(){
         if (component=== 'usuarios') return (<Users/>)
         if (component === 'comentarios') return (<Comments/>)
         if (component === "feedback" ) return (<Feedback/>)
+        if (component === 'movies') return (<Movies/>)
     }
 
     return (
@@ -27,7 +29,7 @@ export default function MenuDashboard(){
           <hr/>
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("peliculas")}>
+              <a href="#" class="nav-link text-white" onClick={e=>setComponent("movies")}>
                 Peliculas
               </a>
             </li>
