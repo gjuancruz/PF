@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Feedback from "../Feedback/Feedback";
 import Comments from "./Comments";
 import Users from "./Users";
 
@@ -11,6 +12,7 @@ export default function MenuDashboard(){
     const handleSideBar= ()=>{
         if (component=== 'usuarios') return (<Users/>)
         if (component === 'comentarios') return (<Comments/>)
+        if (component === "feedback" ) return (<Feedback/>)
     }
 
     return (
@@ -50,7 +52,7 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
-             <a href="#" class="nav-link text-white">
+             <a href="#" class="nav-link text-white" onClick={e=>setComponent("feedback")} > 
                 Feedback
               </a>
             </li>
