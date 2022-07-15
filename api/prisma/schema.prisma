@@ -16,7 +16,7 @@ model Comment {
 
 model Movie {
   id       String @id @default(uuid()) @db.Uuid
-  Title    String @db.Text
+  Title    String @db.Text @unique
   Plot     String @db.Text
   Genre    String @db.Text
   Actors   String @db.Text
