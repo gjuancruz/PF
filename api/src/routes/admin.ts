@@ -36,8 +36,8 @@ router.post("/createUser", async (req:Request, res:Response) =>{
     
     res.status(201).json(createUser)
     
-    }catch(e){
-        res.status(404).json("no se pudo crear el user")
+    }catch(e:any){
+        res.status(404).json(e.message)
     }
 })
 

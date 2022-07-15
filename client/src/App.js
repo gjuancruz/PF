@@ -19,14 +19,13 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route exact path= '/create' component={CreateMovie} />
-        {/* <Route path='/admin' component={MenuDashboard} />           */}
-        <Route path='/admin' component={SideBar} />          
+        <Route path='/menu' component={MenuDashboard} />          
+        <Route path='/admin' component={SideBar} />     
         <Route exact path="/admin/comments" component={Comments} />
         <Route exact path="/admin/feedbacks" component= {Feedback}/>
         <Route path="/feedback/:id" component={CreateFeedback}/>
         <Route path='/' component={Footer} />
 
-        
     </BrowserRouter>
   );
 }
