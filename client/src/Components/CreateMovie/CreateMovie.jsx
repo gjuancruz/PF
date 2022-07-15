@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { postMovie } from "../../Redux/actions"
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -48,8 +48,12 @@ export default function CreateMovie() {
     return values.Genre = values.Genre.filter(g=>g!==name)
 }
 
+const checkToken = window.localStorage.getItem(('sw-token'));
+
+
     return (
-        <Formik 
+      
+          (<Formik 
             initialValues={{
                 Title:"",
                 Plot:"",
@@ -244,7 +248,7 @@ export default function CreateMovie() {
               </div>
             </Form>
           )}
-        </Formik>
+        </Formik>)
     );
 };
 

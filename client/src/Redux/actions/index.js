@@ -13,7 +13,11 @@ export const DELETE_COMMENT="DELETE_COMMENT";
 
 export function getBillboard() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/movies/billboard");
+    var json = await axios.get("http://localhost:3001/movies/billboard", {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    });
     return dispatch({
       type: GET_BILLBOARD,
       payload: json.data,
@@ -90,19 +94,38 @@ export function searchMovieName(title){
       }
 }
 
-export function postMovie(payload){
- return async function(dispatch){
-  console.log(payload)
-  try {
-    const json = await axios.post('http://localhost:3001/movies/createMovie', payload);
-    console.log("prueba console.log");
-    return json
-} 
-catch (error) {
-    console.log(error)
-  }
- } 
+export function login (email,password) {
+  return async function (dispatch) {
+  const getLogin = await axios.get(`http://localhost:3001/auth/login`)
+  const getToken = await getLogin.data;
+
+  window.localStorage.setItem('token', getToken.token)
+    return dispatch({
+      
+    })
+  } 
 }
+export function postMovie(payload){
+  return async function(dispatch){
+   const logged = await axios.get('http://localhost:3001/auth/verify', {
+     headers : {
+       Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+     }
+   })
+   console.log('aca toi')
+     try {
+      
+       await axios.post('http://localhost:3001/movies/createMovie', payload, {
+        headers : {
+          Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+        }
+      });
+  
+     } catch (error) {
+       console.log(error)
+   }
+   }
+  }
 
 export function getComments(){
   return async function(dispatch){
