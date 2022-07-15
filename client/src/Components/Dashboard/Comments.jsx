@@ -12,7 +12,7 @@ export default function Comments(){
 
     useEffect(() =>{
         dispatch(getBillboard())
-    },[])
+    },[dispatch])
 
     return(
         <div class="bg-dark p-5 m-5 text-white row">

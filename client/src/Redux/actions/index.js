@@ -124,9 +124,6 @@ export function deleteComment(id){
   }
 }
 
-
-
-
 export function getFeedback(){
   return async function(dispatch){
     try {
@@ -142,10 +139,10 @@ export function getFeedback(){
   }
 }
 
-export function postFeedback(idUser){
+export function postFeedback([idUser, input]){
   return async function(){
     try {
-      const json = await axios.post('http://localhost:3001/feedback/add/' + idUser)
+      const json = await axios.post(`http://localhost:3001/feedback/add/${idUser}`, input)
       return json
     } 
     catch (error) {
