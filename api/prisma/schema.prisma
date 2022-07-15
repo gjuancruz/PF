@@ -43,6 +43,7 @@ model Movie {
 
 model Room {
   id     Int      @id
+  type   String
   seat   Seat[]
   show   Show[]
   ticket Ticket[]
