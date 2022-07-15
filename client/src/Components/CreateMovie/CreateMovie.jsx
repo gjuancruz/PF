@@ -4,7 +4,6 @@ import { postMovie } from "../../Redux/actions"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // import demo from "../../assets/demo.png";
  import styles from'./CreateMovie.module.css'
-import verifyToken from "../../../../api/src/middlewares/middlewares";
 
 export default function CreateMovie() {
     const dispatch = useDispatch()
@@ -54,8 +53,6 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
     return (
       
-        {
-         checkToken.length !== 0 ?  
           (<Formik 
             initialValues={{
                 Title:"",
@@ -252,9 +249,6 @@ const checkToken = window.localStorage.getItem(('sw-token'));
             </Form>
           )}
         </Formik>)
-      :
-      <h1>Loggeate maestro</h1>
-      }
     );
 };
 
