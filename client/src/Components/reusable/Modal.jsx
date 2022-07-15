@@ -32,11 +32,11 @@ const styles = {
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     window: {
         position: 'relative',
-        background: '#fff',
+        background: 'black',
         borderRadius: 5,
         padding: 15,
         boxShadow: '2px 2px 10px rgba(0,0,0,0.3)',
