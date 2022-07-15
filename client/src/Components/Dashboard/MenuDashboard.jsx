@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Feedback from "../Feedback/Feedback";
+import Feedback from "./Feedback";
 import Comments from "./Comments";
 import Users from "./Users";
 import Movies from "./Movies";
