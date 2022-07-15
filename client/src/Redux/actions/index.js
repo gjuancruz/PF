@@ -8,7 +8,11 @@ export const GET_PREMIERE="GET_PREMIERE";
 
 export function getBillboard() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/movies/billboard");
+    var json = await axios.get("http://localhost:3001/movies/billboard", {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    });
     return dispatch({
       type: GET_BILLBOARD,
       payload: json.data,
@@ -83,4 +87,16 @@ export function searchMovieName(title){
           })
         }
       }
+}
+
+export function login (email,password) {
+  return async function (dispatch) {
+  const getLogin = await axios.get(`http://localhost:3001/auth/login`)
+  const getToken = await getLogin.data;
+
+  window.localStorage.setItem('token', getToken.token)
+    return dispatch({
+      
+    })
+  } 
 }

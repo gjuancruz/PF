@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const verifyToken = async (req:Request, res:Response, next:NextFunction) => {
     try {
-        const headerToken:any = req.headers['authorization'];
+        const headerToken:any = req.headers.authorization;
         if ( !headerToken ) {
             return res.status(401).send({ error: 'No token provided' });
         }
