@@ -7,7 +7,7 @@ import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home';
 import CreateMovie from './Components/CreateMovie/CreateMovie';
 import MenuDashboard from './Components/Dashboard/MenuDashboard';
-import CreateFeedback from './Components/Feedback/PostFeedback';
+import CreateFeedback from './Components/CreateFeedback/PostFeedback';
 
 function App() {
   return (
