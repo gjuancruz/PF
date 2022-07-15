@@ -1,33 +1,26 @@
 import React, {useState} from "react";
 import Comments from "./Comments";
-import SideBar from "./SideBar";
-import Modal from "../reusable/Modal"
 import Users from "./Users";
-import styles from "./MenuDashboard.module.css";
+
 
 
 export default function MenuDashboard(){
-    // const [active, setActive] = useState(false);
-    // const toggle = ()=>{
-    //   setActive(!active);
-    // }
-    const [component,setComponent] = useState("e")
+  
+    const [component,setComponent] = useState("")
+
     const handleSideBar= ()=>{
+        if (component=== 'usuarios') return (<Users/>)
+        if (component === 'comentarios') return (<Comments/>)
     }
 
     return (
-        // <div class="row bg-dark">          
-        //     <div class="col-sm-4"> <SideBar/> </div>
-        //     <div class="col-sm-8"> <Comments/> </div>
-        // </div>
+        <div class="container-fluid" > 
+        <div class="row">   
+      <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
     
-        
-        <div class="row bg-dark" className={styles.menuDashboard}>    
-      <div class="col-sm-4">
-    
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+        <div class="position-sticky pt-3">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <span class="fs-4">Dashboard</span>
+            <span class="h2">Dashboard</span>
           </a>
           <hr/>
           <ul class="nav nav-pills flex-column mb-auto">
@@ -47,17 +40,17 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="#" class="nav-link text-white" onClick={e=>setComponent("usuarios")}>
                 Usuarios Registrados
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("comments")}>
+              <a href="#" class="nav-link text-white" onClick={e=>setComponent("comentarios")}>
                 Administrar comentarios
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+             <a href="#" class="nav-link text-white">
                 Feedback
               </a>
             </li>
@@ -77,22 +70,9 @@ export default function MenuDashboard(){
           </ul>
         </div>
         </div>
-
-      </div>
-      {/* <div class="col-sm-8"> 
-        {component==="comments" ?<Comments/> :null}
-      </div> */}
-        <div>
-
-        <Users/>
+      </nav>
+       {handleSideBar()}
         </div>
-        
         </div>
-
     )
 }
-
-{/* <button onClick={toggle}>pueba modal</button>
-        <Modal active={active} toggle={toggle}>
-            <h4>Probando ventana modal sin estilos</h4>
-        </Modal> */}
