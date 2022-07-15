@@ -6,7 +6,8 @@ import {
   FILTER_TYPE,
   GET_PREMIERE,
   GET_COMMENTS,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  GET_USERS
 } from "../actions";
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   carteleraFiltered: [],
   premiere: [],
   movieDetail: {},
-  comments:[]
+  comments:[],
+  usuarios:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -74,6 +76,11 @@ function rootReducer(state = initialState, action) {
       case DELETE_COMMENT:
         return{
           ...state,
+        }
+      case GET_USERS:
+        return {
+          ...state,
+          usuarios: action.payload
         }
 
     default:

@@ -1,4 +1,5 @@
 import axios from "axios";
+export const GET_USERS = "GET_USERS"
 export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
 export const GET_BILLBOARD = "GET_BILLBOARD";
 export const SEARCH_MOVIES='SEARCH_MOVIES';
@@ -123,8 +124,14 @@ export function deleteComment(id){
   }
 }
 
+////////RUTAS CRUD USUARIOS///////////
 
-
+export function getUsers(){
+  return async function(dispatch){
+    var get_Usuarios = await axios.get("http://localhost:3001/admin");
+    return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
+  }
+}
 
 // export function postMovie(payload){
 //   const requestOptions = {
