@@ -52,6 +52,10 @@ h3{
 a{
     text-decoration: none;
 }
+
+a:hover{
+    text-decoration: none;
+}
 h1:hover{
     text-decoration: none;
     color: gray;

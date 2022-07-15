@@ -7,6 +7,7 @@ export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
 export const POST_MOVIE="POST_MOVIE";
+export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
 
@@ -124,6 +125,32 @@ export function deleteComment(id){
   }
 }
 
+export function getFeedback(){
+  return async function(dispatch){
+    try {
+      const json = await axios.get('http://localhost:3001/feedback')
+      return dispatch({
+        type: GET_FEEDBACK,
+        payload: json.data
+      })
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export function postFeedback([idUser, input]){
+  return async function(){
+    try {
+      const json = await axios.post(`http://localhost:3001/feedback/add/${idUser}`, input)
+      return json
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+}
 ////////RUTAS CRUD USUARIOS///////////
 
 export function getUsers(){
