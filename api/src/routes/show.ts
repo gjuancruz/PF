@@ -8,16 +8,15 @@ const router = Router();
 
 router.post("/createRoom", async (req:Request, res:Response) =>{
 
-    const {type} = req.body
+    const {types} = req.body
     try{
-        let newRoom : Prisma.RoomCreateInput 
-        // newRoom = {type:type}
-        // const room = await prisma.room.create({
-            // data:  newRoom
+        
+        const room = await prisma.room.create({
+            data:  types
             
-        // })
+        })
 
-        // res.status(201).json(room)
+        res.status(201).json(room)
 
     }catch(e:any){
         res.json(e.message)

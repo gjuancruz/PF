@@ -34,18 +34,13 @@ function isPremier(dateMovie:string):boolean {
 }
 
 
-// let date: Date = new Date();
-// let day = date.getDate();
-// let month = date.getMonth()
-// let year = date.getFullYear()
-
 //http://localhost:3001/movies/createMovie
 router.post("/createMovie", async (req:Request, res:Response) =>{
     try{
 
         const {Title, Plot, Genre, Actors, Language, Director, Release,
                 Poster, Rated, Type, Trailer, Runtime} = req.body
-                console.log(typeof(Runtime))
+
         const movie = await prisma.movie.create({
             data: {
                 Title,
@@ -60,10 +55,10 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
                 Type,
                 Trailer,
                 Runtime: parseInt(Runtime)
-        },
-    })
+            },
+        })
     
-    res.status(201).json(movie)
+        res.status(201).json(movie)
     
     }catch(e:any){
         res.status(404).json(e.message)
