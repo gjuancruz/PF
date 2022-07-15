@@ -75,4 +75,17 @@ router.post('/login', async (req:Request, res:Response) => {
     }
 });
 
+router.get('/verify',[verifyToken], async (req:Request, res:Response) => {
+    try {
+        res.json({
+            check: true
+        })
+    } catch (error) {
+        res.json({
+            check: false
+        })
+    }
+}
+)
+
 export default router;

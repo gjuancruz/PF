@@ -62,13 +62,14 @@ router.post("/createMovie" , [verifyToken], async (req:Request, res:Response) =>
         res.status(201).json(movie)
     
     }catch(e:any){
+        console.log(e, 'soy el catch')
         res.status(404).json(e.message)
     }
 
 })
 
 //http://localhost:3001/movies/billboard
-router.get("/billboard", async (req:Request, res:Response) =>{
+router.get("/billboard", [verifyToken], async (req:Request, res:Response) =>{
     
     try{
         const list = await prisma.movie.findMany({
