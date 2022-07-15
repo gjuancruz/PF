@@ -1,6 +1,7 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
 import Stripe from "stripe";
+import { showGenerator } from '../..';
 
 const prisma = new PrismaClient()
 
@@ -127,11 +128,12 @@ router.post("/search/:id", async (req:Request,res:Response) =>{
                 Runtime: true
             }
         })
+        console.log(movie)
         const comment : any = await prisma.comment.create({
             data:{
                 Text:body.Text,
                 // @ts-ignore
-                Movie:{create:movie}
+                movie:{create:movie}
             }
         })
         res.json(comment)
@@ -193,7 +195,11 @@ router.post("/checkout",async(req:Request,res:Response)=>{
     const {ticket,amount} = req.body
     console.log(ticket)
     const stripe = new Stripe("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ",{apiVersion:"2020-08-27"})
-
+    const data:any={
+        username:"Ignacio Brunello",
+        password:"1234",
+        role:1
+    }
     try{
         const payment = await stripe.paymentIntents.create({
             amount,
@@ -201,7 +207,10 @@ router.post("/checkout",async(req:Request,res:Response)=>{
             currency:"USD",
             confirm:true,
         })
-
+        const sale = await prisma.sale.create({data:{
+            receipt:ticket,
+            user:{create:data}
+        }})
         console.log(payment)
 
         res.send("Payment received")
@@ -210,5 +219,17 @@ router.post("/checkout",async(req:Request,res:Response)=>{
     }
 })
 
+router.post("/show",async(req:Request,res:Response)=>{
+    const show = req.body
+    try{
+        const data = await showGenerator(show)
+        const shows = await prisma.show.createMany({
+            data
+        }) 
+        res.status(200).send("Lista de shows generada")
+    }catch(error:any){
+        res.send(error.message)
+    }
+})
 
 export default router;
