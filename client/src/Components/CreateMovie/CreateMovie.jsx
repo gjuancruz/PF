@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { postMovie } from "../../Redux/actions"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // import demo from "../../assets/demo.png";
  import styles from'./CreateMovie.module.css'
+import verifyToken from "../../../../api/src/middlewares/middlewares";
 
 export default function CreateMovie() {
     const dispatch = useDispatch()
@@ -48,8 +49,14 @@ export default function CreateMovie() {
     return values.Genre = values.Genre.filter(g=>g!==name)
 }
 
+const checkToken = window.localStorage.getItem(('sw-token'));
+
+
     return (
-        <Formik 
+      
+        {
+         checkToken.length !== 0 ?  
+          (<Formik 
             initialValues={{
                 Title:"",
                 Plot:"",
@@ -244,7 +251,10 @@ export default function CreateMovie() {
               </div>
             </Form>
           )}
-        </Formik>
+        </Formik>)
+      :
+      <h1>Loggeate maestro</h1>
+      }
     );
 };
 

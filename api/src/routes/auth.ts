@@ -11,7 +11,7 @@ const router = Router();
 
 router.post('/register' , async (req:Request, res:Response) => {
     try {
-        const { email, password, role } = req.body;
+        const { email, password, role, username } = req.body;
         //Lets hash the password
         const hashedPassword = await bcrypt.hash(
             password,
@@ -19,17 +19,17 @@ router.post('/register' , async (req:Request, res:Response) => {
           );
         const user = await prisma.user.findUnique({
             // @ts-ignore 
-            where: { username: email }
+            where: { email: email }
         })
     
         if ( user ) {
-            res.status(400).send({ error: 'User already exists' });
+            return res.status(400).send({ error: 'User already exists' });
         }
     
         //Adding user to database
         const newUser = await prisma.user.create({
             // @ts-ignore
-            data: { username: email,password: hashedPassword, role: role }
+            data: { username: username , email: email ,password: hashedPassword, role: role }
         });
         
         return res.status(201).json({ ok: 'Usuario creado !'})
@@ -51,7 +51,7 @@ router.post('/login', async (req:Request, res:Response) => {
         //Second we fidn out if that email exists in our database.
         const user = await prisma.user.findUnique({
             // @ts-ignore
-            where: { username: email }
+            where: { email: email }
         });
 
         if( !user ) {

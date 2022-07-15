@@ -36,7 +36,7 @@ function isPremier(dateMovie:string):boolean {
 
 
 //http://localhost:3001/movies/createMovie
-router.post("/createMovie", async (req:Request, res:Response) =>{
+router.post("/createMovie" , [verifyToken], async (req:Request, res:Response) =>{
     try{
 
         const {Title, Plot, Genre, Actors, Language, Director, Release,
@@ -68,7 +68,7 @@ router.post("/createMovie", async (req:Request, res:Response) =>{
 })
 
 //http://localhost:3001/movies/billboard
-router.get("/billboard", [verifyToken], async (req:Request, res:Response) =>{
+router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
         const list = await prisma.movie.findMany({
