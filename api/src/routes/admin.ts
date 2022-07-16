@@ -44,11 +44,17 @@ router.post("/createUser", async (req:Request, res:Response) =>{
 //http://localhost:3001/admin/updateUser
 router.put("/updateUser", async (req:Request, res:Response) =>{
     try{
-        const {username, email, role} = req.body;
+        const {username, email, role, id} = req.body;
         
-        const updateUser = await prisma.user.update({
-            where: {email: `${email}`},
-            data: {username: `${username}`,role: role}
+        const updateUser = await prisma.user.updateMany({
+            where: {
+                id: id
+              },
+              data: {
+                username:`${username}`,
+                email:`${email}`,
+                role: role,
+              },
     })
     
     res.status(201).json(updateUser)
@@ -72,6 +78,32 @@ router.delete("/deleteUser", async (req:Request, res:Response) =>{
     }catch(e:any){
         res.status(404).json(e.message)
     }
+})
+
+//http://localhost:3001/admin/searchUser?name=jose
+router.get('/searchUser', async (req: Request, res:Response) =>{
+    const {name} = req.query;
+    try {
+        if(name){
+            const seachName = await prisma.user.findMany({
+                where: {
+                    username: {
+                        contains: `${name}`,
+                        mode: 'insensitive'
+                    },
+                    email: {
+                        contains: `${name}`,
+                        mode: 'insensitive'
+                    }
+                }
+            })
+            res.json(seachName)
+        }
+        
+    } catch (error) {
+        res.status(404).json("no se encontro peli con ese nombre")
+    }
+   
 })
 
 export default router;

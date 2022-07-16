@@ -1,5 +1,5 @@
 import axios from "axios";
-export const GET_USERS = "GET_USERS"
+export const GET_USERS = "GET_USERS";
 export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
 export const GET_BILLBOARD = "GET_BILLBOARD";
 export const SEARCH_MOVIES='SEARCH_MOVIES';
@@ -9,6 +9,8 @@ export const GET_PREMIERE="GET_PREMIERE";
 export const POST_MOVIE="POST_MOVIE";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const SEARCH_USER="SEARCH_USER";
+export const DELETE_USER="DELETE_USER";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -124,12 +126,44 @@ export function deleteComment(id){
   }
 }
 
-////////RUTAS CRUD USUARIOS///////////
+////////RUTAS CRUD y search USUARIOS///////////
 
 export function getUsers(){
   return async function(dispatch){
     var get_Usuarios = await axios.get("http://localhost:3001/admin");
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
+  }
+}
+export function searchUser(name){
+  return async function (dispatch) {
+      try {
+        var search = await axios.get(`http://localhost:3001/admin/searchUser?name=${name}`)
+        return dispatch({
+          type: SEARCH_USER,
+          payload: search.data
+        })
+      } catch (error) {
+        dispatch({
+          type: SEARCH_USER,
+          payload: []
+        })
+      }
+    }
+}
+
+export function deleteUser(email){
+  return async function(dispatch){
+    console.log(email)
+    var userDelete = await axios.delete("http://localhost:3001/admin/deleteUser",email);
+    return userDelete
+  }
+}
+
+export function updateUser(data){
+  return async function(dispatch){
+    console.log(data)
+    var updateDelete = await axios.put("http://localhost:3001/admin/updateUser",data);
+    return updateDelete
   }
 }
 

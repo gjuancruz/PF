@@ -7,7 +7,9 @@ import {
   GET_PREMIERE,
   GET_COMMENTS,
   DELETE_COMMENT,
-  GET_USERS
+  GET_USERS,
+  SEARCH_USER,
+  DELETE_USER
 } from "../actions";
 
 const initialState = {
@@ -82,7 +84,15 @@ function rootReducer(state = initialState, action) {
           ...state,
           usuarios: action.payload
         }
-
+      case SEARCH_USER:
+        return {
+          ...state,
+          usuarios: action.payload
+        }
+      case DELETE_USER:
+        return {
+          ...state,
+        }
     default:
       return state;
   }

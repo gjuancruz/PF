@@ -21,8 +21,7 @@ function App() {
         <Route path='/menu' component={MenuDashboard} />          
         <Route path='/admin' component={SideBar} />     
         <Route exact path="/admin/comments" component={Comments} />
-        <Route path='/' component={Footer} />
-
+        <Route path='/' component={Footer}/>
     </BrowserRouter>
   );
 }

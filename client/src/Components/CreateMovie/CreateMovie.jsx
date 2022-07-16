@@ -68,7 +68,7 @@ export default function CreateMovie() {
             validate={(val) => {
                 let errors = {};
                 if(!val.Title) {errors.Title = "Por favor ingresa un titulo *"}
-                else if(!/^[a-zA-Z ]*$/.test(val.Title)) {errors.Title = "Solo se aceptan letras y espacios *"}
+                else if(!/^[A-Za-z0-9:\s]+$/.test(val.Title)) {errors.Title = "Caracter/es ingresados no validos *"}
 
                 if(!val.Plot) {errors.Plot = "Por favor ingresa la trama *"}
                 else if(!/^[A-Za-z0-9\s]+$/.test(val.Plot)) {errors.Plot = "Solo se aceptan letras, numeros y espacios *"}
@@ -180,7 +180,7 @@ export default function CreateMovie() {
                         <label class="form-label" htmlFor="Release">
                         Fecha de Estreno: <ErrorMessage name="Release" component={() => (<small style={{color:"red"}}>{errors.Release}</small>)}/>
                         </label>
-                        <Field class="form-control" type="date" id="Release" name="Release" onBlur/>
+                        <Field class="form-control" type="date" id="Release" name="Release" value="2022-07-15" onBlur/>
                     </div>
 
                     <div class="col mb-2">

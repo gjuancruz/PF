@@ -25,32 +25,32 @@ export default function MenuDashboard(){
           <hr/>
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("peliculas")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("movies")}>
                 Peliculas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="#" class="btn btn-outline-warning border-0 text-white">
                 Funciones de peliculas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="#" class="btn btn-outline-warning border-0 text-white">
                 Balance de ventas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("usuarios")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("usuarios")}>
                 Usuarios Registrados
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("comentarios")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("comentarios")}>
                 Administrar comentarios
               </a>
             </li>
             <li>
-             <a href="#" class="nav-link text-white">
+             <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("feedback")} > 
                 Feedback
               </a>
             </li>
@@ -76,3 +76,12 @@ export default function MenuDashboard(){
         </div>
     )
 }
+
+
+{/* <li class="nav-item">
+                <button class="btn-outline-warning border-0 p-0 btn-lg text-white">
+                <a href="#" class="nav-link text-white">
+                Administrar Comentarios
+                </a>
+                </button>
+            </li> */}
