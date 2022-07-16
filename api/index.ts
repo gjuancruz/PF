@@ -73,9 +73,9 @@ app.listen(3001, async () => {
       create:{id:i,roomId:1,occupied:false}
    })
   }
-  const movie : any = await prisma.movie.findMany({where:{id!:undefined}})
+//   const movie : any = await prisma.movie.findMany({where:{id!:undefined}})
 
-  const room : any= await prisma.room.findMany({where:{id!:undefined},select:{id:true}})
+//   const room : any= await prisma.room.findMany({where:{id!:undefined},select:{id:true}})
 
 //   var data = await room.map((e:any)=>{
 //    return{
