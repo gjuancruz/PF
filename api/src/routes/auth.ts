@@ -9,7 +9,7 @@ import  verifyToken  from '../middlewares/middlewares';
 const prisma = new PrismaClient()
 const router = Router();
 
-router.post('/register' , async (req:Request, res:Response) => {
+router.post('/register', async (req:Request, res:Response) => {
     try {
         const { email, password, role, username } = req.body;
         //Lets hash the password
@@ -74,5 +74,18 @@ router.post('/login', async (req:Request, res:Response) => {
         return res.status(400).send('Error al iniciar sesión');
     }
 });
+
+router.get('/acceder', [verifyToken], async (req:Request, res:Response) => {
+    try {
+        res.send({
+            permitir: true
+        })
+    } catch (error) {
+        res.status(403).send({
+            permitir: false
+        })
+    }
+});
+
 
 export default router;

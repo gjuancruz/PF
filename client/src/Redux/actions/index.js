@@ -10,6 +10,7 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const AUTORIZADO = 'AUTORIZADO';
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -105,11 +106,31 @@ export function login (email,password) {
     })
   } 
 }
+
+export function autorizado () {
+  return async function (dispatch) {
+    const permiso = await axios.get("http://localhost:3001/auth/acceder", {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    })  
+    return dispatch({
+      type: AUTORIZADO,
+      payload: permiso.data.permitir
+    })
+  } 
+}
+
 export function postMovie(payload){
  return async function(dispatch){
   console.log(payload)
   try {
-    const json = await axios.post('http://localhost:3001/movies/createMovie', payload);
+    const Authorization = {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    }
+    const json = await axios.post('http://localhost:3001/movies/createMovie', payload, Authorization);
     console.log("prueba console.log");
     return json
 } 

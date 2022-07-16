@@ -18,7 +18,8 @@ const verifyToken = async (req:Request, res:Response, next:NextFunction) => {
             // @ts ignore
             // req.user_id = decoded.user_id;
             console.log(decoded)
-            return true;
+            // return true;
+            next();
         } catch (error) {
             console.log(error);
             return res.status(401).send({ error: 'Invalid token' });
