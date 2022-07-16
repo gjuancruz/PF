@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import { postMovie } from "../../Redux/actions"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // import demo from "../../assets/demo.png";
- import styles from'./CreateMovie.module.css'
+ import styles from'../CreateMovie/CreateMovie.module.css'
 
-export default function CreateMovie() {
+export default function CreateMovie({data}) {
     const dispatch = useDispatch()
 
     const clasificaciones = ['+13','+16','+18','ATP']
@@ -20,12 +20,9 @@ export default function CreateMovie() {
     
     data.append('file', files[0]);
     data.append('upload_preset', 'magqqp6o');
-    console.log(data)
     setLoading(true);
     const res = await fetch("https://api.cloudinary.com/v1_1/henrysecurityapp/image/upload", { method: "POST", body: data })
     const file = await res.json();
-    
-    console.log(file)
     
         setImage(file.secure_url);
         setLoading(false)
@@ -48,25 +45,21 @@ export default function CreateMovie() {
     return values.Genre = values.Genre.filter(g=>g!==name)
 }
 
-const checkToken = window.localStorage.getItem(('sw-token'));
-
-
     return (
-          
-          (<Formik 
+        <Formik 
             initialValues={{
-                Title:"",
-                Plot:"",
-                Language:"",
-                Director:"",
-                Genre:[],
-                Actors:"",
-                Release:"",
-                Rated:"",
-                Type:"",
-                Runtime:undefined,
+                Title: data.Title,
+                Plot: data.Plot,
+                Language: data.Language,
+                Director: data.Director,
+                Genre: data.Genre.split(),
+                Actors: data.Actors,
+                Release: "2022-07-21",
+                Rated: data.Rated,
+                Type: data.Type,
+                Runtime: data.Runtime,
                 Poster:"",
-                Trailer:"",
+                Trailer: data.Trailer,
             }}
 
             validate={(val) => {
@@ -115,7 +108,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
           {( {errors, values, setFieldValue} ) => (
             <Form className="container my-5">
-              {/* {console.log(values)} */}
+              {console.log(values)}
               <div class="form-group">
                 <div class="mb-3">
                   <label class="form-label" htmlFor="Title">
@@ -248,7 +241,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
               </div>
             </Form>
           )}
-        </Formik>)
+        </Formik>
     );
 };
 

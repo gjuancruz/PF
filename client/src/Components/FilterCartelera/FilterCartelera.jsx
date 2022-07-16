@@ -31,13 +31,13 @@ export default function FilterCartelera () {
                 Filtro por Género
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item"><option value="All" onClick={(e) => handleSelectGenre(e)}>All</option></a></li>
-                <li><a class="dropdown-item"><option value="Animation" onClick={(e) => handleSelectGenre(e)}>Animation</option></a></li>
-                <li><a class="dropdown-item"><option value="Adventure" onClick={(e) => handleSelectGenre(e)}>Adventure</option></a></li>
-                <li><a class="dropdown-item"><option value="Comedy" onClick={(e) => handleSelectGenre(e)}>Comedy</option></a></li>
-                <li><a class="dropdown-item"><option value="Action" onClick={(e) => handleSelectGenre(e)}>Action</option></a></li>
-                <li><a class="dropdown-item"><option value="Fantasy" onClick={(e) => handleSelectGenre(e)}>Fantasy</option></a></li>
-                <li><a class="dropdown-item"><option value="Sci-Fi" onClick={(e) => handleSelectGenre(e)}>Sci-Fi</option></a></li>
+                <li><a class="dropdown-item"><option value="All" onClick={(e) => handleSelectGenre(e)}>Todos</option></a></li>
+                <li><a class="dropdown-item"><option value="Animation" onClick={(e) => handleSelectGenre(e)}>Animación</option></a></li>
+                <li><a class="dropdown-item"><option value="Adventure" onClick={(e) => handleSelectGenre(e)}>Aventura</option></a></li>
+                <li><a class="dropdown-item"><option value="Comedy" onClick={(e) => handleSelectGenre(e)}>Comedia</option></a></li>
+                <li><a class="dropdown-item"><option value="Action" onClick={(e) => handleSelectGenre(e)}>Acción</option></a></li>
+                <li><a class="dropdown-item"><option value="Fantasy" onClick={(e) => handleSelectGenre(e)}>Fantasía</option></a></li>
+                <li><a class="dropdown-item"><option value="Sci-Fi" onClick={(e) => handleSelectGenre(e)}>Ciencia-Ficcion</option></a></li>
                 <li><a class="dropdown-item"><option value="Drama" onClick={(e) => handleSelectGenre(e)}>Drama</option></a></li>
               </ul>
             </div> 
@@ -47,7 +47,7 @@ export default function FilterCartelera () {
                 Filtro por Tipo 
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item"><option value="All" onClick={(e) => handleSelectType(e)}>All</option></a></li>
+                <li><a class="dropdown-item"><option value="All" onClick={(e) => handleSelectType(e)}>Todos</option></a></li>
                 <li><a class="dropdown-item"><option value="2D" onClick={(e) => handleSelectType(e)}>2-D</option></a></li>
                 <li><a class="dropdown-item"><option value="3D" onClick={(e) => handleSelectType(e)}>3-D</option></a></li>
               </ul>

@@ -9,12 +9,12 @@ export default function Comments(){
 
     const [commentDel,setComentDel] = useState("")
     const dispatch = useDispatch()
-    const allCartelera = useSelector((state) => state.carteleraFiltered)
+    const allCartelera = useSelector((state) => state.cartelera)
     const comments = useSelector((state) => state.comments)
 
     useEffect(() =>{
         dispatch(getBillboard())
-    },[commentDel])
+    },[comments])
     
     return(
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -62,7 +62,7 @@ export default function Comments(){
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("")}}>Borrar</button>
+                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("a")}}>Borrar</button>
                                     </div>
                                     </div>
                                 </div>

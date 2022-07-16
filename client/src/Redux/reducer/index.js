@@ -89,8 +89,10 @@ function rootReducer(state = initialState, action) {
           comments: action.payload
         }
     case DELETE_COMMENT:
+        console.log(action.payload)
         return{
           ...state,
+          comments:state.comments.filter(e=> e.id !== action.payload.id)
         }
       case GET_USERS:
         return {

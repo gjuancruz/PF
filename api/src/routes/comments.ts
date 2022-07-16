@@ -49,7 +49,7 @@ router.post("/add/:movieId", async (req:Request,res:Response) =>{
                 },
                 user:{
                     connect:{
-                        id:Number(userId)
+                        id:String(userId)
                     }
                 }
             }
