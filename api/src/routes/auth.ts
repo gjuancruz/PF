@@ -76,6 +76,7 @@ router.post('/login', async (req:Request, res:Response) => {
 });
 
 router.get('/acceder', [verifyToken], async (req:Request, res:Response) => {
+    //verifica si el componente createMovies debe ser renderizado...
     try {
         res.send({
             permitir: true
