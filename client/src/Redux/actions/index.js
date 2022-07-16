@@ -116,7 +116,6 @@ export function getComments(){
 
 export function deleteComment(id){
   return async function(dispatch){
-    console.log(id)
     var json = await axios.delete(`http://localhost:3001/comments/delete/${id}`);
     return dispatch ({
       type: DELETE_COMMENT,
