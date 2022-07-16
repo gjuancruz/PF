@@ -114,13 +114,19 @@ export function searchMovieName(title){
 
 export function login (email,password) {
   return async function (dispatch) {
-  const getLogin = await axios.get(`http://localhost:3001/auth/login`)
+  const getLogin = await axios.get(`http://localhost:3001/auth/login`,{email,password})
   const getToken = await getLogin.data;
 
   window.localStorage.setItem('token', getToken.token)
     return dispatch({
       
     })
+  } 
+}
+export function register (email,password,username) {
+  return async function (dispatch) {
+  const getRegister = await axios.post(`http://localhost:3001/auth/register`,{email,password,username,role:"Usuario"})
+  return dispatch({})
   } 
 }
 export function postMovie(payload){

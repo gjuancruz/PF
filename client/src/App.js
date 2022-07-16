@@ -7,14 +7,15 @@ import MovieDetail from './Components/Detail/MovieDetail'
 import NavBar from './Components/NavBar/NavBar';
 import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home';
-import CreateMovie from './Components/CreateMovie/CreateMovie';
-
-const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
-
 import Login from './Components/Login/Login';
 import MenuDashboard from './Components/Dashboard/MenuDashboard';
 import CreateFeedback from './Components/CreateFeedback/PostFeedback';
 import Error404 from './Components/Error404/Error404';
+import CreateMovie from './Components/CreateMovie/CreateMovie';
+import Register from './Components/Register/Register';
+
+const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
+
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
 
       <Switch>
         <Route exact path='/login' component={Login} />
+        <Route exact path='/register' component={Register} />
         <Route exact path='/home' component={Home} />
         <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route exact path='/create' component={CreateMovie} />

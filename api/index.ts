@@ -64,7 +64,7 @@ app.listen(3001, async () => {
   const rooms = await prisma.room.upsert({
    where:{id:i},
    update:{},
-   create:{id:i}
+   create:{id:i,types:"2D"}
   })}
   for(let i = 1;i<31;i++){
    const seat = await prisma.seat.upsert({
