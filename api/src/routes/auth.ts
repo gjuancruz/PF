@@ -97,7 +97,7 @@ router.get('/verify',[verifyToken], async (req:Request, res:Response) => {
             check: false
         })
     }
-}
+    }
 )
 
 export default router;
