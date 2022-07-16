@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFeedback } from "../../Redux/actions";
 
-export default function Feedback (){
+export function Feedback (){
     const dispatch = useDispatch()
     const feedback = useSelector((state) => state.feedback)
     console.log(feedback)
