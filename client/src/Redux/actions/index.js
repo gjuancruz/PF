@@ -235,3 +235,9 @@ export function getUsers(){
 //   }
 // }
 
+export function logout(){
+  return async function(){
+    window.localStorage.removeItem('sw-token')
+    window.localStorage.removeItem('userId')
+  }
+}

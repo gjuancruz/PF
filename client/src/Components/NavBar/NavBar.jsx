@@ -1,7 +1,7 @@
 import React from 'react'
 import '../NavBar/NavBar.css'
 import { useDispatch } from "react-redux";
-import { searchMovieName } from '../../Redux/actions';
+import { logout, searchMovieName } from '../../Redux/actions';
 
 
 const NavBar = () =>{
@@ -63,7 +63,7 @@ const NavBar = () =>{
                 <li><a class="dropdown-item" href="#">Mis comentarios</a></li>
                 <li><a class="dropdown-item" href="#">Membresía</a></li>
                 <li><hr class="dropdown-divider"/></li>
-                <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                <li><a class="dropdown-item" onClick={logout()}>Cerrar sesión</a></li>
               </ul>
             </li>
             
