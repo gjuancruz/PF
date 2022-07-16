@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../Redux/actions";
 import NavBar from "../NavBar/NavBar";
 import styles from './Profile.module.css'
 
 const Perfil = () =>{
-
+    const dispatch = useDispatch()
+    useEffect(() =>{
+        dispatch(getUsers())
+    },[])
+    const allUsers = useSelector ((state) => state.usuarios)
+    const userIdCheck = window.localStorage.getItem('userId')
+    const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+    console.log(currentUser)
     return(
         <div>
             <NavBar/>
@@ -16,10 +25,10 @@ const Perfil = () =>{
         <div><hr class='bg-warning'/></div>
 
         <div>
-            <h3>Indio Grasiento</h3>
-            <h4>Tu e-mail:</h4>
-            <h4>Membresía:</h4>
-            <button type="submit" class="btn btn-outline-warning mb-4">Hazte miembro de la membresía membral membrana</button>
+            <h3>{currentUser.username}</h3>
+            <h4>Tu e-mail:</h4> <p>{currentUser[0].email}</p>
+            <h4>Membresía:</h4> {currentUser[0].role === 'user' || currentUser[0].role === 'admin' ? <p>Actualmente no cuentas con ninguna membresía</p> : <p>Miembro del club de cine</p>}
+            { currentUser[0].role === 'user' || currentUser[0].role === 'admin' && <button type="submit" class="btn btn-outline-warning mb-4">Hazte miembro del club de cine</button>}
         </div>
 
         <div><hr class='bg-warning'/></div>

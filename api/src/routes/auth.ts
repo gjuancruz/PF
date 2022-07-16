@@ -68,7 +68,15 @@ router.post('/login', async (req:Request, res:Response) => {
 
         //Generando Token
         const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET || '');
-        return res.status(200).json({ token: token});
+
+        // Obtener id para almacenar en localStorage
+
+        const userStorage = await prisma.user.findUnique({
+            // @ts-ignore
+            where: { email: email }
+        });
+
+        return res.status(200).json({ token: token, user: userStorage});
     } catch (error) {
         console.log(error);
         return res.status(400).send('Error al iniciar sesión');

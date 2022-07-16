@@ -99,8 +99,10 @@ export function login (email,password) {
   return async function (dispatch) {
   const getLogin = await axios.get(`http://localhost:3001/auth/login`)
   const getToken = await getLogin.data;
-
+  const getUser = await getLogin.data.user.id
   window.localStorage.setItem('token', getToken.token)
+  window.localStorage.setItem('userId', getUser)
+
     return dispatch({
       
     })
