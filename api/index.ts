@@ -1,4 +1,3 @@
-// import { sequelize } from './src/db';
 import app from './src/app';
 import {PrismaClient} from '@prisma/client'
 import {cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman} from "./src/routes/data"
