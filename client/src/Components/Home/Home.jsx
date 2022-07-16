@@ -7,6 +7,8 @@ import FilterCartelera from "../FilterCartelera/FilterCartelera";
 import Card from "../Card/Card";
 import s from "./Home.module.css";
 import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 export default function Home(){
 
@@ -67,6 +69,7 @@ function handleVolverBtn(event){
 }
 return(
 <div >
+    <NavBar />
     <Carousel/>
     <FilterCartelera/>
     
@@ -120,7 +123,7 @@ return(
 <div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextPremiere}></i>}</div>
 
 </div>
-
+    <Footer />
 </div>
 )
 }

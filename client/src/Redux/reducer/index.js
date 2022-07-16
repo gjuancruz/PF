@@ -5,6 +5,7 @@ import {
   FILTER_GENRE,
   FILTER_TYPE,
   GET_PREMIERE,
+  GET_FEEDBACK,
   GET_COMMENTS,
   DELETE_COMMENT,
   GET_USERS,
@@ -17,6 +18,7 @@ const initialState = {
   carteleraFiltered: [],
   premiere: [],
   movieDetail: {},
+  feedback:[],
   comments:[],
   usuarios:[]
 };
@@ -66,16 +68,29 @@ function rootReducer(state = initialState, action) {
         ...state,
         carteleraFiltered: action.payload,
       };
-      case "POST_MOVIE":
+
+    case "POST_MOVIE":
         return{
           ...state
-        }
-      case GET_COMMENTS:
+      };
+    
+    case GET_FEEDBACK:
+      return {
+        ...state,
+        feedback: action.payload,
+      };
+
+    case "POST_FEEDBACK":
+      return{
+        ...state
+      };
+  
+    case GET_COMMENTS:
         return{
           ...state,
           comments: action.payload
         }
-      case DELETE_COMMENT:
+    case DELETE_COMMENT:
         return{
           ...state,
         }

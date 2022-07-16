@@ -49,7 +49,7 @@ const prisma = new PrismaClient()
 //                 },
 //                 user:{
 //                     connect:{
-//                         id:Number(userId)
+//                         id:String(userId)
 //                     }
 //                 }
 //             }

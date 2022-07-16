@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getBillboard, getComments, deleteComment } from "../../Redux/actions"
@@ -6,14 +7,15 @@ import { getBillboard, getComments, deleteComment } from "../../Redux/actions"
 
 export default function Comments(){
 
+    const [commentDel,setComentDel] = useState("")
     const dispatch = useDispatch()
     const allCartelera = useSelector((state) => state.carteleraFiltered)
     const comments = useSelector((state) => state.comments)
 
     useEffect(() =>{
         dispatch(getBillboard())
-    },[])
-
+    },[commentDel])
+    
     return(
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
@@ -44,7 +46,7 @@ export default function Comments(){
                                 <div class="row">  
                                     <i class="bi bi-person-circle px-3 col-1"></i>
                                     <span class="col-6">{f.Text}</span>
-                                    <i class="bi bi-trash3-fill mx-3 col-2 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}}></i>
+                                    <i class="bi bi-trash3-fill mx-3 col-2 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
                                 </div><br/>
     
                                 
@@ -60,7 +62,7 @@ export default function Comments(){
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"   onClick={e=>(dispatch(deleteComment(f.id)))}>Borrar</button>
+                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("")}}>Borrar</button>
                                     </div>
                                     </div>
                                 </div>
