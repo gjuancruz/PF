@@ -43,6 +43,53 @@ router.post("/createMovie" , [verifyToken], async (req:Request, res:Response) =>
 
         const {Title, Plot, Genre, Actors, Language, Director, Release,
                 Poster, Rated, Type, Trailer, Runtime} = req.body
+            let newDate
+            // llega esto 2022-07-19
+            newDate = Release.split('-'); // [2022, 07, 19]
+            newDate.reverse(); // [day, month, year]
+            let [day, month, year] = newDate; // [year, month, day]
+            switch (month) {
+                case '01':
+                    month = 'Jan'
+                    break;
+                case '02':
+                    month = 'Feb'
+                    break;
+                case '03':
+                    month = 'Mar'
+                    break;
+                case '04':
+                    month = 'Apr'
+                    break;
+                case '05':
+                    month = 'May'
+                    break;
+                case '06':
+                    month = 'Jun'
+                    break;
+                case '07':
+                    month = 'Jul'
+                    break;
+                case '08':
+                    month = 'Aug'
+                    break;
+                case '09':
+                    month = 'Sep'
+                    break;
+                case '10':
+                    month = 'Oct'
+                    break;
+                case '11':
+                    month = 'Nov'
+                    break;
+                case '12':
+                    month = 'Dec'
+                    break;
+                default:
+                    break;
+            }
+        newDate = `${day} ${month} ${year}`; // '19 July 2022'
+            // return newDate;
 
         const movie = await prisma.movie.create({
             data: {
@@ -52,7 +99,7 @@ router.post("/createMovie" , [verifyToken], async (req:Request, res:Response) =>
                 Actors,
                 Language,
                 Director,
-                Release,
+                Release: newDate,
                 Poster,
                 Rated,
                 Type,
@@ -71,7 +118,7 @@ router.post("/createMovie" , [verifyToken], async (req:Request, res:Response) =>
 })
 
 //http://localhost:3001/movies/billboard
-router.get("/billboard", [verifyToken], async (req:Request, res:Response) =>{
+router.get("/billboard", async (req:Request, res:Response) =>{
     
     try{
         const list = await prisma.movie.findMany({
