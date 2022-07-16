@@ -176,3 +176,16 @@ export function getUsers(){
 //       .catch(err => console.log(err))
 //   }
 // }
+
+
+export function postComment([userId, Text, movieId]){
+  return async function(dispatch){
+    try {
+      const json = await axios.post(`http://localhost:3001/comments/add/${userId}`, Text, movieId)
+      return json
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+}

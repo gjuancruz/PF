@@ -92,11 +92,19 @@ function rootReducer(state = initialState, action) {
         return{
           ...state,
         }
-      case GET_USERS:
+    case GET_USERS:
         return {
           ...state,
           usuarios: action.payload
         }
+    
+      case "POST_COMMENT":
+      return{
+        ...state
+      };
+
+    
+    
 
     default:
       return state;
