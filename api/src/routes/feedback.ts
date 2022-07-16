@@ -34,7 +34,7 @@ router.post("/add/:id", async (req:Request, res:Response) =>{
                 Text:Text,
                 user:{
                     connect:{
-                        id:Number(id)
+                        id:String(id)
                     }
                 }
             }
