@@ -12,7 +12,7 @@ export const showGenerator = async(show:any) => {
    const data = []
 
    data.push(show)
-   console.log(data)
+   // console.log(data)
    
    const movie = await prisma.movie.findUnique({where:{id:show.movieId}})
    const time = movie?.Runtime
@@ -51,8 +51,8 @@ app.listen(3001, async () => {
 
    // const del1 = await prisma.comment.deleteMany({})
    // const del2 = await prisma.show.deleteMany({})
-   const del3 = await prisma.room.deleteMany({})
-   // const del = await prisma.movie.deleteMany({})
+   // const del = await prisma.seat.deleteMany({})
+   // const del3 = await prisma.room.deleteMany({})
 
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   
@@ -60,36 +60,35 @@ app.listen(3001, async () => {
       update:{},
       create:movielist[i]
   })}
-  const rooms = await prisma.room.createMany({
-   data:[{
-      id:1
-   },{
-      id:2
-   },
-   {
-      id:3
-   },{
-      id:4
-   },{
-      id:5
-   }]
-  })
-  
-//   const movie : any = await prisma.movie.findMany({where:{id!:undefined}})
+  for(let i = 1;i<6;i++){
+  const rooms = await prisma.room.upsert({
+   where:{id:i},
+   update:{},
+   create:{id:i}
+  })}
+  for(let i = 1;i<31;i++){
+   const seat = await prisma.seat.upsert({
+      where:{id:i},
+      update:{},
+      create:{id:i,roomId:1,occupied:false}
+   })
+  }
+  const movie : any = await prisma.movie.findMany({where:{id!:undefined}})
 
-//   const index : any= movie.map((e:any)=>{
-//    return{
-//       id:movie.indexOf(e)
-//    }
-//   })
+  const room : any= await prisma.room.findMany({where:{id!:undefined},select:{id:true}})
 
-//   const room : any= await prisma.room.findMany({where:{id!:undefined},select:{id:true}})
-
-//   var data = room.map((e:any)=>{
+//   var data = await room.map((e:any)=>{
 //    return{
 //    schedule:"13:00",
 //    movieId:movie[room.indexOf(e)].id,
 //    roomId:e.id
 // }})
+// for(let i = 0;i<data.length;i++){
+// const show = await prisma.show.upsert({
+//    where:{roomId:data[i].roomId},
+//    update:{},
+//    create:{schedule:data[i].schedule,movieId:data[i].movieId,roomId:data[i].roomId}
+// })
+// }
    console.log(`Server ready at: http://localhost:3001`);
 })

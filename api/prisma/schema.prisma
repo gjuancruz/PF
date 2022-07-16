@@ -57,9 +57,9 @@ model Seat {
 
 model Show {
   id      String   @id @default(uuid()) @db.Uuid
-  schedule String
-  roomId  Int
-  movieId String   @db.Uuid
+  schedule String 
+  roomId  Int      
+  movieId String   @db.Uuid 
   movie   Movie    @relation(fields: [movieId], references: [id])
   room    Room     @relation(fields: [roomId], references: [id])
   ticket  Ticket[]

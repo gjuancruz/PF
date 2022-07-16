@@ -192,7 +192,7 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 router.post("/checkout",async(req:Request,res:Response)=>{
 
-    const {ticket,amount} = req.body
+    const {ticket,amount,show} = req.body
     console.log(ticket)
     const stripe = new Stripe("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ",{apiVersion:"2020-08-27"})
     const data:any={
@@ -211,8 +211,20 @@ router.post("/checkout",async(req:Request,res:Response)=>{
             receipt:ticket,
             user:{create:data}
         }})
-        console.log(payment)
-
+        const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
+        // console.log(room?.room.id)
+        const seat:any = await prisma.seat.findFirst({where:{occupied:false}})
+        const occupy = await prisma.seat.update({where:{id:seat.id},data:{occupied:true}})
+        // console.log(seat.id)
+        const newticket = await prisma.ticket.createMany({
+            data:{
+                saleId:sale.id,
+                seatId:seat.id,
+                showId:show,
+                roomId:room.room.id
+            }
+        })
+        // console.log(newticket)
         res.send("Payment received")
     }catch(error:any){
         res.send(error.message)
