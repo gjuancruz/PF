@@ -2,50 +2,60 @@ import React,{ useEffect }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
-import { getMovieDetail,postPaymentMethod } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShows } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 
-const CheckoutForm = () =>{
-    const dispatch = useDispatch()
-    const stripe = useStripe()
 
-    const elements = useElements()
-
-    const handleSubmit = async(e) =>{
-        e.preventDefault()
-        
-        const {error,paymentMethod} = await stripe.createPaymentMethod({
-            type:"card",
-            card: elements.getElement(CardElement)
-        })
-        console.log(paymentMethod)
-        if(!error){
-            dispatch(postPaymentMethod(paymentMethod.id))
-        }else console.log(error)
-    }
-
-    
-
-    return  (<div><form onSubmit={handleSubmit} className="form-control">
-    <CardElement/>
-    <button>BUY</button>
-</form></div> )
-}
 
 export default function MovieDetail(){
     const dispatch = useDispatch()
     const idMovie=useParams()
     const movieDet=useSelector(state=>state.movieDetail)
+    const shows= useSelector(state=>state.shows)
     console.log(movieDet)
 
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getMovieDetail(idMovie.id))
+        dispatch(getShows(idMovie.id))
     },[dispatch])
 
+    const CheckoutForm = (e) =>{
+        e.preventDefault()
+        const dispatch = useDispatch()
+        const stripe = useStripe()
+    
+        const elements = useElements()
+    
+        const handleStripe = async(e) =>{
+            e.preventDefault()
+            
+            const {error,paymentMethod} = await stripe.createPaymentMethod({
+                type:"card",
+                card: elements.getElement(CardElement)
+            })
+            console.log(paymentMethod)
+            if(!error){
+                dispatch(postPaymentMethod(paymentMethod.id))
+            }else console.log(error)
+        }
+    }
+    const handleSubmit = (e)=>{
+        e.preventDefault()
+    }
+    const selecthora = document.querySelector("#selectHora")
+    for(const show of shows){
+    if(shows.length==0){
+    }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
+        var option = document.createElement("option")
+        option.text = show.schedule
+        option.value = ""
+        selecthora.add(option)
+        }
+    }
     return(
         <div>
             <NavBar />
@@ -66,25 +76,24 @@ export default function MovieDetail(){
                 <div className="divTrailer">
                 <a className="trailer" href="">Trailer</a>
                 </div>
+                <div className="form">
+                <form onSubmit={handleSubmit}>
                 <div className="select">
-                    <select className="selectHora"name="Hora" id="">
-                    <option value="">18:30</option>
-                    <option value="">20:30</option>
-                    <option value="">22:30</option>
-                    <option value="">00:30</option>
+                    <select className="selectHora"name="Hora" id="selectHora">
+                    <option value="">Selecciona Hora</option>
                     </select>
                     <select className="selectDia" name="Dia" id="">
                     <option value="">Hoy</option>
                     <option value="">Mañana</option>
-                    <option value="">Proxima Fecha</option>
                     <option value="">Proxima Fecha</option>
                     </select>
                 </div>
                 <div className="botont">
                 <button className="botoncomprar">Comprar</button>
                 </div>
+                </form>
+                </div>
                 <Comment/>
-                
             </div>
             <Footer />
         </div> 

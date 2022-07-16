@@ -11,6 +11,7 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const GET_SHOWS="GET_SHOWS";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -130,6 +131,7 @@ export function register (email,password,username) {
   } 
 }
 export function postMovie(payload){
+  console.log("hola")
   return async function(dispatch){
    const logged = await axios.get('http://localhost:3001/auth/verify', {
      headers : {
@@ -169,6 +171,21 @@ export function deleteComment(id){
       type: DELETE_COMMENT,
       payload: json.data
     })
+  }
+}
+
+export function getShows(movieId){
+  console.log(movieId)
+  return async function(dispatch){
+    try{
+      const json = await axios.get('http://localhost:3001/show/'+movieId)
+      return dispatch({
+        type: GET_SHOWS,
+        payload:json.data
+      })
+    }catch(error){
+      console.log(error)
+    }
   }
 }
 

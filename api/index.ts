@@ -70,7 +70,7 @@ app.listen(3001, async () => {
    const seat = await prisma.seat.upsert({
       where:{id:i},
       update:{},
-      create:{id:i,roomId:1,occupied:false}
+      create:{id:i,roomId:1}
    })
   }
 //   const movie : any = await prisma.movie.findMany({where:{id!:undefined}})

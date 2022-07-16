@@ -59,7 +59,6 @@ model Sale {
 
 model Seat {
   id     Int     @id
-  occupied Boolean
   roomId Int
   room   Room    @relation(fields: [roomId], references: [id])
   ticket Ticket?

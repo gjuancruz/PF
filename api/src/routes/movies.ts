@@ -1,7 +1,6 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
 import Stripe from "stripe";
-import { showGenerator } from '../..';
 import verifyToken from '../middlewares/middlewares';
 
 const prisma = new PrismaClient()
@@ -268,8 +267,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         }})
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)
-        const seat:any = await prisma.seat.findFirst({where:{occupied:false}})
-        const occupy = await prisma.seat.update({where:{id:seat.id},data:{occupied:true}})
+        const seat:any = await prisma.seat.findFirst()
         // console.log(seat.id)
         const newticket = await prisma.ticket.createMany({
             data:{
@@ -281,19 +279,6 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         })
         // console.log(newticket)
         res.send("Payment received")
-    }catch(error:any){
-        res.send(error.message)
-    }
-})
-
-router.post("/show",async(req:Request,res:Response)=>{
-    const show = req.body
-    try{
-        const data = await showGenerator(show)
-        const shows = await prisma.show.createMany({
-            data
-        }) 
-        res.status(200).send("Lista de shows generada")
     }catch(error:any){
         res.send(error.message)
     }
