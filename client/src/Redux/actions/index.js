@@ -205,15 +205,41 @@ export function searchUser(name){
     }
 }
 
+// export function deleteUser(email){
+//   return  function(dispatch){
+//     const requestOptions = {
+//             method: 'DELETE',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(email)
+//         };
+  
+//     var userDelete = fetch("http://localhost:3001/admin/deleteUser",requestOptions)
+//     .then(data => data.json())
+//       .then(json => {
+//           dispatch({ type: DELETE_USER, payload: json})
+//       })
+//       .catch(err => console.log(err))
+//   }
+// }
+
 export function deleteUser(email){
+ 
   return async function(dispatch){
     console.log(email)
-    var userDelete = await axios.delete("http://localhost:3001/admin/deleteUser",email);
-    return userDelete
+    var json = await axios.delete(`http://localhost:3001/comments/delete`,
+    {headers: { 
+      'Content-Type': 'application/json' },
+    data: {email:email.email}
+  });
+    return dispatch ({
+      type: DELETE_USER,
+      payload: json.data
+    })
   }
 }
 
 export function updateUser(data){
+  
   return async function(dispatch){
     console.log(data)
     var updateDelete = await axios.put("http://localhost:3001/admin/updateUser",data);

@@ -5,25 +5,11 @@ import Modal from "../reusable/Modal";
 
 
 export default function Users(){
-  const [active, setActive]= useState(false);
-const toggle = (username,email,role,id)=>{
+    const [active, setActive]= useState(false);
+    const toggle = (email)=>{
     setActive(!active)
-    {console.log(username,email,role,id)}
-    setUser({username:username,email:email,role:role,id:id})
-}
-const [user,setUser]= useState({username:'',email:'',role:'', id:''});
-
-const handleChange = (e)=>{
-e.preventDefault();
-setUser({
-    ...user,
-    [e.target.name]: e.target.value
-})
-}
-const handleSubmit = (e)=>{
-e.preventDefault();
-dispatch(updateUser(user))
-setUser({username:'',email:'',role:''})
+    {console.log(email)}
+    
 }
 
   const dispatch = useDispatch();
@@ -39,9 +25,9 @@ setUser({username:'',email:'',role:''})
     e.preventDefault();
     dispatch(searchUser(input))
   }
-  const handleDelete = (e)=>{
+  const handleSubmit = (e)=>{
     e.preventDefault();
-    dispatch(deleteUser(userDlt));
+    dispatch(deleteUser({email:e.target.value}));
     setUserDlt({email:""})
     dispatch(getUsers())
   }
@@ -88,28 +74,14 @@ setUser({username:'',email:'',role:''})
                   <td>{u.email}</td>
                   <td>{u.role}</td>
                   <td>
-                    <button class="btn btn-outline-warning"><i class="bi bi-pencil" onClick={()=>toggle(u.username,u.email,u.role,u.id)}></i></button>
-                    <button class="btn btn-outline-warning"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={()=>setUserDlt({email: u.email})}></i></button>
+                    <button class="btn btn-outline-warning"><i class="bi bi-trash3" onClick={toggle}></i></button>
                   </td>
                   <Modal active={active} toggle={toggle}>
-                <form onSubmit={(e)=>handleSubmit(e)}>
-                  <h3>Modificar Usuario</h3>
-                <div>
-                    <label>Usuario: </label>
-                    <input type='text' name="username" value={user.username} onChange={(e)=>handleChange(e)}></input>
-                </div>
-                <div>
-                    <label>Email: </label>
-                    <input type='text' name="email" value={user.email} onChange={(e)=>handleChange(e)}></input>
-                </div>
-                <div>
-                    <label>Rol: </label>
-                    <input type='text' name="role" value={user.role} onChange={(e)=>handleChange(e)}></input>
-                </div>
-                <button class="btn btn-outline-warning" type="submit">Modificar</button>
-                </form>
+                
+                 <label>seguro que deseas eliminar?</label>
+                <button class="btn btn-outline-warning" onClick={()=>{console.log(u.email);dispatch(deleteUser({email:u.email}))}}>Eliminar</button>
             </Modal>
-                  <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  {/* <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-dark ">
                                     <div class="modal-header">
@@ -125,7 +97,7 @@ setUser({username:'',email:'',role:''})
                                     </div>
                                     </div>
                                 </div>
-                                </div>
+                                </div> */}
                 </tr>
                 )
               )

@@ -67,10 +67,11 @@ router.put("/updateUser", async (req:Request, res:Response) =>{
 //http://localhost:3001/admin/deleteUser
 router.delete("/deleteUser", async (req:Request, res:Response) =>{
     try{
+        console.log(req.body)
         const {email} = req.body;
-        
+
         const deleteUser = await prisma.user.delete({
-            where: {email: `${email}`},
+            where: {email:`${email}`},
     })
     
     res.status(201).json(deleteUser)
