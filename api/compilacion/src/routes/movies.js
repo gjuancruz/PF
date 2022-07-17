@@ -234,8 +234,8 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ticket, amount, show } = req.body;
-    console.log(ticket);
+    const { ticket, amount, show, userId } = req.body;
+    console.log(show);
     const stripe = new stripe_1.default("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ", { apiVersion: "2020-08-27" });
     const data = {
         username: "Ignacio Brunello",
@@ -251,7 +251,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
         const sale = yield prisma.sale.create({ data: {
                 receipt: ticket,
-                user: { create: data }
+                userId: userId
             } });
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
         // console.log(room?.room.id)

@@ -246,8 +246,8 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 router.post("/checkout",async(req:Request,res:Response)=>{
 
-    const {ticket,amount,show} = req.body
-    console.log(ticket)
+    const {ticket,amount,show,userId} = req.body
+    console.log(show)
     const stripe = new Stripe("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ",{apiVersion:"2020-08-27"})
     const data:any={
         username:"Ignacio Brunello",
@@ -263,7 +263,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         })
         const sale = await prisma.sale.create({data:{
             receipt:ticket,
-            user:{create:data}
+            userId:userId
         }})
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)

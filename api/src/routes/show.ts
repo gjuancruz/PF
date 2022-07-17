@@ -25,7 +25,8 @@ router.post("/createRoom", async (req:Request, res:Response) =>{
 
 router.get("/all",async(req:Request,res:Response)=>{
     try{
-        const shows = await prisma.show.findMany({where:{id!:undefined}})
+        const shows = await prisma.show.findMany({where:{id!:undefined},include:{movie:{select:{Title:true}}}})
+        // console.log(shows)
         res.send(shows)
     }catch(error){
         res.send(error)
@@ -43,7 +44,16 @@ router.get("/one/:id",async(req:Request,res:Response)=>{
     }
 })
 
-
+router.delete("/one/:id",async(req:Request,res:Response)=>{
+    const id = req.params.id
+    try{
+        const ticket = await prisma.ticket.deleteMany({where:{showId:id}})
+        const shows = await prisma.show.delete({where:{id:id}})
+        return res.send(shows)
+    }catch(error:any){
+        res.send(error.message)
+    }
+})
 
 router.post("/",async(req:Request,res:Response)=>{
     const show = req.body

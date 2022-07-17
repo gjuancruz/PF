@@ -28,7 +28,8 @@ router.post("/createRoom", (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const shows = yield prisma.show.findMany({ where: { id: undefined } });
+        const shows = yield prisma.show.findMany({ where: { id: undefined }, include: { movie: { select: { Title: true } } } });
+        // console.log(shows)
         res.send(shows);
     }
     catch (error) {
@@ -41,6 +42,17 @@ router.get("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, function*
         const shows = yield prisma.show.findMany({ where: { movieId: movieId } });
         console.log(shows);
         return res.send(shows);
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}));
+router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    try {
+        const ticket = yield prisma.ticket.deleteMany({ where: { showId: id } });
+        const shows = yield prisma.show.delete({ where: { id: id } });
+        return res.send(ticket);
     }
     catch (error) {
         res.send(error.message);

@@ -1,8 +1,8 @@
-import React,{ useEffect }  from "react";
+import React,{ useEffect, useState }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
-import { getMovieDetail,postPaymentMethod,getShow } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow,getUsers } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -14,22 +14,39 @@ export default function MovieDetail(){
     const dispatch = useDispatch()
     const idMovie=useParams()
     const movieDet=useSelector(state=>state.movieDetail)
+    const allUsers = useSelector ((state) => state.usuarios)
     const shows= useSelector(state=>state.show)
+    const [shown,setShown] = useState(false)
+    const [showid,setShowid] = useState("")
     // console.log(movieDet)
 
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
+        dispatch(getUsers())
         dispatch(getMovieDetail(idMovie.id))
         dispatch(getShow(idMovie.id))
     },[dispatch])
 
-    const CheckoutForm = (e) =>{
-        e.preventDefault()
+    const selecthora = document.querySelector("#selectHora")
+    // console.log(shows)
+    for(const show of shows){
+    if(shows.length==0){
+    }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
+        var option = document.createElement("option")
+        option.text = show.schedule
+        option.value = show.id
+        selecthora.add(option)
+        }
+    }
+
+    const CheckoutForm = () =>{
         const dispatch = useDispatch()
         const stripe = useStripe()
     
         const elements = useElements()
-    
+        const userIdCheck = window.localStorage.getItem('userId')
+        const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+        console.log(showid)
         const handleStripe = async(e) =>{
             e.preventDefault()
             
@@ -39,23 +56,20 @@ export default function MovieDetail(){
             })
             console.log(paymentMethod)
             if(!error){
-                dispatch(postPaymentMethod(paymentMethod.id))
+                dispatch(postPaymentMethod(paymentMethod.id,showid,currentUser[0].id))
             }else console.log(error)
         }
+        return<form onSubmit={handleStripe}>
+            <CardElement className="form-control"/>
+            <button>Realizar pago</button>
+        </form>
     }
     const handleSubmit = (e)=>{
-        e.preventDefault()
+        setShown(current=>!current)
     }
-    const selecthora = document.querySelector("#selectHora")
-    // console.log(shows)
-    for(const show of shows){
-    if(shows.length==0){
-    }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
-        var option = document.createElement("option")
-        option.text = show.schedule
-        option.value = ""
-        selecthora.add(option)
-        }
+    const handleChange=(e)=>{
+        e.preventDefault()
+        setShowid(e.target.value)
     }
     return(
         <div>
@@ -76,11 +90,9 @@ export default function MovieDetail(){
                 </div>
                 <div className="divTrailer">
                 <a className="trailer" href="">Trailer</a>
-                </div>
-                <div className="form">
-                <form onSubmit={handleSubmit}>
+                </div>                
                 <div className="select">
-                    <select className="selectHora"name="Hora" id="selectHora">
+                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
                     <option value="">Selecciona Hora</option>
                     </select>
                     <select className="selectDia" name="Dia" id="">
@@ -90,9 +102,8 @@ export default function MovieDetail(){
                     </select>
                 </div>
                 <div className="botont">
-                <button className="botoncomprar">Comprar</button>
-                </div>
-                </form>
+                <button className="botoncomprar" onClick={handleSubmit}>Comprar</button>
+                {shown &&<CheckoutForm/>}
                 </div>
                 <Comment/>
             </div>
