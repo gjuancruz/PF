@@ -16,7 +16,7 @@ return(
 <button className="comentar">Comentar</button>
 <div className="writecomment">
 
-<div class="card p-3">
+{/* <div class="card p-3">
 
 <div class="d-flex justify-content-between align-items-center"/>
 
@@ -25,10 +25,10 @@ return(
 
 <span><small class="font-weight-bold text-primary">Juan Galaz: </small> <small class="font-weight-bold">Me gusto la pelicula!</small></span>
 
-</div>
+</div> */}
 
 </div>
-<div class="card p-3">
+{/* <div class="card p-3">
 
 <div class="d-flex justify-content-between align-items-center"/>
 
@@ -37,18 +37,18 @@ return(
 
 <span><small class="font-weight-bold text-primary">Axel Castillo </small> <small class="font-weight-bold">spoiler: Excelente PF! felicitaciones </small></span>
 
-</div>
+</div> */}
 
-<div class="card p-3">
+{/* <div class="card p-3">
 
 <div class="d-flex justify-content-between align-items-center"/>
 
-<div class="user d-flex flex-row align-items-center"/>
+<div class="user d-flex flex-row align-items-center"/> */}
 
 
-<span><small class="font-weight-bold text-primary">Lautaro Ocampo</small> <small class="font-weight-bold">Muy buena</small></span>
+{/* <span><small class="font-weight-bold text-primary">Lautaro Ocampo</small> <small class="font-weight-bold">Muy buena</small></span> */}
 
-</div>
+{/* </div> */}
 
 
     </div>

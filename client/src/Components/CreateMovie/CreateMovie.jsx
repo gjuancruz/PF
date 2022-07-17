@@ -14,22 +14,28 @@ export default function CreateMovie() {
 
     const [image, setImage] = useState('')
     const [loading, setLoading] = useState(false);
+    
     const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    
-    data.append('file', files[0]);
-    data.append('upload_preset', 'magqqp6o');
-    console.log(data)
-    setLoading(true);
-    const res = await fetch("https://api.cloudinary.com/v1_1/henrysecurityapp/image/upload", { method: "POST", body: data })
-    const file = await res.json();
-    
-    console.log(file)
-    
-        setImage(file.secure_url);
-        setLoading(false)
-    };
+      const files = e.target.files;
+      const data = new FormData();
+      
+      data.append('file', files[0]);
+      data.append('upload_preset', 'magqqp6o');
+      console.log(data)
+      setLoading(true);
+      const res = await fetch("https://api.cloudinary.com/v1_1/henrysecurityapp/image/upload", { method: "POST", body: data })
+      const file = await res.json();
+      
+      console.log(file)
+      
+          setImage(file.secure_url);
+          setLoading(false)
+          
+      };
+
+    // useEffect(()=>{
+
+    // },[image])
 
     function handleSelectGenres(e,values){
       const {value} = e.target;
@@ -46,7 +52,9 @@ export default function CreateMovie() {
     e.preventDefault();
     const {name}= e.target
     return values.Genre = values.Genre.filter(g=>g!==name)
-}
+  }
+
+  
 
 const checkToken = window.localStorage.getItem(('sw-token'));
 
@@ -105,9 +113,11 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
             onSubmit ={(values, {resetForm})=>{
               values.Genre = values.Genre.join(',')
+              values.Poster = image
                 dispatch(postMovie(values));
                 console.log(values)
                 setFormSend(true);
+                setImage("")
                 resetForm();
                 setTimeout(()=>setFormSend(false),5000)
             }}
@@ -223,11 +233,12 @@ const checkToken = window.localStorage.getItem(('sw-token'));
                             <ErrorMessage name="file" component={() => (<small style={{color:"red"}}>{errors.Poster}</small>)}/>
                             </label>
                             <Field class="form-control form-control-sm" id="Poster" type="file" name="file" onChange={(e)=>uploadImage(e)}/>
-                            {loading && ((values.Poster = image)) }
+                            {((values.Poster = image)) }
                             {
-                              !values.Poster? 
-                              (<div className={styles.contImage}><img src='https://images.vectorhq.com/images/previews/046/film-reel-psd-445226.png' className={styles.image}/></div>):
-                              (<div className={styles.contImage}><img src={image} className={styles.image}/></div>)
+                              // !values.Poster? 
+                            
+                              // (<div className={styles.contImage}><img src='https://images.vectorhq.com/images/previews/046/film-reel-psd-445226.png' className={styles.image}/></div>):
+                              <div className={styles.contImage}><img src={image} className={styles.image} width="120px"/></div>
                             }
                             
                     </div>

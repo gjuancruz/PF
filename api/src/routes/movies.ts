@@ -244,7 +244,15 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
         const movie = await prisma.movie.findUnique({
             where:{id:id},
             include:{
-                comments:true
+                comments:{
+                    include:{
+                        user:{
+                            select:{
+                                username: true
+                            }
+                        }
+                    }
+                }
             }
         })
         res.json(movie)
