@@ -89,7 +89,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
                 if(!val.Director) {errors.Director = "Por favor ingresa el Director *"}
 
-                if(!val.Genre) {errors.Genre = "Por favor ingresa el/los géneros/s *"}
+                if(val.Genre.length<1) {errors.Genre = "Por favor ingresa el/los géneros/s *"}
 
                 if(!val.Actors) {errors.Actors = "Por favor ingresa los actores *"}
 
@@ -158,7 +158,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
                     <div class="col mb-2">
                         <label class="form-label" >
-                        Género/s: <ErrorMessage name="Genre" component={() => (<small style={{color:"red"}}>{errors.Rated}</small>)}/>
+                        Género/s: <ErrorMessage name="Genre" component={() => (<small style={{color:"red"}}>{errors.Genre}</small>)}/>
                         </label>
                         <Field class="form-select" name="Genre" as="select" onChange={(e)=>handleSelectGenres(e,values)}>
                         {
@@ -176,8 +176,8 @@ const checkToken = window.localStorage.getItem(('sw-token'));
                 <div className={styles.containerElem}>
                 {values.Genre.map(gen=>
                     (<div className={styles.containerDlt} key={gen}>
+                      <span>{gen}</span>
                         <button className={styles.deleteBtn} name={gen} onClick={(e)=>setFieldValue('Genre',handleDelete(e,values))}>x</button>
-                    <p>{gen}</p>
                     </div>))
                 }
                 </div>

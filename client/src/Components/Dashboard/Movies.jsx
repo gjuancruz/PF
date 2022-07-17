@@ -57,7 +57,7 @@ export default function Movies(){
                 { allmovies && allmovies.map(e=>{
                     return(
                         <div class="col-md-auto pb-2">
-                        <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="cars" style={{cursor:"pointer"}} onClick={() => {setMovieId(e.id)}}></img>
+                        <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="" style={{cursor:"pointer"}} onClick={() => {setMovieId(e.id)}}></img>
                     
                         <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">

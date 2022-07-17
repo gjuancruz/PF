@@ -116,7 +116,7 @@ export default function CreateMovie({ data }) {
         Plot: data.Plot,
         Language: data.Language,
         Director: data.Director,
-        Genre: data.Genre.split(),
+        Genre: data.Genre.split(","),
         Actors: data.Actors,
         Release: formatDate(data.Release),
         Rated: data.Rated,
@@ -144,7 +144,7 @@ export default function CreateMovie({ data }) {
           errors.Director = "Por favor ingresa el Director *";
         }
 
-        if (!val.Genre) {
+        if (val.Genre.length<1) {
           errors.Genre = "Por favor ingresa el/los géneros/s *";
         }
 
@@ -284,7 +284,7 @@ export default function CreateMovie({ data }) {
                   <ErrorMessage
                     name="Genre"
                     component={() => (
-                      <small style={{ color: "red" }}>{errors.Rated}</small>
+                      <small style={{ color: "red" }}>{errors.Genre}</small>
                     )}
                   />
                 </label>
@@ -313,6 +313,7 @@ export default function CreateMovie({ data }) {
             <div className={styles.containerElem}>
               {values.Genre.map((gen) => (
                 <div className={styles.containerDlt} key={gen}>
+                  <span>{gen}</span>
                   <button
                     className={styles.deleteBtn}
                     name={gen}
@@ -322,7 +323,6 @@ export default function CreateMovie({ data }) {
                   >
                     x
                   </button>
-                  <p>{gen}</p>
                 </div>
               ))}
             </div>
