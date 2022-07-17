@@ -121,7 +121,15 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     try{
         const list = await prisma.movie.findMany({
             include:{
-                comments:true
+                comments:{
+                    include:{
+                        user:{
+                            select:{
+                                username:true
+                            }
+                        }
+                    }
+                }
             }
         })
         const billboardMovies = list.filter( data => !isPremier(data.Release));
