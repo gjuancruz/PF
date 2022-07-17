@@ -9,6 +9,9 @@ import {
   GET_FEEDBACK,
   GET_COMMENTS,
   DELETE_COMMENT,
+  GET_USERS,
+  GET_SHOW,
+  GET_ALL_SHOWS,
   AUTORIZADO,
   DELETE_MOVIE,
   EDIT_MOVIE,
@@ -24,6 +27,8 @@ const initialState = {
   comments:[],
   refresh: false,
   usuarios:[],
+  shows:[],
+  show:[],
   autorizado: '',
 };
 
@@ -118,20 +123,28 @@ function rootReducer(state = initialState, action) {
         ...state,
         refresh: !state.refresh
       }
-      case GET_USERS:
-        return {
-          ...state,
-          usuarios: action.payload
-        }
-    
-      case "POST_COMMENT":
+    case GET_USERS:
+      return {
+        ...state,
+        usuarios: action.payload
+      }
+  
+    case "POST_COMMENT":
       return{
         ...state
       };
 
-    
-    
-
+    case GET_ALL_SHOWS:
+      return{
+        ...state,
+        shows:action.payload
+      }
+    case GET_SHOW:
+      console.log(action.payload)
+      return{
+        ...state,
+        show:action.payload
+      }
     default:
       return state;
   }

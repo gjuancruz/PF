@@ -6,10 +6,14 @@ export const SEARCH_MOVIES='SEARCH_MOVIES';
 export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
+export const POST_PAYMENT_METHOD ="POST_PAYMENT_METHOD"
 export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const GET_SHOW="GET_SHOW";
+export const POST_SHOW="POST_SHOW"
+export const GET_ALL_SHOWS="GET_ALL_SHOWS"
 export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
@@ -17,7 +21,7 @@ export const EDIT_MOVIE="EDIT_MOVIE";
 
 export function getBillboard() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/movies/billboard", {
+    var json = await axios.get("/movies/billboard", {
       headers : {
         Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
       }
@@ -31,7 +35,7 @@ export function getBillboard() {
 
 export function getPremiere(){
   return async function(dispatch){
-    var json = await axios("http://localhost:3001/movies/Premieres");
+    var json = await axios("/movies/Premieres");
     return dispatch ({
       type: GET_PREMIERE,
       payload: json.data
@@ -42,7 +46,7 @@ export function getPremiere(){
 export function getMovieDetail(idMovie){
     return async function(dispatch){
         try{
-            var res=await axios.get(`http://localhost:3001/movies/search/${idMovie}`)
+            var res=await axios.get(`/movies/search/${idMovie}`)
             return dispatch({
                 type: GET_MOVIE_DETAIL,
                 payload: res.data
@@ -69,7 +73,7 @@ export function filterByType(payload) {
 export function filterGenre(genre) {
     return async function (dispatch) {
         try {
-            var json = await axios.get(`http://localhost:3001/movies/search?genre=${genre}`);
+            var json = await axios.get(`/movies/search?genre=${genre}`);
             return dispatch({
                 type: FILTER_GENRE,
                 payload: json.data,
@@ -84,7 +88,7 @@ export function filterGenre(genre) {
 export function searchMovieName(title){
     return async function (dispatch) {
         try {
-          var json = await axios.get(`http://localhost:3001/movies/search?name=${title}`)
+          var json = await axios.get(`/movies/search?name=${title}`)
           return dispatch({
             type: SEARCH_MOVIES,
             payload: json.data
@@ -96,11 +100,28 @@ export function searchMovieName(title){
           })
         }
       }
-}
+
+    }
+    export function postPaymentMethod(ticket){
+      return async function (dispatch){
+        try{
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:"13ef3e53-3495-4d56-b6eb-290c57011083"})
+          console.log(json.data)
+          return dispatch({
+            type:POST_PAYMENT_METHOD,
+            payload: json.data
+          })
+        }catch(error){
+       
+        }
+
+
+      }
+    }
 
 export function login (email,password) {
   return async function (dispatch) {
-  const getLogin = await axios.get(`http://localhost:3001/auth/login`)
+  const getLogin = await axios.get(`/auth/login`)
   const getToken = await getLogin.data;
   const getUser = await getLogin.data.user.id
   window.localStorage.setItem('token', getToken.token)
@@ -114,7 +135,7 @@ export function login (email,password) {
 
 export function autorizado () {
   return async function (dispatch) {
-    const permiso = await axios.get("http://localhost:3001/auth/acceder", {
+    const permiso = await axios.get("/auth/acceder", {
       headers : {
         Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
       }
@@ -147,6 +168,7 @@ export function autorizado () {
 // }
 
 export function postMovie(payload){
+  console.log("hola")
   return async function(dispatch){
     console.log(payload)
     try {
@@ -155,7 +177,7 @@ export function postMovie(payload){
           Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
         }
       }
-      const json = await axios.post('http://localhost:3001/movies/createMovie', payload, Authorization);
+      const json = await axios.post('/movies/createMovie', payload, Authorization);
       console.log("prueba console.log");
       return dispatch ({
         type: POST_MOVIE,
@@ -196,7 +218,7 @@ export function editMovie(movie){
 
 export function getComments(){
   return async function(dispatch){
-    var json = await axios("http://localhost:3001/comments/");
+    var json = await axios("/comments/");
     return dispatch ({
       type: GET_COMMENTS,
       payload: json.data
@@ -206,7 +228,8 @@ export function getComments(){
 
 export function deleteComment(id){
   return async function(dispatch){
-    var json = await axios.delete(`http://localhost:3001/comments/delete/${id}`);
+    console.log(id)
+    var json = await axios.delete(`/comments/delete/${id}`);
     return dispatch ({
       type: DELETE_COMMENT,
       payload: json.data
@@ -214,10 +237,50 @@ export function deleteComment(id){
   }
 }
 
+export function getShow(movieId){
+  return async function(dispatch){
+    try{
+      const json = await axios.get('http://localhost:3001/show/one/'+movieId)
+      // console.log(json.data)
+      return dispatch({
+        type: GET_SHOW,
+        payload:json.data
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function getAllShows(){
+  return async function(dispatch){
+    try{
+      const json = await axios.get('http://localhost:3001/show/all')
+      return dispatch({
+        type: GET_ALL_SHOWS,
+        payload:json.data
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function postShow(schedule,movieId,roomId){
+  return async function(){
+    try{
+      const json = await axios.post('http://localhost:3001/show',{schedule,movieId,roomId})
+      console.log(json.data)
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
 export function getFeedback(){
   return async function(dispatch){
     try {
-      const json = await axios.get('http://localhost:3001/feedback')
+      const json = await axios.get('/feedback')
       return dispatch({
         type: GET_FEEDBACK,
         payload: json.data
@@ -232,7 +295,7 @@ export function getFeedback(){
 export function postFeedback([idUser, input]){
   return async function(){
     try {
-      const json = await axios.post(`http://localhost:3001/feedback/add/${idUser}`, input)
+      const json = await axios.post(`/feedback/add/${idUser}`, input)
       return json
     } 
     catch (error) {
@@ -244,7 +307,7 @@ export function postFeedback([idUser, input]){
 
 export function getUsers(){
   return async function(dispatch){
-    var get_Usuarios = await axios.get("http://localhost:3001/admin");
+    var get_Usuarios = await axios.get("/admin");
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
   }
 }
@@ -277,5 +340,22 @@ export function postComment( Text, movieId, userId){
     catch (error) {
       console.log(error)
     }
+  }
+}
+export function logout(){
+  return async function(){
+    window.localStorage.removeItem('sw-token')
+    window.localStorage.removeItem('userId')
+  }
+}
+
+export function register(payload){
+  return async function(){
+      try {
+          var json = await axios.post(`/auth/register`, payload)
+          return json
+      } catch (error) {
+          console.log(error)
+      }
   }
 }

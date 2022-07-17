@@ -1,7 +1,7 @@
 import React from 'react'
 import '../NavBar/NavBar.css'
 import { useDispatch } from "react-redux";
-import { searchMovieName } from '../../Redux/actions';
+import { logout, searchMovieName } from '../../Redux/actions';
 
 
 const NavBar = () =>{
@@ -49,7 +49,7 @@ const NavBar = () =>{
               <a class="nav-link active text-light" aria-current="page" href="/home">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="/" onClick={(event)=>handleProx(event)}>Próximos estrenos</a>
+              <a class="nav-link text-light" href="/home" onClick={(event)=>handleProx(event)}>Próximos estrenos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-light" href="/">Comida</a>
@@ -66,7 +66,7 @@ const NavBar = () =>{
                 <li><a class="dropdown-item" href="#">Mis comentarios</a></li>
                 <li><a class="dropdown-item" href="#">Membresía</a></li>
                 <li><hr class="dropdown-divider"/></li>
-                <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                <li><a class="dropdown-item" onClick={logout()}>Cerrar sesión</a></li>
               </ul>
             </li>
             
