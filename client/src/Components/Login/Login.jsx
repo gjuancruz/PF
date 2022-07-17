@@ -5,17 +5,18 @@ import { login } from "../../Redux/actions";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import NavBar from "../NavBar/NavBar";
+import {useHistory} from 'react-router-dom'
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch();
-
+    const history = useHistory()
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        const { data } = await axios.post('http://localhost:3001/auth/login',
+        const { data } = await axios.post('/auth/login',
             {
                 email,
                 password
@@ -23,8 +24,10 @@ const Login = () => {
         );
         if(data.token) {
             localStorage.setItem('sw-token', data.token)
+            localStorage.setItem('userId', data.user.id)
+
         };
-        console.log(data);
+        history.push('/home')
     }
     return (
         <div>

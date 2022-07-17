@@ -14,22 +14,28 @@ export default function CreateMovie() {
 
     const [image, setImage] = useState('')
     const [loading, setLoading] = useState(false);
+    
     const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    
-    data.append('file', files[0]);
-    data.append('upload_preset', 'magqqp6o');
-    console.log(data)
-    setLoading(true);
-    const res = await fetch("https://api.cloudinary.com/v1_1/henrysecurityapp/image/upload", { method: "POST", body: data })
-    const file = await res.json();
-    
-    console.log(file)
-    
-        setImage(file.secure_url);
-        setLoading(false)
-    };
+      const files = e.target.files;
+      const data = new FormData();
+      
+      data.append('file', files[0]);
+      data.append('upload_preset', 'magqqp6o');
+      console.log(data)
+      setLoading(true);
+      const res = await fetch("https://api.cloudinary.com/v1_1/henrysecurityapp/image/upload", { method: "POST", body: data })
+      const file = await res.json();
+      
+      console.log(file)
+      
+          setImage(file.secure_url);
+          setLoading(false)
+          
+      };
+
+    // useEffect(()=>{
+
+    // },[image])
 
     function handleSelectGenres(e,values){
       const {value} = e.target;
@@ -46,7 +52,9 @@ export default function CreateMovie() {
     e.preventDefault();
     const {name}= e.target
     return values.Genre = values.Genre.filter(g=>g!==name)
-}
+  }
+
+  
 
 const checkToken = window.localStorage.getItem(('sw-token'));
 
@@ -81,7 +89,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
                 if(!val.Director) {errors.Director = "Por favor ingresa el Director *"}
 
-                if(!val.Genre) {errors.Genre = "Por favor ingresa el/los géneros/s *"}
+                if(val.Genre.length<1) {errors.Genre = "Por favor ingresa el/los géneros/s *"}
 
                 if(!val.Actors) {errors.Actors = "Por favor ingresa los actores *"}
 
@@ -105,9 +113,11 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
             onSubmit ={(values, {resetForm})=>{
               values.Genre = values.Genre.join(',')
+              values.Poster = image
                 dispatch(postMovie(values));
                 console.log(values)
                 setFormSend(true);
+                setImage("")
                 resetForm();
                 setTimeout(()=>setFormSend(false),5000)
             }}
@@ -115,7 +125,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
           {( {errors, values, setFieldValue} ) => (
             <Form className="container my-5">
-              {console.log(values)}
+              {/* {console.log(values)} */}
               <div class="form-group">
                 <div class="mb-3">
                   <label class="form-label" htmlFor="Title">
@@ -148,7 +158,7 @@ const checkToken = window.localStorage.getItem(('sw-token'));
 
                     <div class="col mb-2">
                         <label class="form-label" >
-                        Género/s: <ErrorMessage name="Genre" component={() => (<small style={{color:"red"}}>{errors.Rated}</small>)}/>
+                        Género/s: <ErrorMessage name="Genre" component={() => (<small style={{color:"red"}}>{errors.Genre}</small>)}/>
                         </label>
                         <Field class="form-select" name="Genre" as="select" onChange={(e)=>handleSelectGenres(e,values)}>
                         {
@@ -166,8 +176,8 @@ const checkToken = window.localStorage.getItem(('sw-token'));
                 <div className={styles.containerElem}>
                 {values.Genre.map(gen=>
                     (<div className={styles.containerDlt} key={gen}>
+                      <span>{gen}</span>
                         <button className={styles.deleteBtn} name={gen} onClick={(e)=>setFieldValue('Genre',handleDelete(e,values))}>x</button>
-                    <p>{gen}</p>
                     </div>))
                 }
                 </div>
@@ -223,11 +233,12 @@ const checkToken = window.localStorage.getItem(('sw-token'));
                             <ErrorMessage name="file" component={() => (<small style={{color:"red"}}>{errors.Poster}</small>)}/>
                             </label>
                             <Field class="form-control form-control-sm" id="Poster" type="file" name="file" onChange={(e)=>uploadImage(e)}/>
-                            {loading && ((values.Poster = image)) }
+                            {((values.Poster = image)) }
                             {
-                              !values.Poster? 
-                              (<div className={styles.contImage}><img src='https://images.vectorhq.com/images/previews/046/film-reel-psd-445226.png' className={styles.image}/></div>):
-                              (<div className={styles.contImage}><img src={image} className={styles.image}/></div>)
+                              // !values.Poster? 
+                            
+                              // (<div className={styles.contImage}><img src='https://images.vectorhq.com/images/previews/046/film-reel-psd-445226.png' className={styles.image}/></div>):
+                              <div className={styles.contImage}><img src={image} className={styles.image} width="120px"/></div>
                             }
                             
                     </div>
@@ -251,4 +262,3 @@ const checkToken = window.localStorage.getItem(('sw-token'));
         </Formik>)
     );
 };
-

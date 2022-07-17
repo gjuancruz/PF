@@ -9,7 +9,7 @@ import  verifyToken  from '../middlewares/middlewares';
 const prisma = new PrismaClient()
 const router = Router();
 
-router.post('/register' , async (req:Request, res:Response) => {
+router.post('/register', async (req:Request, res:Response) => {
     try {
         const { email, password, role, username } = req.body;
         //Lets hash the password
@@ -53,25 +53,47 @@ router.post('/login', async (req:Request, res:Response) => {
             // @ts-ignore
             where: { email: email }
         });
-
+        
         if( !user ) {
             return res.status(400).send({ error: 'El usuario no existe, intente nuevamente' })
         }
-
+        
         //Comparando Password
         
         const comparePassword = await bcrypt.compare( password, user.password );
+        console.log(comparePassword)
         
         if( !comparePassword ) {
             return res.status(403).json ({ error: 'Contraseña o Usuario Incorrecto'})
         }
-
+        
         //Generando Token
         const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET || '');
-        return res.status(200).json({ token: token});
+
+        // Obtener id para almacenar en localStorage
+
+        const userStorage = await prisma.user.findUnique({
+            // @ts-ignore
+            where: { email: email }
+        });
+
+        return res.status(200).json({ token: token, user: userStorage});
     } catch (error) {
         console.log(error);
         return res.status(400).send('Error al iniciar sesión');
+    }
+});
+
+router.get('/acceder', [verifyToken], async (req:Request, res:Response) => {
+    //verifica si el componente createMovies debe ser renderizado...
+    try {
+        res.send({
+            permitir: true
+        })
+    } catch (error) {
+        res.status(403).send({
+            permitir: false
+        })
     }
 });
 
@@ -85,7 +107,7 @@ router.get('/verify',[verifyToken], async (req:Request, res:Response) => {
             check: false
         })
     }
-}
+    }
 )
 
 export default router;
