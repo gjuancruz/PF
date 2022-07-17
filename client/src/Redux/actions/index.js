@@ -10,6 +10,9 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const DELETE_MOVIE="DELETE_MOVIE";
+export const EDIT_MOVIE="EDIT_MOVIE";
+
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -126,6 +129,32 @@ export function postMovie(payload){
    }
    }
   }
+
+export function deleteMovie(id){
+  return async function(dispatch){
+    var json = await axios.delete(`http://localhost:3001/movies/delete/${id}`);
+    return dispatch ({
+      type: DELETE_MOVIE,
+      payload: json.data
+    })
+  }
+}
+
+export function editMovie(movie){
+  return async function(dispatch){
+     
+    try {
+       var json = await axios.put(`http://localhost:3001/movies/update/${movie.id}`, movie)
+        return dispatch ({
+          type: EDIT_MOVIE,
+          payload: json.data
+        })
+
+     } catch (error) {
+       console.log(error)
+   }
+   }
+}
 
 export function getComments(){
   return async function(dispatch){
