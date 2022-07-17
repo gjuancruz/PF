@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
+const stripe_1 = __importDefault(require("stripe"));
 const middlewares_1 = __importDefault(require("../middlewares/middlewares"));
 const prisma = new client_1.PrismaClient();
 const router = (0, express_1.Router)();
@@ -121,7 +122,15 @@ router.get("/billboard", (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         const list = yield prisma.movie.findMany({
             include: {
-                comments: true
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                }
             }
         });
         const billboardMovies = list.filter(data => !isPremier(data.Release));
@@ -145,6 +154,52 @@ router.get("/Premieres", (_req, res) => __awaiter(void 0, void 0, void 0, functi
 //http://localhost:3001/movies/update/:id
 router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
+    let date;
+    // llega esto 2022-07-19
+    date = req.body.Release.split('-'); // [2022, 07, 19]
+    date.reverse(); // [day, month, year]
+    let [day, month, year] = date; // [year, month, day]
+    switch (month) {
+        case '01':
+            month = 'Jan';
+            break;
+        case '02':
+            month = 'Feb';
+            break;
+        case '03':
+            month = 'Mar';
+            break;
+        case '04':
+            month = 'Apr';
+            break;
+        case '05':
+            month = 'May';
+            break;
+        case '06':
+            month = 'Jun';
+            break;
+        case '07':
+            month = 'Jul';
+            break;
+        case '08':
+            month = 'Aug';
+            break;
+        case '09':
+            month = 'Sep';
+            break;
+        case '10':
+            month = 'Oct';
+            break;
+        case '11':
+            month = 'Nov';
+            break;
+        case '12':
+            month = 'Dec';
+            break;
+        default:
+            break;
+    }
+    req.body.Release = `${day} ${month} ${year}`; // '19 July 2022'
     try {
         const movieUpdate = yield prisma.movie.update({
             where: {
@@ -152,7 +207,7 @@ router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
             },
             data: req.body
         });
-        res.json("pelicula actualizada con exito");
+        res.json(movieUpdate);
     }
     catch (e) {
         res.json("no se pudo actualizar la información");
@@ -167,7 +222,7 @@ router.delete("/delete/:id", (req, res) => __awaiter(void 0, void 0, void 0, fun
                 id: id
             }
         });
-        res.json("película eliminada con éxito");
+        res.json(movieDelete);
     }
     catch (e) {
         res.json("no se pudo eliminar la pelicula");
@@ -178,7 +233,18 @@ router.get("/search/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const { id } = req.params;
     try {
         const movie = yield prisma.movie.findUnique({
-            where: { id: id }
+            where: { id: id },
+            include: {
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
+                    }
+                }
+            }
         });
         res.json(movie);
     }
@@ -230,6 +296,45 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (error) {
         res.status(404).json("no se encontro peli con ese nombre");
+    }
+}));
+router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ticket, amount, show } = req.body;
+    console.log(ticket);
+    const stripe = new stripe_1.default("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ", { apiVersion: "2020-08-27" });
+    const data = {
+        username: "Ignacio Brunello",
+        password: "1234",
+        role: 1
+    };
+    try {
+        const payment = yield stripe.paymentIntents.create({
+            amount,
+            payment_method: ticket,
+            currency: "USD",
+            confirm: true,
+        });
+        const sale = yield prisma.sale.create({ data: {
+                receipt: ticket,
+                user: { create: data }
+            } });
+        const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
+        // console.log(room?.room.id)
+        const seat = yield prisma.seat.findFirst();
+        // console.log(seat.id)
+        const newticket = yield prisma.ticket.createMany({
+            data: {
+                saleId: sale.id,
+                seatId: seat.id,
+                showId: show,
+                roomId: room.room.id
+            }
+        });
+        // console.log(newticket)
+        res.send("Payment received");
+    }
+    catch (error) {
+        res.send(error.message);
     }
 }));
 exports.default = router;

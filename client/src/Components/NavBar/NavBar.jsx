@@ -43,7 +43,10 @@ const NavBar = () =>{
       <div>
       <nav class="navbar navbar-expand-lg bg-dark text-light">
       <div class="container-fluid">
-        <a class="navbar-brand text-light" href="/home">Moon Cinema</a>
+        <a class="navbar-brand text-light" href="/">Moon Cinema</a>
+        {/* <a class="navbar-brand text-light" href="/">
+          <img src={img} width="120px"></img>
+        </a> */}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list text-light"></i>
         </button>
@@ -53,7 +56,7 @@ const NavBar = () =>{
               <a class="nav-link active text-light" aria-current="page" href="/home">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="/" onClick={(event)=>handleProx(event)}>Próximos estrenos</a>
+              <a class="nav-link text-light" href="/home" onClick={(event)=>handleProx(event)}>Próximos estrenos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-light" href="/">Comida</a>

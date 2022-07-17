@@ -12,7 +12,7 @@ import axios from 'axios';
 console.log(process.env)
 console.log("rama axeloneta")
 
-axios.defaults.baseURL = process.env.REACT_APP_API;
+axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001/';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
