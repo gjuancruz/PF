@@ -10,7 +10,7 @@ import {
   DELETE_COMMENT,
   GET_USERS,
   GET_SHOW,
-  GET_ALL_SHOWS
+  GET_ALL_SHOWS,
   AUTORIZADO,
 } from "../actions";
 

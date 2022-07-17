@@ -13,11 +13,10 @@ import CreateFeedback from './Components/CreateFeedback/PostFeedback';
 import Error404 from './Components/Error404/Error404';
 import CreateMovie from './Components/CreateMovie/CreateMovie';
 import Register from './Components/Register/Register';
+import Perfil from './Components/Profile/Profile';
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
-import Perfil from './Components/Profile/Profile';
-import Register from './Components/Register/Register';
 
 function App() {
   return (

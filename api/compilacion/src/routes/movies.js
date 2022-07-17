@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
+const stripe_1 = __importDefault(require("stripe"));
 const middlewares_1 = __importDefault(require("../middlewares/middlewares"));
 const prisma = new client_1.PrismaClient();
 const router = (0, express_1.Router)();
@@ -230,6 +231,45 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (error) {
         res.status(404).json("no se encontro peli con ese nombre");
+    }
+}));
+router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { ticket, amount, show } = req.body;
+    console.log(ticket);
+    const stripe = new stripe_1.default("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ", { apiVersion: "2020-08-27" });
+    const data = {
+        username: "Ignacio Brunello",
+        password: "1234",
+        role: 1
+    };
+    try {
+        const payment = yield stripe.paymentIntents.create({
+            amount,
+            payment_method: ticket,
+            currency: "USD",
+            confirm: true,
+        });
+        const sale = yield prisma.sale.create({ data: {
+                receipt: ticket,
+                user: { create: data }
+            } });
+        const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
+        // console.log(room?.room.id)
+        const seat = yield prisma.seat.findFirst();
+        // console.log(seat.id)
+        const newticket = yield prisma.ticket.createMany({
+            data: {
+                saleId: sale.id,
+                seatId: seat.id,
+                showId: show,
+                roomId: room.room.id
+            }
+        });
+        // console.log(newticket)
+        res.send("Payment received");
+    }
+    catch (error) {
+        res.send(error.message);
     }
 }));
 exports.default = router;
