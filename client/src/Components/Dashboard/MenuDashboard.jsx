@@ -4,6 +4,8 @@ import Comments from "./Comments";
 import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 
 
@@ -21,6 +23,7 @@ export default function MenuDashboard(){
 
     return (
         <div class="container-fluid" > 
+        <NavBar/>
         <div class="row">   
       <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
     
@@ -79,6 +82,7 @@ export default function MenuDashboard(){
       </nav>
        {handleSideBar()}
         </div>
+        <Footer/>
         </div>
     )
 }

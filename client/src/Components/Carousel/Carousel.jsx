@@ -16,6 +16,7 @@ const Carousel = () =>{
       <img src="https://static.cinemarkhoyts.com.ar/Images/Highlights/469.png" class="d-block w-100" alt="..."/>
     </div>
     <div class="carousel-item">
+
       <img src="https://static.cinemarkhoyts.com.ar/Images/Highlights/467.png" class="d-block w-100" alt="..."/>
     </div>
     <div class="carousel-item">

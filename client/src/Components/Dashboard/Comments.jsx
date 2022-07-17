@@ -9,12 +9,27 @@ export default function Comments(){
 
     const [commentDel,setComentDel] = useState("")
     const dispatch = useDispatch()
-    const allCartelera = useSelector((state) => state.carteleraFiltered)
-    const comments = useSelector((state) => state.comments)
+    const allCartelera = useSelector((state) => state.cartelera)
+    const commen = useSelector((state) => state.comments)
+
+
+    const getUserName = (id)=>{
+        console.log(id)
+        getComments()
+        let comment = commen.find(e=> e.id === id.id)
+        console.log(comment)
+        return comment.user.username
+    }
 
     useEffect(() =>{
         dispatch(getBillboard())
-    },[commentDel])
+    },[commen])
+    useEffect(() =>{
+        dispatch(getComments())
+    },[])
+    
+
+    let a = {}
     
     return(
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -22,10 +37,10 @@ export default function Comments(){
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h3">Comentarios</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
+          {/* <div class="btn-group me-2">
             <input type= "text" placeholder="Buscar usuario..."></input>
             <button type="button" class="btn btn-sm btn-outline-secondary">Buscar</button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div class="bg-dark p-5 m-5 text-white row">
@@ -45,11 +60,11 @@ export default function Comments(){
                                 <>
                                 <div class="row">  
                                     <i class="bi bi-person-circle px-3 col-1"></i>
+                                    <span class="col-3">{f.user.username}</span>
                                     <span class="col-6">{f.Text}</span>
-                                    <i class="bi bi-trash3-fill mx-3 col-2 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
+                                    <i class="bi bi-trash3-fill mx-3 col-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
                                 </div><br/>
     
-                                
                                 <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-dark ">
@@ -58,11 +73,11 @@ export default function Comments(){
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ¿ Está seguro que desea borrar el comentario ?
+                                        ¿ Estás seguro que deseas borrar el comentario ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("")}}>Borrar</button>
+                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("a")}}>Borrar</button>
                                     </div>
                                     </div>
                                 </div>
