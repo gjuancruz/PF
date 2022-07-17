@@ -30,3 +30,11 @@ hr {
     justify-content:flex-start;
     margin-left: 50px;
 }
+
+.minheight{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 45vh;
+}
