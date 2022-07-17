@@ -16,6 +16,9 @@ export const POST_SHOW="POST_SHOW"
 export const GET_ALL_SHOWS="GET_ALL_SHOWS"
 export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_SHOW="DELETE_SHOW"
+export const DELETE_MOVIE="DELETE_MOVIE";
+export const EDIT_MOVIE="EDIT_MOVIE";
+
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -178,12 +181,41 @@ export function postMovie(payload){
       }
       const json = await axios.post('/movies/createMovie', payload, Authorization);
       console.log("prueba console.log");
-      return json
+      return dispatch ({
+        type: POST_MOVIE,
+        payload: json.data
+      })
     
     } catch (error) {
       console.log(error)
     }
   }
+}
+
+export function deleteMovie(id){
+  return async function(dispatch){
+    var json = await axios.delete(`http://localhost:3001/movies/delete/${id}`);
+    return dispatch ({
+      type: DELETE_MOVIE,
+      payload: json.data
+    })
+  }
+}
+
+export function editMovie(movie){
+  return async function(dispatch){
+     
+    try {
+       var json = await axios.put(`http://localhost:3001/movies/update/${movie.id}`, movie)
+        return dispatch ({
+          type: EDIT_MOVIE,
+          payload: json.data
+        })
+
+     } catch (error) {
+       console.log(error)
+   }
+   }
 }
 
 export function getComments(){
@@ -311,6 +343,19 @@ export function getUsers(){
 //   }
 // }
 
+
+export function postComment( Text, movieId, userId){
+  // const idFinal = movieId.id
+  return async function(dispatch){
+    try {
+      const json = await axios.post(`http://localhost:3001/comments/add/${movieId}?userId=${userId}`, Text)
+      return json
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+}
 export function logout(){
   return async function(){
     window.localStorage.removeItem('sw-token')
