@@ -11,12 +11,14 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [errors, setErrors] = useState('')
     const dispatch = useDispatch();
     const history = useHistory()
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
-        const { data } = await axios.post('/auth/login',
+        try {
+            const { data } = await axios.post('/auth/login',
             {
                 email,
                 password
@@ -26,8 +28,12 @@ const Login = () => {
             localStorage.setItem('sw-token', data.token)
             localStorage.setItem('userId', data.user.id)
 
-        };
-        history.push('/home')
+            history.push('/home')
+        }  
+        } catch (error){
+            setErrors(error.response.data.error)
+        }
+
     }
     return (
         <div>
@@ -44,7 +50,9 @@ const Login = () => {
                             <input type="checkbox" value="remember-me" /> Recordarme
                         </label>
                     </div>
-                    <button className="btn btn-lg btn-warning btn-block" type="submit">Ingresar</button>
+                    
+                    <button className="btn btn-lg btn-warning btn-block mb-4" type="submit">Ingresar</button>
+                    {errors && <p className='text-danger'>{errors}</p>}
                     <p className="mt-5 mb-3 text-muted">© Moon Cinema - 2022 </p>
                 </form>
 
