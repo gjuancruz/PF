@@ -2,7 +2,6 @@ import React from 'react'
 import '../NavBar/NavBar.css'
 import { useDispatch } from "react-redux";
 import { searchMovieName } from '../../Redux/actions';
-// import img from "./img.jpg"
 
 
 const NavBar = () =>{
