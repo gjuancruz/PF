@@ -37,9 +37,9 @@ router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 }));
 router.get("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const movieId = req.params.id;
-    console.log(movieId);
     try {
-        const shows = yield prisma.show.findFirst({ where: { movieId: movieId } });
+        const shows = yield prisma.show.findMany({ where: { movieId: movieId } });
+        console.log(shows);
         return res.send(shows);
     }
     catch (error) {

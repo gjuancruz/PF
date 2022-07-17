@@ -115,6 +115,7 @@ function rootReducer(state = initialState, action) {
           shows:action.payload
         }
       case GET_SHOW:
+        console.log(action.payload)
         return{
           ...state,
           show:action.payload

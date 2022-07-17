@@ -14,8 +14,8 @@ export default function MovieDetail(){
     const dispatch = useDispatch()
     const idMovie=useParams()
     const movieDet=useSelector(state=>state.movieDetail)
-    const shows= useSelector(state=>state.shows)
-    console.log(movieDet)
+    const shows= useSelector(state=>state.show)
+    // console.log(movieDet)
 
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -47,6 +47,7 @@ export default function MovieDetail(){
         e.preventDefault()
     }
     const selecthora = document.querySelector("#selectHora")
+    // console.log(shows)
     for(const show of shows){
     if(shows.length==0){
     }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){

@@ -209,6 +209,7 @@ export function getShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.get('http://localhost:3001/show/one/'+movieId)
+      // console.log(json.data)
       return dispatch({
         type: GET_SHOW,
         payload:json.data

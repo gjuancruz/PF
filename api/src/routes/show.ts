@@ -34,9 +34,9 @@ router.get("/all",async(req:Request,res:Response)=>{
 
 router.get("/one/:id",async(req:Request,res:Response)=>{
     const movieId = req.params.id
-    console.log(movieId)
     try{
-        const shows = await prisma.show.findFirst({where:{movieId:movieId}})
+        const shows = await prisma.show.findMany({where:{movieId:movieId}})
+        console.log(shows)
         return res.send(shows)
     }catch(error:any){
         res.send(error.message)
