@@ -1,10 +1,10 @@
 
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getBillboard, getPremiere } from "../../Redux/actions"
+import { getBillboard, getPremiere, deleteMovie } from "../../Redux/actions"
 import ModifyMovie from "./ModifyMovie"
-import createMovie from "../CreateMovie/CreateMovie"
 import CreateMovie from "../CreateMovie/CreateMovie"
+import { useState } from "react"
 
 export default function Movies(){
 
@@ -12,6 +12,8 @@ export default function Movies(){
     const premiere = useSelector((state) => state.premiere)
     const allmovies = cartelera.concat(premiere)
     const dispatch = useDispatch()
+
+    const [movieId,setMovieId] = useState("")
 
     useEffect(() =>{
         dispatch(getBillboard())
@@ -55,7 +57,7 @@ export default function Movies(){
                 { allmovies && allmovies.map(e=>{
                     return(
                         <div class="col-md-auto pb-2">
-                        <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="cars" style={{cursor:"pointer"}}></img>
+                        <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="cars" style={{cursor:"pointer"}} onClick={() => {setMovieId(e.id)}}></img>
                     
                         <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -65,19 +67,64 @@ export default function Movies(){
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body border-3" >
-                                        <button type="button" class="btn btn-secondary ">Eliminar</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onClick={e=> {dispatch(deleteMovie(movieId)); setMovieId("")}}>Eliminar</button>
                                 
                                         <ModifyMovie data={e}></ModifyMovie>
                             
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Volver</button>
-                                        <button type="button" class="btn btn-primary">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         </div>
+
+
+                        // <div class="col-md-auto pb-2">
+                        // <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="cars" style={{cursor:"pointer"}} onClick={() => {setMovieId(e.id)}}></img>
+                    
+                        // <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        //     <div class="modal-dialog modal-dialog-centered modal-xl">
+                        //         <div class="modal-content bg-dark text-white" >
+                        //             <div class="modal-header">
+                        //                 <h5 class="modal-title " id="staticBackdropLabel">{e.Title}</h5>
+                        //                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        //             </div>
+                        //             <div class="modal-body border-3" >
+                                        
+
+                        //                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={e=> {dispatch(deleteMovie(movieId)); setMovieId("")}}>Eliminar</button>
+
+                        //                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        //                     <div class="modal-dialog">
+                        //                         <div class="modal-content bg-dark text-white" >
+                        //                         <div class="modal-header">
+                        //                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        //                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        //                         </div>
+                        //                         <div class="modal-body">
+                        //                             ...
+                        //                         </div>
+                        //                         <div class="modal-footer">
+                        //                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        //                             <button type="button" class="btn btn-primary">Save changes</button>
+                        //                         </div>
+                        //                         </div>
+                        //                     </div>
+                        //                     </div>
+
+                                
+                        //                 <ModifyMovie data={e}></ModifyMovie>
+                            
+                        //             </div>
+                        //             <div class="modal-footer">
+                        //                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Volver</button>
+                        //             </div>
+                        //         </div>
+                        //     </div>
+                        // </div>
+                        // </div>
                     )
                 })                
                 }

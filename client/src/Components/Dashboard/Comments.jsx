@@ -10,11 +10,13 @@ export default function Comments(){
     const [commentDel,setComentDel] = useState("")
     const dispatch = useDispatch()
     const allCartelera = useSelector((state) => state.cartelera)
-    const comments = useSelector((state) => state.comments)
+    const commen = useSelector((state) => state.comments)
 
     useEffect(() =>{
         dispatch(getBillboard())
-    },[comments])
+    },[commen])
+
+    let a = {}
     
     return(
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -43,8 +45,11 @@ export default function Comments(){
                         {e.comments && e.comments.length>0 ? e.comments.map(f=>{
                             return(
                                 <>
+                                {console.log(f)}
                                 <div class="row">  
                                     <i class="bi bi-person-circle px-3 col-1"></i>
+                                    {commen.length >0 ? a = commen.map(g =>{ console.log(g)}):null}
+                                    {console.log(a)}
                                     <span class="col-6">{f.Text}</span>
                                     <i class="bi bi-trash3-fill mx-3 col-2 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
                                 </div><br/>
