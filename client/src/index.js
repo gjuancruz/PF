@@ -10,6 +10,7 @@ import axios from 'axios';
 // dotenv.config();
 
 console.log(process.env)
+console.log("rama axeloneta")
 
 axios.defaults.baseURL = process.env.REACT_APP_API;
 
