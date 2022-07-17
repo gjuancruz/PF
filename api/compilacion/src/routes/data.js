@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SupermanSpidermanorBatman = exports.MinionsHolidaySpecial = exports.Minions = exports.DrStranger = exports.topGun = exports.lightyear = exports.MinionsTheRiseofGru = exports.jurassic = exports.thor = exports.iceAge = exports.sonic = exports.spider = exports.cars = void 0;
 exports.cars = {
     Title: "Cars",
-    Plot: "A hot-shot race-car named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.",
+    Plot: "Un auto de carreras de gran éxito llamado Lightning McQueen es asaltado en Radiator Springs, donde encuentra el verdadero significado de la amistad y la familia.",
     Genre: "Animation, Adventure, Comedy",
     Actors: "Owen Wilson, Bonnie Hunt, Paul Newman",
     Language: "English, Italian, Japanese, Yiddish",

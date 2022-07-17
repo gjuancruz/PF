@@ -6,10 +6,14 @@ export const SEARCH_MOVIES='SEARCH_MOVIES';
 export const FILTER_TYPE = "FILTER_TYPE";
 export const FILTER_GENRE = "FILTER_GENRE";
 export const GET_PREMIERE="GET_PREMIERE";
+export const POST_PAYMENT_METHOD ="POST_PAYMENT_METHOD"
 export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const GET_SHOW="GET_SHOW";
+export const POST_SHOW="POST_SHOW"
+export const GET_ALL_SHOWS="GET_ALL_SHOWS"
 export const AUTORIZADO = 'AUTORIZADO';
 
 export function getBillboard() {
@@ -93,7 +97,24 @@ export function searchMovieName(title){
           })
         }
       }
-}
+
+    }
+    export function postPaymentMethod(ticket){
+      return async function (dispatch){
+        try{
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:"13ef3e53-3495-4d56-b6eb-290c57011083"})
+          console.log(json.data)
+          return dispatch({
+            type:POST_PAYMENT_METHOD,
+            payload: json.data
+          })
+        }catch(error){
+       
+        }
+
+
+      }
+    }
 
 export function login (email,password) {
   return async function (dispatch) {
@@ -144,6 +165,7 @@ export function autorizado () {
 // }
 
 export function postMovie(payload){
+  console.log("hola")
   return async function(dispatch){
     console.log(payload)
     try {
@@ -180,6 +202,46 @@ export function deleteComment(id){
       type: DELETE_COMMENT,
       payload: json.data
     })
+  }
+}
+
+export function getShow(movieId){
+  return async function(dispatch){
+    try{
+      const json = await axios.get('http://localhost:3001/show/one/'+movieId)
+      // console.log(json.data)
+      return dispatch({
+        type: GET_SHOW,
+        payload:json.data
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function getAllShows(){
+  return async function(dispatch){
+    try{
+      const json = await axios.get('http://localhost:3001/show/all')
+      return dispatch({
+        type: GET_ALL_SHOWS,
+        payload:json.data
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function postShow(schedule,movieId,roomId){
+  return async function(){
+    try{
+      const json = await axios.post('http://localhost:3001/show',{schedule,movieId,roomId})
+      console.log(json.data)
+    }catch(error){
+      console.log(error)
+    }
   }
 }
 

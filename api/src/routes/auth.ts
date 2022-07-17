@@ -53,11 +53,11 @@ router.post('/login', async (req:Request, res:Response) => {
             // @ts-ignore
             where: { email: email }
         });
-
+        
         if( !user ) {
             return res.status(400).send({ error: 'El usuario no existe, intente nuevamente' })
         }
-
+        
         //Comparando Password
         
         const comparePassword = await bcrypt.compare( password, user.password );
@@ -65,7 +65,7 @@ router.post('/login', async (req:Request, res:Response) => {
         if( !comparePassword ) {
             return res.status(403).json ({ error: 'Contraseña o Usuario Incorrecto'})
         }
-
+        
         //Generando Token
         const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET || '');
 

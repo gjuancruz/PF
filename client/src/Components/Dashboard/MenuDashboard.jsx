@@ -3,6 +3,7 @@ import {Feedback} from "./Feedback";
 import Comments from "./Comments";
 import Users from "./Users";
 import Movies from "./Movies";
+import Shows from "./Shows";
 
 
 
@@ -15,6 +16,7 @@ export default function MenuDashboard(){
         if (component === 'comentarios') return (<Comments/>)
         if (component === "feedback" ) return (<Feedback/>)
         if (component === 'movies') return (<Movies/>)
+        if (component === 'funciones') return(<Shows/>)
     }
 
     return (
@@ -34,7 +36,7 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+            <a href="#" class="nav-link text-white" onClick={e=>setComponent("funciones")}>
                 Funciones de peliculas
               </a>
             </li>
