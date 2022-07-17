@@ -62,7 +62,7 @@ export default function Users(){
               <th scope="col">Nombre</th>
               <th scope="col">Email</th>
               <th scope="col">Rol</th>
-              <th scope="col">Modificar</th>
+              <th scope="col">Borrar</th>
             </tr>
           </thead>
           <tbody>

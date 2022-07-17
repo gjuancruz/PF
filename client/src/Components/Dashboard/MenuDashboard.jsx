@@ -39,11 +39,7 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
-<<<<<<< HEAD
-              <a href="#" class="btn btn-outline-warning border-0 text-white">
-=======
-            <a href="#" class="nav-link text-white" onClick={e=>setComponent("funciones")}>
->>>>>>> cf1d59b0d8a89950a2b0ca428fe3d6882569abc5
+            <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("funciones")}>
                 Funciones de peliculas
               </a>
             </li>
