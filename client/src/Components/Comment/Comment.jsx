@@ -1,19 +1,31 @@
 import React, {useState} from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import "../Comment/Comment.css";
-import { postComment } from "../../Redux/actions";
+import { getUsers, postComment } from "../../Redux/actions";
+import { useEffect } from "react";
 
 const Comment = () => {
   const dispatch = useDispatch();
   const movieId = useParams();
-  console.log(movieId)
+  // console.log("este es el movieId", movieId)
+  // console.log("este es el id de la movie", movieId.id)
+
+  useEffect(() =>{
+    dispatch(getUsers())
+},[])
+
+const allUsers = useSelector ((state) => state.usuarios)
+    const userIdCheck = window.localStorage.getItem('userId')
+    const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+    // console.log("este es mi id",currentUser)
 
   const [input, setInput] = useState({
-    email:"",
+    // email:"",
     Text: "",
   });
 
+  
   function handleChange(e) {
     setInput({
       ...input,
@@ -25,32 +37,27 @@ const Comment = () => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(input);
-    dispatch(postComment([
-        // userId,
+    dispatch(postComment(
         input,
-        movieId.id
-    ]));
+        movieId.id,
+        currentUser[0].id,
+      ));
     alert("Comentario Creado");
   }
 
 
   return (
+    <div>
+        <div>
+{ currentUser.length &&   <div>
+    
+    {!currentUser[0] ? <button> <a href="/login">Login</a></button>:
+      <label>{currentUser[0].username}</label>}
+      </div>
+}      </div>
     <form  onSubmit={e => handleSubmit(e)}>
     <div>
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">
-          Ingrese su Nombre
-        </label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleFormControlInput1"
-          name="email"
-          placeholder=""
-          value= {input.email}
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
+     
       <div class="mb-4">
         <label for="exampleFormControlTextarea1" class="form-label">
           Escribe un comentario
@@ -65,6 +72,7 @@ const Comment = () => {
           onChange={(e) => handleChange(e)}
         ></input>
       </div>
+
       <button type="submit" className="comentar">Comentar</button>
       {/* <div className="writecomment"> */}
         {/* <div class="card p-3">
@@ -103,6 +111,8 @@ const Comment = () => {
       </div> */}
     </div>
     </form>
+    </div>
+    
   );
 };
 

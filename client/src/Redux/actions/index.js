@@ -236,10 +236,11 @@ export function getUsers(){
 // }
 
 
-export function postComment([userId, Text, movieId]){
+export function postComment( Text, movieId, userId){
+  // const idFinal = movieId.id
   return async function(dispatch){
     try {
-      const json = await axios.post(`http://localhost:3001/comments/add/${userId}`, Text, movieId)
+      const json = await axios.post(`http://localhost:3001/comments/add/${movieId}?userId=${userId}`, Text)
       return json
     } 
     catch (error) {
