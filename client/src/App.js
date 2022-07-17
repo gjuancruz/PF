@@ -16,6 +16,8 @@ import Register from './Components/Register/Register';
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
+import Perfil from './Components/Profile/Profile';
+import Register from './Components/Register/Register';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route exact path='/create' component={CreateMovie} />
         <Route exact path='/admin' component={MenuDashboard} />          
         <Route exact path="/feedback/:id" component={CreateFeedback}/>
+        <Route exact path='/profile' component={Perfil}/>
+        <Route exact path='/register' component={Register}/>
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>

@@ -67,11 +67,11 @@ export default function MovieDetail(){
                 
                 
                 <p><b>Sinopsis: </b> {movieDet.Plot}</p>
-                <p><b>Genero: </b> {movieDet.Genre}</p>
+                <p><b>Género: </b> {movieDet.Genre}</p>
                 <p><b>Actores: </b> {movieDet.Actors}</p>
                 <p><b>Director: </b> {movieDet.Director}</p>
-                <p><b>Duracion: </b> {movieDet.Runtime} min</p>
-                <p><b>Lenguage: </b> {movieDet.Language}</p>
+                <p><b>Duración: </b> {movieDet.Runtime} min</p>
+                <p><b>Idioma: </b> {movieDet.Language}</p>
                 </div>
                 <div className="divTrailer">
                 <a className="trailer" href="">Trailer</a>

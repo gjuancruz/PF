@@ -11,6 +11,7 @@ import {
   GET_USERS,
   GET_SHOW,
   GET_ALL_SHOWS
+  AUTORIZADO,
 } from "../actions";
 
 const initialState = {
@@ -22,11 +23,18 @@ const initialState = {
   comments:[],
   usuarios:[],
   shows:[],
-  show:[]
+  show:[],
+  autorizado: '',
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case AUTORIZADO:
+      return {
+        ...state,
+        autorizado: action.payload,
+      }
+
     case GET_BILLBOARD:
       return {
         ...state,

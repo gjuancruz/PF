@@ -1,4 +1,5 @@
 // import { sequelize } from './src/db';
+require('dotenv').config();
 import app from './src/app';
 import {PrismaClient} from '@prisma/client'
 import {cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman} from "./src/routes/data"
@@ -47,7 +48,7 @@ export const showGenerator = async(show:any) => {
    return data
 }
 
-app.listen(3001, async () => {
+app.listen(PORT, async () => {
 
    // const del1 = await prisma.comment.deleteMany({})
    // const del2 = await prisma.show.deleteMany({})
