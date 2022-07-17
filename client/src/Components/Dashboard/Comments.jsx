@@ -12,9 +12,22 @@ export default function Comments(){
     const allCartelera = useSelector((state) => state.cartelera)
     const commen = useSelector((state) => state.comments)
 
+
+    const getUserName = (id)=>{
+        console.log(id)
+        getComments()
+        let comment = commen.find(e=> e.id === id.id)
+        console.log(comment)
+        return comment.user.username
+    }
+
     useEffect(() =>{
         dispatch(getBillboard())
     },[commen])
+    useEffect(() =>{
+        dispatch(getComments())
+    },[])
+    
 
     let a = {}
     
@@ -45,16 +58,13 @@ export default function Comments(){
                         {e.comments && e.comments.length>0 ? e.comments.map(f=>{
                             return(
                                 <>
-                                {console.log(f)}
                                 <div class="row">  
                                     <i class="bi bi-person-circle px-3 col-1"></i>
-                                    {commen.length >0 ? a = commen.map(g =>{ console.log(g)}):null}
-                                    {console.log(a)}
+                                    <span class="col-3">{f.user.username}</span>
                                     <span class="col-6">{f.Text}</span>
-                                    <i class="bi bi-trash3-fill mx-3 col-2 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
+                                    <i class="bi bi-trash3-fill mx-3 col-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
                                 </div><br/>
     
-                                
                                 <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-dark ">
@@ -63,7 +73,7 @@ export default function Comments(){
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ¿ Está seguro que desea borrar el comentario ?
+                                        ¿ Estás seguro que deseas borrar el comentario ?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
