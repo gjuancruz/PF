@@ -121,7 +121,15 @@ router.get("/billboard", async (req:Request, res:Response) =>{
     try{
         const list = await prisma.movie.findMany({
             include:{
-                comments:true
+                comments:{
+                    include:{
+                        user:{
+                            select:{
+                                username:true
+                            }
+                        }
+                    }
+                }
             }
         })
         const billboardMovies = list.filter( data => !isPremier(data.Release));
@@ -147,6 +155,54 @@ router.get("/Premieres", async (_req:Request, res:Response) => {
 router.put("/update/:id", async (req:Request, res:Response) =>{
     const {id} = req.params
 
+    let date
+            // llega esto 2022-07-19
+            date = req.body.Release.split('-'); // [2022, 07, 19]
+            date.reverse(); // [day, month, year]
+            let [day, month, year] = date; // [year, month, day]
+            switch (month) {
+                case '01':
+                    month = 'Jan'
+                    break;
+                case '02':
+                    month = 'Feb'
+                    break;
+                case '03':
+                    month = 'Mar'
+                    break;
+                case '04':
+                    month = 'Apr'
+                    break;
+                case '05':
+                    month = 'May'
+                    break;
+                case '06':
+                    month = 'Jun'
+                    break;
+                case '07':
+                    month = 'Jul'
+                    break;
+                case '08':
+                    month = 'Aug'
+                    break;
+                case '09':
+                    month = 'Sep'
+                    break;
+                case '10':
+                    month = 'Oct'
+                    break;
+                case '11':
+                    month = 'Nov'
+                    break;
+                case '12':
+                    month = 'Dec'
+                    break;
+                default:
+                    break;
+            }
+            
+            req.body.Release = `${day} ${month} ${year}`; // '19 July 2022'
+
     try{
 
         const movieUpdate = await prisma.movie.update({
@@ -156,7 +212,7 @@ router.put("/update/:id", async (req:Request, res:Response) =>{
             data: req.body
         })
 
-        res.json("pelicula actualizada con exito")
+        res.json(movieUpdate)
 
     }catch(e:any){
         res.json("no se pudo actualizar la información")
@@ -174,7 +230,7 @@ router.delete("/delete/:id", async (req:Request, res:Response) =>{
             }
         })
 
-        res.json("película eliminada con éxito")
+        res.json(movieDelete)
 
     }catch(e){
         res.json("no se pudo eliminar la pelicula")
@@ -186,7 +242,18 @@ router.get("/search/:id", async (req:Request,res:Response) =>{
     const {id} = req.params
     try{
         const movie = await prisma.movie.findUnique({
-            where:{id:id}
+            where:{id:id},
+            include:{
+                comments:{
+                    include:{
+                        user:{
+                            select:{
+                                username: true
+                            }
+                        }
+                    }
+                }
+            }
         })
         res.json(movie)
 

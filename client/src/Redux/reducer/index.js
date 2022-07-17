@@ -8,8 +8,10 @@ import {
   GET_FEEDBACK,
   GET_COMMENTS,
   DELETE_COMMENT,
-  GET_USERS,
   AUTORIZADO,
+  DELETE_MOVIE,
+  EDIT_MOVIE,
+  GET_USERS
 } from "../actions";
 
 const initialState = {
@@ -99,8 +101,20 @@ function rootReducer(state = initialState, action) {
     case DELETE_COMMENT:
         return{
           ...state,
+          comments: state.comments.filter(e=> e.id !== action.payload.id)
         }
-    case GET_USERS:
+    case DELETE_MOVIE:
+        return{
+          ...state,
+          cartelera: state.cartelera.filter(e=> e.id !== action.payload.id),
+          carteleraFiltered: state.carteleraFiltered.filter(e=> e.id !== action.payload.id),
+          premiere: state.premiere.filter(e=> e.id !== action.payload.id)
+        }
+    case EDIT_MOVIE:
+      return{
+        ...state,
+      }
+      case GET_USERS:
         return {
           ...state,
           usuarios: action.payload
