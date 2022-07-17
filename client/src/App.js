@@ -32,7 +32,7 @@ function App() {
         <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route exact path='/create' component={CreateMovie} />
         <Route exact path='/admin' component={MenuDashboard} />          
-        <Route exact path="/feedback/:id" component={CreateFeedback}/>
+        <Route exact path="/feedback" component={CreateFeedback}/>
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
         <Route path='*' component={Error404} />

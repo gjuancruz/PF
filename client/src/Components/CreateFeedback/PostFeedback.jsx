@@ -1,15 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { postFeedback } from "../../Redux/actions";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { postFeedback, getUsers } from "../../Redux/actions";
 
 export default function CreateFeedback(props) {
   const dispatch = useDispatch();
-  console.log(props);
-  var idUser = props.match.params.id;
-  console.log("Este es el user id:", idUser);
+  // console.log(props);
+  // var idUser = props.match.params.id;
+  // console.log("Este es el user id:", idUser);
   const [input, setInput] = useState({
     Text: "",
   });
+
+  useEffect(() =>{
+    dispatch(getUsers())
+},[])
+
+const allUsers = useSelector ((state) => state.usuarios)
+    const userIdCheck = window.localStorage.getItem('userId')
+    const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+    console.log("este es currentUser",currentUser)
+
 
   function handleChange(e) {
     setInput({
@@ -22,28 +32,12 @@ export default function CreateFeedback(props) {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(input);
-    dispatch(postFeedback([idUser, input]));
+    dispatch(postFeedback([currentUser[0].id, input]));
     alert("Feedback creado");
   }
 
   return (
     <>
-      <form onSubmit={e=> handleSubmit(e)}>
-            <div>
-                <h1>Crear Feedback</h1>
-            </div>
-            <div>
-                <label>Feedback: </label>
-                <input
-                type= 'text'
-                value= {input.Text}
-                name='Text'
-                onChange={(e) => handleChange(e)}
-                />
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
-
       <button
         type="button"
         class="btn btn-primary"
