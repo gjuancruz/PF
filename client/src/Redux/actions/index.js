@@ -10,6 +10,7 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 
@@ -101,34 +102,68 @@ export function login (email,password) {
   return async function (dispatch) {
   const getLogin = await axios.get(`http://localhost:3001/auth/login`)
   const getToken = await getLogin.data;
-
+  const getUser = await getLogin.data.user.id
   window.localStorage.setItem('token', getToken.token)
+  window.localStorage.setItem('userId', getUser)
+
     return dispatch({
       
     })
   } 
 }
+
+export function autorizado () {
+  return async function (dispatch) {
+    const permiso = await axios.get("http://localhost:3001/auth/acceder", {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    })  
+    return dispatch({
+      type: AUTORIZADO,
+      payload: permiso.data.permitir
+    })
+  } 
+}
+
+// export function postMovie(payload) {
+//   return async function (dispatch) {
+//     const logged = await axios.get("http://localhost:3001/auth/verify", {
+//       headers: {
+//         Authorization: `Bearer ${window.localStorage.getItem("sw-token")}`,
+//       },
+//     });
+//     console.log("aca toi");
+//     try {
+//       await axios.post("http://localhost:3001/movies/createMovie", payload, {
+//         headers: {
+//           Authorization: `Bearer ${window.localStorage.getItem("sw-token")}`,
+//         },
+//       });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// }
+
 export function postMovie(payload){
   return async function(dispatch){
-   const logged = await axios.get('http://localhost:3001/auth/verify', {
-     headers : {
-       Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
-     }
-   })
-   console.log('aca toi')
-     try {
-      
-       await axios.post('http://localhost:3001/movies/createMovie', payload, {
+    console.log(payload)
+    try {
+      const Authorization = {
         headers : {
           Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
         }
-      });
-  
-     } catch (error) {
-       console.log(error)
-   }
-   }
+      }
+      const json = await axios.post('http://localhost:3001/movies/createMovie', payload, Authorization);
+      console.log("prueba console.log");
+      return json
+    
+    } catch (error) {
+      console.log(error)
+    }
   }
+}
 
 export function deleteMovie(id){
   return async function(dispatch){
@@ -227,3 +262,17 @@ export function getUsers(){
 //       .catch(err => console.log(err))
 //   }
 // }
+
+
+export function postComment( Text, movieId, userId){
+  // const idFinal = movieId.id
+  return async function(dispatch){
+    try {
+      const json = await axios.post(`http://localhost:3001/comments/add/${movieId}?userId=${userId}`, Text)
+      return json
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  }
+}

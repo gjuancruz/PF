@@ -8,6 +8,7 @@ import {
   GET_FEEDBACK,
   GET_COMMENTS,
   DELETE_COMMENT,
+  AUTORIZADO,
   DELETE_MOVIE,
   EDIT_MOVIE,
   GET_USERS
@@ -20,11 +21,18 @@ const initialState = {
   movieDetail: {},
   feedback:[],
   comments:[],
-  usuarios:[]
+  usuarios:[],
+  autorizado: '',
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case AUTORIZADO:
+      return {
+        ...state,
+        autorizado: action.payload,
+      }
+
     case GET_BILLBOARD:
       return {
         ...state,
@@ -111,6 +119,14 @@ function rootReducer(state = initialState, action) {
           ...state,
           usuarios: action.payload
         }
+    
+      case "POST_COMMENT":
+      return{
+        ...state
+      };
+
+    
+    
 
     default:
       return state;
