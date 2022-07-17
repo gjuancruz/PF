@@ -9,7 +9,8 @@ import {
   GET_COMMENTS,
   DELETE_COMMENT,
   GET_USERS,
-  GET_SHOWS
+  GET_SHOW,
+  GET_ALL_SHOWS
 } from "../actions";
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
   feedback:[],
   comments:[],
   usuarios:[],
-  shows:[]
+  shows:[],
+  show:[]
 };
 
 function rootReducer(state = initialState, action) {
@@ -99,10 +101,15 @@ function rootReducer(state = initialState, action) {
           ...state,
           usuarios: action.payload
         }
-      case GET_SHOWS:
+      case GET_ALL_SHOWS:
         return{
           ...state,
           shows:action.payload
+        }
+      case GET_SHOW:
+        return{
+          ...state,
+          show:action.payload
         }
     default:
       return state;

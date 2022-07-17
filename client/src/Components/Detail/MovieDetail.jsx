@@ -2,7 +2,7 @@ import React,{ useEffect }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
-import { getMovieDetail,postPaymentMethod,getShows } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -20,7 +20,7 @@ export default function MovieDetail(){
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getMovieDetail(idMovie.id))
-        dispatch(getShows(idMovie.id))
+        dispatch(getShow(idMovie.id))
     },[dispatch])
 
     const CheckoutForm = (e) =>{

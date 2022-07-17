@@ -11,7 +11,9 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
-export const GET_SHOWS="GET_SHOWS";
+export const GET_SHOW="GET_SHOW";
+export const POST_SHOW="POST_SHOW"
+export const GET_ALL_SHOWS="GET_ALL_SHOWS"
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -174,15 +176,39 @@ export function deleteComment(id){
   }
 }
 
-export function getShows(movieId){
-  console.log(movieId)
+export function getShow(movieId){
   return async function(dispatch){
     try{
-      const json = await axios.get('http://localhost:3001/show/'+movieId)
+      const json = await axios.get('http://localhost:3001/show/one/'+movieId)
       return dispatch({
-        type: GET_SHOWS,
+        type: GET_SHOW,
         payload:json.data
       })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function getAllShows(){
+  return async function(dispatch){
+    try{
+      const json = await axios.get('http://localhost:3001/show/all')
+      return dispatch({
+        type: GET_ALL_SHOWS,
+        payload:json.data
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function postShow(schedule,movieId,roomId){
+  return async function(){
+    try{
+      const json = await axios.post('http://localhost:3001/show',{schedule,movieId,roomId})
+      console.log(json.data)
     }catch(error){
       console.log(error)
     }
