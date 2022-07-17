@@ -262,4 +262,3 @@ const checkToken = window.localStorage.getItem(('sw-token'));
         </Formik>)
     );
 };
-
