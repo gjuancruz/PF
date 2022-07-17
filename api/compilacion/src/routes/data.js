@@ -1,6 +1,9 @@
-export const cars = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SupermanSpidermanorBatman = exports.MinionsHolidaySpecial = exports.Minions = exports.DrStranger = exports.topGun = exports.lightyear = exports.MinionsTheRiseofGru = exports.jurassic = exports.thor = exports.iceAge = exports.sonic = exports.spider = exports.cars = void 0;
+exports.cars = {
     Title: "Cars",
-    Plot: "Un auto de carreras de gran éxito llamado Lightning McQueen es asaltado en Radiator Springs, donde encuentra el verdadero significado de la amistad y la familia.",
+    Plot: "A hot-shot race-car named Lightning McQueen gets waylaid in Radiator Springs, where he finds the true meaning of friendship and family.",
     Genre: "Animation, Adventure, Comedy",
     Actors: "Owen Wilson, Bonnie Hunt, Paul Newman",
     Language: "English, Italian, Japanese, Yiddish",
@@ -11,9 +14,8 @@ export const cars = {
     Trailer: "link",
     Type: "3D",
     Runtime: 117
-}
-
-export const spider = {
+};
+exports.spider = {
     Title: "Spider-Man: No Way Home",
     Plot: "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
     Genre: "Action, Adventure, Fantasy",
@@ -26,9 +28,8 @@ export const spider = {
     Trailer: "link",
     Type: "2D",
     Runtime: 148
-}
-
-export const sonic = {
+};
+exports.sonic = {
     Title: "Sonic the Hedgehog 2",
     Plot: "When the manic Dr Robotnik returns to Earth with a new ally, Knuckles the Echidna, Sonic and his new friend Tails is all that stands in their way.",
     Genre: "Action, Adventure, Comedy",
@@ -41,9 +42,8 @@ export const sonic = {
     Type: "3D",
     Trailer: "link",
     Runtime: 122
-}
-
-export const iceAge = {
+};
+exports.iceAge = {
     Title: "Ice Age",
     Plot: "The story revolves around sub-zero heroes: a woolly mammoth, a saber-toothed tiger, a sloth and a prehistoric combination of a squirrel and rat, known as Scrat",
     Genre: "Animation, Adventure, Comedy",
@@ -56,9 +56,8 @@ export const iceAge = {
     Type: "2D",
     Trailer: "link",
     Runtime: 81
-}
-
-export const thor = {
+};
+exports.thor = {
     Title: "Thor: Love and Thunder",
     Plot: "Thor enlists the help of Valkyrie, Korg and ex-girlfriend Jane Foster to fight Gorr the God Butcher, who intends to make the gods extinct",
     Genre: "Action, Adventure, Comedy",
@@ -71,9 +70,8 @@ export const thor = {
     Type: "3D",
     Trailer: "link",
     Runtime: 125
-}
-
-export const jurassic = {
+};
+exports.jurassic = {
     Title: "Jurassic World Dominion",
     Plot: "our years after the destruction of Isla Nublar, dinosaurs now live--and hunt--alongside humans all over the world. This fragile balance will reshape the future and determine, once and for all, whether human beings are to remain t...",
     Genre: "Action, Adventure, Sci-Fi",
@@ -86,9 +84,8 @@ export const jurassic = {
     Type: "2D",
     Trailer: "link",
     Runtime: 147
-}
-
-export const MinionsTheRiseofGru = {
+};
+exports.MinionsTheRiseofGru = {
     Title: "Minions: The Rise of Gru",
     Plot: "The untold story of one twelve-year-old's dream to become the world's greatest supervillain",
     Genre: "Animation, Adventure, Comedy",
@@ -101,9 +98,8 @@ export const MinionsTheRiseofGru = {
     Type: "3D",
     Trailer: "link",
     Runtime: 87
-}
-
-export const lightyear = {
+};
+exports.lightyear = {
     Title: "Lightyear",
     Plot: "While spending years attempting to return home, marooned Space Ranger Buzz Lightyear encounters an army of ruthless robots commanded by Zurg who are attempting to steal his fuel source.",
     Genre: "Animation, Action, Adventure",
@@ -116,9 +112,8 @@ export const lightyear = {
     Type: "2D",
     Trailer: "link",
     Runtime: 100
-}
-
-export const topGun= {
+};
+exports.topGun = {
     Title: "Top Gun: Maverick",
     Plot: "After more than thirty years of service as one of the Navy's top aviators, Pete Mitchell is where he belongs, pushing the envelope as a courageous test pilot and dodging the advancement in rank that would ground",
     Genre: "Action, Drama",
@@ -131,9 +126,8 @@ export const topGun= {
     Type: "2D",
     Trailer: "link",
     Runtime: 130
-}
-
-export const DrStranger = {
+};
+exports.DrStranger = {
     Title: "Doctor Strange in the Multiverse of Madness",
     Plot: "Doctor Strange teams up with a mysterious teenage girl from his dreams who can travel across multiverses, to battle multiple threats, including other-universe versions of himself",
     Genre: "Action, Adventure, Fantasy",
@@ -146,12 +140,11 @@ export const DrStranger = {
     Type: "3D",
     Trailer: "link",
     Runtime: 126
-}
-
-export const Minions = {
+};
+exports.Minions = {
     Title: "Minions",
     Plot: "Minions Stuart, Kevin, and Bob are recruited by Scarlet Overkill, a supervillain who, alongside her inventor husband Herb, hatches a plot to take over the world.",
-    Genre: "Animation, Adventure, Comedy",    
+    Genre: "Animation, Adventure, Comedy",
     Actors: "Sandra Bullock, Jon Hamm, Michael Keaton",
     Language: "English, Spanish",
     Director: "Kyle Balda, Pierre Coffin",
@@ -159,11 +152,10 @@ export const Minions = {
     Poster: "https://m.media-amazon.com/images/M/MV5BMTg2MTMyMzU0M15BMl5BanBnXkFtZTgwOTU3ODk4NTE@._V1_SX300.jpg",
     Rated: "PG",
     Type: "2D",
-    Trailer: "link",    
+    Trailer: "link",
     Runtime: 91,
-}
-
-export const MinionsHolidaySpecial = {
+};
+exports.MinionsHolidaySpecial = {
     Title: "Minions Holiday Special",
     Plot: "Illumination presents four new mini-movie escapades along with special guest appearances from some of Illumination's beloved characters from their \"The Secret Life of Pets\" and \"Sing\" franchises.",
     Genre: "Animation, Short, Comedy",
@@ -174,11 +166,10 @@ export const MinionsHolidaySpecial = {
     Poster: "https://m.media-amazon.com/images/M/MV5BMjFjMzUwZjYtZTM2MC00NThiLTllN2UtNzhmMGE5YjkyYzllXkEyXkFqcGdeQXVyMzY3MDEzMTA@._V1_SX300.jpg",
     Rated: "TV-PG",
     Type: "2D",
-    Trailer: "link",    
+    Trailer: "link",
     Runtime: 21,
-}
-
-export const SupermanSpidermanorBatman = {
+};
+exports.SupermanSpidermanorBatman = {
     Title: "Superman, Spiderman or Batman",
     Plot: "Aron, a 5-year-old boy, together with his worried father, sets out on a journey at the end of which he wishes, like the superheroes in the comic books, to save his mother who is suffering from a heart condition.",
     Genre: "Short, Drama",
@@ -189,6 +180,7 @@ export const SupermanSpidermanorBatman = {
     Poster: "https://m.media-amazon.com/images/M/MV5BMjQ4MzcxNDU3N15BMl5BanBnXkFtZTgwOTE1MzMxNzE@._V1_SX300.jpg",
     Rated: "Not Rated",
     Type: "2D",
-    Trailer: "link",    
+    Trailer: "link",
     Runtime: 11,
-}
+};
+//# sourceMappingURL=data.js.map
