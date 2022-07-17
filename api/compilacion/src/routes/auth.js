@@ -62,6 +62,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         }
         //Comparando Password
         const comparePassword = yield bcrypt_1.default.compare(password, user.password);
+        console.log(comparePassword);
         if (!comparePassword) {
             return res.status(403).json({ error: 'Contraseña o Usuario Incorrecto' });
         }

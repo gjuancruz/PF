@@ -14,8 +14,7 @@ import {
   GET_ALL_SHOWS,
   AUTORIZADO,
   DELETE_MOVIE,
-  EDIT_MOVIE,
-  GET_USERS
+  EDIT_MOVIE
 } from "../actions";
 
 const initialState = {

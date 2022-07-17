@@ -95,7 +95,6 @@ export default function MovieDetail(){
                 </form>
                 </div>
                 <Comment/>
-<<<<<<< HEAD
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(
                         <div class="card p-3">
@@ -112,8 +111,6 @@ export default function MovieDetail(){
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 
-=======
->>>>>>> 1c07e8d4cdd990414d2fc8e54ada3e395afbc96d
             </div>
             <Footer />
         </div> 
