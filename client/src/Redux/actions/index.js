@@ -157,7 +157,10 @@ export function postMovie(payload){
       }
       const json = await axios.post('http://localhost:3001/movies/createMovie', payload, Authorization);
       console.log("prueba console.log");
-      return json
+      return dispatch ({
+        type: POST_MOVIE,
+        payload: json.data
+      })
     
     } catch (error) {
       console.log(error)

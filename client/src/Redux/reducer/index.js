@@ -1,6 +1,7 @@
 import {
   GET_MOVIE_DETAIL,
   GET_BILLBOARD,
+  POST_MOVIE,
   SEARCH_MOVIES,
   FILTER_GENRE,
   FILTER_TYPE,
@@ -21,6 +22,7 @@ const initialState = {
   movieDetail: {},
   feedback:[],
   comments:[],
+  refresh: false,
   usuarios:[],
   autorizado: '',
 };
@@ -77,9 +79,10 @@ function rootReducer(state = initialState, action) {
         carteleraFiltered: action.payload,
       };
 
-    case "POST_MOVIE":
+    case POST_MOVIE:
         return{
-          ...state
+          ...state,
+          refresh: !state.refresh
       };
     
     case GET_FEEDBACK:
@@ -113,6 +116,7 @@ function rootReducer(state = initialState, action) {
     case EDIT_MOVIE:
       return{
         ...state,
+        refresh: !state.refresh
       }
       case GET_USERS:
         return {
