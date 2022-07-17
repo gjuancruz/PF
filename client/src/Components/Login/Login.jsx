@@ -5,13 +5,14 @@ import { login } from "../../Redux/actions";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import NavBar from "../NavBar/NavBar";
+import {useHistory} from 'react-router-dom'
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch();
-
+    const history = useHistory()
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -26,7 +27,7 @@ const Login = () => {
             localStorage.setItem('userId', data.user.id)
 
         };
-        console.log(data);
+        history.push('/home')
     }
     return (
         <div>

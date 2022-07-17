@@ -241,3 +241,14 @@ export function logout(){
     window.localStorage.removeItem('userId')
   }
 }
+
+export function register(payload){
+  return async function(){
+      try {
+          var json = await axios.post(`http://localhost:3001/auth/register`, payload)
+          return json
+      } catch (error) {
+          console.log(error)
+      }
+  }
+}
