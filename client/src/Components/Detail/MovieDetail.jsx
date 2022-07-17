@@ -57,6 +57,21 @@ export default function MovieDetail(){
                 <button className="botoncomprar">Comprar</button>
                 </div>
                 <Comment/>
+                {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
+                    return(
+                        <div class="card p-3">
+
+                        <div class="d-flex justify-content-between align-items-center"/>
+
+                        <div class="user d-flex flex-row align-items-center"/>
+
+
+                        <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
+
+                        </div>
+
+                    )
+                }): <div>NO HAY COMENTARIOS</div>}
                 
             </div>
             <Footer />
