@@ -36,7 +36,7 @@ const allUsers = useSelector ((state) => state.usuarios)
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(input);
+    console.log(input,movieId.id,currentUser[0]);
     dispatch(postComment(
         input,
         movieId.id,
