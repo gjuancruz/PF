@@ -4,7 +4,7 @@ import {PrismaClient} from '@prisma/client'
 const router = Router()
 const prisma = new PrismaClient()
 
-//http://localhost:3001/comments
+http://localhost:3001/comments
 router.get("/", async (req:Request, res:Response) =>{
     try{
         const movies = await prisma.comment.findMany({
@@ -31,7 +31,7 @@ router.get("/", async (req:Request, res:Response) =>{
 })
 
 
-//http://localhost:3001/comments/add/:idMovie
+http://localhost:3001/comments/add/:idMovie
 router.post("/add/:movieId", async (req:Request,res:Response) =>{
 
     const {movieId} = req.params
