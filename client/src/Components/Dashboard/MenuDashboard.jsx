@@ -23,7 +23,7 @@ export default function MenuDashboard(){
 
     return (
         <div class="container-fluid" > 
-        <NavBar/>
+        
         <div class="row">   
       <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
     
@@ -82,7 +82,6 @@ export default function MenuDashboard(){
       </nav>
        {handleSideBar()}
         </div>
-        <Footer/>
         </div>
     )
 }
