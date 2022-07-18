@@ -66,9 +66,20 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_PREMIERE:
+      const sortedPremieres = action.payload.sort(function (a, b) {
+        if (a.Release > b.Release) {
+          return 1;
+        }
+        if (a.Release < b.Release) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+      
       return {
         ...state,
-        premiere: action.payload,
+        premiere: sortedPremieres,
       };
 
     case GET_MOVIE_DETAIL:
@@ -120,41 +131,28 @@ function rootReducer(state = initialState, action) {
           ...state,
           shows:action.payload
         }
-      case GET_SHOW:
-    case DELETE_MOVIE:
+      case DELETE_MOVIE:
+          return{
+            ...state,
+            cartelera: state.cartelera.filter(e=> e.id !== action.payload.id),
+            carteleraFiltered: state.carteleraFiltered.filter(e=> e.id !== action.payload.id),
+            premiere: state.premiere.filter(e=> e.id !== action.payload.id)
+          }
+      case EDIT_MOVIE:
         return{
           ...state,
-          cartelera: state.cartelera.filter(e=> e.id !== action.payload.id),
-          carteleraFiltered: state.carteleraFiltered.filter(e=> e.id !== action.payload.id),
-          premiere: state.premiere.filter(e=> e.id !== action.payload.id)
+          refresh: !state.refresh
         }
-    case EDIT_MOVIE:
-      return{
-        ...state,
-        refresh: !state.refresh
-      }
-    case GET_USERS:
-      return {
-        ...state,
-        usuarios: action.payload
-      }
-  
-    case "POST_COMMENT":
-      return{
-        ...state
-      };
-
-    case GET_ALL_SHOWS:
-      return{
-        ...state,
-        shows:action.payload
-      }
-    case GET_SHOW:
-      console.log(action.payload)
-      return{
-        ...state,
-        show:action.payload
-      }
+      case "POST_COMMENT":
+        return{
+          ...state
+        };
+      case GET_SHOW:
+        console.log(action.payload)
+        return{
+          ...state,
+          show:action.payload
+        }
     default:
       return state;
   }
