@@ -1,40 +1,33 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, searchUser, deleteUser, updateUser } from "../../Redux/actions";
-import Modal from "../reusable/Modal";
-
+import { getUsers, searchUser, deleteUser} from "../../Redux/actions";
+import CreateUser from "./Create User";
+import DeleteUser from "./DeleteUser";
 
 export default function Users(){
-    const [active, setActive]= useState(false);
-    const toggle = (email)=>{
-    setActive(!active)
-    {console.log(email)}
-    
-}
+  const [userDlt, setUserDlt] = useState({email:''})
 
   const dispatch = useDispatch();
   const usuarios = useSelector(state=>state.usuarios);
 
   const [input, setInput] = useState("")
-  const [userDlt, setUserDlt] = useState({email:''})
+ 
   const handleChangeSearch = (e)=>{
     e.preventDefault();
     setInput(e.target.value)
   }
   const handleSubmitSearch = (e)=>{
-    e.preventDefault();
+    e.preventDefault()
     dispatch(searchUser(input))
   }
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    dispatch(deleteUser({email:e.target.value}));
+  const handleDltUser = (e)=>{
+    dispatch(deleteUser(userDlt));
     setUserDlt({email:""})
-    dispatch(getUsers())
   }
 
   useEffect(()=>{
     dispatch(getUsers())
-  },[dispatch])
+  },[dispatch,userDlt])
 
     return(
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -46,7 +39,7 @@ export default function Users(){
             <input type= "text" value={input} placeholder="Buscar usuario..." onChange={(e)=>handleChangeSearch(e)}></input>
             <button type="submit" class="btn btn-sm btn-outline-secondary">Buscar</button>
           </form>
-          <button type="button" class="btn btn-sm btn-outline-secondary"><i class="bi bi-plus-lg"></i>
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}}><i class="bi bi-plus-lg" ></i>
             Agregar nuevo
           </button>
           <button type="button" class="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getUsers())}>
@@ -74,30 +67,11 @@ export default function Users(){
                   <td>{u.email}</td>
                   <td>{u.role}</td>
                   <td>
-                    <button class="btn btn-outline-warning"><i class="bi bi-trash3" onClick={toggle}></i></button>
+                    <button class="btn btn-outline-warning"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => setUserDlt({email:u.email})}></i></button>
                   </td>
-                  <Modal active={active} toggle={toggle}>
-                
-                 <label>seguro que deseas eliminar?</label>
-                <button class="btn btn-outline-warning" onClick={()=>{console.log(u.email);dispatch(deleteUser({email:u.email}))}}>Eliminar</button>
-            </Modal>
-                  {/* <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content bg-dark ">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Borrar Usuario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ¿ Está seguro que desea borrar el usuario?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" value={u.email} onClick={(e)=>handleDelete(e)}>Borrar</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div> */}
+                  <DeleteUser handleDltUser={handleDltUser}/>
+                  <CreateUser/>
+                 
                 </tr>
                 )
               )

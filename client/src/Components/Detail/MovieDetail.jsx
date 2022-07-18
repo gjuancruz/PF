@@ -107,7 +107,7 @@ export default function MovieDetail(){
                         <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
 
                         </div>
-
+                        
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 
