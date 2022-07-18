@@ -19,18 +19,18 @@ const Perfil = () =>{
 
         <div className={styles.headerDiv}>
         <i class="bi bi-person-circle" style={{fontSize: "64px"}}></i>
-        <h1 className={styles.miPerfil}>Mi perfil</h1>
+        <h1 className='display-5 fw-bold ml-4'>{currentUser.length && currentUser[0].username}</h1>
         </div>
 
         <div><hr class='bg-warning'/></div>
 
         {currentUser.length && 
-        <div>
-            <h3>{currentUser[0].username}</h3>
+        <div className={styles.minheight}>
             <h4>Tu e-mail:</h4> <p>{currentUser[0].email}</p>
             <h4>Membresía:</h4> {currentUser[0].role === 'user' || currentUser[0].role === 'admin' ? <p>Actualmente no cuentas con ninguna membresía</p> : <p>Miembro del club de cine</p>}
             { currentUser[0].role === 'user' || currentUser[0].role === 'admin' && <button type="submit" class="btn btn-outline-warning mb-4">Hazte miembro del club de cine</button>}
-        </div>}
+        </div>
+        }
 
         <div><hr class='bg-warning'/></div>
         
