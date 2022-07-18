@@ -23,6 +23,7 @@ function App() {
   return (
     <Elements stripe={stripePromise}>
     <BrowserRouter>
+      {/* <NavBar /> */}
 
       <Switch>
         <Route exact path="/">

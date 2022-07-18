@@ -34,32 +34,32 @@ export default function MenuDashboard(){
           <hr/>
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("movies")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("movies")}>
                 Peliculas
               </a>
             </li>
             <li>
-            <a href="#" class="nav-link text-white" onClick={e=>setComponent("funciones")}>
+            <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("funciones")}>
                 Funciones de peliculas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="#" class="btn btn-outline-warning border-0 text-white">
                 Balance de ventas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("usuarios")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("usuarios")}>
                 Usuarios Registrados
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("comentarios")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("comentarios")}>
                 Administrar comentarios
               </a>
             </li>
             <li>
-             <a href="#" class="nav-link text-white" onClick={e=>setComponent("feedback")} > 
+             <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("feedback")} > 
                 Feedback
               </a>
             </li>
