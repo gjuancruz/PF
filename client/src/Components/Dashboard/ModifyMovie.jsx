@@ -127,8 +127,13 @@ export default function CreateMovie({ data }) {
       }}
       validate={(val) => {
         let errors = {};
+        if (!val.Title) {
+          errors.Title = "Por favor ingresa un titulo *";
+        } 
         
-        
+        if(!val.Plot) {
+          errors.Plot = "Por favor ingresa la trama *"
+        }
         
 
         if (!val.Language) {
