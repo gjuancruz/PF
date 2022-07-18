@@ -1,5 +1,5 @@
 import axios from "axios";
-export const GET_USERS = "GET_USERS"
+export const GET_USERS = "GET_USERS";
 export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
 export const GET_BILLBOARD = "GET_BILLBOARD";
 export const SEARCH_MOVIES='SEARCH_MOVIES';
@@ -11,10 +11,14 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const POST_COMMENT="POST_COMMENT";
+export const SEARCH_USER="SEARCH_USER";
+export const DELETE_USER="DELETE_USER";
 export const GET_SHOW="GET_SHOW";
 export const POST_SHOW="POST_SHOW"
 export const GET_ALL_SHOWS="GET_ALL_SHOWS"
 export const AUTORIZADO = 'AUTORIZADO';
+export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 
@@ -25,7 +29,8 @@ export function getBillboard() {
       headers : {
         Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
       }
-    });
+    }
+    );
     return dispatch({
       type: GET_BILLBOARD,
       payload: json.data,
@@ -102,10 +107,11 @@ export function searchMovieName(title){
       }
 
     }
-    export function postPaymentMethod(ticket){
+    export function postPaymentMethod(ticket,show,userId){
+      console.log(userId)
       return async function (dispatch){
         try{
-          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:"13ef3e53-3495-4d56-b6eb-290c57011083"})
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:show,userId})
           console.log(json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
@@ -192,7 +198,7 @@ export function postMovie(payload){
 
 export function deleteMovie(id){
   return async function(dispatch){
-    var json = await axios.delete(`http://localhost:3001/movies/delete/${id}`);
+    var json = await axios.delete(`/movies/delete/${id}`);
     return dispatch ({
       type: DELETE_MOVIE,
       payload: json.data
@@ -204,7 +210,7 @@ export function editMovie(movie){
   return async function(dispatch){
      
     try {
-       var json = await axios.put(`http://localhost:3001/movies/update/${movie.id}`, movie)
+       var json = await axios.put(`/movies/update/${movie.id}`, movie)
         return dispatch ({
           type: EDIT_MOVIE,
           payload: json.data
@@ -246,6 +252,18 @@ export function getShow(movieId){
         type: GET_SHOW,
         payload:json.data
       })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function deleteShow(movieId){
+  return async function(dispatch){
+    try{
+      const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
+      // console.log(json.data)
+      console.log(json.data)
     }catch(error){
       console.log(error)
     }
@@ -303,14 +321,65 @@ export function postFeedback([idUser, input]){
     }
   }
 }
-////////RUTAS CRUD USUARIOS///////////
 
+
+////////RUTAS CRUD y search USUARIOS///////////
 export function getUsers(){
   return async function(dispatch){
     var get_Usuarios = await axios.get("/admin");
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
   }
 }
+export function searchUser(name){
+  return async function (dispatch) {
+      try {
+        var search = await axios.get(`http://localhost:3001/admin/searchUser?username=${name}`)
+        return dispatch({
+          type: SEARCH_USER,
+          payload: search.data
+        })
+      } catch (error) {
+        dispatch({
+          type: SEARCH_USER,
+          payload: []
+        })
+      }
+    }
+}
+
+export function deleteUser(email){
+  return  function(dispatch){
+    const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(email)
+        };
+  
+    var userDelete = fetch("http://localhost:3001/admin/deleteUser",requestOptions)
+    .then(data => data.json())
+      .then(json => {
+          dispatch({ type: DELETE_USER, payload: json})
+      })
+      .catch(err => console.log(err))
+  }
+}
+
+export function createUser(user){
+  return async function(dispatch){
+      const data = await axios.post("http://localhost:3001/admin/createUser", user)
+      return data;
+  }
+}
+
+export function updateUser(data){
+  
+  return async function(dispatch){
+    console.log(data)
+    var updateDelete = await axios.put("http://localhost:3001/admin/updateUser",data);
+    return updateDelete
+  }
+}
+
 
 // export function postMovie(payload){
 //   const requestOptions = {
@@ -334,8 +403,11 @@ export function postComment( Text, movieId, userId){
   // const idFinal = movieId.id
   return async function(dispatch){
     try {
-      const json = await axios.post(`http://localhost:3001/comments/add/${movieId}?userId=${userId}`, Text)
-      return json
+      const json = await axios.post(`/comments/add/${movieId}?userId=${userId}`, Text)
+      return dispatch({
+        type: POST_COMMENT,
+        payload:json.data
+      })
     } 
     catch (error) {
       console.log(error)

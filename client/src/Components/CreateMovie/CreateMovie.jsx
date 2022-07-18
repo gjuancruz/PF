@@ -286,6 +286,7 @@ export default function CreateMovie() {
                 <div className={styles.containerElem}>
                   {values.Genre.map((gen) => (
                     <div className={styles.containerDlt} key={gen}>
+                      <p>{gen}</p>
                       <button
                         className={styles.deleteBtn}
                         name={gen}
@@ -295,7 +296,6 @@ export default function CreateMovie() {
                       >
                         x
                       </button>
-                      <p>{gen}</p>
                     </div>
                   ))}
                 </div>
@@ -422,19 +422,9 @@ export default function CreateMovie() {
                       name="file"
                       onChange={(e) => uploadImage(e)}
                     />
-                    {loading && (values.Poster = image)}
-                    {!values.Poster ? (
-                      <div className={styles.contImage}>
-                        <img
-                          src="https://images.vectorhq.com/images/previews/046/film-reel-psd-445226.png"
-                          className={styles.image}
-                        />
-                      </div>
-                    ) : (
-                      <div className={styles.contImage}>
-                        <img src={image} className={styles.image} />
-                      </div>
-                    )}
+                    {/* {loading && (values.Poster = image)} */}
+                    {(values.Poster = image)}
+                        <div className={styles.contImage}><img src={image} className={styles.image} width="120px"/></div>
                   </div>
 
                   <div class="col mb-2">

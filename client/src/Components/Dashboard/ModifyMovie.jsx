@@ -111,9 +111,9 @@ export default function CreateMovie({ data }) {
 
   return (
     <Formik
-      initialValues={{
-        Title: data.Title,
-        Plot: data.Plot,
+    initialValues={{
+      Title: data.Title,
+      Plot: data.Plot,
         Language: data.Language,
         Director: data.Director,
         Genre: data.Genre.split(","),
@@ -132,7 +132,7 @@ export default function CreateMovie({ data }) {
         } else if (!/^[a-zA-Z-0-9-: ]*$/.test(val.Title)) {
           errors.Title = "Solo se aceptan letras y espacios *";
         }
-
+        
         if(!val.Plot) {errors.Plot = "Por favor ingresa la trama *"}
         else if(!/^[A-Za-z0-9,".\s]+$/.test(val.Plot)) {errors.Plot = "Solo se aceptan letras, numeros y espacios *"}
 
@@ -151,22 +151,22 @@ export default function CreateMovie({ data }) {
         if (!val.Actors) {
           errors.Actors = "Por favor ingresa los actores *";
         }
-
+        
         if (!val.Release) {
           errors.Release = "Por favor ingresa una fecha de estreno *";
         }
-
+        
         if (!val.Rated) {
           errors.Rated = "Por favor ingresa una clasificacion *";
         }
-
+        
         if (!val.Type) {
           errors.Type = "Por favor ingresa un tipo *";
         }
 
         if (!val.Runtime) {
           errors.Runtime =
-            "Por favor ingresa tiempo de duración de la pelicula*";
+          "Por favor ingresa tiempo de duración de la pelicula*";
         } else if (isNaN(Number(val.Runtime)))
           errors.Runtime = "Alguno de los valores no es un número *";
 
@@ -179,7 +179,7 @@ export default function CreateMovie({ data }) {
         } else if (
           !/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/.test(
             val.Trailer
-          )
+            )
         ) {
           errors.Trailer = "Solo se aceptan links de youtube *";
         }
@@ -196,7 +196,8 @@ export default function CreateMovie({ data }) {
         resetForm();
         setTimeout(() => setFormSend(false), 5000);
       }}
-    >
+      >
+     
       {({ errors, values, setFieldValue }) => (
         <Form className="container my-5">
           {/* {console.log(values)} */}
@@ -243,6 +244,7 @@ export default function CreateMovie({ data }) {
               <div class="col mb-2">
                 <label class="form-label" htmlFor="Language">
                   Idioma:{" "}
+                  {console.log(data)}
                   <ErrorMessage
                     name="Language"
                     component={() => (

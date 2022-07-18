@@ -1,4 +1,4 @@
-// import { sequelize } from './src/db';
+
 require('dotenv').config();
 import app from './src/app';
 import {PrismaClient} from '@prisma/client'

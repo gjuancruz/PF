@@ -28,7 +28,8 @@ router.post("/createRoom", (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const shows = yield prisma.show.findMany({ where: { id: undefined } });
+        const shows = yield prisma.show.findMany({ where: { id: undefined }, include: { movie: { select: { Title: true } } } });
+        // console.log(shows)
         res.send(shows);
     }
     catch (error) {
@@ -46,14 +47,37 @@ router.get("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send(error.message);
     }
 }));
+router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    try {
+        const ticket = yield prisma.ticket.deleteMany({ where: { showId: id } });
+        const shows = yield prisma.show.delete({ where: { id: id } });
+        return res.send(shows);
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}));
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const show = req.body;
     try {
         const data = yield (0, __1.showGenerator)(show);
-        const shows = yield prisma.show.createMany({
-            data
-        });
-        res.status(200).send("Lista de shows generada");
+        const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true } });
+        if (!showid.length) {
+            console.log(showid);
+            const shows = yield prisma.show.createMany({
+                data
+            });
+        }
+        for (let i = 0; i < data.length; i++) {
+            const finder = showid.find((e) => e.schedule == data[i].schedule);
+            if (finder == undefined) {
+                const shows = yield prisma.show.create({
+                    data: data[i]
+                });
+            }
+        }
+        return res.status(200).send("Lista de shows generada");
     }
     catch (error) {
         res.send(error.message);

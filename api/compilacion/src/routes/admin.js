@@ -23,6 +23,25 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(404).json("No hay usuarios que mostrar");
     }
 }));
+//http://localhost:3001/admin/searchUser?username=jose
+router.get("/searchUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username } = req.query;
+        console.log("esto es", req.query);
+        const searchName = yield prisma.user.findMany({
+            where: {
+                username: {
+                    contains: `${username}`,
+                    mode: 'insensitive'
+                }
+            }
+        });
+        res.json(searchName);
+    }
+    catch (e) {
+        res.status(404).json(e.message);
+    }
+}));
 //http://localhost:3001/admin/createUser
 router.post("/createUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -46,10 +65,16 @@ router.post("/createUser", (req, res) => __awaiter(void 0, void 0, void 0, funct
 //http://localhost:3001/admin/updateUser
 router.put("/updateUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, email, role } = req.body;
-        const updateUser = yield prisma.user.update({
-            where: { email: `${email}` },
-            data: { username: `${username}`, role: role }
+        const { username, email, role, id } = req.body;
+        const updateUser = yield prisma.user.updateMany({
+            where: {
+                id: id
+            },
+            data: {
+                username: `${username}`,
+                email: `${email}`,
+                role: role,
+            },
         });
         res.status(201).json(updateUser);
     }
@@ -60,6 +85,7 @@ router.put("/updateUser", (req, res) => __awaiter(void 0, void 0, void 0, functi
 //http://localhost:3001/admin/deleteUser
 router.delete("/deleteUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body);
         const { email } = req.body;
         const deleteUser = yield prisma.user.delete({
             where: { email: `${email}` },
