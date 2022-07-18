@@ -8,39 +8,50 @@ datasource db {
 }
 
 model Comment {
+  id      String @id @default(uuid()) @db.Uuid
+  Text    String
+  movieId String @db.Uuid
+  userId  String @db.Uuid
+  movie   Movie  @relation(fields: [movieId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model Feedback {
   id       String @id @default(uuid()) @db.Uuid
   Text     String @db.Text
-  movieId  String @db.Uuid
-  movie    Movie  @relation(fields: [movieId], references: [id])
+  userId   String @db.Uuid 
+  user     User @relation(fields: [userId], references: [id])
 }
 
 model Movie {
-  id       String @id @default(uuid()) @db.Uuid
-  Title    String @db.Text
-  Plot     String @db.Text
-  Genre    String @db.Text
-  Actors   String @db.Text
-  Language String @db.Text
-  Director String @db.Text
-  Release  String @db.Text
-  Poster   String @db.Text
-  Rated    String @db.Text
-  Type     String @db.Text
-  Trailer  String @db.Text
+  id       String    @id @default(uuid()) @db.Uuid
+  Title    String    @unique
+  Plot     String
+  Genre    String
+  Actors   String
+  Language String
+  Director String
+  Release  String
+  Poster   String
+  Rated    String
+  Trailer  String
   Runtime  Int
-  show     Show[]
+  Type     String
   comments Comment[]
+  show     Show[]
 }
 
 model Room {
   id     Int      @id
+  types  String
   seat   Seat[]
   show   Show[]
   ticket Ticket[]
 }
 
 model Sale {
-  id     Int      @id
+  id     String   @id @default(uuid()) @db.Uuid
+  receipt String  @unique
   userId String   @db.Uuid
   user   User     @relation(fields: [userId], references: [id])
   ticket Ticket[]
@@ -54,30 +65,41 @@ model Seat {
 }
 
 model Show {
-  id      Int      @id
-  roomId  Int
-  movieId String   @db.Uuid
+  id      String   @id @default(uuid()) @db.Uuid
+  schedule String 
+  roomId  Int      
+  movieId String   @db.Uuid 
   movie   Movie    @relation(fields: [movieId], references: [id])
   room    Room     @relation(fields: [roomId], references: [id])
   ticket  Ticket[]
 }
 
 model Ticket {
-  id     Int  @id
-  seatId Int  @unique
+  id     String   @id @default(uuid()) @db.Uuid
+  seatId Int      @unique
   roomId Int
-  saleId Int
-  showId Int
+  saleId String   @db.Uuid
+  showId String   @db.Uuid
   room   Room @relation(fields: [roomId], references: [id])
-  sale   Sale @relation(fields: [saleId], references: [id])
-  seat1  Seat @relation(fields: [seatId], references: [id])
+  sale   Sale @relation(fields: [saleId],references: [id])
+  seat   Seat @relation(fields: [seatId], references: [id])
   show   Show @relation(fields: [showId], references: [id])
 }
 
 model User {
-  id       String @id @db.Uuid
-  username String @db.Char(20)
-  password String @db.Char(20)
-  role     Int
+  id       String @id @default(uuid()) @db.Uuid
+  username String @unique @db.Text
+  password String @db.Text
+  role     String @db.Text
   sale     Sale[]
+  feedback Feedback[]
+  comments Comment[]
+  email    String @unique
+}
+
+enum Status {
+  CREATED
+  PROCESSING
+  CANCELLED
+  COMPLETED
 }

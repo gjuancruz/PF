@@ -1,10 +1,20 @@
 import {
   GET_MOVIE_DETAIL,
   GET_BILLBOARD,
+  POST_MOVIE,
   SEARCH_MOVIES,
   FILTER_GENRE,
   FILTER_TYPE,
   GET_PREMIERE,
+  GET_FEEDBACK,
+  GET_COMMENTS,
+  DELETE_COMMENT,
+  GET_USERS,
+  GET_SHOW,
+  GET_ALL_SHOWS,
+  AUTORIZADO,
+  DELETE_MOVIE,
+  EDIT_MOVIE
 } from "../actions";
 
 const initialState = {
@@ -12,10 +22,23 @@ const initialState = {
   carteleraFiltered: [],
   premiere: [],
   movieDetail: {},
+  feedback:[],
+  comments:[],
+  refresh: false,
+  usuarios:[],
+  shows:[],
+  show:[],
+  autorizado: '',
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case AUTORIZADO:
+      return {
+        ...state,
+        autorizado: action.payload,
+      }
+
     case GET_BILLBOARD:
       return {
         ...state,
@@ -59,6 +82,79 @@ function rootReducer(state = initialState, action) {
         ...state,
         carteleraFiltered: action.payload,
       };
+
+    case POST_MOVIE:
+        return{
+          ...state,
+          refresh: !state.refresh
+      };
+    
+    case GET_FEEDBACK:
+      return {
+        ...state,
+        feedback: action.payload,
+      };
+
+    case "POST_FEEDBACK":
+      return{
+        ...state
+      };
+  
+    case GET_COMMENTS:
+        return{
+          ...state,
+          comments: action.payload
+        }
+    case DELETE_COMMENT:
+        return{
+          ...state,
+          comments: state.comments.filter(e=> e.id !== action.payload.id)
+        }
+      case GET_USERS:
+        return {
+          ...state,
+          usuarios: action.payload
+        }
+      case GET_ALL_SHOWS:
+        return{
+          ...state,
+          shows:action.payload
+        }
+      case GET_SHOW:
+    case DELETE_MOVIE:
+        return{
+          ...state,
+          cartelera: state.cartelera.filter(e=> e.id !== action.payload.id),
+          carteleraFiltered: state.carteleraFiltered.filter(e=> e.id !== action.payload.id),
+          premiere: state.premiere.filter(e=> e.id !== action.payload.id)
+        }
+    case EDIT_MOVIE:
+      return{
+        ...state,
+        refresh: !state.refresh
+      }
+    case GET_USERS:
+      return {
+        ...state,
+        usuarios: action.payload
+      }
+  
+    case "POST_COMMENT":
+      return{
+        ...state
+      };
+
+    case GET_ALL_SHOWS:
+      return{
+        ...state,
+        shows:action.payload
+      }
+    case GET_SHOW:
+      console.log(action.payload)
+      return{
+        ...state,
+        show:action.payload
+      }
     default:
       return state;
   }
