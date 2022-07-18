@@ -42,9 +42,9 @@ const Login = () => {
                 <form className={styles.formLogin} onSubmit={(e) => handleSubmit(e)}>
                     <h1 className="h3 mb-3 font-weight-normal">Log In</h1>
                     <label for="inputEmail" className="sr-only">Email de Usuario</label>
-                    <input type="email" id="inputEmail" className="form-control mb-2" placeholder="Email address" required="" autofocus="" value={email} onChange={(event) => setEmail(event.target.value)}/>
+                    <input type="email" id="inputEmail" className="form-control mb-2" placeholder="Email address" required="true" autofocus="" value={email} onChange={(event) => setEmail(event.target.value)}/>
                     <label for="inputPassword" className="sr-only" >Contraseña</label>
-                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Password" required="" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Password" required="true" value={password} onChange={(event) => setPassword(event.target.value)}/>
                     <div className="checkbox mb-3">
                         <label>
                             <input type="checkbox" value="remember-me" /> Recordarme
@@ -52,6 +52,7 @@ const Login = () => {
                     </div>
                     
                     <button className="btn btn-lg btn-warning btn-block mb-4" type="submit">Ingresar</button>
+                    <a className="mt-5 mb-3 text-light" href='/register'>¿Aún no tienes una cuenta? Regístrate</a>
                     {errors && <p className='text-danger'>{errors}</p>}
                     <p className="mt-5 mb-3 text-muted">© Moon Cinema - 2022 </p>
                 </form>

@@ -36,29 +36,31 @@ const allUsers = useSelector ((state) => state.usuarios)
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(input,movieId.id,currentUser[0]);
+    // console.log(input,movieId.id,currentUser[0]);
     dispatch(postComment(
         input,
         movieId.id,
         currentUser[0].id,
       ));
+
     alert("Comentario Creado");
+    setInput({Text:""})
   }
 
 
   return (
     <div>
         <div>
-{ currentUser.length &&   <div>
+<div className="contenedoruser">
     
-    {!currentUser[0] ? <button> <a href="/login">Login</a></button>:
-      <label>{currentUser[0].username}</label>}
+  {!currentUser[0] ? <button className="buttonLog"> <a href="/login">Inicia Sesion</a></button>: 
+      <label className="nameuser">{currentUser[0].username}</label>}
       </div>
-}      </div>
+    </div>
     <form  onSubmit={e => handleSubmit(e)}>
     <div>
      
-      <div class="mb-4">
+      <div class="mb-4 mt-5">
         <label for="exampleFormControlTextarea1" class="form-label">
           Escribe un comentario
         </label>

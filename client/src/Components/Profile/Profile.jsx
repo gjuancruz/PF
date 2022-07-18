@@ -28,7 +28,7 @@ const Perfil = () =>{
         <div className={styles.minheight}>
             <h4>Tu e-mail:</h4> <p>{currentUser[0].email}</p>
             <h4>Membresía:</h4> {currentUser[0].role === 'user' || currentUser[0].role === 'admin' ? <p>Actualmente no cuentas con ninguna membresía</p> : <p>Miembro del club de cine</p>}
-            { currentUser[0].role === 'user' || currentUser[0].role === 'admin' && <button type="submit" class="btn btn-outline-warning mb-4">Hazte miembro del club de cine</button>}
+            { (currentUser[0].role === 'user' || currentUser[0].role === 'admin') && <button type="submit" class="btn btn-outline-warning mb-4">Hazte miembro del club de cine</button>}
         </div>
         }
 

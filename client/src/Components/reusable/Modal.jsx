@@ -36,7 +36,7 @@ const styles = {
     },
     window: {
         position: 'relative',
-        background: 'black',
+        background: '#202020',
         borderRadius: 5,
         padding: 15,
         boxShadow: '2px 2px 10px rgba(0,0,0,0.3)',

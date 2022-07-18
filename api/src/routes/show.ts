@@ -25,7 +25,8 @@ router.post("/createRoom", async (req:Request, res:Response) =>{
 
 router.get("/all",async(req:Request,res:Response)=>{
     try{
-        const shows = await prisma.show.findMany({where:{id!:undefined}})
+        const shows = await prisma.show.findMany({where:{id!:undefined},include:{movie:{select:{Title:true}}}})
+        // console.log(shows)
         res.send(shows)
     }catch(error){
         res.send(error)
@@ -43,16 +44,37 @@ router.get("/one/:id",async(req:Request,res:Response)=>{
     }
 })
 
-
+router.delete("/one/:id",async(req:Request,res:Response)=>{
+    const id = req.params.id
+    try{
+        const ticket = await prisma.ticket.deleteMany({where:{showId:id}})
+        const shows = await prisma.show.delete({where:{id:id}})
+        return res.send(shows)
+    }catch(error:any){
+        res.send(error.message)
+    }
+})
 
 router.post("/",async(req:Request,res:Response)=>{
     const show = req.body
     try{
         const data = await showGenerator(show)
-        const shows = await prisma.show.createMany({
-            data
-        }) 
-        res.status(200).send("Lista de shows generada")
+        const showid : any = await prisma.show.findMany({where:{id!:undefined},select:{id:true,schedule:true}})
+        if(!showid.length){
+            console.log(showid)
+            const shows = await prisma.show.createMany({
+                data
+            })
+        }
+        for(let i=0;i<data.length;i++){
+            const finder = showid.find((e:any)=>e.schedule==data[i].schedule)
+            if(finder==undefined){
+                const shows = await prisma.show.create({
+                    data:data[i] 
+                })
+            }
+        }
+        return res.status(200).send("Lista de shows generada")
     }catch(error:any){
         res.send(error.message)
     }
