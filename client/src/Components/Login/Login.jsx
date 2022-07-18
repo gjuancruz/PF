@@ -52,6 +52,7 @@ const Login = () => {
                     </div>
                     
                     <button className="btn btn-lg btn-warning btn-block mb-4" type="submit">Ingresar</button>
+                    <a className="mt-5 mb-3 text-light" href='/register'>¿Aún no tienes una cuenta? Regístrate</a>
                     {errors && <p className='text-danger'>{errors}</p>}
                     <p className="mt-5 mb-3 text-muted">© Moon Cinema - 2022 </p>
                 </form>
