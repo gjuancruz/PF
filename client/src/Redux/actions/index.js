@@ -11,6 +11,7 @@ export const POST_MOVIE="POST_MOVIE";
 export const GET_FEEDBACK="GET_FEEDBACK";
 export const GET_COMMENTS="GET_COMMENTS";
 export const DELETE_COMMENT="DELETE_COMMENT";
+export const POST_COMMENT="POST_COMMENT";
 export const GET_SHOW="GET_SHOW";
 export const POST_SHOW="POST_SHOW"
 export const GET_ALL_SHOWS="GET_ALL_SHOWS"
@@ -192,7 +193,7 @@ export function postMovie(payload){
 
 export function deleteMovie(id){
   return async function(dispatch){
-    var json = await axios.delete(`http://localhost:3001/movies/delete/${id}`);
+    var json = await axios.delete(`/movies/delete/${id}`);
     return dispatch ({
       type: DELETE_MOVIE,
       payload: json.data
@@ -204,7 +205,7 @@ export function editMovie(movie){
   return async function(dispatch){
      
     try {
-       var json = await axios.put(`http://localhost:3001/movies/update/${movie.id}`, movie)
+       var json = await axios.put(`/movies/update/${movie.id}`, movie)
         return dispatch ({
           type: EDIT_MOVIE,
           payload: json.data
@@ -334,8 +335,11 @@ export function postComment( Text, movieId, userId){
   // const idFinal = movieId.id
   return async function(dispatch){
     try {
-      const json = await axios.post(`http://localhost:3001/comments/add/${movieId}?userId=${userId}`, Text)
-      return json
+      const json = await axios.post(`/comments/add/${movieId}?userId=${userId}`, Text)
+      return dispatch({
+        type: POST_COMMENT,
+        payload:json.data
+      })
     } 
     catch (error) {
       console.log(error)

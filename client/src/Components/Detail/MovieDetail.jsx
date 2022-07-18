@@ -15,13 +15,14 @@ export default function MovieDetail(){
     const idMovie=useParams()
     const movieDet=useSelector(state=>state.movieDetail)
     const shows= useSelector(state=>state.show)
+    const refresh= useSelector(state=>state.refresh)
     // console.log(movieDet)
 
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getMovieDetail(idMovie.id))
         dispatch(getShow(idMovie.id))
-    },[dispatch])
+    },[dispatch, refresh])
 
     const CheckoutForm = (e) =>{
         e.preventDefault()
@@ -94,23 +95,18 @@ export default function MovieDetail(){
                 </div>
                 </form>
                 </div>
-                <Comment/>
-                {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
-                    return(
-                        <div class="card p-3">
-
-                        <div class="d-flex justify-content-between align-items-center"/>
-
-                        <div class="user d-flex flex-row align-items-center"/>
-
-
-                        <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
-
-                        </div>
-
-                    )
-                }): <div>NO HAY COMENTARIOS</div>}
-                
+                <div>
+                    <Comment data={movieDet.comments}/>
+                    {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
+                        return(
+                            <div class="card p-3">
+                            <div class="d-flex justify-content-between align-items-center"/>
+                            <div class="user d-flex flex-row align-items-center"/>
+                            <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
+                            </div>
+                        )
+                        }): <div>NO HAY COMENTARIOS</div>}                   
+                </div>
             </div>
             <Footer />
         </div> 

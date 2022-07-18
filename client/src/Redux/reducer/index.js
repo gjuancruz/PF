@@ -9,6 +9,7 @@ import {
   GET_FEEDBACK,
   GET_COMMENTS,
   DELETE_COMMENT,
+  POST_COMMENT,
   GET_USERS,
   GET_SHOW,
   GET_ALL_SHOWS,
@@ -128,9 +129,10 @@ function rootReducer(state = initialState, action) {
         usuarios: action.payload
       }
   
-    case "POST_COMMENT":
+    case POST_COMMENT:
       return{
-        ...state
+        ...state,
+        refresh: !state.refresh
       };
 
     case GET_ALL_SHOWS:

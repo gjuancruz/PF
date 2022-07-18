@@ -42,7 +42,9 @@ const allUsers = useSelector ((state) => state.usuarios)
         movieId.id,
         currentUser[0].id,
       ));
+
     alert("Comentario Creado");
+    setInput({Text:""})
   }
 
 
@@ -52,13 +54,14 @@ const allUsers = useSelector ((state) => state.usuarios)
 { currentUser.length &&   <div>
     
     {!currentUser[0] ? <button> <a href="/login">Login</a></button>:
-      <label>{currentUser[0].username}</label>}
+      // <label>{currentUser[0].username}</label>}
+      <label></label>}
       </div>
 }      </div>
     <form  onSubmit={e => handleSubmit(e)}>
     <div>
      
-      <div class="mb-4">
+      <div class="mb-4 mt-5">
         <label for="exampleFormControlTextarea1" class="form-label">
           Escribe un comentario
         </label>
