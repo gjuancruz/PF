@@ -129,12 +129,12 @@ export default function CreateMovie({ data }) {
         let errors = {};
         if (!val.Title) {
           errors.Title = "Por favor ingresa un titulo *";
-        } else if (!/^[a-zA-Z-0-9-: ]*$/.test(val.Title)) {
-          errors.Title = "Solo se aceptan letras y espacios *";
+        } 
+        
+        if(!val.Plot) {
+          errors.Plot = "Por favor ingresa la trama *"
         }
         
-        if(!val.Plot) {errors.Plot = "Por favor ingresa la trama *"}
-        else if(!/^[A-Za-z0-9,".\s]+$/.test(val.Plot)) {errors.Plot = "Solo se aceptan letras, numeros y espacios *"}
 
         if (!val.Language) {
           errors.Language = "Por favor ingresa un idioma *";
@@ -223,7 +223,7 @@ export default function CreateMovie({ data }) {
 
             <div class="mb-2">
               <label class="form-label" htmlFor="Plot">
-                Trama:{" "}
+                Sinopsis:{" "}
                 <ErrorMessage
                   name="Plot"
                   component={() => (
