@@ -332,7 +332,7 @@ export function getUsers(){
 export function searchUser(name){
   return async function (dispatch) {
       try {
-        var search = await axios.get(`http://localhost:3001/admin/searchUser?name=${name}`)
+        var search = await axios.get(`http://localhost:3001/admin/searchUser?username=${name}`)
         return dispatch({
           type: SEARCH_USER,
           payload: search.data
