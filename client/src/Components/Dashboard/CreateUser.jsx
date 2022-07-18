@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createUser } from "../../Redux/actions";
+import { createUser, getUsers } from "../../Redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 export default function CreateUser() {
@@ -63,6 +63,7 @@ export default function CreateUser() {
                 setFormSend(true);
                 resetForm();
                 setTimeout(() => setFormSend(false), 5000);
+                dispatch(getUsers())
               }}
             >
               {({ errors, values, setFieldValue }) => (

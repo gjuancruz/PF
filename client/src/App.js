@@ -14,6 +14,7 @@ import Error404 from './Components/Error404/Error404';
 import CreateMovie from './Components/CreateMovie/CreateMovie';
 import Register from './Components/Register/Register';
 import Perfil from './Components/Profile/Profile';
+import { Redirect } from 'react-router-dom';
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
@@ -23,7 +24,11 @@ function App() {
     <Elements stripe={stripePromise}>
     <BrowserRouter>
       {/* <NavBar /> */}
+
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/home" ></Redirect>
+        </Route>
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/home' component={Home} />

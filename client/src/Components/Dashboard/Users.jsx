@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, searchUser, deleteUser} from "../../Redux/actions";
-import CreateUser from "./Create User";
+import CreateUser from "./CreateUser";
 import DeleteUser from "./DeleteUser";
 
 export default function Users(){
