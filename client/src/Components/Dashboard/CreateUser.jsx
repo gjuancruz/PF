@@ -19,7 +19,7 @@ export default function CreateUser() {
         <div class="modal-content bg-dark ">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Crear username
+              AGREGAR NUEVO USUARIO
             </h5>
             <button
               type="button"
@@ -105,7 +105,7 @@ export default function CreateUser() {
                       </label>
                       <Field
                         class="form-control"
-                        type="text"
+                        type="password"
                         id="password"
                         name="password"
                         placeholder="Contraseña..."
@@ -126,7 +126,7 @@ export default function CreateUser() {
                       </label>
                       <Field
                         class="form-control"
-                        type="text"
+                        type="email"
                         id="email"
                         name="email"
                         placeholder="Email..."
@@ -155,7 +155,7 @@ export default function CreateUser() {
 
                     <div class="mb-3">
                       <button type="submit" class="btn btn-warning mb-3">
-                        Crear username
+                        Crear usuario
                       </button>
                       {formSend && (
                         <small style={{ color: "green" }}>
