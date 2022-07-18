@@ -51,13 +51,12 @@ const allUsers = useSelector ((state) => state.usuarios)
   return (
     <div>
         <div>
-{ currentUser.length &&   <div>
+<div className="contenedoruser">
     
-    {!currentUser[0] ? <button> <a href="/login">Login</a></button>:
-      // <label>{currentUser[0].username}</label>}
-      <label></label>}
+  {!currentUser[0] ? <button className="buttonLog"> <a href="/login">Inicia Sesion</a></button>: 
+      <label className="nameuser">{currentUser[0].username}</label>}
       </div>
-}      </div>
+    </div>
     <form  onSubmit={e => handleSubmit(e)}>
     <div>
      
