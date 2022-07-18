@@ -60,7 +60,7 @@ app.listen(PORT, async () => {
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   
       where:{Title:movielist[i].Title},
-      update:{},
+      update:{Title:movielist[i].Title,Plot:movielist[i].Plot,Poster:movielist[i].Poster,Genre:movielist[i].Genre,Actors:movielist[i].Actors,Language:movielist[i].Language,Director:movielist[i].Director,Release:movielist[i].Release,Rated:movielist[i].Rated,Runtime:movielist[i].Runtime,Trailer:movielist[i].Trailer,Type:movielist[i].Type},
       create:movielist[i]
   })}
   for(let i = 1;i<6;i++){
