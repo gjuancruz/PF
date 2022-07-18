@@ -73,7 +73,6 @@ function rootReducer(state = initialState, action) {
         if (a.Release < b.Release) {
           return -1;
         }
-        // a must be equal to b
         return 0;
       });
       

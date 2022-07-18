@@ -24,8 +24,6 @@ function App() {
     <Elements stripe={stripePromise}>
     <BrowserRouter>
 
-      {/* <NavBar /> */}
-
       <Switch>
         <Route exact path="/">
           <Redirect to="/home" ></Redirect>
