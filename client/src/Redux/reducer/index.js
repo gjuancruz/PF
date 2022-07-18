@@ -138,7 +138,7 @@ function rootReducer(state = initialState, action) {
       case EDIT_MOVIE:
         return{
           ...state,
-          refresh: !state.refresh
+          // refresh: !state.refresh
         }
       case GET_SHOW:
         console.log(action.payload)
