@@ -57,8 +57,9 @@ const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.showGenerator = showGenerator;
 app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-    // const del1 = await prisma.comment.deleteMany({})
+    const del1 = yield prisma.comment.deleteMany({});
     // const del2 = await prisma.show.deleteMany({})
+    const del2 = yield prisma.movie.deleteMany({});
     // const del = await prisma.seat.deleteMany({})
     // const del3 = await prisma.room.deleteMany({})
     for (let i = 0; i < movielist.length; i++) {
