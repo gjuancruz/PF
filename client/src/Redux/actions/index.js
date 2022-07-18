@@ -329,6 +329,7 @@ export function getUsers(){
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
   }
 }
+
 export function searchUser(name){
   return async function (dispatch) {
       try {

@@ -27,6 +27,7 @@ const initialState = {
   feedback:[],
   comments:[],
   refresh: false,
+  copy_usuarios:[],
   usuarios:[],
   shows:[],
   show:[],
@@ -161,7 +162,7 @@ function rootReducer(state = initialState, action) {
     case GET_USERS:
       return {
         ...state,
-        usuarios: action.payload
+        usuarios: action.payload,
       }
     default:
       return state;

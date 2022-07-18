@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.showGenerator = void 0;
-// import { sequelize } from './src/db';
 require('dotenv').config();
 const app_1 = __importDefault(require("./src/app"));
 const client_1 = require("@prisma/client");
@@ -58,7 +57,6 @@ const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.showGenerator = showGenerator;
 app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
-    // const del = yield prisma.movie.deleteMany({});
     // const del1 = await prisma.comment.deleteMany({})
     // const del2 = await prisma.show.deleteMany({})
     // const del = await prisma.seat.deleteMany({})
