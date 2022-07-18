@@ -97,14 +97,10 @@ export default function CreateMovie() {
             let errors = {};
             if (!val.Title) {
               errors.Title = "Por favor ingresa un titulo *";
-            } else if (!/^[a-zA-Z ]*$/.test(val.Title)) {
-              errors.Title = "Solo se aceptan letras y espacios *";
-            }
+            } 
 
             if (!val.Plot) {
               errors.Plot = "Por favor ingresa la trama *";
-            } else if (!/^[A-Za-z0-9\s]+$/.test(val.Plot)) {
-              errors.Plot = "Solo se aceptan letras, numeros y espacios *";
             }
 
             if (!val.Language) {
