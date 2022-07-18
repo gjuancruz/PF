@@ -89,7 +89,7 @@ export default function MovieDetail(){
                 <p><b>Idioma: </b> {movieDet.Language}</p>
                 </div>
                 <div className="divTrailer">
-                <a className="trailer" href="">Trailer</a>
+                <a className="trailer" href={movieDet.Trailer}>Trailer</a>
                 </div>                
                 <div className="select">
                     <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
@@ -103,9 +103,13 @@ export default function MovieDetail(){
                 </div>
                 <div className="botont">
                 <button className="botoncomprar" onClick={handleSubmit}>Comprar</button>
-                {shown &&<CheckoutForm/>}
+                
                 </div>
-                <Comment/>
+                {   shown &&   <div className="d-flex flex-column mb-3">
+                            <CheckoutForm/>
+                    </div>
+                }
+                <Comment />
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(
                         <div class="card p-3">
