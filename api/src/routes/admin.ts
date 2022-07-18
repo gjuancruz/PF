@@ -20,7 +20,7 @@ router.get("/", async (req:Request, res:Response) =>{
 })
 
 //http://localhost:3001/admin/searchUser?username=jose
-router.get('/searchUser', async (req: Request, res:Response) =>{
+router.get("/searchUser", async (req: Request, res:Response) =>{
     try {
         const {username} = req.query;
     console.log("esto es",req.query)
