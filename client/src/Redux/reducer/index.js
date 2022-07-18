@@ -110,6 +110,17 @@ function rootReducer(state = initialState, action) {
           ...state,
           comments: state.comments.filter(e=> e.id !== action.payload.id)
         }
+      case GET_USERS:
+        return {
+          ...state,
+          usuarios: action.payload
+        }
+      case GET_ALL_SHOWS:
+        return{
+          ...state,
+          shows:action.payload
+        }
+      case GET_SHOW:
     case DELETE_MOVIE:
         return{
           ...state,

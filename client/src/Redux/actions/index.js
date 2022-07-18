@@ -15,6 +15,7 @@ export const GET_SHOW="GET_SHOW";
 export const POST_SHOW="POST_SHOW"
 export const GET_ALL_SHOWS="GET_ALL_SHOWS"
 export const AUTORIZADO = 'AUTORIZADO';
+export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 
@@ -102,10 +103,11 @@ export function searchMovieName(title){
       }
 
     }
-    export function postPaymentMethod(ticket){
+    export function postPaymentMethod(ticket,show,userId){
+      console.log(userId)
       return async function (dispatch){
         try{
-          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:"13ef3e53-3495-4d56-b6eb-290c57011083"})
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:show,userId})
           console.log(json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
@@ -246,6 +248,18 @@ export function getShow(movieId){
         type: GET_SHOW,
         payload:json.data
       })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function deleteShow(movieId){
+  return async function(dispatch){
+    try{
+      const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
+      // console.log(json.data)
+      console.log(json.data)
     }catch(error){
       console.log(error)
     }
