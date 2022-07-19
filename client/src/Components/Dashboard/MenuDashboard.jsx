@@ -1,16 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Feedback} from "./Feedback";
 import Comments from "./Comments";
 import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
-import NavBar from "../NavBar/NavBar";
-import Footer from "../Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../Redux/actions";
+
 
 
 
 export default function MenuDashboard(){
   
+  const dispatch = useDispatch()
+    useEffect(() =>{
+        dispatch(getUsers())
+    },[])
+    const allUsers = useSelector ((state) => state.usuarios)
+    const userIdCheck = window.localStorage.getItem('userId')
+    const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+
     const [component,setComponent] = useState("")
 
     const handleSideBar= ()=>{
@@ -22,8 +31,10 @@ export default function MenuDashboard(){
     }
 
     return (
+      <div>
+      {(currentUser.length && currentUser[0].role === 'admin')?
         <div class="container-fluid" > 
-        <NavBar/>
+        
         <div class="row">   
       <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
     
@@ -34,32 +45,32 @@ export default function MenuDashboard(){
           <hr/>
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("movies")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("movies")}>
                 Peliculas
               </a>
             </li>
             <li>
-            <a href="#" class="nav-link text-white" onClick={e=>setComponent("funciones")}>
+            <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("funciones")}>
                 Funciones de peliculas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="#" class="btn btn-outline-warning border-0 text-white">
                 Balance de ventas
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("usuarios")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("usuarios")}>
                 Usuarios Registrados
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white" onClick={e=>setComponent("comentarios")}>
+              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("comentarios")}>
                 Administrar comentarios
               </a>
             </li>
             <li>
-             <a href="#" class="nav-link text-white" onClick={e=>setComponent("feedback")} > 
+             <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("feedback")} > 
                 Feedback
               </a>
             </li>
@@ -82,7 +93,10 @@ export default function MenuDashboard(){
       </nav>
        {handleSideBar()}
         </div>
-        <Footer/>
         </div>
+        :
+      <h1>ERROR: Unauthorized</h1>
+      }
+      </div>
     )
 }

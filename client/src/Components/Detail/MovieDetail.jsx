@@ -16,6 +16,7 @@ export default function MovieDetail(){
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
     const shows= useSelector(state=>state.show)
+    const refresh= useSelector(state=>state.refresh)
     const [shown,setShown] = useState(false)
     const [showid,setShowid] = useState("")
     // console.log(movieDet)
@@ -25,7 +26,7 @@ export default function MovieDetail(){
         dispatch(getUsers())
         dispatch(getMovieDetail(idMovie.id))
         dispatch(getShow(idMovie.id))
-    },[dispatch])
+    },[dispatch, refresh])
 
     const selecthora = document.querySelector("#selectHora")
     console.log(shows)
@@ -89,7 +90,7 @@ export default function MovieDetail(){
                 <p><b>Idioma: </b> {movieDet.Language}</p>
                 </div>
                 <div className="divTrailer">
-                <a className="trailer" href="">Trailer</a>
+                <a className="trailer" href={movieDet.Trailer}>Trailer</a>
                 </div>                
                 <div className="select">
                     <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
@@ -103,22 +104,20 @@ export default function MovieDetail(){
                 </div>
                 <div className="botont">
                 <button className="botoncomprar" onClick={handleSubmit}>Comprar</button>
-                {shown &&<CheckoutForm/>}
+                
                 </div>
-                <Comment/>
+                {   shown &&   <div className="d-flex flex-column mb-3">
+                            <CheckoutForm/>
+                    </div>
+                }
+                <Comment />
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(
                         <div class="card p-3">
-
                         <div class="d-flex justify-content-between align-items-center"/>
-
                         <div class="user d-flex flex-row align-items-center"/>
-
-
                         <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
-
                         </div>
-
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 

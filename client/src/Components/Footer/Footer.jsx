@@ -1,5 +1,5 @@
 import React from "react";
-
+import CreateFeedback from "../CreateFeedback/PostFeedback";
 const Footer = () => {
   return (
     <div>
@@ -65,12 +65,12 @@ const Footer = () => {
           {/* <!-- Section: Social media --> */}
 
           {/* <!-- Section: Form --> */}
-          <section class="">
+          <section class="d-flex row">
             <form action="">
               {/* <!--Grid row--> */}
-              <div class="row d-flex justify-content-center">
+              <div class="row d-flex justify-content-center align-items-start mb-4">
                 {/* <!--Grid column--> */}
-                <div class="col-auto">
+                <div class="col-2">
                   <p class="pt-2">
                     <strong>Suscríbete a nuestro boletín</strong>
                   </p>
@@ -78,7 +78,7 @@ const Footer = () => {
                 {/* <!--Grid column--> */}
 
                 {/* <!--Grid column--> */}
-                <div class="col-md-5 col-12">
+                <div class="col-7">
                   {/* <!-- Email input --> */}
                   <div class="form-outline form-white mb-4">
                     <input
@@ -94,7 +94,7 @@ const Footer = () => {
                 {/* <!--Grid column--> */}
 
                 {/* <!--Grid column--> */}
-                <div class="col-auto">
+                <div class="col-2">
                   {/* <!-- Submit button --> */}
                   <button type="submit" class="btn btn-outline-warning mb-4">
                     Suscribirse
@@ -105,6 +105,11 @@ const Footer = () => {
               {/* <!--Grid row--> */}
             </form>
           </section>
+          {
+          <div>
+            < CreateFeedback />
+          </div>
+          }
           {/* <!-- Section: Form --> */}
 
           {/* <!-- Section: Text --> */}

@@ -31,7 +31,7 @@ function isPremier(dateMovie:string):boolean {
     const day = Number(dayDb) > Number(d)
 
     // @ts-ignore
-    const condicionEstrenos = compararMes ? true : (ob1[monthDb] === ob1[m] && day) ? true : false  
+    const condicionEstrenos = compararMes ? true : (ob1[monthDb] === ob1[m] && day) ? true : false
     return condicionEstrenos;
 }
 
