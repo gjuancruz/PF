@@ -9,6 +9,7 @@ import {
   GET_FEEDBACK,
   GET_COMMENTS,
   DELETE_COMMENT,
+  POST_COMMENT,
   GET_USERS,
   SEARCH_USER,
   DELETE_USER,
@@ -138,12 +139,8 @@ function rootReducer(state = initialState, action) {
       case EDIT_MOVIE:
         return{
           ...state,
-          refresh: !state.refresh
+          // refresh: !state.refresh
         }
-      case "POST_COMMENT":
-        return{
-          ...state
-        };
       case GET_SHOW:
         console.log(action.payload)
         return{
@@ -163,6 +160,25 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         usuarios: action.payload,
+      }
+  
+    case POST_COMMENT:
+      console.log("sssssssssssssi")
+      return{
+        ...state,
+        refresh: !state.refresh
+      };
+
+    case GET_ALL_SHOWS:
+      return{
+        ...state,
+        shows:action.payload
+      }
+    case GET_SHOW:
+      console.log(action.payload)
+      return{
+        ...state,
+        show:action.payload
       }
     default:
       return state;

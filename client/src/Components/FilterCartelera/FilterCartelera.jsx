@@ -32,12 +32,12 @@ export default function FilterCartelera () {
               </button>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item"><option value="All" onClick={(e) => handleSelectGenre(e)}>Todos</option></a></li>
-                <li><a class="dropdown-item"><option value="Animation" onClick={(e) => handleSelectGenre(e)}>Animación</option></a></li>
-                <li><a class="dropdown-item"><option value="Adventure" onClick={(e) => handleSelectGenre(e)}>Aventura</option></a></li>
-                <li><a class="dropdown-item"><option value="Comedy" onClick={(e) => handleSelectGenre(e)}>Comedia</option></a></li>
-                <li><a class="dropdown-item"><option value="Action" onClick={(e) => handleSelectGenre(e)}>Acción</option></a></li>
-                <li><a class="dropdown-item"><option value="Fantasy" onClick={(e) => handleSelectGenre(e)}>Fantasía</option></a></li>
-                <li><a class="dropdown-item"><option value="Sci-Fi" onClick={(e) => handleSelectGenre(e)}>Ciencia-Ficcion</option></a></li>
+                <li><a class="dropdown-item"><option value="Animación" onClick={(e) => handleSelectGenre(e)}>Animación</option></a></li>
+                <li><a class="dropdown-item"><option value="Aventura" onClick={(e) => handleSelectGenre(e)}>Aventura</option></a></li>
+                <li><a class="dropdown-item"><option value="Comedia" onClick={(e) => handleSelectGenre(e)}>Comedia</option></a></li>
+                <li><a class="dropdown-item"><option value="Acción" onClick={(e) => handleSelectGenre(e)}>Acción</option></a></li>
+                <li><a class="dropdown-item"><option value="Fantasía" onClick={(e) => handleSelectGenre(e)}>Fantasía</option></a></li>
+                <li><a class="dropdown-item"><option value="Ciencia Ficción" onClick={(e) => handleSelectGenre(e)}>Ciencia-Ficcion</option></a></li>
                 <li><a class="dropdown-item"><option value="Drama" onClick={(e) => handleSelectGenre(e)}>Drama</option></a></li>
               </ul>
             </div> 

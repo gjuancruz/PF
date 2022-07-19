@@ -1,16 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Feedback} from "./Feedback";
 import Comments from "./Comments";
 import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
-import NavBar from "../NavBar/NavBar";
-import Footer from "../Footer/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../Redux/actions";
+
 
 
 
 export default function MenuDashboard(){
   
+  const dispatch = useDispatch()
+    useEffect(() =>{
+        dispatch(getUsers())
+    },[])
+    const allUsers = useSelector ((state) => state.usuarios)
+    const userIdCheck = window.localStorage.getItem('userId')
+    const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+
     const [component,setComponent] = useState("")
 
     const handleSideBar= ()=>{
@@ -22,6 +31,8 @@ export default function MenuDashboard(){
     }
 
     return (
+      <div>
+      {(currentUser.length && currentUser[0].role === 'admin')?
         <div class="container-fluid" > 
         
         <div class="row">   
@@ -83,5 +94,9 @@ export default function MenuDashboard(){
        {handleSideBar()}
         </div>
         </div>
+        :
+      <h1>ERROR: Unauthorized</h1>
+      }
+      </div>
     )
 }

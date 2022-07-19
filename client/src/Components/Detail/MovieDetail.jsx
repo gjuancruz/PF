@@ -16,6 +16,7 @@ export default function MovieDetail(){
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
     const shows= useSelector(state=>state.show)
+    const refresh= useSelector(state=>state.refresh)
     const [shown,setShown] = useState(false)
     const [showid,setShowid] = useState("")
     // console.log(movieDet)
@@ -25,7 +26,7 @@ export default function MovieDetail(){
         dispatch(getUsers())
         dispatch(getMovieDetail(idMovie.id))
         dispatch(getShow(idMovie.id))
-    },[dispatch])
+    },[dispatch, refresh])
 
     const selecthora = document.querySelector("#selectHora")
     // console.log(shows)
@@ -113,16 +114,10 @@ export default function MovieDetail(){
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(
                         <div class="card p-3">
-
                         <div class="d-flex justify-content-between align-items-center"/>
-
                         <div class="user d-flex flex-row align-items-center"/>
-
-
                         <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
-
                         </div>
-                        
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 

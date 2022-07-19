@@ -97,14 +97,10 @@ export default function CreateMovie() {
             let errors = {};
             if (!val.Title) {
               errors.Title = "Por favor ingresa un titulo *";
-            } else if (!/^[a-zA-Z ]*$/.test(val.Title)) {
-              errors.Title = "Solo se aceptan letras y espacios *";
-            }
+            } 
 
             if (!val.Plot) {
               errors.Plot = "Por favor ingresa la trama *";
-            } else if (!/^[A-Za-z0-9\s]+$/.test(val.Plot)) {
-              errors.Plot = "Solo se aceptan letras, numeros y espacios *";
             }
 
             if (!val.Language) {
@@ -286,6 +282,7 @@ export default function CreateMovie() {
                 <div className={styles.containerElem}>
                   {values.Genre.map((gen) => (
                     <div className={styles.containerDlt} key={gen}>
+                      <p>{gen}</p>
                       <button
                         className={styles.deleteBtn}
                         name={gen}
@@ -295,7 +292,6 @@ export default function CreateMovie() {
                       >
                         x
                       </button>
-                      <p>{gen}</p>
                     </div>
                   ))}
                 </div>
@@ -422,19 +418,9 @@ export default function CreateMovie() {
                       name="file"
                       onChange={(e) => uploadImage(e)}
                     />
-                    {loading && (values.Poster = image)}
-                    {!values.Poster ? (
-                      <div className={styles.contImage}>
-                        <img
-                          src="https://images.vectorhq.com/images/previews/046/film-reel-psd-445226.png"
-                          className={styles.image}
-                        />
-                      </div>
-                    ) : (
-                      <div className={styles.contImage}>
-                        <img src={image} className={styles.image} />
-                      </div>
-                    )}
+                    {/* {loading && (values.Poster = image)} */}
+                    {(values.Poster = image)}
+                        <div className={styles.contImage}><img src={image} className={styles.image} width="120px"/></div>
                   </div>
 
                   <div class="col mb-2">
