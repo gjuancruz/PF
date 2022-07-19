@@ -28,7 +28,7 @@ export default function MovieDetail(){
     },[dispatch])
 
     const selecthora = document.querySelector("#selectHora")
-    // console.log(shows)
+    console.log(shows)
     for(const show of shows){
     if(shows.length==0){
     }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){

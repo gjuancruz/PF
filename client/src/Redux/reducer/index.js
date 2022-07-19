@@ -121,6 +121,10 @@ function rootReducer(state = initialState, action) {
           shows:action.payload
         }
       case GET_SHOW:
+        return{
+          ...state,
+          show:action.payload
+        }
     case DELETE_MOVIE:
         return{
           ...state,
