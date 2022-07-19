@@ -59,7 +59,9 @@ router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 }));
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const show = req.body;
+    const data = req.body.data;
+    const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId };
+    console.log(show);
     try {
         const data = yield (0, __1.showGenerator)(show);
         const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true } });

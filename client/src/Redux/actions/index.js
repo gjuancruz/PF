@@ -284,10 +284,11 @@ export function getAllShows(){
   }
 }
 
-export function postShow(schedule,movieId,roomId){
+export function postShow(data){
+  console.log(data)
   return async function(){
     try{
-      const json = await axios.post('http://localhost:3001/show',{schedule,movieId,roomId})
+      const json = await axios.post('http://localhost:3001/show',{data})
       console.log(json.data)
     }catch(error){
       console.log(error)
