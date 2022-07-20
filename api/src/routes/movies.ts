@@ -334,16 +334,17 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         }})
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)
-        const seat:any = await prisma.seat.findFirst()
         // console.log(seat.id)
         const newticket = await prisma.ticket.createMany({
             data:{
                 saleId:sale.id,
-                seatId:seat.id,
+                // seatId:seat.id,
                 showId:show,
                 roomId:room.room.id
             }
         })
+        const update = await prisma.show.update({where:{id:show},data:{seats:room.seats-1}})
+        console.log(update)
         // console.log(newticket)
         res.send("Payment received")
     }catch(error:any){

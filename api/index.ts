@@ -13,9 +13,9 @@ const movielist : any =  [cars, spider, sonic, iceAge, thor, jurassic, MinionsTh
 export const showGenerator = async(show:any) => {
 
    const data = []
-
+   show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60}
    data.push(show)
-   // console.log(data)
+   console.log(data)
    
    const movie = await prisma.movie.findUnique({where:{id:show.movieId}})
    const time = movie?.Runtime
@@ -39,11 +39,13 @@ export const showGenerator = async(show:any) => {
          newhour+=1
          newminute %= 60
       }
+      // console.log(hour)
       
       if(newhour!<24){
-      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId}) 
+      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60}) 
       }
-      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId}) 
+      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60}) 
+      // console.log(data)
       }
    }else{return data}
    }

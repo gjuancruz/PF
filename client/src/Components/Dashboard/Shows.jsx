@@ -65,6 +65,7 @@ export default function Shows(){
               <th scope="col">Horarios</th>
               <th scope="col">Pelicula</th>
               <th scope="col">Sala</th>
+              <th scope="col">Asientos</th>
               <th scope="col">Modificar</th>
             </tr>
           </thead>
@@ -76,6 +77,7 @@ export default function Shows(){
                   <td>{s.schedule}</td>
                   <td>{s.movie.Title}</td>
                   <td>{s.roomId}</td>
+                  <td>{s.seats}</td>
                   <td>
                     <button class="btn btn-outline-warning" onClick={handleDelete}><i class="bi bi-trash3"></i></button>
                   </td>
