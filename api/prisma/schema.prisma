@@ -46,7 +46,7 @@ model Room {
   types  String
   seat   Seat[]
   show   Show[]
-  ticket Ticket[]
+  // ticket Ticket[]
 }
 
 model Sale {
@@ -78,10 +78,10 @@ model Show {
 model Ticket {
   id     String   @id @default(uuid()) @db.Uuid
   // seatId Int      @unique
-  roomId Int
+  // roomId Int
   saleId String   @db.Uuid
   showId String   @db.Uuid
-  room   Room @relation(fields: [roomId], references: [id])
+  // room   Room @relation(fields: [roomId], references: [id])
   sale   Sale @relation(fields: [saleId],references: [id])
   // seat   Seat @relation(fields: [seatId], references: [id])
   show   Show @relation(fields: [showId], references: [id])
