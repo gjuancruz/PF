@@ -3,12 +3,14 @@ require('dotenv').config();
 import app from './src/app';
 import {PrismaClient} from '@prisma/client'
 import {cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman} from "./src/routes/data"
+import { comboUno, comboFamiliar, palomitas, gaseosas } from './src/routes/dataCandy';
 
 const PORT = process.env.PORT || 3001;
 
 const prisma = new PrismaClient()
 
 const movielist : any =  [cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman]
+const candylist : any = [comboUno, comboFamiliar, palomitas, gaseosas]
 
 export const showGenerator = async(show:any) => {
 
@@ -58,6 +60,11 @@ app.listen(PORT, async () => {
    // const del2 = await prisma.show.deleteMany({})
    // const del = await prisma.seat.deleteMany({})
    // const del3 = await prisma.room.deleteMany({})
+   const del = await prisma.candy.deleteMany({})
+   const movie = await prisma.candy.createMany({
+      data: candylist
+  })
+
 
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   
