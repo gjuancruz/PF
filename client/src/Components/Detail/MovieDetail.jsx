@@ -2,11 +2,13 @@ import React,{ useEffect, useState }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
+
 import { getMovieDetail,postPaymentMethod,getShow,getUsers } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import { Checkout } from '../Checkout/Checkout'
 
 
 
@@ -73,8 +75,9 @@ export default function MovieDetail(){
         setShowid(e.target.value)
     }
     return(
-        <div>
+        <div className="MovieDetail">
             <NavBar />
+            <Checkout title={movieDet.Title} />
             <div className="contenedor">
                 <h2 className="pg">{movieDet.Rated}</h2>
                 <h2 className="title">{movieDet.Title}</h2>
@@ -121,9 +124,10 @@ export default function MovieDetail(){
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 
-            </div>
             <Footer />
+            </div>
         </div> 
+      
     )
 }
 

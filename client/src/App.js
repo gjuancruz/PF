@@ -16,6 +16,8 @@ import Register from './Components/Register/Register';
 import Perfil from './Components/Profile/Profile';
 import { Redirect } from 'react-router-dom';
 
+import {Checkout} from './Components/Checkout/Checkout'
+
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
 
@@ -38,6 +40,7 @@ function App() {
         <Route exact path="/feedback/:id" component={CreateFeedback}/>
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
+        <Route exact path='/Checkout' component={Checkout} />
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>
