@@ -66,6 +66,7 @@ model Show {
   id        String   @id @default(uuid()) @db.Uuid
   schedule  String
   type      String
+  seats     Int
   roomId    Int      
   movieId   String   @db.Uuid 
   movie     Movie    @relation(fields: [movieId], references: [id])
@@ -77,6 +78,7 @@ model Ticket {
   id       String   @id @default(uuid()) @db.Uuid
   saleId   String   @db.Uuid
   showId   String   @db.Uuid
+  candyId  String
   sale     Sale @relation(fields: [saleId],references: [id])
   show     Show @relation(fields: [showId], references: [id])
   cart     Cart? 
@@ -100,8 +102,8 @@ model Candy {
   picture    String @db.Text
   price      Int
   quantity   Int
-  cartId     String @db.Uuid @unique
-  cart       Cart @relation(fields: [cartId],references: [id])
+  cartId     String? @db.Uuid @unique
+  cart       Cart? @relation(fields: [cartId],references: [id])
 }
 
 

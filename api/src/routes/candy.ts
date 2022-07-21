@@ -18,12 +18,13 @@ router.get('/', async(req:Request, res:Response) => {
 
 router.post('/add',  async (req:Request,res:Response)=>{
     try {
-        const {name, picture, price} = req.body
+        const {name, picture, price, quantity} = req.body
         const food : any = await prisma.candy.create({
             data:{
                 name: name,
                 picture: picture,
                 price: price,
+                quantity: quantity
             }, 
             // include:{
             //     ticket: true

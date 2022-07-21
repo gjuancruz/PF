@@ -25,12 +25,13 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, picture, price } = req.body;
+        const { name, picture, price, quantity } = req.body;
         const food = yield prisma.candy.create({
             data: {
                 name: name,
                 picture: picture,
                 price: price,
+                quantity: quantity
             },
             // include:{
             //     ticket: true

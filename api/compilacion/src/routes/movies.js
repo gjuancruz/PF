@@ -327,7 +327,6 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
                 saleId: sale.id,
                 // seatId:seat.id,
                 showId: show,
-                roomId: room.room.id,
                 candyId: candy.id
             }
         });

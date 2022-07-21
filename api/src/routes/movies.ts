@@ -342,7 +342,6 @@ router.post("/checkout",async(req:Request,res:Response)=>{
                 saleId:sale.id,
                 // seatId:seat.id,
                 showId:show,
-                roomId:room.room.id,
                 candyId:candy.id
             }
         })
