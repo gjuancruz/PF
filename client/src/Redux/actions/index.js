@@ -247,7 +247,7 @@ export function getShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.get('http://localhost:3001/show/one/'+movieId)
-      // console.log(json.data)
+      console.log(json.data)
       return dispatch({
         type: GET_SHOW,
         payload:json.data
@@ -284,10 +284,11 @@ export function getAllShows(){
   }
 }
 
-export function postShow(schedule,movieId,roomId){
+export function postShow(data){
+  console.log(data)
   return async function(){
     try{
-      const json = await axios.post('http://localhost:3001/show',{schedule,movieId,roomId})
+      const json = await axios.post('http://localhost:3001/show',{data})
       console.log(json.data)
     }catch(error){
       console.log(error)

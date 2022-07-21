@@ -59,15 +59,18 @@ router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 }));
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const show = req.body;
+    const data = req.body.data;
+    const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId };
     try {
         const data = yield (0, __1.showGenerator)(show);
+        console.log(data);
         const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true } });
         if (!showid.length) {
-            console.log(showid);
+            // console.log(showid)
             const shows = yield prisma.show.createMany({
                 data
             });
+            return res.status(200).send("Lista de shows generada");
         }
         for (let i = 0; i < data.length; i++) {
             const finder = showid.find((e) => e.schedule == data[i].schedule);

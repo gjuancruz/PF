@@ -14,6 +14,8 @@ import Error404 from './Components/Error404/Error404';
 import CreateMovie from './Components/CreateMovie/CreateMovie';
 import Register from './Components/Register/Register';
 import Perfil from './Components/Profile/Profile';
+import Candy from './Components/Prueba Candy/PruebaCandy';
+import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
 import SalesChart from './Components/Dashboard/Charts/SalesChart';
 
@@ -36,10 +38,15 @@ function App() {
         <Route exact path='/movies/:id' component={MovieDetail}/>
         <Route exact path='/create' component={CreateMovie} />
         <Route exact path='/admin' component={MenuDashboard} />          
-        <Route exact path="/feedback/:id" component={CreateFeedback}/>
+        <Route exact path="/feedback" component={CreateFeedback}/>
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
+<<<<<<< HEAD
         <Route exact path='/prueba' component={SalesChart}/>
+=======
+        <Route exact path='/candy' component={Candy}/>
+        <Route exact path='/caja' component={CashRegister}/>
+>>>>>>> ec9fe3931df06a96fcab702220d33d3ddf50615c
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>

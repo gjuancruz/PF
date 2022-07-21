@@ -42,35 +42,32 @@ model Movie {
 }
 
 model Room {
-  id              String      @id @default(uuid()) @db.Uuid
-  name            String @unique @db.Text
-  disponibility   Boolean? @default(true)
-  roomType        String @db.Text
-  seat            Seat[]
-  show            Show[]
-  ticket          Ticket[]
+  id     Int      @id
+  types  String
+  seat   Seat[]
+  show   Show[]
 }
 
 model Sale {
-  id              String   @id @default(uuid()) @db.Uuid
-  receipt         String  @unique
-  userId          String   @db.Uuid
-  user            User     @relation(fields: [userId], references: [id])
-  ticket          Ticket[]
+  id     String   @id @default(uuid()) @db.Uuid
+  receipt String  @unique
+  userId String   @db.Uuid
+  user   User     @relation(fields: [userId], references: [id])
+  ticket Ticket[]
 }
 
 model Seat {
-  id          String   @id @default(uuid()) @db.Uuid
-  ticketId    Int    @unique
-  roomId      Int      @unique
-  room        Room    @relation(fields: [id], references: [id])
-  ticket      Ticket?
+  id     Int     @id
+  roomId Int
+  room   Room    @relation(fields: [roomId], references: [id])
 }
 
 model Show {
   id        String   @id @default(uuid()) @db.Uuid
-  schedule  String 
-  roomId    String   @db.Uuid
+  schedule  String
+  type      String
+  seats     Int
+  roomId    Int      
   movieId   String   @db.Uuid 
   movie     Movie    @relation(fields: [movieId], references: [id])
   room      Room     @relation(fields: [roomId], references: [id])
@@ -78,14 +75,13 @@ model Show {
 }
 
 model Ticket {
-  id     String   @id @default(uuid()) @db.Uuid
-  seatId Int      @unique
-  saleId String   @db.Uuid
-  showId String   @db.Uuid
-  room   Room     @relation(fields: [id], references: [id])
-  sale   Sale     @relation(fields: [saleId],references: [id])
-  seat   Seat     @relation(fields: [seatId], references: [ticketId])
-  show   Show     @relation(fields: [showId], references: [id])
+  id       String   @id @default(uuid()) @db.Uuid
+  saleId   String   @db.Uuid
+  showId   String   @db.Uuid
+  candyId  String
+  sale     Sale @relation(fields: [saleId],references: [id])
+  show     Show @relation(fields: [showId], references: [id])
+  cart     Cart? 
 }
 
 model User {
@@ -93,10 +89,31 @@ model User {
   username String @unique @db.Text
   password String @db.Text
   role     String @db.Text
+  email    String @unique
   sale     Sale[]
   feedback Feedback[]
   comments Comment[]
-  email    String @unique
+  cart     Cart? 
+}
+
+model Candy {
+  id         String @id @default(uuid()) @db.Uuid
+  name       String @db.Text
+  picture    String @db.Text
+  price      Int
+  quantity   Int
+  cartId     String? @db.Uuid @unique
+  cart       Cart? @relation(fields: [cartId],references: [id])
+}
+
+
+model Cart{
+  id         String @id @default(uuid()) @db.Uuid
+  ticketId   String @db.Uuid @unique
+  userId     String @db.Uuid @unique
+  candy      Candy[]
+  ticket     Ticket @relation(fields: [ticketId],references: [id])
+  user       User @relation(fields: [userId],references: [id])
 }
 
 enum Status {
@@ -105,4 +122,3 @@ enum Status {
   CANCELLED
   COMPLETED
 }
-
