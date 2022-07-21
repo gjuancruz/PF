@@ -36,7 +36,7 @@ router.post('/register', async (req:Request, res:Response) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(404).send ({ error: 'Error al crear el usuario' });
+        return res.status(404).send ({ error: 'Error al crear el usuario'});
     }
 })
 

@@ -203,6 +203,7 @@ router.put("/update/:id", async (req:Request, res:Response) =>{
             }
             
             req.body.Release = `${day} ${month} ${year}`; // '19 July 2022'
+            req.body.Genre = req.body.Genre.join(",")
 
     try{
 
@@ -216,6 +217,7 @@ router.put("/update/:id", async (req:Request, res:Response) =>{
         res.json(movieUpdate)
 
     }catch(e:any){
+        console.log(e.message)
         res.json("no se pudo actualizar la información")
     }
 })

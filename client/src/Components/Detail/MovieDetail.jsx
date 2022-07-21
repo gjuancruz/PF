@@ -90,7 +90,7 @@ export default function MovieDetail(){
                 <p><b>Idioma: </b> {movieDet.Language}</p>
                 </div>
                 <div className="divTrailer">
-                <a className="trailer" href={movieDet.Trailer}>Trailer</a>
+                <a className="trailer" href={movieDet.Trailer} target="_blank">Trailer</a>
                 </div>                
                 <div className="select">
                     <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>

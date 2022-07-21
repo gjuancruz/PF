@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editMovie } from "../../Redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // import demo from "../../assets/demo.png";
 import styles from "../CreateMovie/CreateMovie.module.css";
+import { useEffect } from "react";
 
 export default function CreateMovie({ data }) {
   const dispatch = useDispatch();
+  const refresh = useSelector(state => state.refresh)
+  
+  useEffect(()=>{
+
+  },[refresh])
 
   const clasificaciones = ["+13", "+16", "+18", "ATP"];
   const generos = [
@@ -187,11 +193,9 @@ export default function CreateMovie({ data }) {
         return errors;
       }}
       onSubmit={(values, { resetForm }) => {
-        values.Genre = values.Genre.join(",");
-        values.id = data.id;
+        // values.Genre = values.Genre.join(",");
         values.Poster = image;
         dispatch(editMovie(values));
-        console.log(values);
         setFormSend(true);
         resetForm();
         setTimeout(() => setFormSend(false), 5000);
@@ -200,7 +204,6 @@ export default function CreateMovie({ data }) {
      
       {({ errors, values, setFieldValue }) => (
         <Form className="container my-5">
-          {/* {console.log(values)} */}
           <div class="form-group">
             <div class="mb-3">
               <label class="form-label" htmlFor="Title">
@@ -244,7 +247,6 @@ export default function CreateMovie({ data }) {
               <div class="col mb-2">
                 <label class="form-label" htmlFor="Language">
                   Idioma:{" "}
-                  {console.log(data)}
                   <ErrorMessage
                     name="Language"
                     component={() => (

@@ -154,6 +154,7 @@ router.get("/Premieres", (_req, res) => __awaiter(void 0, void 0, void 0, functi
 //http://localhost:3001/movies/update/:id
 router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
+    console.log("hola");
     let date;
     // llega esto 2022-07-19
     date = req.body.Release.split('-'); // [2022, 07, 19]
@@ -200,6 +201,7 @@ router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
             break;
     }
     req.body.Release = `${day} ${month} ${year}`; // '19 July 2022'
+    req.body.Genre = req.body.Genre.join(",");
     try {
         const movieUpdate = yield prisma.movie.update({
             where: {
@@ -207,9 +209,11 @@ router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
             },
             data: req.body
         });
+        console.log(movieUpdate);
         res.json(movieUpdate);
     }
     catch (e) {
+        console.log(e.message);
         res.json("no se pudo actualizar la información");
     }
 }));
