@@ -17,9 +17,11 @@ require('dotenv').config();
 const app_1 = __importDefault(require("./src/app"));
 const client_1 = require("@prisma/client");
 const data_1 = require("./src/routes/data");
+const dataCandy_1 = require("./src/routes/dataCandy");
 const PORT = process.env.PORT || 3001;
 const prisma = new client_1.PrismaClient();
 const movielist = [data_1.cars, data_1.spider, data_1.sonic, data_1.iceAge, data_1.thor, data_1.jurassic, data_1.MinionsTheRiseofGru, data_1.lightyear, data_1.topGun, data_1.DrStranger, data_1.Minions, data_1.MinionsHolidaySpecial, data_1.SupermanSpidermanorBatman];
+const candylist = [dataCandy_1.comboUno, dataCandy_1.comboFamiliar, dataCandy_1.palomitas, dataCandy_1.gaseosas];
 const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
     const data = [];
     data.push(show);
@@ -61,6 +63,10 @@ app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () 
     // const del2 = await prisma.show.deleteMany({})
     // const del = await prisma.seat.deleteMany({})
     // const del3 = await prisma.room.deleteMany({})
+    const del = yield prisma.candy.deleteMany({});
+    const movie = yield prisma.candy.createMany({
+        data: candylist
+    });
     for (let i = 0; i < movielist.length; i++) {
         const movies = yield prisma.movie.upsert({
             where: { Title: movielist[i].Title },

@@ -46,7 +46,6 @@ model Room {
   types  String
   seat   Seat[]
   show   Show[]
-  ticket Ticket[]
 }
 
 model Sale {
@@ -61,29 +60,26 @@ model Seat {
   id     Int     @id
   roomId Int
   room   Room    @relation(fields: [roomId], references: [id])
-  ticket Ticket?
 }
 
 model Show {
-  id      String   @id @default(uuid()) @db.Uuid
-  schedule String 
-  roomId  Int      
-  movieId String   @db.Uuid 
-  movie   Movie    @relation(fields: [movieId], references: [id])
-  room    Room     @relation(fields: [roomId], references: [id])
-  ticket  Ticket[]
+  id        String   @id @default(uuid()) @db.Uuid
+  schedule  String
+  type      String
+  roomId    Int      
+  movieId   String   @db.Uuid 
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id])
+  ticket    Ticket[]
 }
 
 model Ticket {
-  id     String   @id @default(uuid()) @db.Uuid
-  seatId Int      @unique
-  roomId Int
-  saleId String   @db.Uuid
-  showId String   @db.Uuid
-  room   Room @relation(fields: [roomId], references: [id])
-  sale   Sale @relation(fields: [saleId],references: [id])
-  seat   Seat @relation(fields: [seatId], references: [id])
-  show   Show @relation(fields: [showId], references: [id])
+  id       String   @id @default(uuid()) @db.Uuid
+  saleId   String   @db.Uuid
+  showId   String   @db.Uuid
+  sale     Sale @relation(fields: [saleId],references: [id])
+  show     Show @relation(fields: [showId], references: [id])
+  cart     Cart? 
 }
 
 model User {
@@ -91,18 +87,31 @@ model User {
   username String @unique @db.Text
   password String @db.Text
   role     String @db.Text
+  email    String @unique
   sale     Sale[]
   feedback Feedback[]
   comments Comment[]
-  email    String @unique
+  cart     Cart? 
 }
 
 model Candy {
-  id       String @id @default(uuid()) @db.Uuid
-  name     String @db.Text
-  image    String
-  price    Int
-  combos   String
+  id         String @id @default(uuid()) @db.Uuid
+  name       String @db.Text
+  picture    String @db.Text
+  price      Int
+  quantity   Int
+  cartId     String @db.Uuid @unique
+  cart       Cart @relation(fields: [cartId],references: [id])
+}
+
+
+model Cart{
+  id         String @id @default(uuid()) @db.Uuid
+  ticketId   String @db.Uuid @unique
+  userId     String @db.Uuid @unique
+  candy      Candy[]
+  ticket     Ticket @relation(fields: [ticketId],references: [id])
+  user       User @relation(fields: [userId],references: [id])
 }
 
 enum Status {
@@ -111,5 +120,3 @@ enum Status {
   CANCELLED
   COMPLETED
 }
-
- 

@@ -56,7 +56,6 @@ const Comment = () => {
             ) : (
               <div>
                 <label className="nameuser">{currentUser[0].username}</label>
-
                 <form onSubmit={(e) => handleSubmit(e)}>
                   <div>
                     <div class="mb-4">

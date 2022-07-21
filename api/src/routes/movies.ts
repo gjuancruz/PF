@@ -336,12 +336,15 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         // console.log(room?.room.id)
         const seat:any = await prisma.seat.findFirst()
         // console.log(seat.id)
+        const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
+        
         const newticket = await prisma.ticket.createMany({
             data:{
                 saleId:sale.id,
                 seatId:seat.id,
                 showId:show,
-                roomId:room.room.id
+                roomId:room.room.id,
+                candyId:candy.id
             }
         })
         // console.log(newticket)

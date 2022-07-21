@@ -322,12 +322,14 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         // console.log(room?.room.id)
         const seat = yield prisma.seat.findFirst();
         // console.log(seat.id)
+        const candy = yield prisma.candy.findUnique({ where: { id: "fdba5610-1559-4f15-9890-1da57ecb5c60" } });
         const newticket = yield prisma.ticket.createMany({
             data: {
                 saleId: sale.id,
                 seatId: seat.id,
                 showId: show,
-                roomId: room.room.id
+                roomId: room.room.id,
+                candyId: candy.id
             }
         });
         // console.log(newticket)
