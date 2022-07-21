@@ -13,13 +13,8 @@ const express_1 = require("express");
 const client_1 = require("@prisma/client");
 const router = (0, express_1.Router)();
 const prisma = new client_1.PrismaClient();
-<<<<<<< HEAD
-http: //localhost:3001/comments
- router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-=======
 // http://localhost:3001/comments
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
->>>>>>> ca135f68cc4cb645c5f6b794adbc5b6af0427ba2
     try {
         const movies = yield prisma.comment.findMany({
             include: {

@@ -15,6 +15,7 @@ import CreateMovie from './Components/CreateMovie/CreateMovie';
 import Register from './Components/Register/Register';
 import Perfil from './Components/Profile/Profile';
 import { Redirect } from 'react-router-dom';
+import SalesChart from './Components/Dashboard/Charts/SalesChart';
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
@@ -38,6 +39,7 @@ function App() {
         <Route exact path="/feedback/:id" component={CreateFeedback}/>
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
+        <Route exact path='/prueba' component={SalesChart}/>
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>

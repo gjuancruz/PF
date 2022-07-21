@@ -42,48 +42,50 @@ model Movie {
 }
 
 model Room {
-  id     Int      @id
-  types  String
-  seat   Seat[]
-  show   Show[]
-  ticket Ticket[]
+  id              String      @id @default(uuid()) @db.Uuid
+  name            String @unique @db.Text
+  disponibility   Boolean? @default(true)
+  roomType        String @db.Text
+  seat            Seat[]
+  show            Show[]
+  ticket          Ticket[]
 }
 
 model Sale {
-  id     String   @id @default(uuid()) @db.Uuid
-  receipt String  @unique
-  userId String   @db.Uuid
-  user   User     @relation(fields: [userId], references: [id])
-  ticket Ticket[]
+  id              String   @id @default(uuid()) @db.Uuid
+  receipt         String  @unique
+  userId          String   @db.Uuid
+  user            User     @relation(fields: [userId], references: [id])
+  ticket          Ticket[]
 }
 
 model Seat {
-  id     Int     @id
-  roomId Int
-  room   Room    @relation(fields: [roomId], references: [id])
-  ticket Ticket?
+  id          String   @id @default(uuid()) @db.Uuid
+  ticketId    Int    @unique
+  roomId      Int      @unique
+  room        Room    @relation(fields: [id], references: [id])
+  ticket      Ticket?
 }
 
 model Show {
-  id      String   @id @default(uuid()) @db.Uuid
-  schedule String 
-  roomId  Int      
-  movieId String   @db.Uuid 
-  movie   Movie    @relation(fields: [movieId], references: [id])
-  room    Room     @relation(fields: [roomId], references: [id])
-  ticket  Ticket[]
+  id        String   @id @default(uuid()) @db.Uuid
+  schedule  String 
+  roomId    String   @db.Uuid
+  movieId   String   @db.Uuid 
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id])
+  ticket    Ticket[]
 }
 
 model Ticket {
   id     String   @id @default(uuid()) @db.Uuid
   seatId Int      @unique
-  roomId Int
   saleId String   @db.Uuid
   showId String   @db.Uuid
-  room   Room @relation(fields: [roomId], references: [id])
-  sale   Sale @relation(fields: [saleId],references: [id])
-  seat   Seat @relation(fields: [seatId], references: [id])
-  show   Show @relation(fields: [showId], references: [id])
+  room   Room     @relation(fields: [id], references: [id])
+  sale   Sale     @relation(fields: [saleId],references: [id])
+  seat   Seat     @relation(fields: [seatId], references: [ticketId])
+  show   Show     @relation(fields: [showId], references: [id])
 }
 
 model User {
@@ -103,3 +105,4 @@ enum Status {
   CANCELLED
   COMPLETED
 }
+

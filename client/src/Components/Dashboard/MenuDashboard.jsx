@@ -94,9 +94,9 @@ export default function MenuDashboard(){
        {handleSideBar()}
         </div>
         </div>
-        :
-      <h1>ERROR: Unauthorized</h1>
-      }
+         :
+       <h1>ERROR: Unauthorized</h1>
+       }
       </div>
     )
 }
