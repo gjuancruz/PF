@@ -9,6 +9,11 @@ import s from "./Home.module.css";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import config from '../Chatbot/config.js'
+import MessageParser from '../Chatbot/MessageParser'
+import ActionProvider from '../Chatbot/ActionProvider';
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
 
 export default function Home(){
 
@@ -121,6 +126,14 @@ return(
 })}
  
 <div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextPremiere}></i>}</div>
+
+<div>
+    <Chatbot
+        config={config}
+        messageParser={MessageParser}
+        actionProvider={ActionProvider}
+    />
+</div>
 
 </div>
     <Footer />
