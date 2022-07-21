@@ -58,15 +58,16 @@ router.delete("/one/:id",async(req:Request,res:Response)=>{
 router.post("/",async(req:Request,res:Response)=>{
     const data : any= req.body.data
     const show = {schedule:data.schedule,roomId:parseInt(data.roomId),movieId:data.movieId} 
-    console.log(show)
     try{
         const data = await showGenerator(show)
+        console.log(data)
         const showid : any = await prisma.show.findMany({where:{id!:undefined},select:{id:true,schedule:true}})
         if(!showid.length){
-            console.log(showid)
+            // console.log(showid)
             const shows = await prisma.show.createMany({
                 data
             })
+            return res.status(200).send("Lista de shows generada")
         }
         for(let i=0;i<data.length;i++){
             const finder = showid.find((e:any)=>e.schedule==data[i].schedule)
