@@ -21,13 +21,13 @@ const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             return res.status(401).send({ error: 'No token provided' });
         }
         const token = headerToken.split(' ')[1];
-        console.log(token);
-        console.log(req);
+        // console.log(token);
+        // console.log(req)
         try {
             const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || '');
             // @ts ignore
             // req.user_id = decoded.user_id;
-            console.log(decoded);
+            // console.log(decoded)
             // return true;
             next();
         }

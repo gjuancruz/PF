@@ -15,9 +15,9 @@ const candylist : any = [comboUno, comboFamiliar, palomitas, gaseosas]
 export const showGenerator = async(show:any) => {
 
    const data = []
-
+   show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60}
    data.push(show)
-   // console.log(data)
+   console.log(data)
    
    const movie = await prisma.movie.findUnique({where:{id:show.movieId}})
    const time = movie?.Runtime
@@ -41,11 +41,13 @@ export const showGenerator = async(show:any) => {
          newhour+=1
          newminute %= 60
       }
+      // console.log(hour)
       
       if(newhour!<24){
-      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId}) 
+      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60}) 
       }
-      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId}) 
+      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60}) 
+      // console.log(data)
       }
    }else{return data}
    }
@@ -67,7 +69,7 @@ app.listen(PORT, async () => {
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   
       where:{Title:movielist[i].Title},
-      update:{},
+      update:{Title:movielist[i].Title,Plot:movielist[i].Plot,Poster:movielist[i].Poster,Genre:movielist[i].Genre,Actors:movielist[i].Actors,Language:movielist[i].Language,Director:movielist[i].Director,Release:movielist[i].Release,Rated:movielist[i].Rated,Runtime:movielist[i].Runtime,Trailer:movielist[i].Trailer,Type:movielist[i].Type},
       create:movielist[i]
   })}
   for(let i = 1;i<6;i++){

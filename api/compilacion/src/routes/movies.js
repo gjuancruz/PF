@@ -320,18 +320,19 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
             } });
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
         // console.log(room?.room.id)
-        const seat = yield prisma.seat.findFirst();
         // console.log(seat.id)
         const candy = yield prisma.candy.findUnique({ where: { id: "fdba5610-1559-4f15-9890-1da57ecb5c60" } });
         const newticket = yield prisma.ticket.createMany({
             data: {
                 saleId: sale.id,
-                seatId: seat.id,
+                // seatId:seat.id,
                 showId: show,
                 roomId: room.room.id,
                 candyId: candy.id
             }
         });
+        const update = yield prisma.show.update({ where: { id: show }, data: { seats: room.seats - 1 } });
+        console.log(update);
         // console.log(newticket)
         res.send("Payment received");
     }

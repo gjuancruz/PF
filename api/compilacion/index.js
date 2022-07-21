@@ -24,8 +24,9 @@ const movielist = [data_1.cars, data_1.spider, data_1.sonic, data_1.iceAge, data
 const candylist = [dataCandy_1.comboUno, dataCandy_1.comboFamiliar, dataCandy_1.palomitas, dataCandy_1.gaseosas];
 const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
     const data = [];
+    show = { schedule: show.schedule, roomId: show.roomId, movieId: show.movieId, seats: 60 };
     data.push(show);
-    // console.log(data)
+    console.log(data);
     const movie = yield prisma.movie.findUnique({ where: { id: show.movieId } });
     const time = movie === null || movie === void 0 ? void 0 : movie.Runtime;
     const hour = time ? Math.floor(time / 60) : 13;
@@ -43,12 +44,14 @@ const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
             newhour += 1;
             newminute %= 60;
         }
+        // console.log(hour)
         if (newhour < 24) {
             if (newminute < 10) {
-                data.push({ schedule: newhour + ":0" + newminute, movieId: show.movieId, roomId: show.roomId });
+                data.push({ schedule: newhour + ":0" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60 });
             }
             else {
-                data.push({ schedule: newhour + ":" + newminute, movieId: show.movieId, roomId: show.roomId });
+                data.push({ schedule: newhour + ":" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60 });
+                // console.log(data)
             }
         }
         else {
@@ -70,7 +73,7 @@ app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () 
     for (let i = 0; i < movielist.length; i++) {
         const movies = yield prisma.movie.upsert({
             where: { Title: movielist[i].Title },
-            update: {},
+            update: { Title: movielist[i].Title, Plot: movielist[i].Plot, Poster: movielist[i].Poster, Genre: movielist[i].Genre, Actors: movielist[i].Actors, Language: movielist[i].Language, Director: movielist[i].Director, Release: movielist[i].Release, Rated: movielist[i].Rated, Runtime: movielist[i].Runtime, Trailer: movielist[i].Trailer, Type: movielist[i].Type },
             create: movielist[i]
         });
     }
