@@ -25,17 +25,18 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, picture, price, quantity } = req.body;
+        const { index, quantity, cartId } = req.body;
+        const menu = yield prisma.menu.findUnique({
+            where: { id: index }
+        });
+        const totalPrice = menu.price * quantity;
         const food = yield prisma.candy.create({
             data: {
-                name: name,
-                picture: picture,
-                price: price,
-                quantity: quantity
-            },
-            // include:{
-            //     ticket: true
-            // }
+                quantity,
+                name: menu.name,
+                totalPrice,
+                cartId
+            }
         });
         res.status(201).json(food);
     }
