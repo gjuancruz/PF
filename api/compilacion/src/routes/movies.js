@@ -12,12 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require('dotenv').config();
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
 const stripe_1 = __importDefault(require("stripe"));
 const middlewares_1 = __importDefault(require("../middlewares/middlewares"));
 const prisma = new client_1.PrismaClient();
 const router = (0, express_1.Router)();
+const { STRIPE_KEY } = process.env;
 function isPremier(dateMovie) {
     let date = new Date();
     let [, m, d, y] = String(date).split(' ');
@@ -303,7 +305,7 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
 router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ticket, amount, show, userId } = req.body;
     console.log(show);
-    const stripe = new stripe_1.default("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ", { apiVersion: "2020-08-27" });
+    const stripe = new stripe_1.default(STRIPE_KEY, { apiVersion: "2020-08-27" });
     const data = {
         username: "Ignacio Brunello",
         password: "1234",
