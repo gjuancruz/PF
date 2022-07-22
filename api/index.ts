@@ -15,7 +15,7 @@ const candylist : any = [comboUno, comboFamiliar, palomitas, gaseosas]
 export const showGenerator = async(show:any) => {
 
    const data = []
-   show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60}
+   show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60,day:show.day,type:show.type}
    data.push(show)
    console.log(data)
    
@@ -44,9 +44,9 @@ export const showGenerator = async(show:any) => {
       // console.log(hour)
       
       if(newhour!<24){
-      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60}) 
+      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60,day:show.day,type:show.type}) 
       }
-      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60}) 
+      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60,day:show.day,type:show.type}) 
       // console.log(data)
       }
    }else{return data}

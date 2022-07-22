@@ -24,7 +24,7 @@ const movielist = [data_1.cars, data_1.spider, data_1.sonic, data_1.iceAge, data
 const candylist = [dataCandy_1.comboUno, dataCandy_1.comboFamiliar, dataCandy_1.palomitas, dataCandy_1.gaseosas];
 const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
     const data = [];
-    show = { schedule: show.schedule, roomId: show.roomId, movieId: show.movieId, seats: 60 };
+    show = { schedule: show.schedule, roomId: show.roomId, movieId: show.movieId, seats: 60, day: show.day, type: show.type };
     data.push(show);
     console.log(data);
     const movie = yield prisma.movie.findUnique({ where: { id: show.movieId } });
@@ -47,10 +47,10 @@ const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(hour)
         if (newhour < 24) {
             if (newminute < 10) {
-                data.push({ schedule: newhour + ":0" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60 });
+                data.push({ schedule: newhour + ":0" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60, day: show.day, type: show.type });
             }
             else {
-                data.push({ schedule: newhour + ":" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60 });
+                data.push({ schedule: newhour + ":" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60, day: show.day, type: show.type });
                 // console.log(data)
             }
         }

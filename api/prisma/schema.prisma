@@ -66,6 +66,7 @@ model Show {
   id        String   @id @default(uuid()) @db.Uuid
   schedule  String
   type      String
+  day       String
   seats     Int
   roomId    Int      
   movieId   String   @db.Uuid 

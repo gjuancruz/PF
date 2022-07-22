@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 
 const router = Router()
 
-const STRIPE_KEY = process.env.STRIPE_KEY
+const {STRIPE_KEY} : any = process.env
 
 function isPremier(dateMovie:string):boolean {
     let date: Date = new Date();

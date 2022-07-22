@@ -57,10 +57,10 @@ router.delete("/one/:id",async(req:Request,res:Response)=>{
 
 router.post("/",async(req:Request,res:Response)=>{
     const data : any= req.body.data
-    const show = {schedule:data.schedule,roomId:parseInt(data.roomId),movieId:data.movieId} 
+    const show = {schedule:data.schedule,roomId:parseInt(data.roomId),movieId:data.movieId,day:data.day,type:data.type} 
+    console.log(data)
     try{
         const data = await showGenerator(show)
-        console.log(data)
         const showid : any = await prisma.show.findMany({where:{id!:undefined},select:{id:true,schedule:true}})
         if(!showid.length){
             // console.log(showid)
@@ -70,7 +70,7 @@ router.post("/",async(req:Request,res:Response)=>{
             return res.status(200).send("Lista de shows generada")
         }
         for(let i=0;i<data.length;i++){
-            const finder = showid.find((e:any)=>e.schedule==data[i].schedule)
+            const finder = showid.find((e:any)=>e.schedule==data[i].schedule||e.day===data[i].day)
             if(finder==undefined){
                 const shows = await prisma.show.create({
                     data:data[i] 
