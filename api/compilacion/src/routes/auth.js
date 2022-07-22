@@ -105,5 +105,63 @@ router.get('/verify', [middlewares_1.default], (req, res) => __awaiter(void 0, v
         });
     }
 }));
+// router.get('/verifyrole', async (req:Request, res:Response) => {
+//     const headerToken:any = req.headers.authorization;
+//     const token = headerToken.split(' ')[1];
+//     try {
+//         const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
+//         console.log(decoded)
+//         //@ts-ignore
+//         req.user_id = decoded.user_id
+//         const user = await prisma.user.findUnique({
+//             where: {
+//             //@ts-ignore
+//               id: decoded.user_id,
+//             },
+//           })
+//             //@ts-ignore
+//             if(user.role === 'admin') return 'admin'
+//             //@ts-ignore
+//           if(user.role === 'user') return 'user'
+//           else{
+//             return false
+//           }
+// } catch (error) {
+//     console.log(error)
+// }
+// })
+router.get('/verifyrole', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const headerToken = req.headers.authorization;
+        const token = headerToken.split(' ')[1];
+        console.log(token);
+        // console.log(req)
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || '');
+        console.log('soy decpded', decoded);
+        // @ts-ignore
+        req.user_id = decoded.user_id;
+        //@ts-ignore
+        console.log(decoded.user_id);
+        const user = yield prisma.user.findUnique({
+            where: {
+                //@ts-ignore
+                id: decoded.user_id,
+            },
+        });
+        //@ts-ignore
+        if (user.role === 'admin')
+            return res.json({ "role": 'admin' });
+        //@ts-ignore
+        if (user.role === 'user')
+            return res.json({ "role": 'user' });
+        //@ts-ignore
+        if (user.role !== 'admin' && user.role !== 'user')
+            return res.json({ "role": 'guest' });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(401).send({ error: 'Invalid token' });
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=auth.js.map
