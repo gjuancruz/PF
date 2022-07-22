@@ -1,3 +1,4 @@
+require('dotenv').config()
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient } from '@prisma/client'
 import Stripe from "stripe";
@@ -7,6 +8,7 @@ const prisma = new PrismaClient()
 
 const router = Router()
 
+const STRIPE_KEY = process.env.STRIPE_KEY
 
 function isPremier(dateMovie:string):boolean {
     let date: Date = new Date();
@@ -315,7 +317,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
 
     const {ticket,amount,show,userId} = req.body
     console.log(show)
-    const stripe = new Stripe("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ",{apiVersion:"2020-08-27"})
+    const stripe = new Stripe(STRIPE_KEY,{apiVersion:"2020-08-27"})
     const data:any={
         username:"Ignacio Brunello",
         password:"1234",
