@@ -70,14 +70,9 @@ router.post('/login', async (req:Request, res:Response) => {
         //Generando Token
         const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET || '');
 
-        // Obtener id para almacenar en localStorage
+        
 
-        const userStorage = await prisma.user.findUnique({
-            // @ts-ignore
-            where: { email: email }
-        });
-
-        return res.status(200).json({ token: token, user: userStorage});
+        return res.status(200).json({ token: token});
     } catch (error) {
         console.log(error);
         return res.status(400).send('Error al iniciar sesión');
@@ -150,7 +145,7 @@ router.get('/verifyrole', async (req:Request, res:Response, next:NextFunction) =
         
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
-console.log('soy decpded', decoded)
+console.log('soy decoded', decoded)
             // @ts-ignore
             req.user_id = decoded.user_id;
             //@ts-ignore
@@ -164,10 +159,10 @@ console.log('soy decpded', decoded)
             
             
             //@ts-ignore
-            if(user.role === 'admin') return res.json({"role": 'admin'})
+            if(user.role === 'admin') return res.json({"role": 'admin', "id":req.user_id})
             
             //@ts-ignore
-            if(user.role === 'user') return res.json({"role": 'user'})
+            if(user.role === 'user') return res.json({"role": 'user', "id":req.user_id})
             
             //@ts-ignore
             if(user.role !== 'admin' && user.role !== 'user') return res.json({"role": 'guest'})

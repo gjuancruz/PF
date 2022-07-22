@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postFeedback, getUsers } from "../../Redux/actions";
+import { postFeedback, getUsers, verifyRole } from "../../Redux/actions";
 
 export default function CreateFeedback(props) {
   const dispatch = useDispatch();
@@ -9,11 +9,12 @@ export default function CreateFeedback(props) {
   });
 
   useEffect(() =>{
-    dispatch(getUsers())
+    dispatch(getUsers());
+    dispatch(verifyRole())
 },[])
 
 const allUsers = useSelector ((state) => state.usuarios)
-    const userIdCheck = window.localStorage.getItem('userId')
+let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUsers.filter(u =>u.id === userIdCheck)
     console.log("este es currentUser",currentUser)
 

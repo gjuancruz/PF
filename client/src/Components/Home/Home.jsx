@@ -130,13 +130,7 @@ return(
 <div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextPremiere}></i>}</div>
 
 
-<div>
-    <Chatbot
-        config={config}
-        messageParser={MessageParser}
-        actionProvider={ActionProvider}
-    />
-</div>
+
 
 {
 showBot? 
