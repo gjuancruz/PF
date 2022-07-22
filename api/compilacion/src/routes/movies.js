@@ -17,6 +17,7 @@ const client_1 = require("@prisma/client");
 const stripe_1 = __importDefault(require("stripe"));
 const middlewares_1 = __importDefault(require("../middlewares/middlewares"));
 const prisma = new client_1.PrismaClient();
+const stripe = new stripe_1.default('sk_test_51LL7oSD9gy88ma0M16Suffvl8xrlPBMGymRH3e0YUURSTvZcduJEQkChSwb7jg1LV4hyGAXT6yrRrKYoO9dLOFBO00G597r5oA', { apiVersion: "2020-08-27" });
 const router = (0, express_1.Router)();
 function isPremier(dateMovie) {
     let date = new Date();
@@ -298,45 +299,52 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(404).json("no se encontro peli con ese nombre");
     }
 }));
-router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ticket, amount, show, userId } = req.body;
-    console.log(show);
-    const stripe = new stripe_1.default("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ", { apiVersion: "2020-08-27" });
-    const data = {
-        username: "Ignacio Brunello",
-        password: "1234",
-        role: 1
-    };
-    try {
-        const payment = yield stripe.paymentIntents.create({
+/* router.post("/checkout",async(req:Request,res:Response)=>{
+
+    const {ticket,amount,show,userId} = req.body
+    console.log(show)
+    const stripe = new Stripe("sk_test_51LKmPfJSzK67Ievut9CIjd8vY41BPktuezRzcVzIERjze7T5LEPDOmZ35auFdbt9mG5zTZFxXbsC0ZXTl96dPw4i00AaZ84pVQ",{apiVersion:"2020-08-27"})
+    const data:any={
+        username:"Ignacio Brunello",
+        password:"1234",
+        role:1
+    }
+    try{
+        const payment = await stripe.paymentIntents.create({
             amount,
-            payment_method: ticket,
-            currency: "USD",
-            confirm: true,
-        });
-        const sale = yield prisma.sale.create({ data: {
-                receipt: ticket,
-                userId: userId
-            } });
-        const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
+            payment_method:ticket,
+            currency:"USD",
+            confirm:true,
+        })
+        const sale = await prisma.sale.create({data:{
+            receipt:ticket,
+            userId:userId
+        }})
+        const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)
         // console.log(seat.id)
-        const newticket = yield prisma.ticket.createMany({
-            data: {
-                saleId: sale.id,
+        const newticket = await prisma.ticket.createMany({
+            data:{
+                saleId:sale.id,
                 // seatId:seat.id,
-                showId: show,
-                roomId: room.room.id
+                showId:show,
+                roomId:room.room.id
             }
-        });
-        const update = yield prisma.show.update({ where: { id: show }, data: { seats: room.seats - 1 } });
-        console.log(update);
+        })
+        const update = await prisma.show.update({where:{id:show},data:{seats:room.seats-1}})
+        console.log(update)
         // console.log(newticket)
-        res.send("Payment received");
+        res.send("Payment received")
+    }catch(error:any){
+        res.send(error.message)
     }
-    catch (error) {
-        res.send(error.message);
-    }
+}) */
+router.get("/charges", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const stripe = require('stripe')('sk_test_51LL7oSD9gy88ma0M16Suffvl8xrlPBMGymRH3e0YUURSTvZcduJEQkChSwb7jg1LV4hyGAXT6yrRrKYoO9dLOFBO00G597r5oA');
+    const charges = yield stripe.charges.list({
+        limit: 3,
+    });
+    res.json(charges);
 }));
 exports.default = router;
 //# sourceMappingURL=movies.js.map
