@@ -17,7 +17,8 @@ import {
   GET_ALL_SHOWS,
   AUTORIZADO,
   DELETE_MOVIE,
-  EDIT_MOVIE
+  EDIT_MOVIE,
+  ADD_CANDY
 } from "../actions";
 
 const initialState = {
@@ -32,10 +33,18 @@ const initialState = {
   shows:[],
   show:[],
   autorizado: '',
+  candy:[]
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case ADD_CANDY:
+      return{
+        ...state,
+        candy: state.candy.concat(action.payload)
+        // candy: [...state.candy, action.payload]
+      }
+
     case AUTORIZADO:
       return {
         ...state,

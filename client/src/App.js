@@ -19,6 +19,7 @@ import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
 
 import {Checkout} from './Components/Checkout/Checkout'
+import {ComprarModal} from './Components/Checkout/CandysModal'
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
@@ -43,6 +44,7 @@ function App() {
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
         <Route exact path='/Checkout' component={Checkout} />
+        <Route exact path='/CandyModal' component={ComprarModal} />
         <Route exact path='/candy' component={Candy}/>
         <Route exact path='/caja' component={CashRegister}/>
         <Route path='*' component={Error404} />

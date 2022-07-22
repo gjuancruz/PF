@@ -21,7 +21,7 @@ export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
-
+export const ADD_CANDY="ADD_CANDY"
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -430,5 +430,14 @@ export function register(payload){
       } catch (error) {
           console.log(error)
       }
+  }
+}
+
+export function addCandy(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: ADD_CANDY,
+      payload: payload
+    })
   }
 }
