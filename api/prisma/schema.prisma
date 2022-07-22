@@ -54,6 +54,7 @@ model Sale {
   userId String   @db.Uuid
   user   User     @relation(fields: [userId], references: [id])
   ticket Ticket[]
+  candy  Candy[]
 }
 
 model Seat {
@@ -100,21 +101,29 @@ model User {
 model Candy {
   id         String @id @default(uuid()) @db.Uuid
   name       String @db.Text
-  picture    String @db.Text
-  price      Int
   quantity   Int
+  totalPrice Int
   cartId     String? @db.Uuid @unique
+  saleId     String? @db.Uuid @unique
   cart       Cart? @relation(fields: [cartId],references: [id])
+  sale       Sale? @relation(fields: [saleId],references: [id])
 }
 
 
 model Cart{
   id         String @id @default(uuid()) @db.Uuid
-  ticketId   String @db.Uuid @unique
+  ticketId   String? @db.Uuid @unique
   userId     String @db.Uuid @unique
   candy      Candy[]
-  ticket     Ticket @relation(fields: [ticketId],references: [id])
+  ticket     Ticket? @relation(fields: [ticketId],references: [id])
   user       User @relation(fields: [userId],references: [id])
+}
+
+model Menu{
+  id        Int @id @default(autoincrement())
+  name      String @unique
+  picture   String
+  price     Int
 }
 
 enum Status {

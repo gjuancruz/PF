@@ -11,7 +11,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
-const __1 = require("../..");
+const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = [];
+    show = { schedule: show.schedule, roomId: show.roomId, movieId: show.movieId, seats: 60, day: show.day, type: show.type };
+    data.push(show);
+    console.log(data);
+    const movie = yield prisma.movie.findUnique({ where: { id: show.movieId } });
+    const time = movie === null || movie === void 0 ? void 0 : movie.Runtime;
+    const hour = time ? Math.floor(time / 60) : 13;
+    const minute = time ? time % 60 : 0;
+    const max = 1440;
+    const num = Math.floor(time ? max / time : 5);
+    for (let i = 0; i < num; i++) {
+        let last = data.reverse().find((e) => e.movieId == show.movieId);
+        data.reverse();
+        const lasthour = parseInt(last ? last.schedule.slice(0, 2) : "13");
+        const lastminute = parseInt(last ? last.schedule.slice(3, 5) : "00");
+        var newhour = lasthour + hour;
+        var newminute = lastminute + minute + 10;
+        if (newminute >= 60) {
+            newhour += 1;
+            newminute %= 60;
+        }
+        // console.log(hour)
+        if (newhour < 24) {
+            if (newminute < 10) {
+                data.push({ schedule: newhour + ":0" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60, day: show.day, type: show.type });
+            }
+            else {
+                data.push({ schedule: newhour + ":" + newminute, movieId: show.movieId, roomId: show.roomId, seats: 60, day: show.day, type: show.type });
+                // console.log(data)
+            }
+        }
+        else {
+            return data;
+        }
+    }
+    return data;
+});
 const prisma = new client_1.PrismaClient();
 const router = (0, express_1.Router)();
 router.post("/createRoom", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -63,7 +100,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId, day: data.day, type: data.type };
     console.log(data);
     try {
-        const data = yield (0, __1.showGenerator)(show);
+        const data = yield showGenerator(show);
         const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true } });
         if (!showid.length) {
             // console.log(showid)

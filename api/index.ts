@@ -12,47 +12,7 @@ const prisma = new PrismaClient()
 const movielist : any =  [cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman]
 const candylist : any = [comboUno, comboFamiliar, palomitas, gaseosas]
 
-export const showGenerator = async(show:any) => {
 
-   const data = []
-   show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60,day:show.day,type:show.type}
-   data.push(show)
-   console.log(data)
-   
-   const movie = await prisma.movie.findUnique({where:{id:show.movieId}})
-   const time = movie?.Runtime
-
-   
-   const hour = time ? Math.floor(time/60): 13
-   const minute = time ? time % 60 : 0
-   
-   const max = 1440
-   const num = Math.floor(time ? max/time : 5)
-   
-   for(let i = 0;i<num;i++){
-      let last = data.reverse().find((e:any)=>e.movieId==show.movieId)
-      data.reverse()
-      const lasthour = parseInt(last ? last.schedule.slice(0,2):"13")
-      const lastminute = parseInt(last ? last.schedule.slice(3,5):"00")
-      
-      var newhour = lasthour+hour
-      var newminute = lastminute + minute + 10 
-      if(newminute>=60) {
-         newhour+=1
-         newminute %= 60
-      }
-      // console.log(hour)
-      
-      if(newhour!<24){
-      if(newminute<10) {data.push({schedule:newhour+":0"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60,day:show.day,type:show.type}) 
-      }
-      else {data.push({schedule:newhour+":"+newminute,movieId:show.movieId,roomId:show.roomId,seats:60,day:show.day,type:show.type}) 
-      // console.log(data)
-      }
-   }else{return data}
-   }
-   return data
-}
 
 app.listen(PORT, async () => {
 
@@ -60,11 +20,14 @@ app.listen(PORT, async () => {
    // const del2 = await prisma.show.deleteMany({})
    // const del = await prisma.seat.deleteMany({})
    // const del3 = await prisma.room.deleteMany({})
-   const del = await prisma.candy.deleteMany({})
-   const movie = await prisma.candy.createMany({
-      data: candylist
+   // const del = await prisma..deleteMany({})
+   for(let i=0;i<candylist.length;i++){
+   const movie = await prisma.menu.upsert({
+      where:{name:candylist[i].name},
+      update:{},
+      create:candylist[i]
   })
-
+   }
 
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   
