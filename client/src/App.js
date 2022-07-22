@@ -17,6 +17,8 @@ import Perfil from './Components/Profile/Profile';
 import Candy from './Components/Prueba Candy/PruebaCandy';
 import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
