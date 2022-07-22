@@ -74,7 +74,7 @@ const Comment = () => {
                 </div>
 
                 <button type="submit" className="comentar">
-                  Comentar
+                  Comentar 
                 </button>
               </div>
             </form>
