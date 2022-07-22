@@ -35,52 +35,57 @@ const Comment = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log(input,movieId.id,currentUser[0]);
+    console.log(input, movieId.id, currentUser[0]);
     dispatch(postComment(input, movieId.id, currentUser[0].id));
-
     alert("Comentario Creado");
-    setInput({ Text: "" });
   }
 
+  //!currentUser[0] ? <button className="buttonLog"> <a href="/login">Inicia Sesion</a></button>:
+  //<label className="nameuser">{currentUser[0].username}</label>
+
   return (
-    <div className="contenedoruser">
-      {!currentUser[0] ? (
-        <button className="buttonLog">
-          {" "}
-          <a href="/login">Inicia sesión para comentar</a>
-        </button>
-      ) : (
-        <div>
+    <div>
+      <div>
+        {currentUser.length && (
           <div>
-            <label className="nameuser">{currentUser[0].username}</label>
-          </div>
-
-          <div>
-            <form onSubmit={(e) => handleSubmit(e)}>
+            {!currentUser[0] ? (
+              <button className="buttonLog">
+                {" "}
+                <a href="/login">Inicia Sesion</a>
+              </button>
+            ) : (
               <div>
-                <div class="mb-4 mt-5">
-                  <label for="exampleFormControlTextarea1" class="form-label">
-                    Escribe un comentario
-                  </label>
-                  <input
-                    class="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                    name="Text"
-                    type="text"
-                    value={input.Text}
-                    onChange={(e) => handleChange(e)}
-                  ></input>
-                </div>
+                <label className="nameuser">{currentUser[0].username}</label>
+                <form onSubmit={(e) => handleSubmit(e)}>
+                  <div>
+                    <div class="mb-4">
+                      <label
+                        for="exampleFormControlTextarea1"
+                        class="form-label"
+                      >
+                        Escribe un comentario
+                      </label>
+                      <input
+                        class="form-control"
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                        name="Text"
+                        type="text"
+                        value={input.Text}
+                        onChange={(e) => handleChange(e)}
+                      ></input>
+                    </div>
 
-                <button type="submit" className="comentar">
-                  Comentar
-                </button>
+                    <button type="submit" className="comentar">
+                      Comentar
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
+            )}
           </div>
-        </div>
-      )}
+        )}{" "}
+      </div>
     </div>
   );
 };
