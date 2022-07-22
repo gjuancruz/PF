@@ -12,6 +12,7 @@ export default function Movies(){
     const premiere = useSelector((state) => state.premiere)
     const refresh = useSelector((state) => state.refresh)
     const allmovies = cartelera.concat(premiere)
+
     const dispatch = useDispatch()
 
     const [movieId,setMovieId] = useState("")

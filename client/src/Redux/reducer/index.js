@@ -133,7 +133,7 @@ function rootReducer(state = initialState, action) {
             ...state,
             cartelera: state.cartelera.filter(e=> e.id !== action.payload.id),
             carteleraFiltered: state.carteleraFiltered.filter(e=> e.id !== action.payload.id),
-            premiere: state.premiere.filter(e=> e.id !== action.payload.id)
+            premiere: state.premiere.filter(e=> e.id !== action.payload.id),
           }
       case EDIT_MOVIE:
         return{

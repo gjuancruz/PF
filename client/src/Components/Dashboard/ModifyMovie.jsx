@@ -7,13 +7,9 @@ import styles from "../CreateMovie/CreateMovie.module.css";
 import { useEffect } from "react";
 
 export default function CreateMovie({ data }) {
+
   const dispatch = useDispatch();
-  const refresh = useSelector(state => state.refresh)
   
-  useEffect(()=>{
-
-  },[refresh])
-
   const clasificaciones = ["+13", "+16", "+18", "ATP"];
   const generos = [
     "Acción",
@@ -118,6 +114,7 @@ export default function CreateMovie({ data }) {
   return (
     <Formik
     initialValues={{
+      id:data.id,
       Title: data.Title,
       Plot: data.Plot,
         Language: data.Language,
