@@ -22,6 +22,8 @@ export default function MovieDetail(){
     const [shown,setShown] = useState(false)
     const [showid,setShowid] = useState("")
     // console.log(movieDet)
+    //boton checkout 
+    const [toggle,setToggle] = useState(false)
 
     useEffect(()=>{
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -74,11 +76,18 @@ export default function MovieDetail(){
         e.preventDefault()
         setShowid(e.target.value)
     }
+    console.log(toggle);
     return(
         <div className="MovieDetail">
             <NavBar />
-            <Checkout title={movieDet.Title} />
-            <div className="contenedor">
+            <div className="Checkout-component">
+                <Checkout title={movieDet.Title} toogle={toggle} />
+            </div>
+            <div className="contenedor" id={toggle && "checkout-active"}>
+                <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
+                    Toogle Sidebar
+                </button>
+
                 <h2 className="pg">{movieDet.Rated}</h2>
                 <h2 className="title">{movieDet.Title}</h2>
                 <img className='movieImg' src={movieDet.Poster} alt="" />
@@ -124,8 +133,8 @@ export default function MovieDetail(){
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 
-            <Footer />
             </div>
+            <Footer />
         </div> 
       
     )

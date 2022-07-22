@@ -5,13 +5,15 @@
 }
 
 .navbar-checkout{
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    right: 0;
+    width: 350px;
+    height: 90vh;
+    /* position: absolute;
+    right: 0; */
     margin-right: -300px;
-    background-color:rgb(60, 156, 156);
+    background-color:rgb(32, 39, 39);
     transition: 0.5s;
+    /* width: auto; */
+    /* text-align: center; */
 }
 
 #sidebar-active{
@@ -41,13 +43,13 @@
     background-color: rgb(62, 55, 46);
 }
 
-.my-container{
+/* .my-container{
     transition: 0.2s;
     display: flex;
     justify-content: flex-end;
-    /* position: absolute; */
-    /* width: 100%; */
-}
+    position: absolute;
+    width: 100%;
+} */
 
 #menu-btn {
     /* position: absolute;

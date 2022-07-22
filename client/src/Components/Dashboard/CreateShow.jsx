@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { postShow,autorizado } from "../../Redux/actions";
+import { postShow,autorizado, getBillboard } from "../../Redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 
@@ -9,9 +9,19 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 export default function CreateShow(){
     const dispatch = useDispatch()
     const autorizacion = useSelector( state => state.autorizado);
+    const movies=useSelector(state=>state.cartelera)
     const [formSend, setFormSend] = useState(false);
     
+    function handleMovieChange(e,values){
+      const {value} = e.target
+      values.movieId=value
+    }
+    function handleRoomChange(e,values){
+      const {value} = e.target
+      values.roomId=value
+    }
     useEffect(() => {
+        dispatch(getBillboard())
         dispatch(autorizado());
       },[])
 
@@ -87,11 +97,23 @@ export default function CreateShow(){
                   </label>
                   <Field
                     class="form-control"
-                    type="movieId"
+                    as="select"
                     id="movieId"
                     name="movieId"
-                    placeholder="Pelicula..."
-                  />
+                    onChange={(e)=>{handleMovieChange(e,values)}}
+                  >
+                    {!values.movieId.length?(
+                      <option key="seleccionar">Seleccionar pelicula</option>
+                    ):(<option key="seleccionar" disabled>
+                      Seleccionar pelicula
+                    </option>)
+                    }
+                    {console.log(movies)}
+                    {movies?.map(e=>(
+                      <option key={e.id} value={e.id}>{e.Title}</option>
+                    ))
+                    }
+                    </Field>
                 </div>
 
                 <div class="mb-3">
@@ -108,11 +130,21 @@ export default function CreateShow(){
                   </label>
                   <Field
                     class="form-control"
-                    type="roomId"
+                    as="select"
                     id="roomId"
                     name="roomId"
-                    placeholder="Sala..."
-                  />
+                    onChange={(e)=>{handleRoomChange(e,values)}}
+                  >{!values.roomId.length?(
+                    <option key="seleccionar2">Seleccionar Sala</option>
+                  ):(
+                    <option key="seleccionar2" disabled>Seleccionar Sala</option>
+                  )
+                  }<option key="1" value="1">Sala 1</option>
+                  <option key="2" value="2">Sala 2</option>
+                  <option key="3" value="3">Sala 3</option>
+                  <option key="4" value="4">Sala 4</option>
+                  <option key="5" value="5">Sala 5</option>
+                  </Field>
                 </div>
 
                 <div class="mb-3">

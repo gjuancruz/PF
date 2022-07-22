@@ -7,26 +7,21 @@ export default function Shows(){
 
   const dispatch = useDispatch();
   const shows = useSelector(state=>state.shows);
-  const [roomId,setRoomId] = useState()
+  const [refresh,setRefresh] = useState(1)
   //const cant_usuarios = usuarios.map((n,i)=>n=i);
 
   const handleDelete=(e)=>{
     if(e.target.nodeName==="I"){
       const padre = e.target.parentElement.parentElement.parentElement
       console.log(padre.id)
+      // setRefresh(Math.random())
       dispatch(deleteShow(padre.id))
-      e.reload()
     }else{
       const padre = e.target.parentElement.parentElement
       console.log(padre.id)
+      // setRefresh(Math.random())
       dispatch(deleteShow(padre.id))
-      e.reload()
     }
-  }
-
-  const handleSubmit=(e)=>{
-    dispatch(postShow("12:00","46a0aa5e-9ee5-4de5-a4ab-a71e09b175e8",1))
-    e.reload()
   }
 
   useEffect(()=>{
@@ -65,6 +60,7 @@ export default function Shows(){
               <th scope="col">Horarios</th>
               <th scope="col">Pelicula</th>
               <th scope="col">Sala</th>
+              <th scope="col">Asientos</th>
               <th scope="col">Modificar</th>
             </tr>
           </thead>
@@ -76,6 +72,7 @@ export default function Shows(){
                   <td>{s.schedule}</td>
                   <td>{s.movie.Title}</td>
                   <td>{s.roomId}</td>
+                  <td>{s.seats}</td>
                   <td>
                     <button class="btn btn-outline-warning" onClick={handleDelete}><i class="bi bi-trash3"></i></button>
                   </td>

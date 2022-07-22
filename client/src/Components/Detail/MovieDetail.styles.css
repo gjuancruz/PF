@@ -4,17 +4,36 @@
     box-sizing: border-box;
 }
 
-
+.MovieDetail{
+    position: relative;
+}
 
 .contenedor{
+    position: relative;
     width: 100%;
-    max-width: 75em;
+    /* max-width: 75em; */
+    max-width: 75vw;
     margin:  auto;
     padding: 60px;
     margin-top: 20px;
+    /* margin-right: 250px; */
     /* position: absolute;    */
     
 }
+#menu-btn{
+    position: absolute;
+    right: 5rem;
+}
+.Checkout-component{
+    position: absolute;
+    right: 0px;
+    /* height: 100px; */
+    /* z-index: 5; */
+}
+#checkout-active{
+    margin-right: 350px;
+}
+
 .title{
     font-size: 40px;
     margin-bottom: 20px;
