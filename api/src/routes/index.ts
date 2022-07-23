@@ -6,6 +6,7 @@ import feedbackRoutes from "./feedback"
 import admin from './admin';
 import show from './show';
 import candyRoutes from './candy'
+import ticketsRoutes from './tickets';
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use('/feedback', feedbackRoutes);
 router.use('/admin',admin)
 router.use('/show',show)
 router.use('/candy', candyRoutes)
+router.use('/tickets', ticketsRoutes)
 
 
 export default router;

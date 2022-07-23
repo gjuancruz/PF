@@ -16,29 +16,54 @@ const prisma = new client_1.PrismaClient();
 // http://localhost:3001/candy
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const food = yield prisma.candy.findMany({});
-        res.json(food);
+        const food = yield prisma.menu.findMany({});
+        return res.json(food);
     }
     catch (e) {
         res.json(e.message);
     }
 }));
+// http://localhost:3001/candy/add
 router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { index, quantity, cartId } = req.body;
-        const menu = yield prisma.menu.findUnique({
+        const product = yield prisma.menu.findUnique({
             where: { id: index }
         });
-        const totalPrice = menu.price * quantity;
-        const food = yield prisma.candy.create({
+        console.log('this is product :', product);
+        const totalPrice = product.price * quantity;
+        const newCandy = yield prisma.candy.create({
             data: {
+                name: product.name,
                 quantity,
-                name: menu.name,
                 totalPrice,
                 cartId
             }
         });
-        res.status(201).json(food);
+        console.log('this is newCandy :', newCandy);
+        const cart = yield prisma.cart.findUnique({
+            where: { id: cartId }
+        });
+        console.log('this is cart :', cart);
+        const addNewCandy = yield prisma.cart.update({
+            where: { id: cartId },
+            data: {
+                // @ts-ignore
+                orderPrice: cart.orderPrice + newCandy.totalPrice,
+                // @ts-ignore
+                userId: cart.userId,
+                candy: {
+                    connect: {
+                        id: newCandy.id
+                    }
+                }
+            }
+        });
+        console.log('this is addNewCandy :', addNewCandy);
+        const newCart = yield prisma.cart.findUnique({
+            where: { id: cartId }
+        });
+        return res.json(newCart);
     }
     catch (e) {
         console.log(e.message);
