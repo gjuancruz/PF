@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import "../Comment/Comment.css";
-import { getUsers, postComment } from "../../Redux/actions";
+import { getUsers, postComment, verifyRole } from "../../Redux/actions";
 import { useEffect } from "react";
 
 const Comment = () => {
@@ -13,10 +13,11 @@ const Comment = () => {
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(verifyRole())
   }, []);
 
   const allUsers = useSelector((state) => state.usuarios);
-  const userIdCheck = window.localStorage.getItem("userId");
+  let userIdCheck = useSelector ((state) => state.id)
   const currentUser = allUsers.filter((u) => u.id === userIdCheck);
   // console.log("este es mi id",currentUser)
 

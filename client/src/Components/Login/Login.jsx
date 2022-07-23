@@ -26,7 +26,7 @@ const Login = () => {
         );
         if(data.token) {
             localStorage.setItem('sw-token', data.token)
-            localStorage.setItem('userId', data.user.id)
+          
 
             history.push('/home')
         }  

@@ -33,7 +33,8 @@ const initialState = {
   shows:[],
   show:[],
   autorizado: '',
-  role: 'guest'
+  role: 'guest',
+  id:''
 };
 
 function rootReducer(state = initialState, action) {
@@ -184,7 +185,8 @@ function rootReducer(state = initialState, action) {
     case VERIFY_ROLE:
     return{
       ...state,
-      role:action.payload
+      role: action.payload.role,
+      id: action.payload.id
     }
     default:
       return state;
