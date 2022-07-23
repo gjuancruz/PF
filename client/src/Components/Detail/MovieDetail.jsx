@@ -2,7 +2,7 @@ import React,{ useEffect, useState }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
-import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -22,7 +22,7 @@ export default function MovieDetail(){
     const [shown,setShown] = useState(false)
     const [showid,setShowid] = useState("")
     const allUser = useSelector((state) => state.usuarios);
-    const userIdCheck = window.localStorage.getItem("userId");
+    let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     
     console.log("es la premier",allCartelera)
@@ -35,6 +35,7 @@ export default function MovieDetail(){
         dispatch(getShow(idMovie.id))
         dispatch(getBillboard())
         dispatch(getPremiere())
+        dispatch(verifyRole())
     },[dispatch, refresh])
 
     const selecthora = document.querySelector("#selectHora")
