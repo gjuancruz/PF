@@ -16,9 +16,9 @@ const candylist : any = [comboUno, comboFamiliar, palomitas, gaseosas]
 
 app.listen(PORT, async () => {
 
-   const del1 = await prisma.comment.deleteMany({})
+   // const del1 = await prisma.comment.deleteMany({})
    // const del2 = await prisma.show.deleteMany({})
-   const del2 = await prisma.movie.deleteMany({})
+   // const del2 = await prisma.movie.deleteMany({})
    // const del = await prisma.seat.deleteMany({})
    // const del3 = await prisma.room.deleteMany({})
    // const del = await prisma..deleteMany({})
