@@ -7,6 +7,7 @@ import Shows from "./Shows";
 import { useDispatch, useSelector } from "react-redux";
 import SalesBalance from "./SalesBalance";
 import { getUsers, verifyRole } from "../../Redux/actions";
+import Candy from "./Candy";
 
 
 
@@ -16,13 +17,14 @@ export default function MenuDashboard(){
   const dispatch = useDispatch()
     useEffect(() =>{
         dispatch(getUsers())
+        dispatch(verifyRole())
     },[])
+
     const allUsers = useSelector ((state) => state.usuarios)
     const userIdCheck = window.localStorage.getItem('userId')
     const currentUser = allUsers.filter(u =>u.id === userIdCheck)
     let role = useSelector ((state) => state.role)
     const [component,setComponent] = useState("")
-
 
     const handleSideBar= ()=>{
         if (component=== 'usuarios') return (<Users/>)
@@ -31,6 +33,7 @@ export default function MenuDashboard(){
         if (component === 'movies') return (<Movies/>)
         if (component === 'funciones') return(<Shows/>)
         if (component === 'salesMovies') return(<SalesBalance/>)
+        if (component === 'candy') return(<Candy/>)
     }
 
     return (
@@ -63,7 +66,7 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
-              <a href="#" class="btn btn-outline-warning border-0 text-white">
+              <a href="#" class="btn btn-outline-warning border-0 text-white"onClick={e=>setComponent("candy")}>
                 Candy
               </a>
             </li>
@@ -103,7 +106,7 @@ export default function MenuDashboard(){
         </div>
         </div>
          :
-       <h1>ERROR: Unauthorized</h1>
+       null
        }
       </div>
     )

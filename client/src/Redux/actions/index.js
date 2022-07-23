@@ -368,7 +368,7 @@ export function deleteUser(email){
 
 export function createUser(user){
   return async function(dispatch){
-      const data = await axios.post("http://localhost:3001/admin/createUser", user)
+      const data = await axios.post("http://localhost:3001/auth/register", user)
       return data;
   }
 }
