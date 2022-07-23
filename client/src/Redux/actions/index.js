@@ -436,14 +436,15 @@ export function register(payload){
 
 export function verifyRole(){
   return async function(dispatch){
-    const data = await axios.get('http://localhost:3001/auth/verifyRole' , {
+    const data = await axios.get('http://localhost:3001/auth/verifyrole' , {
       headers : {
         Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
       }
     })
     return dispatch({
       type: VERIFY_ROLE,
-      payload: data.data.role
+      payload: {role: data.data.role,
+                id: data.data.id}
     })
   }
 }
