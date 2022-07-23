@@ -219,7 +219,7 @@ Comprar
                 Cerrar
               </button>
               <button type="button" class="btn btn-warning" >
-                Ir al Carrito
+                Agregar al carrito
               </button>
             </div>
           </div>
