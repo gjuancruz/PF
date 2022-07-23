@@ -34,7 +34,7 @@
     
 }
 p{
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 .pg{
     display: inline;
@@ -129,6 +129,7 @@ select:hover{
 }
 .imgposter{
     margin-right: 60px;
+    max-width: 100%;
 }
 .estrenopelicula{
    color:  rgb(255, 215, 0);
