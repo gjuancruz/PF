@@ -4,7 +4,8 @@ import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
-import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, 
+  sumEntradas, getCardHistory } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -35,6 +36,12 @@ export default function MovieDetail(){
 
     const storeCandy = useSelector(state => state.storeCandy)
 
+    const entradas = useSelector(state => state.entradas)
+
+    const idUser = useSelector(state => state.id)
+    
+    const cart = useSelector(state => state.cart);
+
     useEffect(()=>{
         !storeCandy.length && dispatch(getCandy())
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -44,10 +51,17 @@ export default function MovieDetail(){
         dispatch(getBillboard())
         dispatch(getPremiere())
         dispatch(verifyRole())
+        // idUser && dispatch(getCardHistory({idUser: idUser}))
     },[dispatch, refresh])
+
+    useEffect(() => {
+      !!idUser && dispatch(getCardHistory({idUser: idUser}))
+    },[idUser])
 
     const selecthora = document.querySelector("#selectHora")
     console.log(shows)
+    console.log(showid);
+
     for(const show of shows){
     if(shows.length==0){
     }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
@@ -88,7 +102,7 @@ export default function MovieDetail(){
     }
     const handleChange=(e)=>{
         e.preventDefault()
-        setShowid(e.target.value)
+        setShowid(e.target.value)  ///modificado default value
     }
     console.log(toggle);
 
@@ -100,14 +114,25 @@ export default function MovieDetail(){
     }
     const restar= () => {
       setNum(num - 1);
-  }
+    }
+    const HoraPelicula = shows.find( item => item.id === showid)
+    console.log(HoraPelicula);
+
+    console.log("detail User  " + idUser)
+    console.log(cart);
+
     return(
         <div className="MovieDetail">
             <NavBar />
             <div className="Checkout-component">
-                <Checkout title={movieDet.Title} toogle={toggle} />
+                <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart} />
             </div>
             <div className="contenedor" id={toggle && "checkout-active"}>
+                <button className="btn btn-primary navbar-toggler collapsed" type="button" data-bs-toggle="collapse" 
+                  data-bs-target="#Navcollapse" aria-controls="Navcollapse" aria-expanded="false" aria-label="Toggle navigation"
+                >
+                    Prueba nav collapse
+                </button>
                 <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
                     Toogle Sidebar
                 </button>
@@ -236,7 +261,9 @@ Comprar
               >
                 Cerrar
               </button>
-              <button type="button" class="btn btn-warning" >
+              <button type="button" class="btn btn-warning" data-bs-dismiss="modal" 
+                onClick={() => dispatch(sumEntradas(num))}
+              >
                 Agregar al carrito
               </button>
             </div>

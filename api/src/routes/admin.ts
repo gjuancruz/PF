@@ -13,7 +13,13 @@ router.get("/", async (req:Request, res:Response) =>{
     try{
         const users = await prisma.user.findMany({
             include: {
-                cart: true
+                // cart: true
+                cart: {
+                    include: {
+                        candy: true
+                    }
+                }
+
             }
         })
         res.json(users);

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import {addCandy, sumTotal} from '../../Redux/actions'
+import {addCandy, sumTotal, getCardHistory} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
-export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
+export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entradas, hora}) {
     // const sidebar = document.querySelector("#sidebar");
     // const container = document.querySelector(".my-container");
   const [candy, setCandy] = useState([])
@@ -11,6 +11,10 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
   const [cafe, setCafe] = useState(0)
   const [refresco, setRefresco] = useState(0)
   const [hotdog, setHotdog] = useState(0)
+
+  
+
+  // const [carrito,setCarrito] = useState(cart);
 
   const [TRADICIONAL,setTRADICIONAL ] = useState(0)
   const [NACHOS,setNACHOS ] = useState(0)
@@ -22,6 +26,17 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
   const storeCandy = useSelector(state => state.storeCandy)
   
   const total = useSelector(state => state.total);
+
+  const cart = useSelector(state => state.cart);
+
+  // const idUser = useSelector(state => state.id)
+
+  const obtenerCantidad = (nombre) => {
+    const nameCandy = cart.find( item => item.name === nombre);
+    return nameCandy ? nameCandy.quantity : 0
+  }
+
+  console.log(cart);
 
     // const [toggle,setToggle] = useState(true)
   const dispatch = useDispatch();  
@@ -39,6 +54,13 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
   useEffect(() => {
     sumaTotal();
   },[stateCandy])
+
+  useEffect(() => {
+    setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"))
+  },[cart])
+  // useEffect(() => {
+  //   dispatch(getCardHistory(idUser))
+  // })
 
 
 
@@ -111,19 +133,20 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
 
   console.log("estado candy: " + JSON.stringify(stateCandy));
   return (
-      <nav class="navbar-checkout d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
+      // <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
+      <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id="Navcollapse" >
           
         <h3 className="mt-4 ml-5 font-weight-bold text-white">{title || 'generic title'}</h3>
 
         <ul className="navbar-nav d-flex flex-column mt-5 w-100">
           <li className="nav-item w-100">
             <a href="#" className="nav-link text-light pl-4">
-              {NumTickets || 'Tickets: 1 '}
+              {NumTickets || `Tickets: ${entradas} `}
             </a>
           </li>
           <li className="nav-item w-100">
             <a href="#" className="nav-link text-light pl-4">
-              {horario || 'Fecha: Jueves 5:30pm'}
+              {hora ? `Fecha: Jueves ${hora.schedule}` : `Fecha: Jueves 0:00`}
             </a>
           </li>
           <li className="nav-item w-100">
@@ -199,14 +222,14 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
         type="button"
         class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
+        data-bs-target="#staticBackdrop1"
       >
         Dulceria
       </button>
 
       <div
         class="modal fade"
-        id="staticBackdrop"
+        id="staticBackdrop1"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
         tabindex="-1"
@@ -246,6 +269,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
                             </button>
                         </div>
                     ))
+                 
                 }
                 </div>
                 {/* <div class="col">One of three columns</div>

@@ -21,7 +21,9 @@ import {
   ADD_CANDY,
   GET_CANDY,
   VERIFY_ROLE,
-  TOTAL
+  TOTAL,
+  ENTRADAS,
+  GET_CART
 } from "../actions";
 
 const initialState = {
@@ -40,11 +42,25 @@ const initialState = {
   storeCandy:[],
   role: 'guest',
   total: 0,
-  id:''
+  entradas: 0,
+  id:'',
+  cart: []
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_CART:
+      return{
+        ...state,
+        cart: action.payload
+      }
+
+    case ENTRADAS:
+      return{
+        ...state,
+        entradas: action.payload
+      }
+
     case TOTAL:
       return{
         ...state,

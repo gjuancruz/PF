@@ -24,7 +24,9 @@ export const EDIT_MOVIE="EDIT_MOVIE";
 export const ADD_CANDY="ADD_CANDY";
 export const GET_CANDY="GET_CANDY";
 export const TOTAL="TOTAL";
+export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
+export const GET_CART="GET_CART";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -475,6 +477,26 @@ export function sumTotal(payload){
     return dispatch({
       type: TOTAL,
       payload: payload
+    })
+  }
+}
+
+export function sumEntradas(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: ENTRADAS,
+      payload: payload
+    })
+  }
+}
+
+export function getCardHistory(idUser){
+  return async function(dispatch){
+    console.log("estoy en actions " + idUser);
+    var getCart = await axios.post(`/cart`, idUser)
+    return dispatch({
+      type: GET_CART,
+      payload: getCart.data
     })
   }
 }
