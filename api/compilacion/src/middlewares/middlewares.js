@@ -25,10 +25,8 @@ const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         // console.log(req)
         try {
             const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || '');
-            // @ts ignore
-            // req.user_id = decoded.user_id;
-            // console.log(decoded)
-            // return true;
+            // @ts-ignore
+            req.user_id = decoded.user_id;
             next();
         }
         catch (error) {

@@ -15,10 +15,8 @@ const verifyToken = async (req:Request, res:Response, next:NextFunction) => {
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
-            // @ts ignore
-            // req.user_id = decoded.user_id;
-            // console.log(decoded)
-            // return true;
+            // @ts-ignore
+            req.user_id = decoded.user_id;
             next();
         } catch (error) {
             console.log(error);
