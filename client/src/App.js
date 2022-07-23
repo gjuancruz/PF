@@ -17,6 +17,8 @@ import Perfil from './Components/Profile/Profile';
 import Candy from './Components/Prueba Candy/PruebaCandy';
 import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
 
 import {Checkout} from './Components/Checkout/Checkout'
 import {ComprarModal} from './Components/Checkout/CandysModal'

@@ -16,7 +16,6 @@ const Perfil = () =>{
     return(
         <div>
             <NavBar/>
-
         <div className={styles.headerDiv}>
         <i class="bi bi-person-circle" style={{fontSize: "64px"}}></i>
         <h1 className='display-5 fw-bold ml-4'>{currentUser.length && currentUser[0].username}</h1>
@@ -24,14 +23,13 @@ const Perfil = () =>{
 
         <div><hr class='bg-warning'/></div>
 
-        {currentUser.length && 
+        {currentUser.length ?
+    <div>
         <div className={styles.minheight}>
             <h4>Tu e-mail:</h4> <p>{currentUser[0].email}</p>
             <h4>Membresía:</h4> {currentUser[0].role === 'user' || currentUser[0].role === 'admin' ? <p>Actualmente no cuentas con ninguna membresía</p> : <p>Miembro del club de cine</p>}
             { (currentUser[0].role === 'user' || currentUser[0].role === 'admin') && <button type="submit" class="btn btn-outline-warning mb-4">Hazte miembro del club de cine</button>}
         </div>
-        }
-
         <div><hr class='bg-warning'/></div>
         
         <div className={styles.accionesDiv}>
@@ -44,6 +42,12 @@ const Perfil = () =>{
         <button type="submit" class="btn btn-warning">Últimas operaciones</button>
         </div>
         </div>
+    :
+    <div>
+        <button className="btn btn-warning d-flex justify-content-center"> <a href="/login">Inicia Sesion</a></button>
+    </div>
+        }
+</div>
     )
 }
 

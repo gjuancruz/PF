@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import {addCandy} from '../../Redux/actions'
+import {addCandy, sumTotal} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
 export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
@@ -8,33 +8,79 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
     // const container = document.querySelector(".my-container");
   const [candy, setCandy] = useState([])
 
-  const [combo1, setCombo1] = useState(0)
   const [cafe, setCafe] = useState(0)
   const [refresco, setRefresco] = useState(0)
   const [hotdog, setHotdog] = useState(0)
+
+  const [TRADICIONAL,setTRADICIONAL ] = useState(0)
+  const [NACHOS,setNACHOS ] = useState(0)
+  const [GRANDE,setGRANDE ] = useState(0)
+  const [ICEE,setICEE] = useState(0)
+
+  const stateCandy = useSelector(state => state.candy);
+
+  const storeCandy = useSelector(state => state.storeCandy)
   
+  const total = useSelector(state => state.total);
+
     // const [toggle,setToggle] = useState(true)
   const dispatch = useDispatch();  
+  
+  const sumaTotal = () => {
+    let sumaPrecios = 0;
+    stateCandy.forEach( name => {
+        const nameCandy = storeCandy.find( item => item.name === name );
+        sumaPrecios = sumaPrecios + nameCandy.price
+    });
+    console.log(sumaPrecios)
+    dispatch(sumTotal(sumaPrecios));
+  }
 
-  const stateCandy = useSelector(state => state.candy)
-//   useEffect(() => {
-//     dispatch(addCandy(candy))
-//   },[])
+  useEffect(() => {
+    sumaTotal();
+  },[stateCandy])
+
+
 
   const handleClick = (event) => {
     console.log(event.target.name, event.target.value);
-    if(event.target.name === "combo1") setCombo1(event.target.value);
     if(event.target.name === "cafe") setCafe(event.target.value);
     if(event.target.name === "refresco") setRefresco(event.target.value);
     if(event.target.name === "hotdog") setHotdog(event.target.value);
+
+    if(event.target.name === "COMBO TRADICIONAL") setTRADICIONAL(event.target.value);
+    if(event.target.name === "COMBO NACHOS") setNACHOS(event.target.value);
+    if(event.target.name === "COMBO GRANDE") setGRANDE(event.target.value);
+    if(event.target.name === "COMBO ICEE") setICEE(event.target.value);
   }  
 
   const handleSubmit = (event) => {
     console.log(event.target.name);
     const productos = []
-    if(event.target.name === "combo1"){
-        for (let i = 0; i < combo1; i++) {
-            productos.push("combo1")
+    if(event.target.name === "COMBO TRADICIONAL"){
+        for (let i = 0; i < TRADICIONAL; i++) {
+            productos.push("COMBO TRADICIONAL")
+        }
+        console.log(productos);
+        return dispatch(addCandy(productos))
+    }
+    if(event.target.name === "COMBO NACHOS"){
+        for (let i = 0; i < NACHOS; i++) {
+            productos.push("COMBO NACHOS")
+        }
+        console.log(productos);
+        return dispatch(addCandy(productos))
+    }
+    if(event.target.name === "COMBO GRANDE"){
+        for (let i = 0; i < GRANDE; i++) {
+            productos.push("COMBO GRANDE")
+        }
+        console.log(productos);
+        return dispatch(addCandy(productos))
+    }
+    if(event.target.name === "COMBO ICEE"){
+        for (let i = 0; i < ICEE; i++) {
+            productos.push("COMBO ICEE")
         }
         console.log(productos);
         return dispatch(addCandy(productos))
@@ -61,6 +107,8 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
         return dispatch(addCandy(productos))
     }
   }
+//   console.log(JSON.stringify(storeCandy[1].name));
+
   console.log("estado candy: " + JSON.stringify(stateCandy));
   return (
       <nav class="navbar-checkout d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
@@ -181,22 +229,24 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
             <div class="modal-body">
               <div class="row align-items-start">
                 <div class="col-12">
-                  <h3>Combo familiar</h3>
-                  <img
-                    src="https://archivos-cms.cinecolombia.com/images/_aliases/poster_carousel/4/3/5/3/13534-15-esl-CO/PARA%20DOS.png"
-                    width={"130px"}
-                  />
-                  <select name="select">
-                    <option value="value1">Value 1</option>
-                    <option value="value2">Value 2</option>
-                    <option value="value3">Value 3</option>
-                  </select>
-                  <input type="number" min='0' max="100" style={{width: '60px'}} name="combo1" onChange={handleClick} 
-                    value={combo1}
-                  />
-                  <button type="button" class="btn btn-secondary" onClick={handleSubmit} name="combo1" >
-                    Agregar
-                  </button>
+                {
+                    storeCandy.map( item => (
+                        <div>
+                            <h4>{item.name}</h4>
+                            <img
+                                src={item.picture}
+                                width={"120px"}
+                            />
+                            <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
+                            <input type="number" min='0' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
+                                value={eval(item.name.split(' ')[1])}
+                            />
+                            <button type="button" class="btn btn-secondary" onClick={handleSubmit} name={item.name} >
+                                Agregar
+                            </button>
+                        </div>
+                    ))
+                }
                 </div>
                 {/* <div class="col">One of three columns</div>
                 <div class="col">One of three columns</div> */}
@@ -274,7 +324,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle}) {
 
           <li className="nav-item w-100">
             <a href="#" className="nav-link text-light pl-4">
-              Total: $350
+              Total: {total}
             </a>
           </li>
         </ul>

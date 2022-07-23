@@ -21,7 +21,10 @@ export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
-export const ADD_CANDY="ADD_CANDY"
+export const ADD_CANDY="ADD_CANDY";
+export const GET_CANDY="GET_CANDY";
+export const TOTAL="TOTAL";
+export const VERIFY_ROLE='VERIFY_ROLE';
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -437,6 +440,39 @@ export function addCandy(payload){
   return async function(dispatch){
     return dispatch({
       type: ADD_CANDY,
+      payload: payload
+    })
+  }
+}
+
+export function getCandy(){
+  return async function(dispatch){
+    const candys = await axios.get('http://localhost:3001/candy')
+    return dispatch({
+      type: GET_CANDY,
+      payload: candys.data
+    })
+  }
+}
+
+export function verifyRole(){
+  return async function(dispatch){
+    const data = await axios.get('http://localhost:3001/auth/verifyRole' , {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    })
+    return dispatch({
+      type: VERIFY_ROLE,
+      payload: data.data.role
+    })
+  }
+}
+
+export function sumTotal(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: TOTAL,
       payload: payload
     })
   }

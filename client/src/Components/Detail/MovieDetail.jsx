@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
 
-import { getMovieDetail,postPaymentMethod,getShow,getUsers } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow,getUsers, getCandy } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -25,7 +25,10 @@ export default function MovieDetail(){
     //boton checkout 
     const [toggle,setToggle] = useState(false)
 
+    const storeCandy = useSelector(state => state.storeCandy)
+
     useEffect(()=>{
+        !storeCandy.length && dispatch(getCandy())
         window.scrollTo({ top: 0, behavior: 'smooth' })
         dispatch(getUsers())
         dispatch(getMovieDetail(idMovie.id))
@@ -77,6 +80,8 @@ export default function MovieDetail(){
         setShowid(e.target.value)
     }
     console.log(toggle);
+
+    console.log(JSON.stringify(storeCandy));
     return(
         <div className="MovieDetail">
             <NavBar />

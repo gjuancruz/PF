@@ -2,26 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.gaseosas = exports.palomitas = exports.comboFamiliar = exports.comboUno = void 0;
 exports.comboUno = {
-    name: "Combo duo",
-    picture: "https://archivos-cms.cinecolombia.com/images/_aliases/poster_carousel/4/3/5/3/13534-15-esl-CO/PARA%20DOS.png",
+    name: "COMBO TRADICIONAL",
+    picture: "https://menuplatino.mx/wp-content/uploads/2022/07/COMBO-TRADICIONAL-.png",
     price: 500,
     quantity: 1
 };
 exports.comboFamiliar = {
-    name: "Combo Familiar",
-    picture: "https://archivos-cms.cinecolombia.com/images/_aliases/poster_carousel/4/3/5/3/13534-15-esl-CO/PARA%20DOS.png",
+    name: "COMBO NACHOS",
+    picture: "https://menuplatino.mx/wp-content/uploads/2022/07/COMBO-NACHOS-MUNDET.png",
     price: 1000,
     quantity: 1
 };
 exports.palomitas = {
-    name: "Palomitas",
-    picture: "https://archivos-cms.cinecolombia.com/images/_aliases/poster_carousel/4/3/5/3/13534-15-esl-CO/PARA%20DOS.png",
+    name: "COMBO GRANDE",
+    picture: "https://menuplatino.mx/wp-content/uploads/2022/07/COMBO-GRANDE.png",
     price: 200,
     quantity: 1
 };
 exports.gaseosas = {
-    name: "Gaseosas",
-    picture: "https://archivos-cms.cinecolombia.com/images/_aliases/poster_carousel/4/3/5/3/13534-15-esl-CO/PARA%20DOS.png",
+    name: "COMBO ICEE",
+    picture: "https://menuplatino.mx/wp-content/uploads/2021/11/c-icee.png",
     price: 300,
     quantity: 1
 };
