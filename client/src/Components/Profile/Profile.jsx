@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../Redux/actions";
+import { getUsers, verifyRole } from "../../Redux/actions";
 import NavBar from "../NavBar/NavBar";
 import styles from './Profile.module.css'
 
 const Perfil = () =>{
     const dispatch = useDispatch()
     useEffect(() =>{
-        dispatch(getUsers())
+        dispatch(getUsers());
+        dispatch(verifyRole())
     },[])
     const allUsers = useSelector ((state) => state.usuarios)
-    const userIdCheck = window.localStorage.getItem('userId')
+    let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+
     console.log(currentUser)
     return(
         <div>
