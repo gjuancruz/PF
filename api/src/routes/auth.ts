@@ -31,8 +31,9 @@ router.post('/register', async (req:Request, res:Response) => {
             // @ts-ignore
             data: { username: username , email: email ,password: hashedPassword, role: role }
         });
+            const theuser :any= await prisma.user.findUnique({where:{id:newUser.id}})
         const newCart = await prisma.cart.create({
-            data:{userId:newUser.id}
+            data:{user:theuser}
         })
         console.log(newUser)
         

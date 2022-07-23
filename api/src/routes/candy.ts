@@ -22,13 +22,14 @@ router.post('/add',  async (req:Request,res:Response)=>{
         const menu : any= await prisma.menu.findUnique({
             where:{id:index}
         })
+        const cart:any = await prisma.cart.findUnique({where:{id:cartId}})
         const totalPrice = menu.price*quantity
         const food = await prisma.candy.create({
             data:{
                 quantity,
                 name:menu.name,
                 totalPrice,
-                cartId
+                cart
             }
         })
         res.status(201).json(food)
