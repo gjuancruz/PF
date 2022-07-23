@@ -20,6 +20,7 @@ const Comment = () => {
   let userIdCheck = useSelector ((state) => state.id)
   const currentUser = allUsers.filter((u) => u.id === userIdCheck);
   // console.log("este es mi id",currentUser)
+  
 
   const [input, setInput] = useState({
     // email:"",
@@ -35,9 +36,13 @@ const Comment = () => {
   }
 
   function handleSubmit(e) {
-    e.preventDefault();
+    if(!input.Text) {
+      e.preventDefault() 
+      return alert("Escriba un comentario")
+    }
     // console.log(input,movieId.id,currentUser[0]);
     dispatch(postComment(input, movieId.id, currentUser[0].id));
+  
 
     alert("Comentario Creado");
     setInput({ Text: "" });
@@ -53,7 +58,7 @@ const Comment = () => {
       ) : (
         <div>
           <div>
-            <label className="nameuser">{currentUser[0].username}</label>
+            <label className="nameuser"></label>
           </div>
 
           <div>
@@ -61,7 +66,7 @@ const Comment = () => {
               <div>
                 <div class="mb-4 mt-5">
                   <label for="exampleFormControlTextarea1" class="form-label">
-                    Escribe un comentario
+                  {currentUser[0].username} escribe un comentario
                   </label>
                   <input
                     class="form-control"
@@ -72,6 +77,7 @@ const Comment = () => {
                     value={input.Text}
                     onChange={(e) => handleChange(e)}
                   ></input>
+
                 </div>
 
                 <button type="submit" className="comentar">
