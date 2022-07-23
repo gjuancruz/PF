@@ -27,7 +27,6 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get("/searchUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username } = req.query;
-        console.log("esto es", req.query);
         const searchName = yield prisma.user.findMany({
             where: {
                 username: {

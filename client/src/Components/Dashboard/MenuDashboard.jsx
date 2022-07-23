@@ -6,6 +6,7 @@ import Movies from "./Movies";
 import Shows from "./Shows";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../Redux/actions";
+import SalesBalance from "./SalesBalance";
 
 
 
@@ -28,6 +29,7 @@ export default function MenuDashboard(){
         if (component === "feedback" ) return (<Feedback/>)
         if (component === 'movies') return (<Movies/>)
         if (component === 'funciones') return(<Shows/>)
+        if (component === 'salesMovies') return(<SalesBalance/>)
     }
 
     return (
@@ -55,8 +57,13 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
+            <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("salesMovies")}>
+                Ventas de peliculas
+              </a>
+            </li>
+            <li>
               <a href="#" class="btn btn-outline-warning border-0 text-white">
-                Balance de ventas
+                Candy
               </a>
             </li>
             <li>
@@ -71,7 +78,7 @@ export default function MenuDashboard(){
             </li>
             <li>
              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("feedback")} > 
-                Feedback
+                Feddback
               </a>
             </li>
           </ul>

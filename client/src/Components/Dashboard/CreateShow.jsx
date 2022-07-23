@@ -149,7 +149,7 @@ export default function CreateShow(){
 
                 <div class="mb-3">
                   <button type="submit" class="btn btn-warning mb-3">
-                    Crear usuario
+                    Crear funciones
                   </button>
                   {formSend && (
                     <small style={{ color: "green" }}>

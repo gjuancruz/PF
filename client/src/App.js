@@ -41,12 +41,9 @@ function App() {
         <Route exact path="/feedback" component={CreateFeedback}/>
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
-<<<<<<< HEAD
         <Route exact path='/prueba' component={SalesChart}/>
-=======
         <Route exact path='/candy' component={Candy}/>
         <Route exact path='/caja' component={CashRegister}/>
->>>>>>> ec9fe3931df06a96fcab702220d33d3ddf50615c
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>
