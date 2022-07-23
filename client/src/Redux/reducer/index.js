@@ -185,6 +185,7 @@ function rootReducer(state = initialState, action) {
     case VERIFY_ROLE:
     return{
       ...state,
+      role: action.payload.role,
       id: action.payload.id
     }
     default:
