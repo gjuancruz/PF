@@ -25,7 +25,7 @@ export default function MovieDetail(){
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     
-    console.log("es la premier",allCartelera)
+    // console.log("es la premier",allCartelera)
     // console.log(movieDet)
 
     useEffect(()=>{
