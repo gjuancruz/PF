@@ -17,7 +17,8 @@ import {
   GET_ALL_SHOWS,
   AUTORIZADO,
   DELETE_MOVIE,
-  EDIT_MOVIE
+  EDIT_MOVIE,
+  VERIFY_ROLE
 } from "../actions";
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   shows:[],
   show:[],
   autorizado: '',
+  role: 'guest'
 };
 
 function rootReducer(state = initialState, action) {
@@ -180,6 +182,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         show:action.payload
       }
+    case VERIFY_ROLE:
+    return{
+      ...state,
+      role:action.payload
+    }
     default:
       return state;
   }

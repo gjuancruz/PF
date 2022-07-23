@@ -20,6 +20,14 @@ export default function CreateShow(){
       const {value} = e.target
       values.roomId=value
     }
+    function handleDayChange(e,values){
+      const {value} = e.target
+      values.day=value
+    }
+    function handleTypeChange(e,values){
+      const {value} = e.target
+      values.type=value
+    }
     useEffect(() => {
         dispatch(getBillboard())
         dispatch(autorizado());
@@ -34,6 +42,8 @@ export default function CreateShow(){
               schedule: "",
               movieId: "",
               roomId: "",
+              day:"",
+              type:""
             }}
             validate={(val) => {
               let errors = {};
@@ -47,7 +57,13 @@ export default function CreateShow(){
   
               if (!val.roomId) {
                 errors.roomId = "Por favor seleccione una sala *";
-              }  
+              }
+              if(!val.day){
+                errors.day ="Por favor seleccione un dia *"
+              }
+              if(!val.type){
+                errors.type="Por favor seleccione un tipo *"
+              }
               return errors;
             }}
             onSubmit={(values, { resetForm }) => {
@@ -81,6 +97,39 @@ export default function CreateShow(){
                     name="schedule"
                     placeholder="Horario Inicial..."
                   />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" htmlFor="day">
+                    Dia: 
+                    <ErrorMessage
+                      name="day"
+                      component={() => (
+                        <small style={{ color: "red" }}>
+                          {errors.day}
+                        </small>
+                      )}
+                    />
+                  </label>
+                  <Field
+                    class="form-control"
+                    as="select"
+                    id="day"
+                    name="day"
+                    onChange={(e)=>{handleDayChange(e,values)}}
+                  >{!values.day.length?(
+                    <option key="seleccionar2">Seleccionar Dia</option>
+                  ):(
+                    <option key="seleccionar2" disabled>Seleccionar Dia</option>
+                  )
+                  }<option key="1" value="Lunes">Lunes</option>
+                  <option key="2" value="Martes">Martes</option>
+                  <option key="3" value="Miércoles">Miércoles</option>
+                  <option key="4" value="Jueves">Jueves</option>
+                  <option key="5" value="Viernes">Viernes</option>
+                  <option key="6" value="Sabado">Sabado</option>
+                  <option key="7" value="Domingo">Domingo</option>
+                  </Field>
                 </div>
 
                 <div class="mb-3">
@@ -148,8 +197,36 @@ export default function CreateShow(){
                 </div>
 
                 <div class="mb-3">
+                  <label class="form-label" htmlFor="type">
+                    Tipo: 
+                    <ErrorMessage
+                      name="type"
+                      component={() => (
+                        <small style={{ color: "red" }}>
+                          {errors.type}
+                        </small>
+                      )}
+                    />
+                  </label>
+                  <Field
+                    class="form-control"
+                    as="select"
+                    id="type"
+                    name="type"
+                    onChange={(e)=>{handleTypeChange(e,values)}}
+                  >{!values.type.length?(
+                    <option key="seleccionar2">Seleccionar Tipo</option>
+                  ):(
+                    <option key="seleccionar2" disabled>Seleccionar Tipo</option>
+                  )
+                  }<option key="1" value="2D">2D</option>
+                  <option key="2" value="3D">3D</option>
+                  </Field>
+                </div>
+
+                <div class="mb-3">
                   <button type="submit" class="btn btn-warning mb-3">
-                    Crear funciones
+                    Agregar nueva funcion
                   </button>
                   {formSend && (
                     <small style={{ color: "green" }}>

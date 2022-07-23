@@ -5,8 +5,8 @@ import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../Redux/actions";
 import SalesBalance from "./SalesBalance";
+import { getUsers, verifyRole } from "../../Redux/actions";
 
 
 
@@ -20,8 +20,9 @@ export default function MenuDashboard(){
     const allUsers = useSelector ((state) => state.usuarios)
     const userIdCheck = window.localStorage.getItem('userId')
     const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-
+    let role = useSelector ((state) => state.role)
     const [component,setComponent] = useState("")
+
 
     const handleSideBar= ()=>{
         if (component=== 'usuarios') return (<Users/>)
@@ -34,7 +35,7 @@ export default function MenuDashboard(){
 
     return (
       <div>
-      {(currentUser.length && currentUser[0].role === 'admin')?
+      {(role === 'admin')?
         <div class="container-fluid" > 
         
         <div class="row">   

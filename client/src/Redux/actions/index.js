@@ -21,7 +21,7 @@ export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
-
+export const VERIFY_ROLE='VERIFY_ROLE'
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -431,5 +431,20 @@ export function register(payload){
       } catch (error) {
           console.log(error)
       }
+  }
+}
+
+
+export function verifyRole(){
+  return async function(dispatch){
+    const data = await axios.get('http://localhost:3001/auth/verifyRole' , {
+      headers : {
+        Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
+      }
+    })
+    return dispatch({
+      type: VERIFY_ROLE,
+      payload: data.data.role
+    })
   }
 }
