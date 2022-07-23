@@ -74,6 +74,7 @@ model Show {
   movie     Movie    @relation(fields: [movieId], references: [id])
   room      Room     @relation(fields: [roomId], references: [id])
   ticket    Ticket[]
+  tickets   Tickets[]
 }
 
 model Ticket {
@@ -86,6 +87,18 @@ model Ticket {
   cart     Cart? 
 }
 
+model Tickets {
+  id     String   @id @default(uuid()) @db.Uuid
+  showId String   @db.Uuid
+  seats  Int     
+  totalPrice  Int
+  userId  String   @db.Uuid
+  cartId  String   @db.Uuid
+  user    User     @relation(fields: [userId], references: [id])
+  cart    Cart    @relation(fields: [cartId], references: [id])
+  show    Show    @relation(fields: [showId], references: [id])
+}
+
 model User {
   id       String @id @default(uuid()) @db.Uuid
   username String @unique @db.Text
@@ -95,7 +108,8 @@ model User {
   sale     Sale[]
   feedback Feedback[]
   comments Comment[]
-  cart     Cart? 
+  cart     Cart?
+  tickets  Tickets[] 
 }
 
 model Candy {
@@ -103,7 +117,7 @@ model Candy {
   name       String @db.Text
   quantity   Int
   totalPrice Int
-  cartId     String? @db.Uuid @unique
+  cartId     String? @db.Uuid
   saleId     String? @db.Uuid @unique
   cart       Cart? @relation(fields: [cartId],references: [id])
   sale       Sale? @relation(fields: [saleId],references: [id])
@@ -114,7 +128,9 @@ model Cart{
   id         String @id @default(uuid()) @db.Uuid
   ticketId   String? @db.Uuid @unique
   userId     String @db.Uuid @unique
+  orderPrice Int @default (0)
   candy      Candy[]
+  tickets    Tickets[]
   ticket     Ticket? @relation(fields: [ticketId],references: [id])
   user       User @relation(fields: [userId],references: [id])
 }

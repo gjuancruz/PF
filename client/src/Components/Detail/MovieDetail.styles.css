@@ -34,7 +34,7 @@
     
 }
 p{
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 .pg{
     display: inline;
@@ -49,16 +49,18 @@ p{
     background-color: rgb(255, 215, 0);
     color: rgb(0, 0, 0);
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     
     padding: 5px 9px 5px 9px;
     margin-top: 10px;
     border-radius: 10px;
     font-weight: bold;
+    margin-bottom: 190px;
 }
 .trailer:hover{
     text-decoration: none;
-    color: black
+    color: black;
+    
 }
 
 .selectHora{
@@ -97,10 +99,40 @@ select:hover{
     width: 120px;
     border-radius: 10px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 20px;
     }
 
 .botoncomprar:hover {
     cursor: pointer;
+}
+.botoncomprar2{
+    background-color: rgb(255, 215, 0);
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px 8px 5px 10px;
+    width: 120px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-right: 20px;
+    }
+
+    .botoncomprar2:hover {
+        cursor: pointer;
+    }
+.num{
+    text-align: center;
+    margin: 20px;
+    font-size: 30px;
+}
+.imgposter{
+    margin-right: 60px;
+    max-width: 100%;
+}
+.estrenopelicula{
+   color:  rgb(255, 215, 0);
+    font-size: 25px;
+    
 }

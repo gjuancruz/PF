@@ -29,18 +29,26 @@ router.post('/register', async (req:Request, res:Response) => {
         //Adding user to database
         const newUser = await prisma.user.create({
             // @ts-ignore
-            data: { username: username , email: email ,password: hashedPassword, role: role }
+            data: { username: username , email: email ,password: hashedPassword, role: role}
         });
+        console.log('este es el 34', newUser);
+        //Adding new Cart to new User
+        const theuser :any= await prisma.user.findUnique({where:{id:newUser.id}})
+        console.log('este es el 36', theuser);
+        // @ts-ignore
         const newCart = await prisma.cart.create({
-            data:{userId:newUser.id}
+        // @ts-ignore
+            data:{userId:theuser.id,orderPrice:0}
         })
-        console.log(newUser)
+        console.log('este es el 42', newCart);
+        
+        console.log('este es el 44',newUser)
         
         return res.status(201).json({ ok: 'Usuario creado !'})
 
-    } catch (error) {
-        console.log(error);
-        return res.status(404).send ({ error: 'Error al crear el usuario' });
+    } catch (error:any) {
+        console.log(error.message);
+        return res.status(404).send (error.message );
     }
 })
 
@@ -74,14 +82,9 @@ router.post('/login', async (req:Request, res:Response) => {
         //Generando Token
         const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET || '');
 
-        // Obtener id para almacenar en localStorage
+        
 
-        const userStorage = await prisma.user.findUnique({
-            // @ts-ignore
-            where: { email: email }
-        });
-
-        return res.status(200).json({ token: token, user: userStorage});
+        return res.status(200).json({ token: token});
     } catch (error) {
         console.log(error);
         return res.status(400).send('Error al iniciar sesión');
@@ -154,7 +157,7 @@ router.get('/verifyrole', async (req:Request, res:Response, next:NextFunction) =
         
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
-console.log('soy decpded', decoded)
+console.log('soy decoded', decoded)
             // @ts-ignore
             req.user_id = decoded.user_id;
             //@ts-ignore
@@ -168,10 +171,10 @@ console.log('soy decpded', decoded)
             
             
             //@ts-ignore
-            if(user.role === 'admin') return res.json({"role": 'admin'})
+            if(user.role === 'admin') return res.json({"role": 'admin', "id":req.user_id})
             
             //@ts-ignore
-            if(user.role === 'user') return res.json({"role": 'user'})
+            if(user.role === 'user') return res.json({"role": 'user', "id":req.user_id})
             
             //@ts-ignore
             if(user.role !== 'admin' && user.role !== 'user') return res.json({"role": 'guest'})

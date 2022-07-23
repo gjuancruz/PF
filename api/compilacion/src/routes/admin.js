@@ -16,7 +16,11 @@ const router = (0, express_1.Router)();
 //http://localhost:3001/admin
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield prisma.user.findMany({});
+        const users = yield prisma.user.findMany({
+            include: {
+                cart: true
+            }
+        });
         res.json(users);
     }
     catch (error) {
