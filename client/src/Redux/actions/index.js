@@ -112,7 +112,7 @@ export function searchMovieName(title){
       return async function (dispatch){
         try{
           var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:show,userId})
-          console.log(json.data)
+          console.log('soy la action del payment method !!',json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
             payload: json.data
@@ -436,14 +436,15 @@ export function register(payload){
 
 export function verifyRole(){
   return async function(dispatch){
-    const data = await axios.get('http://localhost:3001/auth/verifyRole' , {
+    const data = await axios.get('http://localhost:3001/auth/verifyrole' , {
       headers : {
         Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
       }
     })
     return dispatch({
       type: VERIFY_ROLE,
-      payload: data.data.role
+      payload: {role: data.data.role,
+                id: data.data.id}
     })
   }
 }

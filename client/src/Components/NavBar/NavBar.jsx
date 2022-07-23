@@ -1,7 +1,7 @@
 import React, { useEffect }  from 'react'
 import '../NavBar/NavBar.css'
 import { useDispatch, useSelector } from "react-redux";
-import { logout, searchMovieName } from '../../Redux/actions';
+import { logout, searchMovieName, verifyRole } from '../../Redux/actions';
 import { getUsers } from "../../Redux/actions";
 import setContador from '../Home/Home.jsx'
 
@@ -15,10 +15,11 @@ const NavBar = () =>{
 
   const dispatch = useDispatch()
     useEffect(() =>{
-        dispatch(getUsers())
+        dispatch(getUsers());
+        dispatch(verifyRole())
     },[])
 
-  const userIdCheck = window.localStorage.getItem('userId')
+  let userIdCheck = useSelector ((state) => state.id)
   const currentUser = allUsers.filter(u =>u.id === userIdCheck)
     
   const handleSubmit = (event) =>{

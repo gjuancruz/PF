@@ -5,34 +5,58 @@ import { json } from 'stream/consumers'
 const router = Router()
 const prisma = new PrismaClient()
 
+
+
 // http://localhost:3001/candy
 router.get('/', async(req:Request, res:Response) => {
     try {
-        const food = await prisma.candy.findMany({})
-        res.json(food)
+        const food = await prisma.menu.findMany({})
+        return res.json(food)
     }catch(e:any){
         res.json(e.message)
     }
 } )
 
-
+// http://localhost:3001/candy/add
 router.post('/add',  async (req:Request,res:Response)=>{
     try {
         const {index, quantity,cartId} = req.body
-        const menu : any= await prisma.menu.findUnique({
+        const product : any= await prisma.menu.findUnique({
             where:{id:index}
         })
-        const cart:any = await prisma.cart.findUnique({where:{id:cartId}})
-        const totalPrice = menu.price*quantity
-        const food = await prisma.candy.create({
+        console.log('this is product :',product)
+        const totalPrice = product.price*quantity
+        const newCandy = await prisma.candy.create({
             data:{
+                name:product.name,
                 quantity,
-                name:menu.name,
-                totalPrice,
-                cart
+                totalPrice
             }
         })
-        res.status(201).json(food)
+        console.log('this is newCandy :',newCandy)
+        const cart = await prisma.cart.findUnique({
+            where:{id:cartId}
+        })
+        console.log('this is cart :',cart)
+        const addNewCandy = await prisma.cart.update({
+            where:{id:cartId},
+            data:{
+                // @ts-ignore
+                orderPrice: cart.orderPrice + newCandy.totalPrice,
+                // @ts-ignore
+                userId: cart.userId,
+                candy:{
+                    connect:{
+                        id:newCandy.id
+                    }
+                }
+            }
+        })
+        console.log('this is addNewCandy :',addNewCandy)
+        const newCart = await prisma.cart.findUnique({
+            where:{id:cartId}
+        })
+        return res.json(newCart)
 
     }catch(e:any){
         console.log(e.message)

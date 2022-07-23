@@ -21,13 +21,20 @@ app.listen(PORT, async () => {
    // const del = await prisma.seat.deleteMany({})
    // const del3 = await prisma.room.deleteMany({})
    // const del = await prisma..deleteMany({})
+   // const carrito = await prisma.menu.deleteMany({})
+
+   // const crearCarrito = await prisma.menu.createMany({
+   //    data: candylist
+   // })
+   
+   /* 
    for(let i=0;i<candylist.length;i++){
    const movie = await prisma.menu.upsert({
       where:{name:candylist[i].name},
-      update:{},
+      update:{name:candylist[i].name,picture:candylist[i].picture,price:candylist[i].price},
       create:candylist[i]
   })
-   }
+   } */
 
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   
@@ -48,6 +55,7 @@ app.listen(PORT, async () => {
       create:{id:i,roomId:1}
    })
   }
+
 //   const movie : any = await prisma.movie.findMany({where:{id!:undefined}})
 
 //   const room : any= await prisma.room.findMany({where:{id!:undefined},select:{id:true}})

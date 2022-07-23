@@ -6,6 +6,7 @@
 .mb-3{
     margin-top: 50px;
 }
+
 .comentwrite{
     margin-top: 10px;
 }
@@ -67,9 +68,9 @@ a:hover{
     display: flex;
     color:  rgb(255, 215, 0); 
     font-weight: bold; 
-    margin-top: 40px; 
+    /* margin-top: 40px; 
     margin-bottom: 20px; 
-    margin-right: 20px; 
+    margin-right: 20px;  */
     
     font-size: 22px; 
 }
@@ -86,4 +87,17 @@ a:hover{
     margin:  auto;
     padding: 5px;
     margin-top: 20px;
+}
+.card{
+    background-color: #1a1a1a;
+}
+.text-primary{
+    color:rgb(255, 215, 0) !important;
+}
+.font-weight-bold{
+    color: white;
+}
+.form-label{
+    font-size: 20px;
+    
 }
