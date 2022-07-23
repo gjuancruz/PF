@@ -115,7 +115,7 @@ export function searchMovieName(title){
       return async function (dispatch){
         try{
           var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:show,userId})
-          console.log(json.data)
+          console.log('soy la action del payment method !!',json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
             payload: json.data

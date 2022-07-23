@@ -63,9 +63,9 @@ export default function MovieDetail(){
         const stripe = useStripe()
     
         const elements = useElements()
-        const userIdCheck = window.localStorage.getItem('userId')
-        const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-        console.log(showid)
+        // const userIdCheck = window.localStorage.getItem('userId')
+        // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+        console.log('este seria el showid que le esta llegando',showid)
         const handleStripe = async(e) =>{
             e.preventDefault()
             
@@ -73,9 +73,9 @@ export default function MovieDetail(){
                 type:"card",
                 card: elements.getElement(CardElement)
             })
-            console.log(paymentMethod)
+            console.log('soy el paymentMethod',paymentMethod)
             if(!error){
-                dispatch(postPaymentMethod(paymentMethod.id,showid,currentUser[0].id))
+                dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
             }else console.log(error)
         }
         return<form onSubmit={handleStripe}>
