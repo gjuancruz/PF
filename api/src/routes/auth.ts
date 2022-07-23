@@ -31,6 +31,10 @@ router.post('/register', async (req:Request, res:Response) => {
             // @ts-ignore
             data: { username: username , email: email ,password: hashedPassword, role: role }
         });
+        const newCart = await prisma.cart.create({
+            data:{userId:newUser.id}
+        })
+        console.log(newUser)
         
         return res.status(201).json({ ok: 'Usuario creado !'})
 

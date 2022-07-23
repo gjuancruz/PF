@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
 
-import { getMovieDetail,postPaymentMethod,getShow,getUsers, getCandy } from "../../Redux/actions";
+// import { getMovieDetail,postPaymentMethod,getShow,getUsers, getCandy } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -15,12 +16,19 @@ import { Checkout } from '../Checkout/Checkout'
 export default function MovieDetail(){
     const dispatch = useDispatch()
     const idMovie=useParams()
+    const allCartelera = useSelector ((state) => state.carteleraFiltered)
+    const premieres = useSelector((state) => state.premiere)
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
     const shows= useSelector(state=>state.show)
     const refresh= useSelector(state=>state.refresh)
     const [shown,setShown] = useState(false)
     const [showid,setShowid] = useState("")
+    const allUser = useSelector((state) => state.usuarios);
+    const userIdCheck = window.localStorage.getItem("userId");
+    const currentUser = allUser.filter((u) => u.id === userIdCheck);
+    
+    console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
     const [toggle,setToggle] = useState(false)
@@ -33,6 +41,8 @@ export default function MovieDetail(){
         dispatch(getUsers())
         dispatch(getMovieDetail(idMovie.id))
         dispatch(getShow(idMovie.id))
+        dispatch(getBillboard())
+        dispatch(getPremiere())
     },[dispatch, refresh])
 
     const selecthora = document.querySelector("#selectHora")
@@ -82,6 +92,14 @@ export default function MovieDetail(){
     console.log(toggle);
 
     console.log(JSON.stringify(storeCandy));
+    const [num, setNum] = useState(0);
+
+    const sumar= () => {
+    setNum(num + 1);
+    }
+    const restar= () => {
+      setNum(num - 1);
+  }
     return(
         <div className="MovieDetail">
             <NavBar />
@@ -105,11 +123,14 @@ export default function MovieDetail(){
                 <p><b>Director: </b> {movieDet.Director}</p>
                 <p><b>Duración: </b> {movieDet.Runtime} min</p>
                 <p><b>Idioma: </b> {movieDet.Language}</p>
+                
                 </div>
                 <div className="divTrailer">
-                <a className="trailer" href={movieDet.Trailer}>Trailer</a>
-                </div>                
-                <div className="select">
+                <a className="trailer" href={movieDet.Trailer}>Ver Trailer</a>
+                </div>     
+                {premieres.find(m=>m.id ===movieDet.id )?  (<b className="estrenopelicula">Entradas disponibles a partir del {movieDet.Release}</b>):
+                 <div className="select">
+                 <div>
                     <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
                     <option value="">Selecciona Hora</option>
                     </select>
@@ -118,11 +139,111 @@ export default function MovieDetail(){
                     <option value="">Mañana</option>
                     <option value="">Proxima Fecha</option>
                     </select>
-                </div>
-                <div className="botont">
-                <button className="botoncomprar" onClick={handleSubmit}>Comprar</button>
+                    </div> 
+                    <div>
+                
+      {!currentUser[0] ? 
+      <div>
+<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+Comprar 
+</button>
+<div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+  <div class="modal-dialog">
+  <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Inicia Sesion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <p>Debes iniciar sesion para Comprar</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-warning" > <a href="/login" >Inicia Sesion</a></button>
+      </div>
+    </div>
+  </div>
+</div>
+</div> :
+      <button
+        className="botoncomprar2"
+        type="button"
+       
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+       
+        Comprar 
+      </button>
+}
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content bg-dark">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                ¡Disfruta esta Pelicula!
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row align-items-start">
+                <div class="col-12">
+                  <h3>{movieDet.Title}</h3>
+                  <p>Selecciona la cantidad de Boletos</p>
+                  <img
+                    className="imgposter"
+                    src={movieDet.Poster}
+                    width={"150px"}
+                  />
+                  
+                <button class="btn btn-warning" type="submit" disabled={num===0 || num < 1}onClick={restar}>-</button>
+                    
+                    <b className="num">{num}</b>
+                    <button class="btn btn-warning" type="submit" onClick={sumar}>+</button>
                 
                 </div>
+                {/* <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div> */}
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button type="button" class="btn btn-warning" >
+                Ir al Carrito
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
                 {   shown &&   <div className="d-flex flex-column mb-3">
                             <CheckoutForm/>
                     </div>
@@ -138,10 +259,12 @@ export default function MovieDetail(){
                     )
                 }): <div>NO HAY COMENTARIOS</div>}
                 
-            </div>
-            <Footer />
+            </div>}
+            
         </div> 
-      
+        <Footer />
+        </div>
     )
+              
 }
 

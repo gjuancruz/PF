@@ -58,8 +58,10 @@ export default function Shows(){
           <thead>
             <tr>
               <th scope="col">Horarios</th>
+              <th scope="col">Dia</th>
               <th scope="col">Pelicula</th>
               <th scope="col">Sala</th>
+              <th scope="col">Tipo</th>
               <th scope="col">Asientos</th>
               <th scope="col">Modificar</th>
             </tr>
@@ -70,8 +72,10 @@ export default function Shows(){
               shows.map((s)=>
                 (<tr key={s.id} id={s.id}>
                   <td>{s.schedule}</td>
+                  <td>{s.day}</td>
                   <td>{s.movie.Title}</td>
                   <td>{s.roomId}</td>
+                  <td>{s.type}</td>
                   <td>{s.seats}</td>
                   <td>
                     <button class="btn btn-outline-warning" onClick={handleDelete}><i class="bi bi-trash3"></i></button>

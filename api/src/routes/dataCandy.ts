@@ -2,14 +2,12 @@ export const comboUno ={
         name:"COMBO TRADICIONAL",
         picture:"https://menuplatino.mx/wp-content/uploads/2022/07/COMBO-TRADICIONAL-.png",
         price:500,
-        quantity: 1       
 }
 
 export const comboFamiliar ={
     name:"COMBO NACHOS",
     picture:"https://menuplatino.mx/wp-content/uploads/2022/07/COMBO-NACHOS-MUNDET.png",
     price:1000,
-    quantity: 1 
 }
 
 export const palomitas={
