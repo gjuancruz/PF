@@ -156,7 +156,7 @@ export default function MovieDetail(){
                 <div className="texto">
                 
                 
-                <p><b>Sinopsis: </b> {movieDet.Plot}</p>
+                <p className="sinopsis"><b>Sinopsis: </b> {movieDet.Plot}</p>
                 <p><b>Género: </b> {movieDet.Genre}</p>
                 <p><b>Actores: </b> {movieDet.Actors}</p>
                 <p><b>Director: </b> {movieDet.Director}</p>
@@ -167,7 +167,7 @@ export default function MovieDetail(){
                 <div className="divTrailer">
                 <a className="trailer" href={movieDet.Trailer}>Ver Trailer</a>
                 </div>     
-                {premieres.find(m=>m.id ===movieDet.id )?  (<b className="estrenopelicula">Entradas disponibles a partir del {movieDet.Release}</b>):
+                {premieres.find(m=>m.id ===movieDet.id )?  (<div className="estrenocontenedor"><b className="estrenopelicula" >Entradas disponibles a partir del {movieDet.Release}</b></div>):
                  <div className="select">
                  <div>
                     <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
@@ -295,7 +295,10 @@ Comprar
                         <div class="card p-3">
                         <div class="d-flex justify-content-between align-items-center"/>
                         <div class="user d-flex flex-row align-items-center"/>
-                        <span><small class="font-weight-bold text-primary">@{e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
+                        <span><small class="font-weight-bold text-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>  {e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
                         </div>
                     )
                 }): <div>NO HAY COMENTARIOS</div>}

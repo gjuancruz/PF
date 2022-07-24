@@ -8,10 +8,10 @@
 .navbar-checkout{
   width: 350px;
 
-  height: 500px;
+  height: 540px;
    position: absolute; 
   right: 0; 
-  background-color:rgb(32, 39, 39);
+  background-color:rgb(29, 34, 34);
   opacity: 0,5 !important;
   transition: width 1s;
   /* width: auto; */

@@ -12,7 +12,7 @@
     position: relative;
     width: 100%;
     /* max-width: 75em; */
-    max-width: 75vw;
+    /* max-width: 75vw; */
     margin:  auto;
     padding: 60px;
     margin-top: 20px;
@@ -33,7 +33,9 @@
 #checkout-active{
     margin-right: 350px;
 }
-
+.sinopsis{
+    max-width: 75vw;
+}
 .title{
     font-size: 40px;
     margin-bottom: 20px;
@@ -174,7 +176,7 @@ select:hover{
     border: none;
     position: absolute;
     background-color: rgb(255, 234, 0);
-    right: 0px;
+    right: 40px;
     display: flex;
     flex-direction:column;
     z-index: 9999;
@@ -183,7 +185,7 @@ select:hover{
     border-radius: 10px;
     transition: 0.7s;
     border-color: rgb(255, 234, 0);
-    
+   
 }
 
 .botoncheck:hover, .botoncheck:focus{
@@ -195,3 +197,10 @@ select:hover{
         background-color: #414442;
         cursor: no-drop;
     }
+
+.text-primary{
+    font-size: 16px;
+}
+.estrenocontenedor{
+    margin-bottom: 100px;
+}

@@ -380,7 +380,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
           <li className="nav-item w-100">
             <a href="#" className="nav-link text-light pl-4">
-              Total: {total}
+            <b>Total a pagar : ${total}</b>
             </a>
           </li>
         </ul>
