@@ -220,11 +220,10 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
     <div>
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-warning"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop1"
-      >
-        Dulceria
+      >Dulceria
       </button>
 
       <div
@@ -236,7 +235,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content bg-dark">
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">
@@ -264,7 +263,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                             <input type="number" min='0' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
                                 value={eval(item.name.split(' ')[1])}
                             />
-                            <button type="button" class="btn btn-secondary" onClick={handleSubmit} name={item.name} >
+                            <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
                                 Agregar
                             </button>
                         </div>
@@ -281,7 +280,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
               <div class="row align-items-start">
                 <div class="col-12">
                   <h3>Agregar productos</h3>
-                  <div class="col-8">
+                  <div class="">
                     <img
                         src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/2015525172827605.png"
                         width={"120px"}
@@ -289,7 +288,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                     <input type="number" min='0' max="100" style={{width: '60px', display:"inline"}} name="cafe"
                         onChange={handleClick} value={cafe}
                     />
-                    <button type="button" className="btn btn-secondary" onClick={handleSubmit} name="cafe"
+                    <button type="button" className="btn btn-warning" onClick={handleSubmit} name="cafe"
                     >
                         Agregar
                     </button>
@@ -303,7 +302,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                     <input type="number" min='0' max="100" style={{width: '60px'}} name="refresco"
                         onChange={handleClick} value={refresco}
                     />
-                    <button type="button" class="btn btn-secondary" onClick={handleSubmit} name="refresco">
+                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="refresco">
                         Agregar
                     </button>
                   </div>
@@ -316,7 +315,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                     <input type="number" min='0' max="100" style={{width: '60px'}} onChange={handleClick} value={hotdog} 
                         name="hotdog"
                     />
-                    <button type="button" class="btn btn-secondary" onClick={handleSubmit} name="hotdog">
+                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="hotdog">
                         Agregar
                     </button>
                   </div>
@@ -335,8 +334,8 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
-                Understood
+              <button type="button" class="btn btn-warning">
+                Ir al carrito
               </button>
             </div>
           </div>
@@ -354,7 +353,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
         </ul>
 
         <hr />
-        <button type="button" class="btn btn-primary">Realizar Pago</button>
+        <button type="button" class="btn btn-warning">Realizar Pago</button>
 
       </nav>
 

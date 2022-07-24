@@ -28,6 +28,7 @@ export default function MovieDetail(){
     const allUser = useSelector((state) => state.usuarios);
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
+    const [checkbtn, setcheckbtn] = useState(false);
     
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
@@ -59,8 +60,8 @@ export default function MovieDetail(){
     },[idUser])
 
     const selecthora = document.querySelector("#selectHora")
-    console.log(shows)
-    console.log(showid);
+    // console.log(shows)
+    // console.log(showid);
 
     for(const show of shows){
     if(shows.length==0){
@@ -79,7 +80,7 @@ export default function MovieDetail(){
         const elements = useElements()
         // const userIdCheck = window.localStorage.getItem('userId')
         // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-        console.log('este seria el showid que le esta llegando',showid)
+        // console.log('este seria el showid que le esta llegando',showid)
         const handleStripe = async(e) =>{
             e.preventDefault()
             
@@ -87,7 +88,7 @@ export default function MovieDetail(){
                 type:"card",
                 card: elements.getElement(CardElement)
             })
-            console.log('soy el paymentMethod',paymentMethod)
+            // console.log('soy el paymentMethod',paymentMethod)
             if(!error){
                 dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
             }else console.log(error)
@@ -104,7 +105,7 @@ export default function MovieDetail(){
         e.preventDefault()
         setShowid(e.target.value)  ///modificado default value
     }
-    console.log(toggle);
+    // console.log(toggle);
 
     console.log(JSON.stringify(storeCandy));
     const [num, setNum] = useState(0);
@@ -116,26 +117,38 @@ export default function MovieDetail(){
       setNum(num - 1);
     }
     const HoraPelicula = shows.find( item => item.id === showid)
-    console.log(HoraPelicula);
+    // console.log(HoraPelicula);
 
-    console.log("detail User  " + idUser)
-    console.log(cart);
+    // console.log("detail User  " + idUser)
+    // console.log(cart);
 
     return(
         <div className="MovieDetail">
             <NavBar />
+            
+          {num === 0 ? "": 
+           checkbtn?
             <div className="Checkout-component">
                 <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart} />
-            </div>
+            </div>   : null 
+           }
             <div className="contenedor" id={toggle && "checkout-active"}>
-                <button className="btn btn-primary navbar-toggler collapsed" type="button" data-bs-toggle="collapse" 
-                  data-bs-target="#Navcollapse" aria-controls="Navcollapse" aria-expanded="false" aria-label="Toggle navigation"
-                >
-                    Prueba nav collapse
-                </button>
-                <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
+           
+           <button
+            className="botoncheck"
+            disabled={num === 0}
+            onClick={()=> setcheckbtn((e)=> !e)}
+            > <p> Tickets {num === 0 ? "": num}</p>
+            <svg className="iconocheck" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16" >
+  <path d="M4 4.85v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Z"/>
+  <path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3h-13ZM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9V4.5Z"/>
+</svg>
+           </button>
+                
+                 
+                {/* <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
                     Toogle Sidebar
-                </button>
+                </button> */}
 
                 <h2 className="pg">{movieDet.Rated}</h2>
                 <h2 className="title">{movieDet.Title}</h2>
@@ -262,7 +275,7 @@ Comprar
                 Cerrar
               </button>
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" 
-                onClick={() => dispatch(sumEntradas(num))}
+                onClick={() => dispatch(sumEntradas(num),)}
               >
                 Agregar al carrito
               </button>

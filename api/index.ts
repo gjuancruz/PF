@@ -21,11 +21,11 @@ app.listen(PORT, async () => {
    // const del = await prisma.seat.deleteMany({})
    // const del3 = await prisma.room.deleteMany({})
    // const del = await prisma..deleteMany({})
-   // const carrito = await prisma.menu.deleteMany({})
+   const carrito = await prisma.menu.deleteMany({})
 
-   // const crearCarrito = await prisma.menu.createMany({
-   //    data: candylist
-   // })
+   const crearCarrito = await prisma.menu.createMany({
+      data: candylist
+   })
    
    /* 
    for(let i=0;i<candylist.length;i++){

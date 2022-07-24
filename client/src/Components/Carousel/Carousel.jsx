@@ -13,7 +13,7 @@ const Carousel = () =>{
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://static.cinemarkhoyts.com.ar/Images/Highlights/469.png" class="d-block w-100" alt="..."/>
+      <img src="https://static.cinemarkhoyts.com.ar/Images/Highlights/472.png" class="d-block w-100" alt="..."/>
     </div>
     <div class="carousel-item">
 
@@ -33,7 +33,6 @@ const Carousel = () =>{
   </button>
 </div>
 )
-        
-    }
 
-    export default Carousel
+}
+export default Carousel
