@@ -5,11 +5,9 @@ import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
 import { useDispatch, useSelector } from "react-redux";
-import SalesBalance from "./SalesBalance";
 import { getUsers, verifyRole } from "../../Redux/actions";
 import Candy from "./Candy";
-
-
+import SalesBalanceMovies from "./SalesBalanceMovies";
 
 
 export default function MenuDashboard(){
@@ -32,7 +30,7 @@ export default function MenuDashboard(){
         if (component === "feedback" ) return (<Feedback/>)
         if (component === 'movies') return (<Movies/>)
         if (component === 'funciones') return(<Shows/>)
-        if (component === 'salesMovies') return(<SalesBalance/>)
+        if (component === 'salesMovies') return(<SalesBalanceMovies/>)
         if (component === 'candy') return(<Candy/>)
     }
 
@@ -82,7 +80,7 @@ export default function MenuDashboard(){
             </li>
             <li>
              <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("feedback")} > 
-                Feddback
+                Feedback
               </a>
             </li>
           </ul>

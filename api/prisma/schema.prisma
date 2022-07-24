@@ -132,7 +132,7 @@ model Cart{
   candy      Candy[]
   tickets    Tickets[]
   ticket     Ticket? @relation(fields: [ticketId],references: [id])
-  user       User @relation(fields: [userId],references: [id])
+  user       User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Menu{

@@ -63,7 +63,6 @@ export default function CreateUser() {
                 setFormSend(true);
                 resetForm();
                 setTimeout(() => setFormSend(false), 5000);
-                dispatch(getUsers())
               }}
             >
               {({ errors, values, setFieldValue }) => (
@@ -173,6 +172,7 @@ export default function CreateUser() {
               type="button"
               class="btn btn-danger"
               data-bs-dismiss="modal"
+              onClick={()=>dispatch(getUsers())}
             >
               Volver
             </button>

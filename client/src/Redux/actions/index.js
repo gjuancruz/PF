@@ -22,6 +22,7 @@ export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 export const VERIFY_ROLE='VERIFY_ROLE'
+export const GET_CANDY='GET_CANDY'
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -447,5 +448,13 @@ export function verifyRole(){
       payload: {role: data.data.role,
                 id: data.data.id}
     })
+  }
+}
+
+///////RUTAS CANDY//////
+export function getCandy(){
+  return async function(dispatch){
+    var get_candy = await axios.get("http://localhost:3001/candy");
+    return dispatch ({type: GET_CANDY, payload: get_candy.data})
   }
 }

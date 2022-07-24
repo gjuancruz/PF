@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers, searchUser, deleteUser} from "../../Redux/actions";
 import ChartPie from "./Charts/ChartPie";
 import SegmentChart from "./Charts/SegmentChart";
-import DeleteUser from "./DeleteUser";
+import InfoSalesMovies from "./InfoSalesMovies";
 
-export default function SalesBalance(){
-  const [userDlt, setUserDlt] = useState({email:''})
+export default function SalesBalanceMovies(){
+  const [movieInfo, setMovieInfo] = useState({name:'',type:''})
 
   const dispatch = useDispatch();
   const dataMovies = [
@@ -72,14 +72,14 @@ export default function SalesBalance(){
     e.preventDefault()
     dispatch(searchUser(input))
   }
-  const handleDltUser = (e)=>{
-    dispatch(deleteUser(userDlt));
-    setUserDlt({email:""})
+  const handleInfo = (name,type)=>{
+    // dispatch(deleteUser(userDlt));
+    setMovieInfo({name,type})
   }
 
   useEffect(()=>{
     dispatch(getUsers())
-  },[dispatch,userDlt])
+  },[dispatch])
 
     return(
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -114,22 +114,23 @@ export default function SalesBalance(){
               <th scope="col">Entradas Vendidas</th>
               <th scope="col">T.Bruto</th>
               <th scope="col">T.Neto</th>
+              <th scope="col">Detail</th>
             </tr>
           </thead>
           <tbody>
             {
               dataMovies &&
-              dataMovies.map((u)=>
-                (<tr key={u.name}>
+              dataMovies.map((u,i)=>
+                (<tr key={i}>
                   <td>{u.name}</td>
                   <td>{u.type}</td>
                   <td>{u.quantitySales}</td>
                   <td>{u.total_gross}</td>
                   <td>{u.total_net}</td>
                   <td>
-                    <button class="btn btn-outline-warning"><i class="bi bi-info-circle" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => null}></i></button>
+                    <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.name,u.type)}><i class="bi bi-info-circle"></i></button>
                   </td>
-                  <DeleteUser handleDltUser={handleDltUser}/>
+                  <InfoSalesMovies nameMovie={movieInfo.name} type={movieInfo.type}/>
                 </tr>
                 )
               )
