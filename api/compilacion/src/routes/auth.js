@@ -32,10 +32,19 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (user) {
             return res.status(400).send({ error: 'User already exists' });
         }
+        // const fecha:any = new Date()
         //Adding user to database
         const newUser = yield prisma.user.create({
             // @ts-ignore
             data: { username: username, email: email, password: hashedPassword, role: role }
+        });
+        // @ts-ignore
+        const formatedUser = yield prisma.user.update({
+            where: { username: username },
+            data: {
+                // @ts-ignore
+                dateFormat: String(newUser.createdAt).slice(4, 15)
+            }
         });
         console.log('este es el 34', newUser);
         //Adding new Cart to new User
