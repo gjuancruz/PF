@@ -36,8 +36,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             data: {
                 name: product.name,
                 quantity,
-                totalPrice,
-                cartId
+                totalPrice
             }
         });
         console.log('this is newCandy :', newCandy);
