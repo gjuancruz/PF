@@ -25,28 +25,64 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 // http://localhost:3001/candy/add
 router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c, _d, _e, _f;
     try {
-        const { index, quantity, cartId } = req.body;
+        const { index, quantity, cartId, userId } = req.body;
+        let newCandy;
+        //buscar el card id del usuario
+        const user = yield prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        console.log("info user", user);
         const product = yield prisma.menu.findUnique({
             where: { id: index }
         });
+        const userCandy = (_a = user === null || user === void 0 ? void 0 : user.cart) === null || _a === void 0 ? void 0 : _a.candy.find(item => item.name === product.name);
         console.log('this is product :', product);
         const totalPrice = product.price * quantity;
-        const newCandy = yield prisma.candy.create({
-            data: {
-                name: product.name,
-                quantity,
-                totalPrice,
-                cartId
-            }
-        });
-        console.log('this is newCandy :', newCandy);
+        if (userCandy) {
+            newCandy = yield prisma.candy.update({
+                where: {
+                    //@ts-ignore
+                    id: userCandy.id
+                    // cartId:user?.cart?.id
+                    // name:product.name
+                },
+                data: {
+                    name: product.name,
+                    quantity: userCandy.quantity + quantity,
+                    totalPrice: userCandy.totalPrice + totalPrice,
+                    cartId: (_b = user === null || user === void 0 ? void 0 : user.cart) === null || _b === void 0 ? void 0 : _b.id
+                }
+            });
+            console.log("Update Candy respuesta ", newCandy);
+        }
+        else {
+            newCandy = yield prisma.candy.create({
+                data: {
+                    name: product.name,
+                    quantity,
+                    totalPrice,
+                    cartId: (_c = user === null || user === void 0 ? void 0 : user.cart) === null || _c === void 0 ? void 0 : _c.id
+                    // cartId
+                }
+            });
+            console.log('this is newCandy :', newCandy);
+        }
         const cart = yield prisma.cart.findUnique({
-            where: { id: cartId }
+            where: { id: (_d = user === null || user === void 0 ? void 0 : user.cart) === null || _d === void 0 ? void 0 : _d.id }
         });
         console.log('this is cart :', cart);
         const addNewCandy = yield prisma.cart.update({
-            where: { id: cartId },
+            where: { id: (_e = user === null || user === void 0 ? void 0 : user.cart) === null || _e === void 0 ? void 0 : _e.id },
             data: {
                 // @ts-ignore
                 orderPrice: cart.orderPrice + newCandy.totalPrice,
@@ -54,14 +90,14 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 userId: cart.userId,
                 candy: {
                     connect: {
-                        id: newCandy.id
+                        id: newCandy === null || newCandy === void 0 ? void 0 : newCandy.id
                     }
                 }
             }
         });
         console.log('this is addNewCandy :', addNewCandy);
         const newCart = yield prisma.cart.findUnique({
-            where: { id: cartId }
+            where: { id: (_f = user === null || user === void 0 ? void 0 : user.cart) === null || _f === void 0 ? void 0 : _f.id }
         });
         return res.json(newCart);
     }

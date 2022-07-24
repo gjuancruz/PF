@@ -13,23 +13,29 @@ const express_1 = require("express");
 const client_1 = require("@prisma/client");
 const router = (0, express_1.Router)();
 const prisma = new client_1.PrismaClient();
-//http://localhost:3001/cart
+// router.get
+router.get('/deleteCart', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const carrito = yield prisma.cart.deleteMany({});
+    return res.send(carrito);
+}));
+//http://localhost:3001/cart --> Obtiene el historial de candys y boletos(tickets) y los manda al front,tiene que recibir el 
+//userid desde el front
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idUser } = req.body;
     try {
-        const card = yield prisma.user.findUnique({
+        const user = yield prisma.user.findUnique({
             where: { id: idUser },
             include: {
-                // cart: true
                 cart: {
                     include: {
+                        tickets: true,
                         candy: true
                     }
                 }
             }
         });
         // @ts-ignore
-        res.json(card.cart.candy);
+        res.json(user.cart.candy);
     }
     catch (error) {
         res.status(404).json("No hay usuarios que mostrar");
