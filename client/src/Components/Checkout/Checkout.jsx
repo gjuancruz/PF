@@ -124,12 +124,14 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
             productos.push("COMBO NACHOS")
         }
         console.log(productos);
+        dispatch(postCandys({ index: NACHOS.id, quantity: Number(NACHOS.value), userId: idUser }))
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO GRANDE"){
         for (let i = 0; i < GRANDE.value; i++) {
             productos.push("COMBO GRANDE")
         }
+        dispatch(postCandys({ index: GRANDE.id, quantity: Number(GRANDE.value), userId: idUser }))
         console.log(productos);
         return dispatch(addCandy(productos))
     }
@@ -137,6 +139,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
         for (let i = 0; i < ICEE.value; i++) {
             productos.push("COMBO ICEE")
         }
+        dispatch(postCandys({ index: ICEE.id, quantity: Number(ICEE.value), userId: idUser }))
         console.log(productos);
         return dispatch(addCandy(productos))
     }
