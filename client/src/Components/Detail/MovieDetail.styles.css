@@ -207,3 +207,16 @@ select:hover{
 .estrenocontenedor{
     margin-bottom: 100px;
 }
+.modal-body{
+    padding: 2px;
+    /* background-color: #000 !important; */
+    border-color: #000 !important;
+}
+ .modal-header{
+   
+    border-color: #000 !important;
+ }
+
+.ratio-16x9{
+    background-color: #000;
+}
