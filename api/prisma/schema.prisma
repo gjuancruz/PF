@@ -140,6 +140,7 @@ model Menu{
   name      String @unique
   picture   String
   price     Int
+  timestamp DateTime @updatedAt() 
 }
 
 enum Status {

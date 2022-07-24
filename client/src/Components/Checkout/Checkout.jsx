@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import {addCandy, sumTotal, getCardHistory} from '../../Redux/actions'
+import {addCandy, sumTotal, getCardHistory, postCandys} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
-export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entradas, hora}) {
+export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entradas, hora }) {
     // const sidebar = document.querySelector("#sidebar");
     // const container = document.querySelector(".my-container");
-  const [candy, setCandy] = useState([])
 
   const [cafe, setCafe] = useState(0)
   const [refresco, setRefresco] = useState(0)
@@ -16,10 +15,10 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
   // const [carrito,setCarrito] = useState(cart);
 
-  const [TRADICIONAL,setTRADICIONAL ] = useState(0)
-  const [NACHOS,setNACHOS ] = useState(0)
-  const [GRANDE,setGRANDE ] = useState(0)
-  const [ICEE,setICEE] = useState(0)
+  const [TRADICIONAL,setTRADICIONAL ] = useState({ id: 0, value: 0 })
+  const [NACHOS,setNACHOS ] = useState({ id: 0, value: 0 })
+  const [GRANDE,setGRANDE ] = useState({ id: 0, value: 0 })
+  const [ICEE,setICEE] = useState({ id: 0, value: 0 })
 
   const stateCandy = useSelector(state => state.candy);
 
@@ -29,11 +28,41 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
   const cart = useSelector(state => state.cart);
 
+  const idUser = useSelector(state => state.id)
+
   // const idUser = useSelector(state => state.id)
 
   const obtenerCantidad = (nombre) => {
-    const nameCandy = cart.find( item => item.name === nombre);
-    return nameCandy ? nameCandy.quantity : 0
+    let idCandy;
+    let quantityCandy;
+    let productos = []
+
+    if(storeCandy.length && cart.length) {
+      idCandy = storeCandy.find( item => item.name === nombre);
+      quantityCandy = cart.find( item => item.name === nombre);
+      
+      const state = {
+        id: idCandy.id,
+        value: quantityCandy ? quantityCandy.quantity : 0
+      }
+
+      //eval(item.name.split(' ')[1])  eval(item.name.split(' ')[1]).value
+      if(quantityCandy){
+        for (let i = 0; i < quantityCandy.quantity; i++) {
+          productos.push(nombre)
+        }
+        dispatch(addCandy(productos))
+      }
+      console.log("estoy dentro de obtenerCantidad de candys que vienen del back");
+
+      return state;
+    } else {
+      const defaultState = {
+        id: 0,
+        value: 0
+      }
+      return defaultState;
+    }
   }
 
   console.log(cart);
@@ -56,7 +85,10 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
   },[stateCandy])
 
   useEffect(() => {
-    setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"))
+    setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"));
+    setNACHOS(obtenerCantidad("COMBO NACHOS"))
+    setGRANDE(obtenerCantidad("COMBO GRANDE"))
+    setICEE(obtenerCantidad("COMBO ICEE"))
   },[cart])
   // useEffect(() => {
   //   dispatch(getCardHistory(idUser))
@@ -70,38 +102,39 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
     if(event.target.name === "refresco") setRefresco(event.target.value);
     if(event.target.name === "hotdog") setHotdog(event.target.value);
 
-    if(event.target.name === "COMBO TRADICIONAL") setTRADICIONAL(event.target.value);
-    if(event.target.name === "COMBO NACHOS") setNACHOS(event.target.value);
-    if(event.target.name === "COMBO GRANDE") setGRANDE(event.target.value);
-    if(event.target.name === "COMBO ICEE") setICEE(event.target.value);
+    if(event.target.name === "COMBO TRADICIONAL") setTRADICIONAL({...TRADICIONAL,value: event.target.value});
+    if(event.target.name === "COMBO NACHOS") setNACHOS({...NACHOS,value: event.target.value});
+    if(event.target.name === "COMBO GRANDE") setGRANDE({...GRANDE,value: event.target.value});
+    if(event.target.name === "COMBO ICEE") setICEE({...ICEE,value: event.target.value});
   }  
 
   const handleSubmit = (event) => {
     console.log(event.target.name);
     const productos = []
     if(event.target.name === "COMBO TRADICIONAL"){
-        for (let i = 0; i < TRADICIONAL; i++) {
+        for (let i = 0; i < TRADICIONAL.value; i++) {
             productos.push("COMBO TRADICIONAL")
         }
+        dispatch(postCandys({ index: TRADICIONAL.id, quantity: Number(TRADICIONAL.value), userId: idUser }))
         console.log(productos);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO NACHOS"){
-        for (let i = 0; i < NACHOS; i++) {
+        for (let i = 0; i < NACHOS.value; i++) {
             productos.push("COMBO NACHOS")
         }
         console.log(productos);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO GRANDE"){
-        for (let i = 0; i < GRANDE; i++) {
+        for (let i = 0; i < GRANDE.value; i++) {
             productos.push("COMBO GRANDE")
         }
         console.log(productos);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO ICEE"){
-        for (let i = 0; i < ICEE; i++) {
+        for (let i = 0; i < ICEE.value; i++) {
             productos.push("COMBO ICEE")
         }
         console.log(productos);
@@ -262,7 +295,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                             />
                             <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
                             <input type="number" min='0' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
-                                value={eval(item.name.split(' ')[1])}
+                                value={eval(item.name.split(' ')[1]).value}
                             />
                             <button type="button" class="btn btn-secondary" onClick={handleSubmit} name={item.name} >
                                 Agregar

@@ -27,14 +27,14 @@ app.listen(PORT, async () => {
    //    data: candylist
    // })
    
-   /* 
+   
    for(let i=0;i<candylist.length;i++){
-   const movie = await prisma.menu.upsert({
-      where:{name:candylist[i].name},
-      update:{name:candylist[i].name,picture:candylist[i].picture,price:candylist[i].price},
-      create:candylist[i]
-  })
-   } */
+      const movie = await prisma.menu.upsert({
+         where:{name:candylist[i].name},
+         update:{name:candylist[i].name,picture:candylist[i].picture,price:candylist[i].price},
+         create:candylist[i]
+      })
+   } 
 
    for(let i = 0;i<movielist.length;i++){
    const movies = await prisma.movie.upsert({   

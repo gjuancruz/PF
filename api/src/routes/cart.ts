@@ -4,24 +4,31 @@ import {PrismaClient} from '@prisma/client'
 const router = Router()
 const prisma = new PrismaClient()
 
-//http://localhost:3001/cart
+
+// router.get
+router.get('/deleteCart', async (req:Request, res:Response) => {
+    const carrito = await prisma.cart.deleteMany({});
+    return res.send(carrito);
+})
+
+//http://localhost:3001/cart --> Obtiene el historial de candys y boletos(tickets) y los manda al front,tiene que recibir el 
+//userid desde el front
 router.post("/", async (req:Request, res:Response) =>{
     const {idUser} = req.body
     try{
-        const card = await prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {id: idUser},
             include: {
-                // cart: true
-                cart: {
-                    include: {
+                cart:  {
+                    include : {
+                        tickets: true,
                         candy: true
                     }
                 }
-
             }
         })
         // @ts-ignore
-        res.json(card.cart.candy);
+        res.json(user.cart.candy);
     
     }catch (error:any) {
         res.status(404).json("No hay usuarios que mostrar")

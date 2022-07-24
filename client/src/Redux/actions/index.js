@@ -27,6 +27,7 @@ export const TOTAL="TOTAL";
 export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
+export const POST_CANDYS="POST_CANDYS";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -498,5 +499,17 @@ export function getCardHistory(idUser){
       type: GET_CART,
       payload: getCart.data
     })
+  }
+}
+
+//Ruta post que almacena los candys con el usuario en especifico
+export function postCandys(payload){
+  return async function(dispatch){
+    try {
+      let candyPost = await axios.post('/candy/add', payload)
+      return console.log("dispatch candyPost " + JSON.stringify(candyPost))
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
