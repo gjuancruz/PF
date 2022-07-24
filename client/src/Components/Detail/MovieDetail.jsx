@@ -122,10 +122,46 @@ export default function MovieDetail(){
     // console.log("detail User  " + idUser)
     // console.log(cart);
 
+    // var tag = document.createElement('script');
+
+    //   tag.src = "https://www.youtube.com/iframe_api";
+    //   var firstScriptTag = document.getElementsByTagName('script')[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // var player;
+    // function onYouTubeIframeAPIReady(e) {
+    //   const evento = e.YT
+    //   player = new evento.Player('player', {
+    //     height: '360',
+    //     width: '640',
+    //     videoId: 'M7lc1UVf-VE',
+    //     events: {
+    //       'onReady': onPlayerReady,
+    //       'onStateChange': onPlayerStateChange
+    //     }
+    //   });
+    // }
+    // function onPlayerReady(event) {
+    //   event.target.playVideo();
+    // }
+    // var done = false;
+    //   function onPlayerStateChange(event) {
+    //     if (event.data == YT.PlayerState.PLAYING && !done) {
+    //       setTimeout(stopVideo, 6000);
+    //       done = true;
+    //     }
+    //   }
+    //   function stopVideo() {
+    //     player.stopVideo();
+    //   }
+
     return(
         <div className="MovieDetail">
             <NavBar />
-            
+
+          {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
+            autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   */}
+
           {num === 0 ? "": 
            checkbtn?
             <div className="Checkout-component">

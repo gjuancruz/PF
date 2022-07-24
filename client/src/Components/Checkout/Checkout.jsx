@@ -37,9 +37,9 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
     let quantityCandy;
     let productos = []
 
-    if(storeCandy.length && cart.length) {
+    if(storeCandy.length) {
       idCandy = storeCandy.find( item => item.name === nombre);
-      quantityCandy = cart.find( item => item.name === nombre);
+      quantityCandy = cart.length ? cart.find( item => item.name === nombre) : 0
       
       const state = {
         id: idCandy.id,
