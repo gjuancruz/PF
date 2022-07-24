@@ -122,13 +122,13 @@ export default function CreateShow(){
                   ):(
                     <option key="seleccionar2" disabled>Seleccionar Dia</option>
                   )
-                  }<option key="1" value="Lunes">Lunes</option>
-                  <option key="2" value="Martes">Martes</option>
-                  <option key="3" value="Miércoles">Miércoles</option>
-                  <option key="4" value="Jueves">Jueves</option>
-                  <option key="5" value="Viernes">Viernes</option>
-                  <option key="6" value="Sabado">Sabado</option>
-                  <option key="7" value="Domingo">Domingo</option>
+                  }<option key="1" value="lunes">Lunes</option>
+                  <option key="2" value="martes">Martes</option>
+                  <option key="3" value="miercoles">Miércoles</option>
+                  <option key="4" value="jueves">Jueves</option>
+                  <option key="5" value="viernes">Viernes</option>
+                  <option key="6" value="sabado">Sábado</option>
+                  <option key="7" value="domingo">Domingo</option>
                   </Field>
                 </div>
 

@@ -2,7 +2,7 @@ import React,{ useEffect, useState }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
-import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole } from "../../Redux/actions";
+import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole,getDayShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -17,9 +17,11 @@ export default function MovieDetail(){
     const premieres = useSelector((state) => state.premiere)
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
+    const days = useSelector(state=>state.day)
     const shows= useSelector(state=>state.show)
     const refresh= useSelector(state=>state.refresh)
     const [shown,setShown] = useState(false)
+    const [hourshown,setHourShown] = useState(false)
     const [showid,setShowid] = useState("")
     const allUser = useSelector((state) => state.usuarios);
     let userIdCheck = useSelector ((state) => state.id)
@@ -39,8 +41,18 @@ export default function MovieDetail(){
     },[dispatch, refresh])
 
     const selecthora = document.querySelector("#selectHora")
-    console.log(shows)
+    const selectdia = document.querySelector("#selectDia")
     for(const show of shows){
+      if(shows.length==0){
+      }if(selectdia.lastChild.text!=shows[shows.length-1].day){
+          var option = document.createElement("option")
+          option.text = show.day
+          option.value = show.day
+          selectdia.add(option)
+          }
+      }
+    if(selecthora!=null){
+    for(const show of days){
     if(shows.length==0){
     }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
         var option = document.createElement("option")
@@ -49,6 +61,7 @@ export default function MovieDetail(){
         selecthora.add(option)
         }
     }
+  }
 
     const CheckoutForm = () =>{
         const dispatch = useDispatch()
@@ -57,7 +70,7 @@ export default function MovieDetail(){
         const elements = useElements()
         // const userIdCheck = window.localStorage.getItem('userId')
         // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-        console.log('este seria el showid que le esta llegando',showid)
+        // console.log('este seria el showid que le esta llegando',showid)
         const handleStripe = async(e) =>{
             e.preventDefault()
             
@@ -78,9 +91,15 @@ export default function MovieDetail(){
     const handleSubmit = (e)=>{
         setShown(current=>!current)
     }
-    const handleChange=(e)=>{
+    const handleHourChange=(e)=>{
         e.preventDefault()
         setShowid(e.target.value)
+        setShown(true)
+    }
+    const handleDayChange=(e)=>{
+      e.preventDefault()
+      dispatch(getDayShow(e.target.value,idMovie.id))
+      setHourShown(true)
     }
     const [num, setNum] = useState(0);
 
@@ -114,18 +133,18 @@ export default function MovieDetail(){
                 {premieres.find(m=>m.id ===movieDet.id )?  (<b className="estrenopelicula">Entradas disponibles a partir del {movieDet.Release}</b>):
                  <div className="select">
                  <div>
-                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
+                 <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
+                    <option value="">Seleccione Dia</option>
+                    </select>
+                    {hourshown?(
+                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleHourChange}>
                     <option value="">Selecciona Hora</option>
                     </select>
-                    <select className="selectDia" name="Dia" id="">
-                    <option value="">Hoy</option>
-                    <option value="">Mañana</option>
-                    <option value="">Proxima Fecha</option>
-                    </select>
-                    </div> 
+):<></>}
+                    </div>
                     <div>
                 
-      {!currentUser[0] ? 
+      {!currentUser[0]? 
       <div>
 <button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 Comprar 
@@ -227,10 +246,10 @@ Comprar
       </div>
 
     </div>
-                {   shown &&   <div className="d-flex flex-column mb-3">
+                {/* {   shown &&   <div className="d-flex flex-column mb-3">
                             <CheckoutForm/>
                     </div>
-                }
+                } */}
                 <Comment />
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(
