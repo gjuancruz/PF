@@ -1,6 +1,5 @@
 import React,{ useEffect, useState }  from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
@@ -11,8 +10,7 @@ import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Checkout } from '../Checkout/Checkout'
-
-
+import Stripe from './Stripe';
 
 export default function MovieDetail(){
     const dispatch = useDispatch()
@@ -28,7 +26,7 @@ export default function MovieDetail(){
     const allUser = useSelector((state) => state.usuarios);
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
-    const movieVideo=useSelector(state=>state.movieDetail.Trailer)
+    const movieVideo=useSelector(state=>state.movieDetail.Trailer);
     const [checkbtn, setcheckbtn] = useState(false);
     
     // console.log("es la premier",allCartelera)
@@ -73,32 +71,10 @@ export default function MovieDetail(){
         selecthora.add(option)
         }
     }
+    console.log("fechas/horarios pelicula",shows);
 
-    const CheckoutForm = () =>{
-        const dispatch = useDispatch()
-        const stripe = useStripe()
+    //renderizxar el form en un modal para hacer la parte de chechout
     
-        const elements = useElements()
-        // const userIdCheck = window.localStorage.getItem('userId')
-        // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-        // console.log('este seria el showid que le esta llegando',showid)
-        const handleStripe = async(e) =>{
-            e.preventDefault()
-            
-            const {error,paymentMethod} = await stripe.createPaymentMethod({
-                type:"card",
-                card: elements.getElement(CardElement)
-            })
-            // console.log('soy el paymentMethod',paymentMethod)
-            if(!error){
-                dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
-            }else console.log(error)
-        }
-        return<form onSubmit={handleStripe}>
-            <CardElement className="form-control"/>
-            <button>Realizar pago</button>
-        </form>
-    }
     const handleSubmit = (e)=>{
         setShown(current=>!current)
     }
@@ -126,48 +102,13 @@ export default function MovieDetail(){
     function handleClickVideo(e){
       // e.preventDefault()
       window.parent.location.reload()
-      
-    
-      
-      
     }
-
-    // var tag = document.createElement('script');
-
-    //   tag.src = "https://www.youtube.com/iframe_api";
-    //   var firstScriptTag = document.getElementsByTagName('script')[0];
-    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // var player;
-    // function onYouTubeIframeAPIReady(e) {
-    //   const evento = e.YT
-    //   player = new evento.Player('player', {
-    //     height: '360',
-    //     width: '640',
-    //     videoId: 'M7lc1UVf-VE',
-    //     events: {
-    //       'onReady': onPlayerReady,
-    //       'onStateChange': onPlayerStateChange
-    //     }
-    //   });
-    // }
-    // function onPlayerReady(event) {
-    //   event.target.playVideo();
-    // }
-    // var done = false;
-    //   function onPlayerStateChange(event) {
-    //     if (event.data == YT.PlayerState.PLAYING && !done) {
-    //       setTimeout(stopVideo, 6000);
-    //       done = true;
-    //     }
-    //   }
-    //   function stopVideo() {
-    //     player.stopVideo();
-    //   }
 
     return(
         <div className="MovieDetail">
             <NavBar />
+            <Stripe showid={showid} />
+
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   */}
@@ -361,9 +302,10 @@ Comprar
       </div>
 
     </div>
-                {   shown &&   <div className="d-flex flex-column mb-3">
-                            <CheckoutForm/>
-                    </div>
+                {   
+                  shown &&   <div className="d-flex flex-column mb-3">
+                    <Stripe showid={showid} />
+                  </div>
                 }
                 <Comment />
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{

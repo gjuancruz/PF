@@ -15,6 +15,8 @@ const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory()
 
+    const {goBack} = useHistory()
+
     const handleSubmit = async (e) =>{
         e.preventDefault()
         try {
@@ -27,8 +29,8 @@ const Login = () => {
         if(data.token) {
             localStorage.setItem('sw-token', data.token)
           
-
-            history.push('/home')
+            history.push(goBack());
+            // history.push('/home')
         }  
         } catch (error){
             setErrors(error.response.data.error)
