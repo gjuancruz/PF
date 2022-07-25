@@ -308,7 +308,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         const payment = yield stripe.paymentIntents.create({
             amount: cart.orderPrice,
             payment_method: ticket,
-            currency: "USD",
+            currency: "ARS",
             confirm: true,
         });
         console.log(payment);

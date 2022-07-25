@@ -84,7 +84,7 @@ export default function MovieDetail(){
             })
             // console.log('soy el paymentMethod',paymentMethod)
             if(!error){
-                dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
+                dispatch(postPaymentMethod(paymentMethod.id,showid,'62fca05e-e382-4ed7-bf04-09ebb993ee56'))
             }else console.log(error)
         }
         return<form onSubmit={handleStripe}>
@@ -191,17 +191,19 @@ Comprar
     </div>
   </div>
 </div>
-</div> :
+</div> :<div>
       <button
         className="botoncomprar2"
         type="button"
-       
+        
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
        
         Comprar 
       </button>
+      <CheckoutForm/>
+      </div>
 }
       <div
         class="modal fade"

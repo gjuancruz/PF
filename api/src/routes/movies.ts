@@ -323,7 +323,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         const payment = await stripe.paymentIntents.create({
             amount:cart.orderPrice,
             payment_method:ticket,
-            currency:"USD",
+            currency:"ARS",
             confirm:true,
         })
         console.log(payment)
