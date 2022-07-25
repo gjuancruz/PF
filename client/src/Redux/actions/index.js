@@ -464,15 +464,6 @@ export function addCandy(payload){
   }
 }
 
-export function getCandy(){
-  return async function(dispatch){
-    const candys = await axios.get('http://localhost:3001/candy')
-    return dispatch({
-      type: GET_CANDY,
-      payload: candys.data
-    })
-  }
-}
 
 export function verifyRole(){
   return async function(dispatch){
