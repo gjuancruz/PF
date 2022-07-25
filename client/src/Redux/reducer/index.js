@@ -18,7 +18,9 @@ import {
   AUTORIZADO,
   DELETE_MOVIE,
   EDIT_MOVIE,
-  VERIFY_ROLE
+  VERIFY_ROLE,
+  GET_DAY_SHOW,
+  GET_CANDY,
 } from "../actions";
 
 const initialState = {
@@ -29,12 +31,15 @@ const initialState = {
   feedback:[],
   comments:[],
   refresh: false,
+  copy_usuarios:[],
   usuarios:[],
   shows:[],
   show:[],
+  candy:[],
   autorizado: '',
   role: 'guest',
-  id:''
+  id:'',
+  day:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -131,6 +136,12 @@ function rootReducer(state = initialState, action) {
           ...state,
           shows:action.payload
         }
+      case GET_DAY_SHOW:
+        // console.log(action.payload)
+        return{
+          ...state,
+          day:action.payload
+        }
       case DELETE_MOVIE:
           return{
             ...state,
@@ -144,7 +155,7 @@ function rootReducer(state = initialState, action) {
           // refresh: !state.refresh
         }
       case GET_SHOW:
-        console.log(action.payload)
+        // console.log(action.payload)
         return{
           ...state,
           show:action.payload
@@ -161,7 +172,7 @@ function rootReducer(state = initialState, action) {
     case GET_USERS:
       return {
         ...state,
-        usuarios: action.payload
+        usuarios: action.payload,
       }
   
     case POST_COMMENT:
@@ -170,24 +181,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         refresh: !state.refresh
       };
-
-    case GET_ALL_SHOWS:
-      return{
-        ...state,
-        shows:action.payload
-      }
-    case GET_SHOW:
-      console.log(action.payload)
-      return{
-        ...state,
-        show:action.payload
-      }
     case VERIFY_ROLE:
     return{
       ...state,
       role: action.payload.role,
       id: action.payload.id
     }
+    case GET_CANDY:
+      return{
+        ...state,
+        candy: action.payload
+      }
     default:
       return state;
   }

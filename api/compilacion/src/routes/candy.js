@@ -30,21 +30,20 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const product = yield prisma.menu.findUnique({
             where: { id: index }
         });
-        console.log('this is product :', product);
+        // console.log('this is product :',product)
         const totalPrice = product.price * quantity;
         const newCandy = yield prisma.candy.create({
             data: {
                 name: product.name,
                 quantity,
-                totalPrice,
-                cartId
+                totalPrice
             }
         });
-        console.log('this is newCandy :', newCandy);
+        // console.log('this is newCandy :',newCandy)
         const cart = yield prisma.cart.findUnique({
             where: { id: cartId }
         });
-        console.log('this is cart :', cart);
+        // console.log('this is cart :',cart)
         const addNewCandy = yield prisma.cart.update({
             where: { id: cartId },
             data: {
@@ -59,7 +58,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 }
             }
         });
-        console.log('this is addNewCandy :', addNewCandy);
+        // console.log('this is addNewCandy :',addNewCandy)
         const newCart = yield prisma.cart.findUnique({
             where: { id: cartId }
         });
@@ -67,6 +66,24 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (e) {
         console.log(e.message);
+        res.status(404).json(e.message);
+    }
+}));
+//http://localhost:3001/candy/searchCandy?name=coca
+router.get("/searchCandy", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { name } = req.query;
+        const searchProduct = yield prisma.menu.findMany({
+            where: {
+                name: {
+                    contains: `${name}`,
+                    mode: 'insensitive'
+                }
+            }
+        });
+        res.json(searchProduct);
+    }
+    catch (e) {
         res.status(404).json(e.message);
     }
 }));
