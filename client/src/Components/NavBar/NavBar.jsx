@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, searchMovieName, verifyRole } from '../../Redux/actions';
 import { getUsers } from "../../Redux/actions";
 import setContador from '../Home/Home.jsx'
-import moonCinema from '../../Assets/moonCinema.svg'
 
 const NavBar = () =>{
     const [state, setState]= React.useState('')
@@ -45,10 +44,10 @@ const NavBar = () =>{
       <div>
       <nav class="navbar navbar-expand-lg bg-dark text-light">
       <div class="container-fluid">
-        {/* <a class="navbar-brand text-light" href="/">Moon Cinema</a> */}
-        <a class="navbar-brand text-light" href="/">
-          <img src={moonCinema} width="120px"></img>
-        </a>
+        <a class="navbar-brand text-light" href="/">Moon Cinema</a>
+        {/* <a class="navbar-brand text-light" href="/">
+          <img src={img} width="120px"></img>
+        </a> */}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list text-light"></i>
         </button>

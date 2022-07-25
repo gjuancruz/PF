@@ -301,35 +301,39 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { show, cartId, ticket } = req.body;
-    const cart = yield prisma.cart.findUnique({ where: { id: cartId } });
+    const { ticket, amount, show, userId } = req.body;
+    console.log(show);
     const stripe = new stripe_1.default(STRIPE_KEY, { apiVersion: "2020-08-27" });
+    const data = {
+        username: "Ignacio Brunello",
+        password: "1234",
+        role: 1
+    };
     try {
         const payment = yield stripe.paymentIntents.create({
-            amount: cart.orderPrice,
+            amount,
             payment_method: ticket,
             currency: "USD",
             confirm: true,
         });
-        console.log(payment);
         const sale = yield prisma.sale.create({ data: {
                 receipt: ticket,
-                user: {
-                    connect: { id: cart.userId }
-                }
+                userId: userId
             } });
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
         // console.log(room?.room.id)
         // console.log(seat.id)
-        // const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
+        const candy = yield prisma.candy.findUnique({ where: { id: "fdba5610-1559-4f15-9890-1da57ecb5c60" } });
         const newticket = yield prisma.ticket.createMany({
             data: {
                 saleId: sale.id,
-                showId: show
+                // seatId:seat.id,
+                showId: show,
+                candyId: candy.id
             }
         });
         const update = yield prisma.show.update({ where: { id: show }, data: { seats: room.seats - 1 } });
-        // console.log(update)
+        console.log(update);
         // console.log(newticket)
         res.send("Payment received");
     }

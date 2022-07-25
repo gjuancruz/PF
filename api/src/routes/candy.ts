@@ -20,26 +20,68 @@ router.get('/', async(req:Request, res:Response) => {
 // http://localhost:3001/candy/add
 router.post('/add',  async (req:Request,res:Response)=>{
     try {
-        const {index, quantity,cartId} = req.body
+        const {index, quantity, cartId, userId} = req.body
+        console.log(index, quantity, userId)
+        let newCandy;
+        //buscar el card id del usuario
+        const user = await prisma.user.findUnique({
+            where: {id: userId},
+            include: {
+                cart:  {
+                    include : {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        })
+        console.log("info user", user);
+
+        
         const product : any= await prisma.menu.findUnique({
             where:{id:index}
         })
-        // console.log('this is product :',product)
+
+        const userCandy = user?.cart?.candy.find(item => item.name === product.name);
+
+        console.log('this is product :',product)
         const totalPrice = product.price*quantity
-        const newCandy = await prisma.candy.create({
-            data:{
-                name:product.name,
-                quantity,
-                totalPrice
-            }
-        })
-        // console.log('this is newCandy :',newCandy)
+
+        if(userCandy){
+            newCandy = await prisma.candy.update({
+                where:{
+                    //@ts-ignore
+                    id: userCandy.id
+                    // cartId:user?.cart?.id
+                    // name:product.name
+                },
+                data:{
+                    name:product.name,
+                    quantity: userCandy.quantity + quantity,
+                    totalPrice: userCandy.totalPrice + totalPrice,
+                    cartId: user?.cart?.id
+                }
+            })
+            console.log("Update Candy respuesta ", newCandy);        
+        } else {
+            newCandy = await prisma.candy.create({
+                data:{
+                    name:product.name,
+                    quantity,
+                    totalPrice,
+                    cartId: user?.cart?.id
+                    // cartId
+                }
+            })
+            console.log('this is newCandy :',newCandy)
+        }
+
         const cart = await prisma.cart.findUnique({
-            where:{id:cartId}
+            where:{id:user?.cart?.id}
         })
-        // console.log('this is cart :',cart)
+        console.log('this is cart :',cart)
         const addNewCandy = await prisma.cart.update({
-            where:{id:cartId},
+            where:{id:user?.cart?.id},
             data:{
                 // @ts-ignore
                 orderPrice: cart.orderPrice + newCandy.totalPrice,
@@ -47,14 +89,14 @@ router.post('/add',  async (req:Request,res:Response)=>{
                 userId: cart.userId,
                 candy:{
                     connect:{
-                        id:newCandy.id
+                        id:newCandy?.id
                     }
                 }
             }
         })
-        // console.log('this is addNewCandy :',addNewCandy)
+        console.log('this is addNewCandy :',addNewCandy)
         const newCart = await prisma.cart.findUnique({
-            where:{id:cartId}
+            where:{id:user?.cart?.id}
         })
         return res.json(newCart)
 
@@ -213,23 +255,4 @@ router.delete('/delete',  async (req:Request,res:Response)=>{
 //     }
 // })
 
-//http://localhost:3001/candy/searchCandy?name=coca
-router.get("/searchCandy", async (req: Request, res:Response) =>{
-    try {
-        const {name} = req.query;
-        
-            const searchProduct = await prisma.menu.findMany({
-                where: {
-                    name: {
-                        contains: `${name}`,
-                        mode: 'insensitive'
-                    }
-                }
-             })
-            res.json(searchProduct)
-        
-    } catch (e:any) {
-        res.status(404).json(e.message)
-    }
-})
 export default router
