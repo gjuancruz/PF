@@ -24,21 +24,20 @@ router.post('/add',  async (req:Request,res:Response)=>{
         const product : any= await prisma.menu.findUnique({
             where:{id:index}
         })
-        console.log('this is product :',product)
+        // console.log('this is product :',product)
         const totalPrice = product.price*quantity
         const newCandy = await prisma.candy.create({
             data:{
                 name:product.name,
                 quantity,
-                totalPrice,
-                cartId
+                totalPrice
             }
         })
-        console.log('this is newCandy :',newCandy)
+        // console.log('this is newCandy :',newCandy)
         const cart = await prisma.cart.findUnique({
             where:{id:cartId}
         })
-        console.log('this is cart :',cart)
+        // console.log('this is cart :',cart)
         const addNewCandy = await prisma.cart.update({
             where:{id:cartId},
             data:{
@@ -53,7 +52,7 @@ router.post('/add',  async (req:Request,res:Response)=>{
                 }
             }
         })
-        console.log('this is addNewCandy :',addNewCandy)
+        // console.log('this is addNewCandy :',addNewCandy)
         const newCart = await prisma.cart.findUnique({
             where:{id:cartId}
         })

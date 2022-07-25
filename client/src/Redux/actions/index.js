@@ -22,6 +22,7 @@ export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 export const VERIFY_ROLE='VERIFY_ROLE'
+export const GET_DAY_SHOW="GET_DAY_SHOW"
 export const GET_CANDY='GET_CANDY'
 
 export function getBillboard() {
@@ -248,7 +249,7 @@ export function getShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.get('http://localhost:3001/show/one/'+movieId)
-      console.log(json.data)
+      // console.log(json.data)
       return dispatch({
         type: GET_SHOW,
         payload:json.data
@@ -259,12 +260,26 @@ export function getShow(movieId){
   }
 }
 
+export function getDayShow(day,id){
+  return async function(dispatch){
+    try{
+      const json = await axios.get(`http://localhost:3001/show/day?day=${day}&id=${id}`)
+      return dispatch({
+        type:GET_DAY_SHOW,
+        payload:json.data
+      })
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
+
 export function deleteShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
       // console.log(json.data)
-      console.log(json.data)
+      // console.log(json.data)
     }catch(error){
       console.log(error)
     }

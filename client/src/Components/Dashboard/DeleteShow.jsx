@@ -7,11 +7,11 @@ export default function DeleteShow({handleDltShow}){
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-dark ">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Borrar Usuario</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Borrar Funcion</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ¿ Estás seguro que deseas borrar el usuario?
+                                        ¿ Estás seguro que deseas borrar la funcion?
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
