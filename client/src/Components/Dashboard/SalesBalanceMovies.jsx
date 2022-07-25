@@ -104,6 +104,33 @@ export default function SalesBalanceMovies(){
           </button>
         </div>
       </div>
+
+      <div class='row'>
+        <div class='col-4 card text-center mx-4'>
+            <div class='card-header'>
+            <h4>Peliculas mas vendidas</h4>
+            </div>
+            <div class='card-body'>
+            <ChartPie/>
+            </div>
+            <div class='card-footer text-muted'>
+            Top 5 mas vendidas
+            </div>
+        </div>
+
+        <div class='col-7 card text-center'>
+            <div class='card-header'>
+            <h4>Ventas mensuales</h4>
+            </div>
+            <div class='card-body'>
+            <SegmentChart/>
+            </div>
+            <div class='card-footer text-muted'>
+            Total de ventas de los ultimos meses
+            </div>
+        </div>
+        </div><br/>
+
       <div class="table-responsive">
           {console.log(dataMovies)}
         <table class="table table-dark table-striped">
@@ -137,20 +164,7 @@ export default function SalesBalanceMovies(){
             }
           </tbody>
         </table>
-        <div class='d-flex row'>
-            <div class='col-4'>
-            <h1 class="h3">Peliculas mas vendidas</h1>
-            <ChartPie/>
-            </div>
-            <div class='col-6'>
-            <h1 class="h3">Ventas mensuales totales</h1>
-            <SegmentChart/>
-            </div>
-            
-        </div>
        </div>
         </main>
-        
-      
     )
 }

@@ -45,6 +45,7 @@ imagen: "link"
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCandy } from "../../Redux/actions";
+import CreateCandy from "./CreateCandy";
 import InfoCandy from "./InfoCandy";
 
 export default function Candy(){
@@ -85,6 +86,10 @@ export default function Candy(){
           <button type="button" class="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getCandy())}>
             Ver todos
           </button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdroppp" style={{cursor:"pointer"}}><i class="bi bi-plus-lg" ></i>
+            Agregar nuevo
+          </button>
+          <CreateCandy/>
         </div>
       </div>
       <div class="table-responsive">

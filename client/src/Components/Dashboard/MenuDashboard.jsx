@@ -5,7 +5,7 @@ import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, verifyRole } from "../../Redux/actions";
+import { logout, getUsers, verifyRole } from "../../Redux/actions";
 import Candy from "./Candy";
 import SalesBalanceMovies from "./SalesBalanceMovies";
 
@@ -91,11 +91,10 @@ export default function MenuDashboard(){
             <strong>admin</strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="/home">Home</a></li>
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
             <li><hr class="dropdown-divider"></hr></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="/home" onClick={logout()}>Cerrar Sesion</a></li>
           </ul>
         </div>
         </div>
