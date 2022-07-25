@@ -31,6 +31,7 @@ app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () 
     // const crearCarrito = await prisma.menu.createMany({
     //    data: candylist
     // })
+    // await prisma.menu.deleteMany({})
     for (let i = 0; i < candylist.length; i++) {
         const movie = yield prisma.menu.upsert({
             where: { name: candylist[i].name },

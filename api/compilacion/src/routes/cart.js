@@ -38,7 +38,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json(user.cart.candy);
     }
     catch (error) {
-        res.status(404).json("No hay usuarios que mostrar");
+        console.log(error);
     }
 }));
 exports.default = router;

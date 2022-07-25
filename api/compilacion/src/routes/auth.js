@@ -40,14 +40,14 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log('este es el 34', newUser);
         //Adding new Cart to new User
         const theuser = yield prisma.user.findUnique({ where: { id: newUser.id } });
-        // console.log('este es el 36', theuser);
+        console.log('este es el 36', theuser);
         // @ts-ignore
         const newCart = yield prisma.cart.create({
             // @ts-ignore
             data: { userId: theuser.id, orderPrice: 0 }
         });
-        // console.log('este es el 42', newCart);
-        // console.log('este es el 44',newUser)
+        console.log('este es el 42', newCart);
+        console.log('este es el 44', newUser);
         return res.status(201).json({ ok: 'Usuario creado !' });
     }
     catch (error) {

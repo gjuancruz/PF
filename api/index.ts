@@ -26,7 +26,7 @@ app.listen(PORT, async () => {
    // const crearCarrito = await prisma.menu.createMany({
    //    data: candylist
    // })
-   
+   // await prisma.menu.deleteMany({})
    
    for(let i=0;i<candylist.length;i++){
       const movie = await prisma.menu.upsert({
