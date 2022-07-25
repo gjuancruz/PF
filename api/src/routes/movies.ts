@@ -321,7 +321,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
     
     try{
         const payment = await stripe.paymentIntents.create({
-            amount:cart?.orderPrice,
+            amount:cart.orderPrice,
             payment_method:ticket,
             currency:"USD",
             confirm:true,
@@ -336,18 +336,16 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)
         // console.log(seat.id)
-        const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
+        // const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
         
         const newticket = await prisma.ticket.createMany({
             data:{
                 saleId:sale.id,
-                // seatId:seat.id,
-                showId:show,
-                candyId:candy.id
+                showId:show
             }
         })
         const update = await prisma.show.update({where:{id:show},data:{seats:room.seats-1}})
-        console.log(update)
+        // console.log(update)
         // console.log(newticket)
         res.send("Payment received")
     }catch(error:any){
