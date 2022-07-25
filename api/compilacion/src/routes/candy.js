@@ -80,7 +80,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const cart = yield prisma.cart.findUnique({
             where: { id: (_d = user === null || user === void 0 ? void 0 : user.cart) === null || _d === void 0 ? void 0 : _d.id }
         });
-        console.log('this is cart :', cart);
+        // console.log('this is cart :',cart)
         const addNewCandy = yield prisma.cart.update({
             where: { id: (_e = user === null || user === void 0 ? void 0 : user.cart) === null || _e === void 0 ? void 0 : _e.id },
             data: {
@@ -95,7 +95,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 }
             }
         });
-        console.log('this is addNewCandy :', addNewCandy);
+        // console.log('this is addNewCandy :',addNewCandy)
         const newCart = yield prisma.cart.findUnique({
             where: { id: (_f = user === null || user === void 0 ? void 0 : user.cart) === null || _f === void 0 ? void 0 : _f.id }
         });
@@ -103,6 +103,24 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (e) {
         console.log(e.message);
+        res.status(404).json(e.message);
+    }
+}));
+//http://localhost:3001/candy/searchCandy?name=coca
+router.get("/searchCandy", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { name } = req.query;
+        const searchProduct = yield prisma.menu.findMany({
+            where: {
+                name: {
+                    contains: `${name}`,
+                    mode: 'insensitive'
+                }
+            }
+        });
+        res.json(searchProduct);
+    }
+    catch (e) {
         res.status(404).json(e.message);
     }
 }));

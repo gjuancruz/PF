@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
-import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, 
+import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, getDayShow,
   sumEntradas, getCardHistory } from "../../Redux/actions";
+// import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole,getDayShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -19,9 +20,11 @@ export default function MovieDetail(){
     const premieres = useSelector((state) => state.premiere)
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
+    const days = useSelector(state=>state.day)
     const shows= useSelector(state=>state.show)
     const refresh= useSelector(state=>state.refresh)
     const [shown,setShown] = useState(false)
+    const [hourshown,setHourShown] = useState(false)
     const [showid,setShowid] = useState("")
     const allUser = useSelector((state) => state.usuarios);
     let userIdCheck = useSelector ((state) => state.id)
@@ -63,6 +66,22 @@ export default function MovieDetail(){
     // console.log(showid);
 
     for(const show of shows){
+    const selectdia = document.querySelector("#selectDia")
+    const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
+    console.log(days)
+    for(const show of showdays){
+      if(shows.length==0){
+      }if(selectdia.lastChild.text!=shows[shows.length-1].day){
+          var option = document.createElement("option")
+          option.text = show.day
+          option.value = show.day
+          selectdia.add(option)
+          }
+      }
+    }
+      const createOptions=()=>{
+    if(selecthora!=null){
+    for(const show of days){
     if(shows.length==0){
     }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
         var option = document.createElement("option")
@@ -71,16 +90,65 @@ export default function MovieDetail(){
         selecthora.add(option)
         }
     }
-    console.log("fechas/horarios pelicula",shows);
-
+    
     //renderizxar el form en un modal para hacer la parte de chechout
     
+      }
+    }
+  
+  console.log("fechas/horarios pelicula",shows);
+
+    // const CheckoutForm = () =>{
+    //     const dispatch = useDispatch()
+    //     const stripe = useStripe()
+    
+    //     const elements = useElements()
+    //     // const userIdCheck = window.localStorage.getItem('userId')
+    //     // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+    //     // console.log('este seria el showid que le esta llegando',showid)
+    //     const handleStripe = async(e) =>{
+    //         e.preventDefault()
+            
+    //         const {error,paymentMethod} = await stripe.createPaymentMethod({
+    //             type:"card",
+    //             card: elements.getElement(CardElement)
+    //         })
+    //         // console.log('soy el paymentMethod',paymentMethod)
+    //         if(!error){
+    //             dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
+    //         }else console.log(error)
+    //     }
+    //     return<form onSubmit={handleStripe}>
+    //         <CardElement className="form-control"/>
+    //         <button>Realizar pago</button>
+    //     </form>
+    // }
     const handleSubmit = (e)=>{
         setShown(current=>!current)
     }
-    const handleChange=(e)=>{
+    const handleHourChange=(e)=>{
         e.preventDefault()
-        setShowid(e.target.value)  ///modificado default value
+        // setShowid(e.target.value)  ///modificado default value
+        setShowid(e.target.value)
+        setShown(true)
+    }
+    const handleDayChange=(e)=>{
+      e.preventDefault()
+      dispatch(getDayShow(e.target.value,idMovie.id))
+      setHourShown(true)
+      deleteOptions()
+      createOptions()
+    }
+
+    const deleteOptions=()=>{
+      var i, L = selecthora.options.length - 1;
+   for(i = L; i >= 0; i--) {
+      selecthora.remove(i);
+   }
+   const option = document.createElement("option")
+   option.text="Seleccionar hora"
+   option.value=""
+   selecthora.add(option)
     }
     // console.log(toggle);
 
@@ -187,18 +255,18 @@ aria-hidden="true">
                 {premieres.find(m=>m.id ===movieDet.id )?  (<div className="estrenocontenedor"><b className="estrenopelicula" >Entradas disponibles a partir del {movieDet.Release}</b></div>):
                  <div className="select">
                  <div>
-                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
+                 <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
+                    <option value="">Seleccione Dia</option>
+                    </select>
+                    {hourshown?(
+                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleHourChange}>
                     <option value="">Selecciona Hora</option>
                     </select>
-                    <select className="selectDia" name="Dia" id="">
-                    <option value="">Hoy</option>
-                    <option value="">Mañana</option>
-                    <option value="">Proxima Fecha</option>
-                    </select>
-                    </div> 
+):<></>}
+                    </div>
                     <div>
                 
-      {!currentUser[0] ? 
+      {!currentUser[0]? 
       <div>
 <button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 Comprar 
@@ -307,6 +375,10 @@ Comprar
                     <Stripe showid={showid} />
                   </div>
                 }
+                {/* {   shown &&   <div className="d-flex flex-column mb-3">
+                            <CheckoutForm/>
+                    </div>
+                } */}
                 <Comment />
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(

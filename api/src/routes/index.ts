@@ -21,5 +21,4 @@ router.use('/candy', candyRoutes)
 router.use('/tickets', ticketsRoutes)
 router.use('/cart', cart )
 
-
 export default router;

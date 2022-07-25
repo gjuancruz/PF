@@ -13,14 +13,14 @@ model Comment {
   movieId String @db.Uuid
   userId  String @db.Uuid
   movie   Movie  @relation(fields: [movieId], references: [id])
-  user    User   @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Feedback {
   id       String @id @default(uuid()) @db.Uuid
   Text     String @db.Text
   userId   String @db.Uuid 
-  user     User @relation(fields: [userId], references: [id])
+  user     User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Movie {
@@ -52,7 +52,7 @@ model Sale {
   id     String   @id @default(uuid()) @db.Uuid
   receipt String  @unique
   userId String   @db.Uuid
-  user   User     @relation(fields: [userId], references: [id])
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ticket Ticket[]
   candy  Candy[]
 }
@@ -81,7 +81,6 @@ model Ticket {
   id       String   @id @default(uuid()) @db.Uuid
   saleId   String   @db.Uuid
   showId   String   @db.Uuid
-  candyId  String
   sale     Sale @relation(fields: [saleId],references: [id])
   show     Show @relation(fields: [showId], references: [id])
   cart     Cart? 
@@ -132,7 +131,7 @@ model Cart{
   candy      Candy[]
   tickets    Tickets[]
   ticket     Ticket? @relation(fields: [ticketId],references: [id])
-  user       User @relation(fields: [userId],references: [id])
+  user       User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Menu{

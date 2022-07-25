@@ -79,7 +79,7 @@ router.post('/add',  async (req:Request,res:Response)=>{
         const cart = await prisma.cart.findUnique({
             where:{id:user?.cart?.id}
         })
-        console.log('this is cart :',cart)
+        // console.log('this is cart :',cart)
         const addNewCandy = await prisma.cart.update({
             where:{id:user?.cart?.id},
             data:{
@@ -94,7 +94,7 @@ router.post('/add',  async (req:Request,res:Response)=>{
                 }
             }
         })
-        console.log('this is addNewCandy :',addNewCandy)
+        // console.log('this is addNewCandy :',addNewCandy)
         const newCart = await prisma.cart.findUnique({
             where:{id:user?.cart?.id}
         })
@@ -107,5 +107,23 @@ router.post('/add',  async (req:Request,res:Response)=>{
 })
 
 
-
+//http://localhost:3001/candy/searchCandy?name=coca
+router.get("/searchCandy", async (req: Request, res:Response) =>{
+    try {
+        const {name} = req.query;
+        
+            const searchProduct = await prisma.menu.findMany({
+                where: {
+                    name: {
+                        contains: `${name}`,
+                        mode: 'insensitive'
+                    }
+                }
+             })
+            res.json(searchProduct)
+        
+    } catch (e:any) {
+        res.status(404).json(e.message)
+    }
+})
 export default router
