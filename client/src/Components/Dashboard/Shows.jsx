@@ -1,32 +1,23 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShows,postShow,getAllShows,deleteShow} from "../../Redux/actions";
+import { getAllShows,deleteShow} from "../../Redux/actions";
   import CreateShow from "./CreateShow";
+import DeleteShow from "./DeleteShow";
 
 export default function Shows(){
 
   const dispatch = useDispatch();
   const shows = useSelector(state=>state.shows);
-  const [refresh,setRefresh] = useState(1)
-  //const cant_usuarios = usuarios.map((n,i)=>n=i);
+  const [showDlt,setShowDlt] = useState('')
 
-  const handleDelete=(e)=>{
-    if(e.target.nodeName==="I"){
-      const padre = e.target.parentElement.parentElement.parentElement
-      console.log(padre.id)
-      // setRefresh(Math.random())
-      dispatch(deleteShow(padre.id))
-    }else{
-      const padre = e.target.parentElement.parentElement
-      console.log(padre.id)
-      // setRefresh(Math.random())
-      dispatch(deleteShow(padre.id))
-    }
+  const handleDltShow=(e)=>{
+    dispatch(deleteShow(showDlt))
+    setShowDlt('')
   }
 
   useEffect(()=>{
     dispatch(getAllShows())
-  },[dispatch])
+  },[dispatch,showDlt])
 
     return(
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -36,23 +27,9 @@ export default function Shows(){
         <div class="btn-toolbar mb-2 mb-md-0">
         <button type="button" class="btn btn-sm btn-outline-secondary mx-5" data-bs-toggle="modal" data-bs-target="#form">Agregar Funcion</button>
         </div>
+        <CreateShow/>
       </div>
-      <div class="modal fade" id="form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                    <div class="modal-content bg-dark text-white" >
-                                        <div class="modal-header">
-                                            <h5 class="modal-title " id="staticBackdropLabel">Crear Pelicula</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body border-3" >
-                                            <CreateShow></CreateShow>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Volver</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+      
       <div class="table-responsive">
         <table class="table table-dark table-striped">
           <thead>
@@ -78,8 +55,9 @@ export default function Shows(){
                   <td>{s.type}</td>
                   <td>{s.seats}</td>
                   <td>
-                    <button class="btn btn-outline-warning" onClick={handleDelete}><i class="bi bi-trash3"></i></button>
+                  <button class="btn btn-outline-warning"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => setShowDlt(s.id)}></i></button>
                   </td>
+                  <DeleteShow handleDltShow={handleDltShow}/>
                 </tr>)
               )
             }
@@ -87,7 +65,5 @@ export default function Shows(){
         </table>
        </div>
         </main>
-        
-      
     )
 }

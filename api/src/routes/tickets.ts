@@ -10,19 +10,35 @@ const prisma = new PrismaClient()
 router.post('/addTickets', async (req:Request, res:Response)=>{
     try {
         const {userId, seats, showId, cartId } = req.body
+        console.log("vienen por body", userId, seats, showId, cartId);
+
+        const user = await prisma.user.findUnique({
+            where: {id: userId},
+            include: {
+                cart: true
+            }
+        })
+
+        console.log("info user :", user);
+        
         const show: any = await prisma.show.findUnique({
             where:{id:showId}
         })
+        console.log("entro a show :",show);
+        
         const seatsAvailable = await prisma.show.update({
             where:{id:showId},
             data:{
                 seats: show.seats - seats,
             }
         })
+        console.log("seats Avaliable entro :", seatsAvailable);
 
         const cart = await prisma.cart.findUnique({
-            where:{id:cartId}
+            where:{id:user?.cart?.id}
         })
+        console.log("entro a cart :", cart);
+
         const newTickets = await prisma.tickets.create({
             data:{
                 showId: show.id,
@@ -33,8 +49,10 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
                 cartId: cart.id,
             }
         })
+        console.log("newTickets :", newTickets);
+
         const addNewTickets = await prisma.cart.update({
-            where:{id:cartId},
+            where:{id:user?.cart?.id},
             data:{
                 // @ts-ignore
                 orderPrice: cart.orderPrice + newTickets.totalPrice,
@@ -48,29 +66,29 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
                 }
             }
         })
-        const userToRender = await prisma.user.findUnique({
-            where:{id:userId},
-            include : {
-                cart:{
-                    select:{
-                        id:true,
-                        orderPrice:true,
-                        userId:true,
-                        tickets:{
-                            select:{
-                                id:true,
-                                showId:true,
-                                userId:true,
-                                seats:true,
-                                totalPrice:true,
-                            }
-                        }
-                    }
-                }
-            }
-        })
+        // const userToRender = await prisma.user.findUnique({
+        //     where:{id:userId},
+        //     include : {
+        //         cart:{
+        //             select:{
+        //                 id:true,
+        //                 orderPrice:true,
+        //                 userId:true,
+        //                 tickets:{
+        //                     select:{
+        //                         id:true,
+        //                         showId:true,
+        //                         userId:true,
+        //                         seats:true,
+        //                         totalPrice:true,
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // })
 
-        return res.json(userToRender)
+        return res.json(addNewTickets)
     } catch (e:any) {
         res.json(e.message)
     }
