@@ -22,3 +22,9 @@
     color: rgb(255, 215, 0);
 
 }
+.image{
+    border-radius: 5px;
+    /* height: auto;
+max-width: 100%; */
+    
+}
