@@ -69,5 +69,23 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(404).json(e.message);
     }
 }));
+//http://localhost:3001/candy/searchCandy?name=coca
+router.get("/searchCandy", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { name } = req.query;
+        const searchProduct = yield prisma.menu.findMany({
+            where: {
+                name: {
+                    contains: `${name}`,
+                    mode: 'insensitive'
+                }
+            }
+        });
+        res.json(searchProduct);
+    }
+    catch (e) {
+        res.status(404).json(e.message);
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=candy.js.map

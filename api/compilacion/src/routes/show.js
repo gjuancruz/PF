@@ -110,7 +110,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(200).send("Lista de shows generada");
         }
         for (let i = 0; i < data.length; i++) {
-            const finder = showid.find((e) => e.schedule == data[i].schedule && e.day === data[i].day);
+            const finder = showid.find((e) => e.schedule == data[i].schedule || e.day === data[i].day);
             if (finder == undefined) {
                 const shows = yield prisma.show.create({
                     data: data[i]

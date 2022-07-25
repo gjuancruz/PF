@@ -114,7 +114,7 @@ export default function SalesBalanceMovies(){
             <ChartPie/>
             </div>
             <div class='card-footer text-muted'>
-            Top 5 mas vendidas
+            Top 6 mas vendidas
             </div>
         </div>
 
