@@ -109,7 +109,7 @@ router.post("/",async(req:Request,res:Response)=>{
             return res.status(200).send("Lista de shows generada")
         }
         for(let i=0;i<data.length;i++){
-            const finder = showid.find((e:any)=>e.schedule==data[i].schedule&&e.day===data[i].day)
+            const finder = showid.find((e:any)=>e.schedule==data[i].schedule||e.day===data[i].day)
             if(finder==undefined){
                 const shows = await prisma.show.create({
                     data:data[i] 

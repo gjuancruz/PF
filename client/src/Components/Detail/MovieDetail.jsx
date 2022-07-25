@@ -42,7 +42,9 @@ export default function MovieDetail(){
 
     const selecthora = document.querySelector("#selectHora")
     const selectdia = document.querySelector("#selectDia")
-    for(const show of shows){
+    const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
+    console.log(days)
+    for(const show of showdays){
       if(shows.length==0){
       }if(selectdia.lastChild.text!=shows[shows.length-1].day){
           var option = document.createElement("option")
@@ -51,6 +53,8 @@ export default function MovieDetail(){
           selectdia.add(option)
           }
       }
+
+      const createOptions=()=>{
     if(selecthora!=null){
     for(const show of days){
     if(shows.length==0){
@@ -62,7 +66,7 @@ export default function MovieDetail(){
         }
     }
   }
-
+      }
     const CheckoutForm = () =>{
         const dispatch = useDispatch()
         const stripe = useStripe()
@@ -78,7 +82,7 @@ export default function MovieDetail(){
                 type:"card",
                 card: elements.getElement(CardElement)
             })
-            console.log('soy el paymentMethod',paymentMethod)
+            // console.log('soy el paymentMethod',paymentMethod)
             if(!error){
                 dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
             }else console.log(error)
@@ -100,6 +104,19 @@ export default function MovieDetail(){
       e.preventDefault()
       dispatch(getDayShow(e.target.value,idMovie.id))
       setHourShown(true)
+      deleteOptions()
+      createOptions()
+    }
+
+    const deleteOptions=()=>{
+      var i, L = selecthora.options.length - 1;
+   for(i = L; i >= 0; i--) {
+      selecthora.remove(i);
+   }
+   const option = document.createElement("option")
+   option.text="Seleccionar hora"
+   option.value=""
+   selecthora.add(option)
     }
     const [num, setNum] = useState(0);
 
