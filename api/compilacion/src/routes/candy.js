@@ -124,5 +124,66 @@ router.get("/searchCandy", (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(404).json(e.message);
     }
 }));
+// http://localhost:3001/candy/delete
+router.delete('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _g, _h, _j, _k;
+    try {
+        const { index, quantity, cartId, userId } = req.body;
+        let newCandy;
+        //buscar el card id del usuario
+        const user = yield prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        console.log("info user", user);
+        const product = yield prisma.menu.findUnique({
+            where: { id: index }
+        });
+        const userCandy = (_g = user === null || user === void 0 ? void 0 : user.cart) === null || _g === void 0 ? void 0 : _g.candy.find(item => item.name === product.name);
+        const userQuantity = userCandy === null || userCandy === void 0 ? void 0 : userCandy.quantity;
+        console.log('this is userQuantity :', userQuantity);
+        console.log('this is product :', product);
+        // @ts-ignore
+        const totalPrice = product.price * userQuantity;
+        if (userCandy) {
+            newCandy = yield prisma.candy.deleteMany({
+                where: {
+                    //@ts-ignore
+                    id: userCandy.id
+                    // cartId:user?.cart?.id
+                    // name:product.name
+                },
+            });
+        }
+        const cart = yield prisma.cart.findUnique({
+            where: { id: (_h = user === null || user === void 0 ? void 0 : user.cart) === null || _h === void 0 ? void 0 : _h.id }
+        });
+        console.log('this is cart :', cart);
+        yield prisma.cart.update({
+            where: { id: (_j = user === null || user === void 0 ? void 0 : user.cart) === null || _j === void 0 ? void 0 : _j.id },
+            data: {
+                // @ts-ignore
+                orderPrice: cart.orderPrice - totalPrice,
+                // @ts-ignore
+                userId: cart.userId,
+            }
+        });
+        const newCart = yield prisma.cart.findUnique({
+            where: { id: (_k = user === null || user === void 0 ? void 0 : user.cart) === null || _k === void 0 ? void 0 : _k.id }
+        });
+        return res.json(newCart);
+    }
+    catch (e) {
+        console.log(e.message);
+        res.status(404).json(e.message);
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=candy.js.map
