@@ -315,37 +315,40 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 router.post("/checkout",async(req:Request,res:Response)=>{
 
-    const {show,cartId,ticket} = req.body
-    const cart :any = await prisma.cart.findUnique({where:{id:cartId}})
+    const {ticket,amount,show,userId} = req.body
+    console.log(show)
     const stripe = new Stripe(STRIPE_KEY,{apiVersion:"2020-08-27"})
-    
+    const data:any={
+        username:"Ignacio Brunello",
+        password:"1234",
+        role:1
+    }
     try{
         const payment = await stripe.paymentIntents.create({
-            amount:cart.orderPrice,
+            amount,
             payment_method:ticket,
             currency:"USD",
             confirm:true,
         })
-        console.log(payment)
         const sale = await prisma.sale.create({data:{
             receipt:ticket,
-            user:{
-                connect:{id:cart.userId}
-            }
+            userId:userId
         }})
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)
         // console.log(seat.id)
-        // const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
+        const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
         
         const newticket = await prisma.ticket.createMany({
             data:{
                 saleId:sale.id,
-                showId:show
+                // seatId:seat.id,
+                showId:show,
+                candyId:candy.id
             }
         })
         const update = await prisma.show.update({where:{id:show},data:{seats:room.seats-1}})
-        // console.log(update)
+        console.log(update)
         // console.log(newticket)
         res.send("Payment received")
     }catch(error:any){

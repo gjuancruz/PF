@@ -5,35 +5,32 @@ import Users from "./Users";
 import Movies from "./Movies";
 import Shows from "./Shows";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, getUsers, verifyRole } from "../../Redux/actions";
-import Candy from "./Candy";
-import SalesBalanceMovies from "./SalesBalanceMovies";
+import { getUsers, verifyRole } from "../../Redux/actions";
+
+
 
 
 export default function MenuDashboard(){
   
   const dispatch = useDispatch()
-    useEffect(() =>{
-        dispatch(getUsers())
-        dispatch(verifyRole())
-    },[])
-
-    const allUsers = useSelector ((state) => state.usuarios)
-    const userIdCheck = window.localStorage.getItem('userId')
-    const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-    let role = useSelector ((state) => state.role)
-    const [component,setComponent] = useState("")
-
-    const handleSideBar= ()=>{
-        if (component=== 'usuarios') return (<Users/>)
-        if (component === 'comentarios') return (<Comments/>)
-        if (component === "feedback" ) return (<Feedback/>)
-        if (component === 'movies') return (<Movies/>)
-        if (component === 'funciones') return(<Shows/>)
-        if (component === 'salesMovies') return(<SalesBalanceMovies/>)
-        if (component === 'candy') return(<Candy/>)
-    }
-
+  const allUsers = useSelector ((state) => state.usuarios)
+  const userIdCheck = window.localStorage.getItem('userId')
+  const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+  let role = useSelector ((state) => state.role)
+  const [component,setComponent] = useState("")
+  
+  const handleSideBar= ()=>{
+    if (component=== 'usuarios') return (<Users/>)
+    if (component === 'comentarios') return (<Comments/>)
+    if (component === "feedback" ) return (<Feedback/>)
+    if (component === 'movies') return (<Movies/>)
+    if (component === 'funciones') return(<Shows/>)
+  }
+  
+  useEffect(() =>{
+      dispatch(getUsers());
+      dispatch(verifyRole())
+  },[])
     return (
       <div>
       {(role === 'admin')?
@@ -59,13 +56,8 @@ export default function MenuDashboard(){
               </a>
             </li>
             <li>
-            <a href="#" class="btn btn-outline-warning border-0 text-white" onClick={e=>setComponent("salesMovies")}>
-                Ventas de peliculas
-              </a>
-            </li>
-            <li>
-              <a href="#" class="btn btn-outline-warning border-0 text-white"onClick={e=>setComponent("candy")}>
-                Candy
+              <a href="#" class="btn btn-outline-warning border-0 text-white">
+                Balance de ventas
               </a>
             </li>
             <li>
@@ -91,10 +83,11 @@ export default function MenuDashboard(){
             <strong>admin</strong>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="/home">Home</a></li>
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><hr class="dropdown-divider"></hr></li>
-            <li><a class="dropdown-item" href="/home" onClick={logout()}>Cerrar Sesion</a></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
           </ul>
         </div>
         </div>
@@ -102,9 +95,9 @@ export default function MenuDashboard(){
        {handleSideBar()}
         </div>
         </div>
-         :
-       null
-       }
+        :
+      <h1>ERROR: Unauthorized</h1>
+      }
       </div>
     )
 }
