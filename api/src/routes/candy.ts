@@ -95,6 +95,7 @@ router.delete('/delete',  async (req:Request,res:Response)=>{
         console.log('this is userQuantity :',userQuantity)
 
         console.log('this is product :',product)
+        
         // @ts-ignore
         const totalPrice = product.price*userQuantity
 
