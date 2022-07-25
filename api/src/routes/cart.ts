@@ -31,7 +31,7 @@ router.post("/", async (req:Request, res:Response) =>{
         res.json(user.cart.candy);
     
     }catch (error:any) {
-        res.status(404).json("No hay usuarios que mostrar")
+        console.log(error)
     }
 })
 
