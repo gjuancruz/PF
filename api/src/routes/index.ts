@@ -19,5 +19,4 @@ router.use('/show',show)
 router.use('/candy', candyRoutes)
 router.use('/tickets', ticketsRoutes)
 
-
 export default router;

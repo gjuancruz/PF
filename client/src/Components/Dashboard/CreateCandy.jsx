@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { createUser, getUsers } from "../../Redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-export default function CreateUser() {
+export default function CreateCandy() {
   const [formSend, setFormSend] = useState(false);
   const dispatch = useDispatch();
 
   return (
     <div
       class="modal fade"
-      id="staticBackdropp"
+      id="staticBackdroppp"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -19,7 +19,7 @@ export default function CreateUser() {
         <div class="modal-content bg-dark ">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              AGREGAR NUEVO USUARIO
+              AGREGAR NUEVO PRODUCTO
             </h5>
             <button
               type="button"
