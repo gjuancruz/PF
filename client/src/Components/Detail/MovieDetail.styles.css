@@ -46,6 +46,7 @@
     width: 300px;
     float: left;
     margin-right: 20px;
+    margin-bottom: 42px;
 }
 .texto{
     font-size: 18px;
@@ -83,7 +84,7 @@ p{
     
 }
 
-.selectHora{
+.selectHora, .tipo{
     background-color:rgb(255, 215, 0);
     border: none;
     font-size: 14px;
@@ -104,7 +105,7 @@ p{
     width: 120px;
     border-radius: 10px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 0px;
     margin-right: 20px;
 }
 select:hover{
@@ -134,12 +135,15 @@ select:hover{
     font-size: 14px;
     height: 30px;
     padding: 5px 8px 5px 10px;
-    width: 120px;
-    border-radius: 10px;
+    width: 15%;
+    border-radius: 5px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-right: 20px;
+    margin-left: 10px;
     transition: 0.7s;
+    bottom: 60px;
+    
     }
 
     .botoncomprar2:hover {
@@ -219,4 +223,17 @@ select:hover{
 
 .ratio-16x9{
     background-color: #000;
+}
+.form-select{
+    width: 40%;
+}
+.mb-3{
+    margin-top: 0px !important;
+}
+.contenedorcomprar{
+    margin: 0;
+    padding: 0;
+}
+.contenedorp{
+    margin-top: 10px;
 }

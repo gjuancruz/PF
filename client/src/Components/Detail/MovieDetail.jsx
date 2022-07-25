@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
 import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, 
-  sumEntradas, getCardHistory } from "../../Redux/actions";
+  sumEntradas, getCardHistory, filterByType } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
@@ -17,7 +17,6 @@ import { Checkout } from '../Checkout/Checkout'
 export default function MovieDetail(){
     const dispatch = useDispatch()
     const idMovie=useParams()
-    const allCartelera = useSelector ((state) => state.carteleraFiltered)
     const premieres = useSelector((state) => state.premiere)
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
@@ -30,10 +29,12 @@ export default function MovieDetail(){
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     const movieVideo=useSelector(state=>state.movieDetail.Trailer)
     const [checkbtn, setcheckbtn] = useState(false);
+    const filertype= useSelector(state=>state.carteleraFiltered)
     
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
+    // console.log("soy filter",filertype)
     const [toggle,setToggle] = useState(false)
 
     const storeCandy = useSelector(state => state.storeCandy)
@@ -123,14 +124,17 @@ export default function MovieDetail(){
     // console.log("detail User  " + idUser)
     // console.log(cart);
    
-    function handleClickVideo(e){
-      // e.preventDefault()
-      window.parent.location.reload()
+    const handleSelectType = (e) => {
+      e.preventDefault();
+      console.log('Filter by Type changed');
+      dispatch(filterByType(e.target.value))
+  }
+      
       
     
       
       
-    }
+    
 
     return(
         <div className="MovieDetail">
@@ -173,6 +177,7 @@ export default function MovieDetail(){
                 <p><b>Duración: </b> {movieDet.Runtime} min</p>
                 <p><b>Idioma: </b> {movieDet.Language}</p>
                 
+                
                 </div>
                 <div className="divTrailer">
                 
@@ -191,7 +196,7 @@ aria-hidden="true">
     <div class="modal-content bg-dark">
       <div class="modal-header">
         
-        <button class="btn-close"  data-bs-dismiss="modal" aria-label="Close" onClick={handleClickVideo} ></button>
+        <button class="btn-close"  data-bs-dismiss="modal" aria-label="Close"  ></button>
       </div>
       <div class="modal-body">
       <div class="ratio ratio-4x3">
@@ -209,8 +214,15 @@ aria-hidden="true">
 
                 {premieres.find(m=>m.id ===movieDet.id )?  (<div className="estrenocontenedor"><b className="estrenopelicula" >Entradas disponibles a partir del {movieDet.Release}</b></div>):
                  <div className="select">
-                 <div>
-                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
+                 <p className="contenedorp">
+  
+  <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+  <b>Elige el dia de la funcion</b>
+  </button>
+</p>
+<div class="collapse" id="collapseExample1">
+  
+<select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
                     <option value="">Selecciona Hora</option>
                     </select>
                     <select className="selectDia" name="Dia" id="">
@@ -218,11 +230,16 @@ aria-hidden="true">
                     <option value="">Mañana</option>
                     <option value="">Proxima Fecha</option>
                     </select>
-                    </div> 
+                    <select className="tipo" onChange={handleSelectType}>
+                      {filertype.find(f=>f.id === movieDet.id)? <option >{movieDet.Type}</option> : null}
+
+                    </select>
+  
+</div>
                     <div>
                 
       {!currentUser[0] ? 
-      <div>
+      <div className="comprar">
 <button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 Comprar 
 </button>
@@ -252,6 +269,7 @@ Comprar
   </div>
 </div>
 </div> :
+  <div className="contenedorcomprar">
       <button
         className="botoncomprar2"
         type="button"
@@ -262,6 +280,7 @@ Comprar
        
         Comprar 
       </button>
+      </div>
 }
       <div
         class="modal fade"
