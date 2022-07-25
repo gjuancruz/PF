@@ -76,7 +76,7 @@ export default function Movies(){
                             
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Volver</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={()=>setMovieId("")}>Volver</button>
                                     </div>
                                 </div>
                             </div>

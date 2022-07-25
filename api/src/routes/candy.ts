@@ -66,5 +66,23 @@ router.post('/add',  async (req:Request,res:Response)=>{
 })
 
 
-
+//http://localhost:3001/candy/searchCandy?name=coca
+router.get("/searchCandy", async (req: Request, res:Response) =>{
+    try {
+        const {name} = req.query;
+        
+            const searchProduct = await prisma.menu.findMany({
+                where: {
+                    name: {
+                        contains: `${name}`,
+                        mode: 'insensitive'
+                    }
+                }
+             })
+            res.json(searchProduct)
+        
+    } catch (e:any) {
+        res.status(404).json(e.message)
+    }
+})
 export default router

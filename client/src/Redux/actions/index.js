@@ -22,6 +22,7 @@ export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 export const VERIFY_ROLE='VERIFY_ROLE'
+export const GET_CANDY='GET_CANDY'
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -331,6 +332,7 @@ export function getUsers(){
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
   }
 }
+
 export function searchUser(name){
   return async function (dispatch) {
       try {
@@ -367,7 +369,7 @@ export function deleteUser(email){
 
 export function createUser(user){
   return async function(dispatch){
-      const data = await axios.post("http://localhost:3001/admin/createUser", user)
+      const data = await axios.post("http://localhost:3001/auth/register", user)
       return data;
   }
 }
@@ -446,5 +448,13 @@ export function verifyRole(){
       payload: {role: data.data.role,
                 id: data.data.id}
     })
+  }
+}
+
+///////RUTAS CANDY//////
+export function getCandy(){
+  return async function(dispatch){
+    var get_candy = await axios.get("http://localhost:3001/candy");
+    return dispatch ({type: GET_CANDY, payload: get_candy.data})
   }
 }

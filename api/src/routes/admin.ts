@@ -13,7 +13,12 @@ router.get("/", async (req:Request, res:Response) =>{
     try{
         const users = await prisma.user.findMany({
             include: {
-                cart: true
+                cart:  {
+                    include : {
+                        tickets: true,
+                        candy: true
+                    }
+                }
             }
         })
         res.json(users);
@@ -27,7 +32,7 @@ router.get("/", async (req:Request, res:Response) =>{
 router.get("/searchUser", async (req: Request, res:Response) =>{
     try {
         const {username} = req.query;
-    console.log("esto es",req.query)
+        
             const searchName = await prisma.user.findMany({
                 where: {
                     username: {
@@ -37,7 +42,6 @@ router.get("/searchUser", async (req: Request, res:Response) =>{
                 }
              })
             res.json(searchName)
-        
         
     } catch (e:any) {
         res.status(404).json(e.message)
@@ -92,9 +96,10 @@ router.put("/updateUser", async (req:Request, res:Response) =>{
 
 //http://localhost:3001/admin/deleteUser
 router.delete("/deleteUser", async (req:Request, res:Response) =>{
+   
     try{
-        console.log(req.body)
         const {email} = req.body;
+        console.log('esto es email',email)
 
         const deleteUser = await prisma.user.delete({
             where: {email:`${email}`},

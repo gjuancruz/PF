@@ -18,7 +18,12 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield prisma.user.findMany({
             include: {
-                cart: true
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
             }
         });
         res.json(users);
@@ -31,7 +36,6 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get("/searchUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username } = req.query;
-        console.log("esto es", req.query);
         const searchName = yield prisma.user.findMany({
             where: {
                 username: {
@@ -89,8 +93,8 @@ router.put("/updateUser", (req, res) => __awaiter(void 0, void 0, void 0, functi
 //http://localhost:3001/admin/deleteUser
 router.delete("/deleteUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body);
         const { email } = req.body;
+        console.log('esto es email', email);
         const deleteUser = yield prisma.user.delete({
             where: { email: `${email}` },
         });
