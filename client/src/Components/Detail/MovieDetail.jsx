@@ -29,12 +29,13 @@ export default function MovieDetail(){
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     const movieVideo=useSelector(state=>state.movieDetail.Trailer)
     const [checkbtn, setcheckbtn] = useState(false);
-    const filertype= useSelector(state=>state.carteleraFiltered)
+    const filertype= useSelector(state=>state.cartelera)
+    const Type=useSelector(state=>state.movieDetail.Type)
     
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
-    // console.log("soy filter",filertype)
+    console.log("soy filter",Type)
     const [toggle,setToggle] = useState(false)
 
     const storeCandy = useSelector(state => state.storeCandy)
@@ -119,10 +120,7 @@ export default function MovieDetail(){
       setNum(num - 1);
     }
     const HoraPelicula = shows.find( item => item.id === showid)
-    // console.log(HoraPelicula);
-
-    // console.log("detail User  " + idUser)
-    // console.log(cart);
+   
    
     const handleSelectType = (e) => {
       e.preventDefault();
@@ -130,7 +128,10 @@ export default function MovieDetail(){
       dispatch(filterByType(e.target.value))
   }
       
-      
+      // function handleselectOneType(e){
+      //   e.preventDefault();
+      //   dispatch(filterOneType(e.target.value))
+      // }
     
       
       
@@ -245,7 +246,7 @@ aria-hidden="true">
   </div>
 </div>
                 </div> 
-               
+              
                 
 
                 {premieres.find(m=>m.id ===movieDet.id )?  (<div className="estrenocontenedor"><b className="estrenopelicula" >Entradas disponibles a partir del {movieDet.Release}</b></div>):
@@ -266,11 +267,20 @@ aria-hidden="true">
                     <option value="">Mañana</option>
                     <option value="">Proxima Fecha</option>
                     </select>
-                    <select className="tipo" onChange={handleSelectType}>
-                      {filertype.find(f=>f.id === movieDet.id)? <option >{movieDet.Type}</option> : null}
+                    <select className="tipo" >
+                        {Type?.split(",").map(d=>{
+                  return (<option value={d}>{d}</option>)
+                  })}
+                
 
                     </select>
-  
+                    
+                    <select className="selectIdioma">
+                      
+                    {movieDet.Language?.split(",").map(d=>{
+                  return (<option value={d}>{d}</option>)
+                  })}
+                  Idioma</select>
 </div>
                     <div>
                 
@@ -309,11 +319,11 @@ Comprar
       <button
         className="botoncomprar2"
         type="button"
-       
+      
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
-       
+      
         Comprar 
       </button>
       </div>

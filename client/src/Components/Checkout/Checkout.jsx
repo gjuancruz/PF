@@ -295,7 +295,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                                 src={item.picture}
                                 width={"120px"}
                             />
-                            <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
+                            <span style={{paddingRight: "10px"}}>Precio: ${item.price}</span>
                             <input type="number" min='0' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
                                 value={eval(item.name.split(' ')[1]).value}
                             />
@@ -363,16 +363,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cerrar
-              </button>
-              <button type="button" class="btn btn-warning">
-                Ir al carrito
-              </button>
+             
             </div>
           </div>
         </div>

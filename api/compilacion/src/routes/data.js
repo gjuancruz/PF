@@ -20,7 +20,7 @@ exports.spider = {
     Plot: "Tras descubrirse la identidad secreta de Peter Parker como Spider-Man, la vida del joven se vuelve una locura. Peter decide pedirle ayuda al Doctor Extraño para recuperar su vida. Pero algo sale mal y provoca una fractura en el multiverso",
     Genre: "Acción, Aventura, Fantasía",
     Actors: "Tom Holland, Zendaya, Benedict Cumberbatch",
-    Language: "Español, Inglés",
+    Language: "Español, Inglés(Subtitulado)",
     Director: "Jon Watts",
     Release: "17 Dec 2021",
     Poster: "https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_SX300.jpg",
@@ -39,7 +39,7 @@ exports.sonic = {
     Release: "08 Apr 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BMGI1NjA1MjUtNGQxNC00NDYyLThjODgtZjFkZjQ4OGM0NDc5XkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_SX300.jpg",
     Rated: "PG",
-    Type: "3D",
+    Type: "3D,2D",
     Trailer: "https://www.youtube.com/embed/2OMixTIRQcY",
     Runtime: 122
 };
@@ -81,7 +81,7 @@ exports.jurassic = {
     Release: "10 Jun 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
     Rated: "PG-13",
-    Type: "2D",
+    Type: "2D,3D",
     Trailer: "https://www.youtube.com/embed/rjQDdt5O99U",
     Runtime: 147
 };
@@ -109,7 +109,7 @@ exports.lightyear = {
     Release: "30 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BYTg2Zjk0ZTctM2ZmMi00MDRmLWJjOGYtNWM0YjBmZTBjMjRkXkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_SX300.jpg",
     Rated: "PG",
-    Type: "2D",
+    Type: "2D,3D",
     Trailer: "https://www.youtube.com/embed/lKLqrpYNfnA",
     Runtime: 100
 };
@@ -123,7 +123,7 @@ exports.topGun = {
     Release: "27 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BOWQwOTA1ZDQtNzk3Yi00ZmVmLWFiZGYtNjdjNThiYjJhNzRjXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
     Rated: "PG-13",
-    Type: "2D",
+    Type: "2D,3D",
     Trailer: "https://www.youtube.com/embed/S_QkFkOb_HE",
     Runtime: 130
 };
