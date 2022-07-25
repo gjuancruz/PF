@@ -22,12 +22,13 @@ export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 export const ADD_CANDY="ADD_CANDY";
-export const GET_CANDY="GET_CANDY";
 export const TOTAL="TOTAL";
-export const ENTRADAS="ENTRADAS";
-export const VERIFY_ROLE='VERIFY_ROLE';
+export const ENTRADAS="ENTRADAS";;
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
+export const VERIFY_ROLE='VERIFY_ROLE'
+export const GET_DAY_SHOW="GET_DAY_SHOW"
+export const GET_CANDY='GET_CANDY'
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -253,7 +254,7 @@ export function getShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.get('http://localhost:3001/show/one/'+movieId)
-      console.log(json.data)
+      // console.log(json.data)
       return dispatch({
         type: GET_SHOW,
         payload:json.data
@@ -264,12 +265,26 @@ export function getShow(movieId){
   }
 }
 
+export function getDayShow(day,id){
+  return async function(dispatch){
+    try{
+      const json = await axios.get(`http://localhost:3001/show/day?day=${day}&id=${id}`)
+      return dispatch({
+        type:GET_DAY_SHOW,
+        payload:json.data
+      })
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
+
 export function deleteShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
       // console.log(json.data)
-      console.log(json.data)
+      // console.log(json.data)
     }catch(error){
       console.log(error)
     }
@@ -337,6 +352,7 @@ export function getUsers(){
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
   }
 }
+
 export function searchUser(name){
   return async function (dispatch) {
       try {
@@ -373,7 +389,7 @@ export function deleteUser(email){
 
 export function createUser(user){
   return async function(dispatch){
-      const data = await axios.post("http://localhost:3001/admin/createUser", user)
+      const data = await axios.post("http://localhost:3001/auth/register", user)
       return data;
   }
 }
@@ -511,5 +527,12 @@ export function postCandys(payload){
     } catch (error) {
       console.log(error)
     }
+    }
+  }
+///////RUTAS CANDY//////
+export function getCandy(){
+  return async function(dispatch){
+    var get_candy = await axios.get("http://localhost:3001/candy");
+    return dispatch ({type: GET_CANDY, payload: get_candy.data})
   }
 }
