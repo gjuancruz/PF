@@ -18,7 +18,7 @@ export const spider = {
     Plot: "Tras descubrirse la identidad secreta de Peter Parker como Spider-Man, la vida del joven se vuelve una locura. Peter decide pedirle ayuda al Doctor Extraño para recuperar su vida. Pero algo sale mal y provoca una fractura en el multiverso",
     Genre: "Acción, Aventura, Fantasía",
     Actors: "Tom Holland, Zendaya, Benedict Cumberbatch",
-    Language: "Español, Inglés(Subtitulado)",
+    Language: "Español, Inglés",
     Director: "Jon Watts",
     Release: "17 Dec 2021",
     Poster: "https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_SX300.jpg",

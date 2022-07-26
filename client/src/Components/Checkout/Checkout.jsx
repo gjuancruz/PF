@@ -30,6 +30,8 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
   const idUser = useSelector(state => state.id)
 
+  const shows= useSelector(state=> state.show)
+
   // const idUser = useSelector(state => state.id)
 
   const obtenerCantidad = (nombre) => {

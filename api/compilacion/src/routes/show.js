@@ -98,7 +98,7 @@ router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body.data;
     const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId, day: data.day, type: data.type };
-    // console.log(data)
+    console.log(data);
     try {
         const data = yield showGenerator(show);
         const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true, day: true } });

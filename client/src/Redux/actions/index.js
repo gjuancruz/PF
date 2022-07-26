@@ -28,7 +28,8 @@ export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
-export const GET_DAY_SHOW="GET_DAY_SHOW"
+export const GET_DAY_SHOW="GET_DAY_SHOW";
+export const SELECT_BY_TYPE='SELECT_BY_TYPE';
 
 
 export function getBillboard() {
@@ -501,9 +502,12 @@ export function sumTotal(payload){
 
 export function sumEntradas(payload){
   return async function(dispatch){
+    console.log("info SumEntradas: ", payload);
+    const resp = await axios.post('/tickets/addTickets', payload)
+    console.log("respuesta Tickets:",resp);
     return dispatch({
       type: ENTRADAS,
-      payload: payload
+      payload: payload.seats
     })
   }
 }
@@ -529,6 +533,13 @@ export function postCandys(payload){
       console.log(error)
     }
   }
+}
+
+export function selectByType(payload) {
+  return {
+    type: SELECT_BY_TYPE,
+    payload,
+  };
 }
 ///////RUTAS CANDY//////
 // export function getCandy(){

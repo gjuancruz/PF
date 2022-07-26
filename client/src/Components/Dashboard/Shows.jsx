@@ -9,6 +9,7 @@ export default function Shows(){
   const dispatch = useDispatch();
   const shows = useSelector(state=>state.shows);
   const [showDlt,setShowDlt] = useState('')
+  console.log("soy",shows)
 
   const handleDltShow=(e)=>{
     dispatch(deleteShow(showDlt))

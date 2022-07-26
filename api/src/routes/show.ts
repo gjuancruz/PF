@@ -22,7 +22,7 @@ const showGenerator = async(show:any) => {
        data.reverse()
        const lasthour = parseInt(last ? last.schedule.slice(0,2):"13")
        const lastminute = parseInt(last ? last.schedule.slice(3,5):"00")
-       
+
        var newhour = lasthour+hour
        var newminute = lastminute + minute + 10 
        if(newminute>=60) {
@@ -97,7 +97,7 @@ router.delete("/one/:id",async(req:Request,res:Response)=>{
 router.post("/",async(req:Request,res:Response)=>{
     const data : any= req.body.data
     const show = {schedule:data.schedule,roomId:parseInt(data.roomId),movieId:data.movieId,day:data.day,type:data.type} 
-    // console.log(data)
+    console.log(data)
     try{
         const data = await showGenerator(show)
         const showid : any = await prisma.show.findMany({where:{id!:undefined},select:{id:true,schedule:true,day:true}})
@@ -124,6 +124,7 @@ router.post("/",async(req:Request,res:Response)=>{
 
 router.get("/day",async(req:Request,res:Response)=>{
     const {day,id} :any= req.query
+    console.log(day,id)
     try{
         const data = await prisma.show.findMany({where:{day:day,movieId:id}})
         console.log(data)

@@ -80,7 +80,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const cart = yield prisma.cart.findUnique({
             where: { id: (_d = user === null || user === void 0 ? void 0 : user.cart) === null || _d === void 0 ? void 0 : _d.id }
         });
-        // console.log('this is cart :',cart)
+        console.log('this is cart :', cart);
         const addNewCandy = yield prisma.cart.update({
             where: { id: (_e = user === null || user === void 0 ? void 0 : user.cart) === null || _e === void 0 ? void 0 : _e.id },
             data: {
@@ -95,7 +95,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 }
             }
         });
-        // console.log('this is addNewCandy :',addNewCandy)
+        console.log('this is addNewCandy :', addNewCandy);
         const newCart = yield prisma.cart.findUnique({
             where: { id: (_f = user === null || user === void 0 ? void 0 : user.cart) === null || _f === void 0 ? void 0 : _f.id }
         });
