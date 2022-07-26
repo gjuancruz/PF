@@ -309,7 +309,6 @@ router.get('/search', async (req: Request, res:Response) =>{
     } catch (error) {
         res.status(404).json("no se encontro peli con ese nombre")
     }
-   
 })
 
 
