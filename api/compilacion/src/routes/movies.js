@@ -301,9 +301,10 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { show, cartId, ticket } = req.body;
-    const cart = yield prisma.cart.findUnique({ where: { id: cartId } });
+    const { show, idUser, ticket } = req.body;
+    const cart = yield prisma.cart.findUnique({ where: { userId: idUser } });
     const stripe = new stripe_1.default(STRIPE_KEY, { apiVersion: "2020-08-27" });
+    console.log(cart);
     try {
         const payment = yield stripe.paymentIntents.create({
             amount: cart.orderPrice,
@@ -323,12 +324,13 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         // console.log(seat.id)
         // const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
         const newticket = yield prisma.ticket.createMany({
+            //@ts-ignore
             data: {
                 saleId: sale.id,
                 showId: show
             }
         });
-        const update = yield prisma.show.update({ where: { id: show }, data: { seats: room.seats - 1 } });
+        const update = yield prisma.cart.update({ where: { id: cart.id }, data: { orderPrice: 0 } });
         // console.log(update)
         // console.log(newticket)
         res.send("Payment received");
