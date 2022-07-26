@@ -90,7 +90,7 @@ export default function MovieDetail(){
         for (const show of shows) {
           if (shows.length == 0) {
             return;
-          }
+          } 
           if (selecthora.lastChild.text != shows[shows.length - 1].schedule) {
             var option = document.createElement("option");
             option.text = show.schedule;
