@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import {addCandy, sumTotal, getCardHistory, postCandys} from '../../Redux/actions'
+import {addCandy, sumTotal, getCardHistory, postCandys, deleteCandys, getUsers, getOrderPrice} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
 export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entradas, hora }) {
@@ -80,10 +80,12 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
     dispatch(sumTotal(sumaPrecios));
   }
 
-  useEffect(() => {
-    sumaTotal();
-  },[stateCandy])
-
+//   useEffect(() => {
+//   //   sumaTotal();
+//   // },[stateCandy]
+//   if(idUser) dispatch(getOrderPrice({idUser: idUser}))
+// }, [dispatch])
+console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
   useEffect(() => {
     setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"));
     setNACHOS(obtenerCantidad("COMBO NACHOS"))
@@ -116,6 +118,9 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
             productos.push("COMBO TRADICIONAL")
         }
         dispatch(postCandys({ index: TRADICIONAL.id, quantity: Number(TRADICIONAL.value), userId: idUser }))
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         console.log(productos);
         return dispatch(addCandy(productos))
     }
@@ -125,6 +130,9 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
         }
         console.log(productos);
         dispatch(postCandys({ index: NACHOS.id, quantity: Number(NACHOS.value), userId: idUser }))
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO GRANDE"){
@@ -132,7 +140,9 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
             productos.push("COMBO GRANDE")
         }
         dispatch(postCandys({ index: GRANDE.id, quantity: Number(GRANDE.value), userId: idUser }))
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO ICEE"){
@@ -140,31 +150,62 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
             productos.push("COMBO ICEE")
         }
         dispatch(postCandys({ index: ICEE.id, quantity: Number(ICEE.value), userId: idUser }))
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "cafe"){
         for (let i = 0; i < cafe; i++) {
             productos.push("cafe")
         }
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "refresco"){
         for (let i = 0; i < refresco; i++) {
             productos.push("refresco")
         }
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "hotdog"){
         for (let i = 0; i < hotdog; i++) {
             productos.push("hotdog")
         }
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
+
+    if(event.target.name === "COMBO TRADICIONALdelete"){
+      // for (let i = 0; i < TRADICIONAL.value; i++) {
+      //     productos.pop()
+      // }
+      setTimeout(() => {
+        dispatch(getOrderPrice({idUser: idUser}))
+      }, 500);
+      return dispatch(deleteCandys({index: TRADICIONAL.id, userId: idUser}))
+
+      // console.log(productos);
+      // return dispatch(addCandy(productos))
   }
+  if(event.target.name === "COMBO NACHOSdelete"){
+    productos.filter((p) => p !== 'COMBO NACHOS')
+    dispatch(deleteCandys({index: NACHOS.id, userId: idUser}))
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    return dispatch(addCandy(productos))
+  }
+}
+
+
 //   console.log(JSON.stringify(storeCandy[1].name));
 
   console.log("estado candy: " + JSON.stringify(stateCandy));
@@ -198,60 +239,6 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
           <hr />
 
-          {/* <li className="nav-item dropdown w-100">
-            <a
-              href="#"
-              className="nav-link text-light pl-4 
-                  dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="true"
-            >
-              Dulceria
-              
-            </a>
-            <ul
-              className="dropdown-menu w-100"
-              aria-aria-labelledby="navbarDropdown"
-            >
-              <li>
-                <a href="#" class="dropdown-item text-light pl-4 p-2">
-                  Combo-1
-                </a>
-              </li>
-              <li>
-                <a href="#" class="dropdown-item text-light pl-4 p-2">
-                  Combo-02
-                </a>
-              </li>
-              <li>
-                <a href="#" class="dropdown-item text-light pl-4 p-2">
-                  Combo-03
-                </a>
-              </li>
-            </ul>
-          </li> */}
-
-        {/* <div>
-            <button type="button" className="mt-5 btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">Activar</button>
-            <div className="modal fade bg-white" id="Modal" tabIndex='-1' aria-hidden='true' aria-aria-labelledby="modalTitle">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h3 className="modal-title" id="modal-Title" >Prueba modal!!!</h3>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quaerat praesentium tenetur odio excepturi aperiam autem commodi velit adipisci illum, veniam facilis. Minima fugit a sint molestiae nesciunt. Illo, voluptatem!</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-bs-dismiss='modal'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> */}
 
     <div>
       <button
@@ -302,6 +289,9 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                             <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
                                 Agregar
                             </button>
+                            <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name + 'delete'}>
+                        Modificar
+                    </button>
                         </div>
                     ))
                  
@@ -354,6 +344,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
                     <button type="button" class="btn btn-warning" onClick={handleSubmit} name="hotdog">
                         Agregar
                     </button>
+    
                   </div>
 
                 </div>
