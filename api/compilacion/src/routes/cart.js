@@ -39,7 +39,6 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         res.status(404).json("No hay usuarios que mostrar");
-<<<<<<< HEAD
     }
 }));
 router.post('/userCart', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -62,8 +61,6 @@ router.post('/userCart', (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.log(error);
-=======
->>>>>>> f1c2b449d68d612e6eb8918e7c7a745f6620a50c
     }
 }));
 exports.default = router;
