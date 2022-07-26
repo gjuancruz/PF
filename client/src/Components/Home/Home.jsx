@@ -139,6 +139,7 @@ showBot?
                 config={config}
                 messageParser={MessageParser}
                 actionProvider={ActionProvider}
+                placeholderText='Escribe tu mensaje aquí...'
             />
         </div>
     : null
