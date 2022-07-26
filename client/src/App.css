@@ -41,3 +41,7 @@ body{
     transform: rotate(360deg);
   }
 }
+
+.react-chatbot-kit-chat-bot-avatar-container {
+  background-color: #fbde21!important;
+}
