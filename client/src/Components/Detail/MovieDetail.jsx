@@ -253,6 +253,13 @@ aria-hidden="true">
 
                 {premieres.find(m=>m.id ===movieDet.id )?  (<div className="estrenocontenedor"><b className="estrenopelicula" >Entradas disponibles a partir del {movieDet.Release}</b></div>):
                  <div className="select">
+                  <p className="contenedorp">
+  
+  <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+  <b>Elige el dia de la funcion</b>
+  </button>
+</p>
+<div class="collapse" id="collapseExample1">
                  <div>
                  <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
                     <option value="">Seleccione Dia</option>
@@ -276,6 +283,7 @@ aria-hidden="true">
                   return (<option value={d}>{d}</option>)
                   })}
                   Idioma</select>
+                  </div>
                     <div>
                 
       {!currentUser[0]? 
