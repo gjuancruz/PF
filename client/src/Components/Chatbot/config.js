@@ -3,9 +3,9 @@ import DogPicture from './widgets/DogPicture.jsx'
 import FeedbackButton from './widgets/FeedbackButton.jsx';
 import RegisterButton from './widgets/RegisterButton.jsx';
 
-const botName = 'tuturrito 2014 :$'
+const botName = 'Pocho'
 const config = {
-  initialMessages: [createChatBotMessage(`q onda wacho soy ${botName} todo piolita llegaste al mejor cine pa`)],
+  initialMessages: [createChatBotMessage(`¡Bienvenido a Moon Cinema! Soy ${botName}, el asistente virtual. ¿En qué puedo ayudarte?`)],
   widgets: [
     {
       widgetName: 'dogPicture',
@@ -29,7 +29,7 @@ const config = {
       backgroundColor: '#141413',
     },
     chatButton: {
-      backgroundColor: '#E6CC05',
+      backgroundColor: '#fbde21',
     },
     
     },
