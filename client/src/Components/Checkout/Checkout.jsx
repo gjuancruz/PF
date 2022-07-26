@@ -184,20 +184,34 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
     }
 
     if(event.target.name === "COMBO TRADICIONALdelete"){
-      // for (let i = 0; i < TRADICIONAL.value; i++) {
-      //     productos.pop()
-      // }
+      productos.filter((p) => p !== 'COMBO TRADICIONAL')
       setTimeout(() => {
         dispatch(getOrderPrice({idUser: idUser}))
       }, 500);
       return dispatch(deleteCandys({index: TRADICIONAL.id, userId: idUser}))
-
-      // console.log(productos);
-      // return dispatch(addCandy(productos))
   }
+
   if(event.target.name === "COMBO NACHOSdelete"){
     productos.filter((p) => p !== 'COMBO NACHOS')
     dispatch(deleteCandys({index: NACHOS.id, userId: idUser}))
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    return dispatch(addCandy(productos))
+  }
+
+  if(event.target.name === "COMBO GRANDEdelete"){
+    productos.filter((p) => p !== 'COMBO GRANDE')
+    dispatch(deleteCandys({index: GRANDE.id, userId: idUser}))
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    return dispatch(addCandy(productos))
+  }
+
+  if(event.target.name === "COMBO ICEEdelete"){
+    productos.filter((p) => p !== 'COMBO ICEE')
+    dispatch(deleteCandys({index: ICEE.id, userId: idUser}))
     setTimeout(() => {
       dispatch(getOrderPrice({idUser: idUser}))
     }, 500);
@@ -283,14 +297,14 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
                                 width={"120px"}
                             />
                             <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
-                            <input type="number" min='0' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
+                            <input type="number" min='1' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
                                 value={eval(item.name.split(' ')[1]).value}
                             />
                             <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
                                 Agregar
                             </button>
                             <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name + 'delete'}>
-                        Modificar
+                        Eliminar
                     </button>
                         </div>
                     ))
