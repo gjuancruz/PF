@@ -81,7 +81,6 @@ model Ticket {
   id       String   @id @default(uuid()) @db.Uuid
   saleId   String   @db.Uuid
   showId   String   @db.Uuid
-  candyId  String
   sale     Sale @relation(fields: [saleId],references: [id])
   show     Show @relation(fields: [showId], references: [id])
   cart     Cart? 
