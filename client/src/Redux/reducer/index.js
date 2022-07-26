@@ -25,6 +25,7 @@ import {
   ENTRADAS,
   GET_CART,
   GET_DAY_SHOW,
+  TOTALMENTE
 } from "../actions";
 
 const initialState = {
@@ -64,7 +65,7 @@ function rootReducer(state = initialState, action) {
         entradas: action.payload
       }
 
-    case TOTAL:
+    case TOTALMENTE:
       return{
         ...state,
         total: action.payload
