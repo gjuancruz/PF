@@ -115,11 +115,11 @@ export function searchMovieName(title){
       }
 
     }
-    export function postPaymentMethod(ticket,show,cartId){
+    export function postPaymentMethod(ticket,show,idUser){
       // console.log(userId)
       return async function (dispatch){
         try{
-          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,show,cartId})
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,show,idUser})
           console.log('soy la action del payment method !!',json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,

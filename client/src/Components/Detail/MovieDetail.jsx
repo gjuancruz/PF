@@ -172,7 +172,7 @@ export default function MovieDetail(){
     return(
         <div className="MovieDetail">
             <NavBar />
-            <Stripe showid={showid} />
+            <Stripe showid={horario.id} />
 
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
