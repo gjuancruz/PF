@@ -15,7 +15,7 @@ const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
     const data = [];
     show = { schedule: show.schedule, roomId: show.roomId, movieId: show.movieId, seats: 60, day: show.day, type: show.type };
     data.push(show);
-    console.log(data);
+    // console.log(data)
     const movie = yield prisma.movie.findUnique({ where: { id: show.movieId } });
     const time = movie === null || movie === void 0 ? void 0 : movie.Runtime;
     const hour = time ? Math.floor(time / 60) : 13;
@@ -127,7 +127,11 @@ router.get("/day", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { day, id } = req.query;
     try {
         const data = yield prisma.show.findMany({ where: { day: day, movieId: id } });
+<<<<<<< HEAD
         console.log(data);
+=======
+        // console.log(data)
+>>>>>>> f1c2b449d68d612e6eb8918e7c7a745f6620a50c
         res.status(200).send(data);
     }
     catch (error) {

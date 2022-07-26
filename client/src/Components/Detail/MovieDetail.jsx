@@ -35,6 +35,13 @@ export default function MovieDetail(){
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
+    // const idUser = useSelector(state => state.id)
+
+    const [horario, setHorario] = useState({
+      id: 0,
+      schedule: "00:00"
+    });
+
     const [toggle,setToggle] = useState(false)
 
     const storeCandy = useSelector(state => state.storeCandy)
@@ -61,11 +68,8 @@ export default function MovieDetail(){
       !!idUser && dispatch(getCardHistory({idUser: idUser}))
     },[idUser])
 
+   
     const selecthora = document.querySelector("#selectHora")
-    // console.log(shows)
-    // console.log(showid);
-
-    for(const show of shows){
     const selectdia = document.querySelector("#selectDia")
     const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
     console.log(days)
@@ -77,52 +81,29 @@ export default function MovieDetail(){
           option.value = show.day
           selectdia.add(option)
           }
-      }
     }
-      const createOptions=()=>{
-    if(selecthora!=null){
-    for(const show of days){
-    if(shows.length==0){
-    }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
-        var option = document.createElement("option")
-        option.text = show.schedule
-        option.value = show.id
-        selecthora.add(option)
+    const createOptions = () => {
+      if (selecthora != null) {
+        console.log("entre a create options");
+        for (const show of shows) {
+          if (shows.length == 0) {
+            return;
+          }
+          if (selecthora.lastChild.text != shows[shows.length - 1].schedule) {
+            var option = document.createElement("option");
+            option.text = show.schedule;
+            option.value = show.id;
+            selecthora.add(option);
+          }
         }
-    }
-    
-    //renderizxar el form en un modal para hacer la parte de chechout
-    
       }
-    }
+    };
+
+    
+//renderizxar el form en un modal para hacer la parte de chechout
   
   console.log("fechas/horarios pelicula",shows);
 
-    // const CheckoutForm = () =>{
-    //     const dispatch = useDispatch()
-    //     const stripe = useStripe()
-    
-    //     const elements = useElements()
-    //     // const userIdCheck = window.localStorage.getItem('userId')
-    //     // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-    //     // console.log('este seria el showid que le esta llegando',showid)
-    //     const handleStripe = async(e) =>{
-    //         e.preventDefault()
-            
-    //         const {error,paymentMethod} = await stripe.createPaymentMethod({
-    //             type:"card",
-    //             card: elements.getElement(CardElement)
-    //         })
-    //         // console.log('soy el paymentMethod',paymentMethod)
-    //         if(!error){
-    //             dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
-    //         }else console.log(error)
-    //     }
-    //     return<form onSubmit={handleStripe}>
-    //         <CardElement className="form-control"/>
-    //         <button>Realizar pago</button>
-    //     </form>
-    // }
     const handleSubmit = (e)=>{
         setShown(current=>!current)
     }
@@ -131,26 +112,40 @@ export default function MovieDetail(){
         // setShowid(e.target.value)  ///modificado default value
         setShowid(e.target.value)
         setShown(true)
+      // createOptions() //agregado manualmente
+
     }
     const handleDayChange=(e)=>{
       e.preventDefault()
       dispatch(getDayShow(e.target.value,idMovie.id))
       setHourShown(true)
-      deleteOptions()
-      createOptions()
+      // deleteOptions()
+      // createOptions()
     }
 
-    const deleteOptions=()=>{
-      var i, L = selecthora.options.length - 1;
-   for(i = L; i >= 0; i--) {
-      selecthora.remove(i);
-   }
-   const option = document.createElement("option")
-   option.text="Seleccionar hora"
-   option.value=""
-   selecthora.add(option)
-    }
+    // const deleteOptions=()=>{
+    //   var i, L = selecthora.options.length - 1;
+    //   for(i = L; i >= 0; i--) {
+    //       selecthora.remove(i);
+    //   }
+    //   const option = document.createElement("option")
+    //   option.text="Seleccionar hora"
+    //   option.value=""
+    //   selecthora.add(option)
+    // }
     // console.log(toggle);
+
+    const handleChange = (e) => {
+      e.preventDefault()
+      if(e.target.value !== "selectHora"){
+        console.log("handleSelect:", e.target.name, e.target.value);
+        const pelicula = shows.find( item => item.id === e.target.value)
+        setHorario({
+          id: e.target.value,
+          schedule: pelicula.schedule
+        })
+      }
+    }
 
     console.log(JSON.stringify(storeCandy));
     const [num, setNum] = useState(0);
@@ -172,6 +167,8 @@ export default function MovieDetail(){
       window.parent.location.reload()
     }
 
+    console.log("Horario :",horario);
+    console.log("userId:", idUser);
     return(
         <div className="MovieDetail">
             <NavBar />
@@ -258,11 +255,16 @@ aria-hidden="true">
                  <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
                     <option value="">Seleccione Dia</option>
                     </select>
-                    {hourshown?(
-                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleHourChange}>
-                    <option value="">Selecciona Hora</option>
+                    {/* {hourshown?( */}
+                    <select className="selectHora"name="Horario" id="selectHora" onChange={handleChange}>
+                      <option value="selectHora">Selecciona Hora</option>
+                      {
+                        shows.length && (shows.map( h => 
+                          <option key={h.id} value={h.id} name={h.schedule}>{h.schedule}</option>
+                        ))
+                      }
                     </select>
-):<></>}
+{/* // ):<></>} */}
                     </div>
                     <div>
                 
@@ -360,7 +362,7 @@ Comprar
                 Cerrar
               </button>
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" 
-                onClick={() => dispatch(sumEntradas(num),)}
+                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
               >
                 Agregar al carrito
               </button>

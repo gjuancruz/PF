@@ -501,9 +501,12 @@ export function sumTotal(payload){
 
 export function sumEntradas(payload){
   return async function(dispatch){
+    console.log("info SumEntradas: ", payload);
+    const resp = await axios.post('/tickets/addTickets', payload)
+    console.log("respuesta Tickets:",resp);
     return dispatch({
       type: ENTRADAS,
-      payload: payload
+      payload: payload.seats
     })
   }
 }
