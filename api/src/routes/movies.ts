@@ -339,6 +339,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         // const candy: any = await prisma.candy.findUnique({where:{id:"fdba5610-1559-4f15-9890-1da57ecb5c60"}})
         
         const newticket = await prisma.ticket.createMany({
+            //@ts-ignore
             data:{
                 saleId:sale.id,
                 showId:show

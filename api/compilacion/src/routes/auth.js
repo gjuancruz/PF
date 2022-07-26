@@ -149,14 +149,14 @@ router.get('/verifyrole', (req, res, next) => __awaiter(void 0, void 0, void 0, 
     try {
         const headerToken = req.headers.authorization;
         const token = headerToken.split(' ')[1];
-        console.log(token);
+        // console.log(token);
         // console.log(req)
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || '');
-        console.log('soy decoded', decoded);
+        // console.log('soy decoded', decoded)
         // @ts-ignore
         req.user_id = decoded.user_id;
         //@ts-ignore
-        console.log(decoded.user_id);
+        // console.log(decoded.user_id)
         const user = yield prisma.user.findUnique({
             where: {
                 //@ts-ignore

@@ -80,6 +80,7 @@ return(
     <Carousel/>
     <FilterCartelera/>
     
+    
 <div className={s.contenedorcartelera} >
 <h3 className={s.title}>EN CARTELERA</h3>
 <div className={s.cartelera}>

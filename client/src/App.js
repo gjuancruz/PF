@@ -20,6 +20,9 @@ import { Redirect } from 'react-router-dom';
 import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
 
+import {Checkout} from './Components/Checkout/Checkout'
+import {ComprarModal} from './Components/Checkout/CandysModal'
+
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
 
@@ -42,6 +45,8 @@ function App() {
         <Route exact path="/feedback" component={CreateFeedback}/>
         <Route exact path='/profile' component={Perfil}/>
         <Route exact path='/register' component={Register}/>
+        <Route exact path='/Checkout' component={Checkout} />
+        <Route exact path='/CandyModal' component={ComprarModal} />
         <Route exact path='/candy' component={Candy}/>
         <Route exact path='/caja' component={CashRegister}/>
         <Route path='*' component={Error404} />

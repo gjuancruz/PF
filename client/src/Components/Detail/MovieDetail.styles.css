@@ -4,17 +4,37 @@
     box-sizing: border-box;
 }
 
-
+.MovieDetail{
+    position: relative;
+}
 
 .contenedor{
+    position: relative;
     width: 100%;
-    max-width: 75em;
+    /* max-width: 75em; */
+    /* max-width: 75vw; */
     margin:  auto;
     padding: 60px;
     margin-top: 20px;
+    /* margin-right: 250px; */
+    /* position: absolute;    */
     
-    
-    
+}
+#menu-btn{
+    position: absolute;
+    right: 5rem;
+}
+.Checkout-component{
+    position: absolute;
+    right: 0px;
+    /* height: 100px; */
+    /* z-index: 5; */
+}
+#checkout-active{
+    margin-right: 350px;
+}
+.sinopsis{
+    max-width: 75vw;
 }
 .title{
     font-size: 40px;
@@ -104,9 +124,11 @@ select:hover{
     margin-right: 20px;
     }
 
-.botoncomprar:hover {
-    cursor: pointer;
-}
+
+.botoncomprar2:hover, .botoncomprar2:focus{
+    border-color: rgb(99, 88, 26);
+    color: #000;
+    box-shadow: inset 11em 0 0 0 rgb(242, 238, 188);}
 .botoncomprar2{
     background-color: rgb(255, 215, 0);
     border: none;
@@ -118,6 +140,7 @@ select:hover{
     font-weight: bold;
     margin-top: 20px;
     margin-right: 20px;
+    transition: 0.7s;
     }
 
     .botoncomprar2:hover {
@@ -136,4 +159,65 @@ select:hover{
    color:  rgb(255, 215, 0);
     font-size: 25px;
     
+}
+.Checkout-component{
+    /* margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    right: 40px; */
+    top: 130px;
+    z-index: 9999;
+    
+    border-color: rgb(255, 234, 0);
+    border-radius: 12px;
+}
+
+.botoncheck{
+    color: rgb(0, 0, 0);
+    top: 10px;
+    padding: 5px;
+    border: none;
+    position: absolute;
+    background-color: rgb(255, 234, 0);
+    right: 40px;
+    display: flex;
+    flex-direction:column;
+    z-index: 9999;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.7s;
+    border-color: rgb(255, 234, 0);
+   
+}
+
+.botoncheck:hover, .botoncheck:focus{
+    border-color: rgb(99, 88, 26);
+    color: #000;
+    box-shadow: inset 11em 0 0 0 rgb(178, 164, 11);}
+
+    .botoncheck[disabled] {
+        background-color: #414442;
+        cursor: no-drop;
+    }
+
+.text-primary{
+    font-size: 16px;
+}
+.estrenocontenedor{
+    margin-bottom: 100px;
+}
+.modal-body{
+    padding: 2px;
+    /* background-color: #000 !important; */
+    border-color: #000 !important;
+}
+ .modal-header{
+   
+    border-color: #000 !important;
+ }
+
+.ratio-16x9{
+    background-color: #000;
 }

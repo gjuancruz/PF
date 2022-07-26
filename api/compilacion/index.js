@@ -28,10 +28,10 @@ app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () 
     // const del3 = await prisma.room.deleteMany({})
     // const del = await prisma..deleteMany({})
     // const carrito = await prisma.menu.deleteMany({})
-    /*  const crearCarrito = await prisma.menu.createMany({
-        data: candylist
-     })
-      */
+    // const crearCarrito = await prisma.menu.createMany({
+    //    data: candylist
+    // })
+    // await prisma.menu.deleteMany({})
     for (let i = 0; i < candylist.length; i++) {
         const movie = yield prisma.menu.upsert({
             where: { name: candylist[i].name },

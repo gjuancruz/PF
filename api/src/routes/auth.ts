@@ -164,16 +164,16 @@ router.get('/verifyrole', async (req:Request, res:Response, next:NextFunction) =
     try {
         const headerToken:any = req.headers.authorization;
         const token = headerToken.split(' ')[1];
-        console.log(token);
+        // console.log(token);
         // console.log(req)
         
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
-console.log('soy decoded', decoded)
+// console.log('soy decoded', decoded)
             // @ts-ignore
             req.user_id = decoded.user_id;
             //@ts-ignore
-            console.log(decoded.user_id)
+            // console.log(decoded.user_id)
             const user = await prisma.user.findUnique({
                 where: {
                     //@ts-ignore
