@@ -315,10 +315,10 @@ router.get('/search', async (req: Request, res:Response) =>{
 
 router.post("/checkout",async(req:Request,res:Response)=>{
 
-    const {show,cartId,ticket} = req.body
-    const cart :any = await prisma.cart.findUnique({where:{id:cartId}})
+    const {show,idUser,ticket} = req.body
+    const cart :any = await prisma.cart.findUnique({where:{userId:idUser}})
     const stripe = new Stripe(STRIPE_KEY,{apiVersion:"2020-08-27"})
-    
+    console.log(cart)
     try{
         const payment = await stripe.paymentIntents.create({
             amount:cart.orderPrice,
@@ -345,7 +345,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
                 showId:show
             }
         })
-        const update = await prisma.show.update({where:{id:show},data:{seats:room.seats-1}})
+        const update = await prisma.cart.update({where:{id:cart.id},data:{orderPrice:0}})
         // console.log(update)
         // console.log(newticket)
         res.send("Payment received")

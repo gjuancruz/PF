@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import  verifyToken  from '../middlewares/middlewares';
+import { CreatedAt } from 'sequelize-typescript';
 
 
 const prisma = new PrismaClient()
@@ -25,13 +26,24 @@ router.post('/register', async (req:Request, res:Response) => {
         if ( user ) {
             return res.status(400).send({ error: 'User already exists' });
         }
-    
+        
+        // const fecha:any = new Date()
         //Adding user to database
-        const newUser = await prisma.user.create({
+        const newUser: any = await prisma.user.create({
+            
             // @ts-ignore
             data: { username: username , email: email ,password: hashedPassword, role: role}
         });
-        // console.log('este es el 34', newUser);
+        // @ts-ignore
+        
+        const formatedUser = await prisma.user.update({
+            where: {username: username},
+            data : {
+                // @ts-ignore
+                dateFormat : String(newUser.createdAt).slice(4,15)
+            }
+        })
+        console.log('este es el 34', newUser);
         //Adding new Cart to new User
         const theuser :any= await prisma.user.findUnique({where:{id:newUser.id}})
         // console.log('este es el 36', theuser);

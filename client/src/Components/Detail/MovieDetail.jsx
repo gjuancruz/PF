@@ -72,7 +72,7 @@ export default function MovieDetail(){
     const selecthora = document.querySelector("#selectHora")
     const selectdia = document.querySelector("#selectDia")
     const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
-    console.log(days)
+    console.log('this is line 46',days)
     for(const show of showdays){
       if(shows.length==0){
       }if(selectdia.lastChild.text!=shows[shows.length-1].day){
@@ -173,7 +173,7 @@ export default function MovieDetail(){
     return(
         <div className="MovieDetail">
             <NavBar />
-            <Stripe showid={showid} />
+            <Stripe showid={horario.id} />
 
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
@@ -303,7 +303,7 @@ Comprar
       <button
         className="botoncomprar2"
         type="button"
-       
+        
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
