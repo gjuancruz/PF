@@ -43,7 +43,7 @@ export default function MovieDetail(){
     const selecthora = document.querySelector("#selectHora")
     const selectdia = document.querySelector("#selectDia")
     const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
-    console.log(days)
+    console.log('this is line 46',days)
     for(const show of showdays){
       if(shows.length==0){
       }if(selectdia.lastChild.text!=shows[shows.length-1].day){
