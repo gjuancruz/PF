@@ -177,7 +177,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
         <h3 className="mt-4 ml-5 font-weight-bold text-white">{title || 'generic title'}</h3>
 
         <ul className="navbar-nav d-flex flex-column mt-5 w-100">
-          <li className="nav-item w-100">
+          {/* <li className="nav-item w-100">
             <a href="#" className="nav-link text-light pl-4">
               {NumTickets || `Tickets: ${entradas} `}
             </a>
@@ -196,7 +196,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
             <a href="#" className="nav-link text-light pl-4">
               {idioma || 'Idioma: Español'}
             </a>
-          </li>
+          </li> */}
 
           <hr />
 
@@ -317,46 +317,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
               <div class="row align-items-start">
                 <div class="col-12">
-                  <h3>Agregar productos</h3>
-                  <div class="">
-                    <img
-                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/2015525172827605.png"
-                        width={"120px"}
-                    />
-                    <input type="number" min='0' max="100" style={{width: '60px', display:"inline"}} name="cafe"
-                        onChange={handleClick} value={cafe}
-                    />
-                    <button type="button" className="btn btn-warning" onClick={handleSubmit} name="cafe"
-                    >
-                        Agregar
-                    </button>
-                  </div>
-
-                  <div>
-                    <img
-                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/20176713015578.png"
-                        width={"120px"}
-                    />
-                    <input type="number" min='0' max="100" style={{width: '60px'}} name="refresco"
-                        onChange={handleClick} value={refresco}
-                    />
-                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="refresco">
-                        Agregar
-                    </button>
-                  </div>
-
-                  <div>
-                    <img
-                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/201552517333172.png"
-                        width={"120px"}
-                    />
-                    <input type="number" min='0' max="100" style={{width: '60px'}} onChange={handleClick} value={hotdog} 
-                        name="hotdog"
-                    />
-                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="hotdog">
-                        Agregar
-                    </button>
-                  </div>
+                 
 
                 </div>
                 {/* <div class="col">One of three columns</div>

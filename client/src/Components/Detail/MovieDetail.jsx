@@ -32,12 +32,12 @@ export default function MovieDetail(){
     const [checkbtn, setcheckbtn] = useState(false);
     const filertype= useSelector(state=>state.cartelera)
     const Type=useSelector(state=>state.movieDetail.Type)
-    console.log(shows)
+    console.log("soy",hourshown)
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
     // const idUser = useSelector(state => state.id)
-
+    const [pulsado, setPulsado] = useState(false)
     const [horario, setHorario] = useState({
       id: 0,
       schedule: "00:00",
@@ -267,7 +267,7 @@ aria-hidden="true">
                   <p className="contenedorp">
   
   <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
-  <b>Elige el dia de la funcion</b>
+  <b>Elige el dia de la funcion para comprar</b>
   </button>
 </p>
 <div class="collapse" id="collapseExample1">
@@ -275,7 +275,7 @@ aria-hidden="true">
                  <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
                     <option value="">Seleccione Dia</option>
                     </select>
-                    {/* {hourshown?( */}
+                    {hourshown?(
                     <select className="selectHora"name="Horario" id="selectHora" onChange={handleChange}>
                       <option value="selectHora">Selecciona Hora</option>
                       {
@@ -283,27 +283,33 @@ aria-hidden="true">
                           <option key={h.id} value={h.id} name={h.schedule}>{h.schedule}</option>
                         ))
                       }
+                      
                     </select>
-{/* // ):<></>} */}
+ ):<></>} 
                     </div>
+                    {horario.id !== 0 ?(
                     <select className="tipo" onChange={handleChange}>
                     <option value=''>Seleccione el formato</option>
                     <option value={horario.type}>{horario.type}</option>
-                    </select>
+                    </select>):""}
+
+                    {horario.type?(
                     <select className="selectIdioma" >
-                     
+                    
                     {movieDet.Language?.split(",").map(d=>{
                   return (<option value={d}>{d}</option>)
                   })}
-                  Idioma</select>
+                  Idioma</select>):""}
                   </div>
                     <div>
-                
-      {!currentUser[0]? 
+                    {horario.id === 0 ? "":           
+      !currentUser[0]?  
       <div>
-<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        
+<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
 Comprar 
 </button>
+
 <div
         class="modal faded"
         id="staticBackdrop"
@@ -394,11 +400,17 @@ Comprar
               >
                 Cerrar
               </button>
+              
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" 
-                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
+                // onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
+                // onClick={()=> setPulsado(!pulsado)}
+                onClick={()=> setcheckbtn((e)=> !e)}
               >
                 Agregar al carrito
               </button>
+                {/* {pulsado ? 
+                  (<Checkout></Checkout>) : ("")
+                } */}
             </div>
           </div>
         </div>
