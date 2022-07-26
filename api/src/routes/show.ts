@@ -5,7 +5,7 @@ const showGenerator = async(show:any) => {
     const data = []
     show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60,day:show.day,type:show.type}
     data.push(show)
-    console.log(data)
+    // console.log(data)
     
     const movie = await prisma.movie.findUnique({where:{id:show.movieId}})
     const time = movie?.Runtime
@@ -126,7 +126,7 @@ router.get("/day",async(req:Request,res:Response)=>{
     const {day,id} :any= req.query
     try{
         const data = await prisma.show.findMany({where:{day:day,movieId:id}})
-        console.log(data)
+        // console.log(data)
         res.status(200).send(data)
     }
     catch(error:any){

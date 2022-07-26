@@ -18,9 +18,13 @@ import {
   AUTORIZADO,
   DELETE_MOVIE,
   EDIT_MOVIE,
-  VERIFY_ROLE,
-  GET_DAY_SHOW,
+  ADD_CANDY,
   GET_CANDY,
+  VERIFY_ROLE,
+  TOTAL,
+  ENTRADAS,
+  GET_CART,
+  GET_DAY_SHOW,
 } from "../actions";
 
 const initialState = {
@@ -37,13 +41,48 @@ const initialState = {
   show:[],
   candy:[],
   autorizado: '',
+  candy:[],
+  storeCandy:[],
   role: 'guest',
+  total: 0,
+  entradas: 0,
   id:'',
-  day:[],
+  cart: []
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_CART:
+      return{
+        ...state,
+        cart: action.payload
+      }
+
+    case ENTRADAS:
+      return{
+        ...state,
+        entradas: action.payload
+      }
+
+    case TOTAL:
+      return{
+        ...state,
+        total: action.payload
+      }
+
+    case ADD_CANDY:
+      return{
+        ...state,
+        candy: state.candy.concat(action.payload)
+        // candy: [...state.candy, action.payload]
+      }
+
+    case GET_CANDY:
+      return{
+        ...state,
+        storeCandy: action.payload
+      }
+
     case AUTORIZADO:
       return {
         ...state,
