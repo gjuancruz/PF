@@ -298,7 +298,7 @@ Comprar
     </div>
   </div>
 </div>
-</div> :<div>
+</div> :
       <button
         className="botoncomprar2"
         type="button"
@@ -309,8 +309,6 @@ Comprar
        
         Comprar 
       </button>
-      <CheckoutForm/>
-      </div>
 }
       <div
         class="modal fade"
