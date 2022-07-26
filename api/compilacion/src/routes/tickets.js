@@ -118,13 +118,59 @@ router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.json(e.message);
     }
 }));
-router.post('/delete', (req, res) => {
-    const {} = req.body;
+router.post('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _d, _e;
+    const { userId, showId } = req.body;
     try {
+        const user = yield prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        console.log("info user :", user);
+        const cart = yield prisma.cart.findUnique({
+            where: { id: (_d = user === null || user === void 0 ? void 0 : user.cart) === null || _d === void 0 ? void 0 : _d.id }
+        });
+        console.log("entro a cart :", cart);
+        const userTickets = (_e = user === null || user === void 0 ? void 0 : user.cart) === null || _e === void 0 ? void 0 : _e.tickets.find(item => item.showId === showId);
+        const deleteTickets = yield prisma.tickets.delete({
+            where: { id: userTickets === null || userTickets === void 0 ? void 0 : userTickets.id }
+        });
+        console.log(deleteTickets);
+        const show = yield prisma.show.findUnique({
+            where: { id: showId }
+        });
+        console.log("entro a show :", show);
+        //actualiza los asientos de la funcion en tal hora
+        const seatsAvailable = yield prisma.show.update({
+            where: { id: showId },
+            data: {
+                seats: show.seats + (userTickets === null || userTickets === void 0 ? void 0 : userTickets.seats)
+            }
+        });
+        console.log("seats Avaliable entro :", seatsAvailable);
+        const userUpdate = yield prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        return res.json(userUpdate);
     }
     catch (error) {
         return res.send(error.message);
     }
-});
+}));
 exports.default = router;
 //# sourceMappingURL=tickets.js.map

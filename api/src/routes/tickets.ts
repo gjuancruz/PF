@@ -119,10 +119,63 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
     }
 })
 
-router.post('/delete', (req:Request, res:Response) => {
-    const {} = req.body;
+router.post('/delete', async(req:Request, res:Response) => {
+    const {userId, showId} = req.body;
     try {
+        const user = await prisma.user.findUnique({
+            where: {id: userId},
+            include: {
+                cart: {
+                    include : {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        })
+        console.log("info user :", user);
         
+        const cart = await prisma.cart.findUnique({ //parece que no es necesario porque ya esta en user
+            where:{id:user?.cart?.id}
+        })
+        console.log("entro a cart :", cart);
+
+        const userTickets = user?.cart?.tickets.find(item => item.showId === showId);
+
+        const deleteTickets = await prisma.tickets.delete({
+            where: {id: userTickets?.id}
+        })
+        console.log(deleteTickets);
+        
+
+        const show: any = await prisma.show.findUnique({
+            where:{id:showId}
+        })
+        console.log("entro a show :",show);
+
+        //actualiza los asientos de la funcion en tal hora
+        const seatsAvailable = await prisma.show.update({
+            where:{id:showId},
+            data:{
+                seats: show.seats + userTickets?.seats
+            }
+        })
+        console.log("seats Avaliable entro :", seatsAvailable);
+
+        const userUpdate = await prisma.user.findUnique({
+            where: {id: userId},
+            include: {
+                cart: {
+                    include : {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        })
+
+        return res.json(userUpdate)
+
     } catch (error:any) {
         return res.send(error.message)
     }
