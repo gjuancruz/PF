@@ -31,7 +31,7 @@ router.post('/register', async (req:Request, res:Response) => {
             // @ts-ignore
             data: { username: username , email: email ,password: hashedPassword, role: role}
         });
-        console.log('este es el 34', newUser);
+        // console.log('este es el 34', newUser);
         //Adding new Cart to new User
         const theuser :any= await prisma.user.findUnique({where:{id:newUser.id}})
         // console.log('este es el 36', theuser);
@@ -152,16 +152,16 @@ router.get('/verifyrole', async (req:Request, res:Response, next:NextFunction) =
     try {
         const headerToken:any = req.headers.authorization;
         const token = headerToken.split(' ')[1];
-        console.log(token);
+        // console.log(token);
         // console.log(req)
         
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
-console.log('soy decoded', decoded)
+// console.log('soy decoded', decoded)
             // @ts-ignore
             req.user_id = decoded.user_id;
             //@ts-ignore
-            console.log(decoded.user_id)
+            // console.log(decoded.user_id)
             const user = await prisma.user.findUnique({
                 where: {
                     //@ts-ignore
