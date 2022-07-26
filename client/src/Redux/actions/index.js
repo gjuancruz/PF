@@ -21,9 +21,15 @@ export const AUTORIZADO = 'AUTORIZADO';
 export const DELETE_SHOW="DELETE_SHOW"
 export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
-export const VERIFY_ROLE='VERIFY_ROLE'
+export const ADD_CANDY="ADD_CANDY";
+export const GET_CANDY="GET_CANDY";
+export const TOTAL="TOTAL";
+export const ENTRADAS="ENTRADAS";
+export const VERIFY_ROLE='VERIFY_ROLE';
+export const GET_CART="GET_CART";
+export const POST_CANDYS="POST_CANDYS";
 export const GET_DAY_SHOW="GET_DAY_SHOW"
-export const GET_CANDY='GET_CANDY'
+
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -450,6 +456,24 @@ export function register(payload){
   }
 }
 
+export function addCandy(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: ADD_CANDY,
+      payload: payload
+    })
+  }
+}
+
+export function getCandy(){
+  return async function(dispatch){
+    const candys = await axios.get('http://localhost:3001/candy')
+    return dispatch({
+      type: GET_CANDY,
+      payload: candys.data
+    })
+  }
+}
 
 export function verifyRole(){
   return async function(dispatch){
@@ -466,10 +490,53 @@ export function verifyRole(){
   }
 }
 
-///////RUTAS CANDY//////
-export function getCandy(){
+export function sumTotal(payload){
   return async function(dispatch){
-    var get_candy = await axios.get("http://localhost:3001/candy");
-    return dispatch ({type: GET_CANDY, payload: get_candy.data})
+    return dispatch({
+      type: TOTAL,
+      payload: payload
+    })
   }
 }
+
+export function sumEntradas(payload){
+  return async function(dispatch){
+    console.log("info SumEntradas: ", payload);
+    const resp = await axios.post('/tickets/addTickets', payload)
+    console.log("respuesta Tickets:",resp);
+    return dispatch({
+      type: ENTRADAS,
+      payload: payload.seats
+    })
+  }
+}
+
+export function getCardHistory(idUser){
+  return async function(dispatch){
+    console.log("estoy en actions " + idUser);
+    var getCart = await axios.post(`/cart`, idUser)
+    return dispatch({
+      type: GET_CART,
+      payload: getCart.data
+    })
+  }
+}
+
+//Ruta post que almacena los candys con el usuario en especifico
+export function postCandys(payload){
+  return async function(dispatch){
+    try {
+      let candyPost = await axios.post('/candy/add', payload)
+      return console.log("dispatch candyPost " + JSON.stringify(candyPost))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+///////RUTAS CANDY//////
+// export function getCandy(){
+//   return async function(dispatch){
+//     var get_candy = await axios.get("http://localhost:3001/candy");
+//     return dispatch ({type: GET_CANDY, payload: get_candy.data})
+//   }
+// }
