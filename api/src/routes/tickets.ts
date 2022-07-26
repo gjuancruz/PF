@@ -15,7 +15,12 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
         const user = await prisma.user.findUnique({
             where: {id: userId},
             include: {
-                cart: true
+                cart: {
+                    include : {
+                        tickets: true,
+                        candy: true
+                    }
+                }
             }
         })
 
@@ -39,16 +44,36 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
         })
         console.log("entro a cart :", cart);
 
-        const newTickets = await prisma.tickets.create({
-            data:{
-                showId: show.id,
-                userId,
-                seats,
-                totalPrice:seats*100,
-                // @ts-ignore
-                cartId: cart.id,
-            }
-        })
+        const userTickets = user?.cart?.tickets.find(item => item.showId === showId);
+
+        let newTickets;
+        if(userTickets){
+            newTickets = await prisma.tickets.update({
+                where: {
+                    id: userTickets?.id,
+                },
+                data: {
+                    showId: show.id,
+                    userId,
+                    seats: userTickets.seats + seats,
+                    totalPrice:(userTickets.seats + seats)*100,
+                    // @ts-ignore
+                    cartId: cart.id,
+                }
+            })
+        } else {
+            newTickets = await prisma.tickets.create({
+                data:{
+                    showId: show.id,
+                    userId,
+                    seats,
+                    totalPrice:seats*100,
+                    // @ts-ignore
+                    cartId: cart.id,
+                }
+            })
+        }
+
         console.log("newTickets :", newTickets);
 
         const addNewTickets = await prisma.cart.update({
@@ -94,6 +119,14 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
     }
 })
 
+router.post('/delete', (req:Request, res:Response) => {
+    const {} = req.body;
+    try {
+        
+    } catch (error:any) {
+        return res.send(error.message)
+    }
+})
 
 
 export default router;

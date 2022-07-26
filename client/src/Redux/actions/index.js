@@ -307,7 +307,7 @@ export function getAllShows(){
 }
 
 export function postShow(data){
-  console.log(data)
+  console.log("PostShow",{data})
   return async function(){
     try{
       const json = await axios.post('http://localhost:3001/show',{data})

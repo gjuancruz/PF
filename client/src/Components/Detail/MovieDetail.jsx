@@ -169,6 +169,7 @@ export default function MovieDetail(){
 
     console.log("Horario :",horario);
     console.log("userId:", idUser);
+    console.log(showid);
     return(
         <div className="MovieDetail">
             <NavBar />
