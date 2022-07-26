@@ -209,7 +209,7 @@ export default function CreateShow() {
                                 Seleccionar pelicula
                               </option>
                             )}
-                            {console.log(movies)}
+                            {/* {console.log(movies)} */}
                             {movies?.map((e) => (
                               <option key={e.id} value={e.id}>
                                 {e.Title}

@@ -11,7 +11,7 @@ const CheckoutForm = ({showid}) =>{
     const elements = useElements()
     // const userIdCheck = window.localStorage.getItem('userId')
     // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-    console.log(showid)
+    // console.log(showid)
     const handleStripe = async(e) =>{
         e.preventDefault()
         

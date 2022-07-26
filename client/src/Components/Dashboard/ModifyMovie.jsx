@@ -244,7 +244,7 @@ export default function CreateMovie({ data }) {
               <div class="col mb-2">
                 <label class="form-label" htmlFor="Language">
                   Idioma:{" "}
-                  {console.log(data)}
+                  {/* {console.log(data)} */}
                   <ErrorMessage
                     name="Language"
                     component={() => (

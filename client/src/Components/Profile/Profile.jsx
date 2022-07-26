@@ -9,7 +9,7 @@ const Perfil = () =>{
     useEffect(() =>{
         dispatch(getUsers());
         dispatch(verifyRole())
-    },[])
+    },[dispatch])
     const allUsers = useSelector ((state) => state.usuarios)
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUsers.filter(u =>u.id === userIdCheck)

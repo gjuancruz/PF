@@ -48,7 +48,7 @@ export default function Users(){
         </div>
       </div>
       <div class="table-responsive">
-          {console.log(usuarios)}
+          {/* {console.log(usuarios)} */}
         <table class="table table-dark table-striped">
           <thead>
             <tr>

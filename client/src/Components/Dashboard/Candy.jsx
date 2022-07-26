@@ -93,7 +93,7 @@ export default function Candy(){
         </div>
       </div>
       <div class="table-responsive">
-          {console.log(candy)}
+          {/* {console.log(candy)} */}
         <table class="table table-dark table-striped">
           <thead>
             <tr>

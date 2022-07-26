@@ -120,7 +120,7 @@ export function searchMovieName(title){
       return async function (dispatch){
         try{
           var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,show,idUser})
-          console.log('soy la action del payment method !!',json.data)
+          console.log(json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
             payload: json.data
@@ -182,9 +182,9 @@ export function autorizado () {
 // }
 
 export function postMovie(payload){
-  console.log("hola")
+  // console.log("hola")
   return async function(dispatch){
-    console.log(payload)
+    // console.log(payload)
     try {
       const Authorization = {
         headers : {
@@ -192,7 +192,7 @@ export function postMovie(payload){
         }
       }
       const json = await axios.post('/movies/createMovie', payload, Authorization);
-      console.log("prueba console.log");
+      // console.log("prueba console.log");
       return dispatch ({
         type: POST_MOVIE,
         payload: json.data
@@ -242,7 +242,7 @@ export function getComments(){
 
 export function deleteComment(id){
   return async function(dispatch){
-    console.log(id)
+    // console.log(id)
     var json = await axios.delete(`/comments/delete/${id}`);
     return dispatch ({
       type: DELETE_COMMENT,
@@ -286,6 +286,7 @@ export function deleteShow(movieId){
       const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
       // console.log(json.data)
       // console.log(json.data)
+      return json.data
     }catch(error){
       console.log(error)
     }
@@ -307,11 +308,11 @@ export function getAllShows(){
 }
 
 export function postShow(data){
-  console.log(data)
+  // console.log(data)
   return async function(){
     try{
       const json = await axios.post('http://localhost:3001/show',{data})
-      console.log(json.data)
+      // console.log(json.data)
     }catch(error){
       console.log(error)
     }
@@ -398,7 +399,7 @@ export function createUser(user){
 export function updateUser(data){
   
   return async function(dispatch){
-    console.log(data)
+    // console.log(data)
     var updateDelete = await axios.put("http://localhost:3001/admin/updateUser",data);
     return updateDelete
   }
@@ -501,9 +502,9 @@ export function sumTotal(payload){
 
 export function sumEntradas(payload){
   return async function(dispatch){
-    console.log("info SumEntradas: ", payload);
+    // console.log("info SumEntradas: ", payload);
     const resp = await axios.post('/tickets/addTickets', payload)
-    console.log("respuesta Tickets:",resp);
+    // console.log("respuesta Tickets:",resp);
     return dispatch({
       type: ENTRADAS,
       payload: payload.seats
@@ -513,7 +514,7 @@ export function sumEntradas(payload){
 
 export function getCardHistory(idUser){
   return async function(dispatch){
-    console.log("estoy en actions " + idUser);
+    // console.log("estoy en actions " + idUser);
     var getCart = await axios.post(`/cart`, idUser)
     return dispatch({
       type: GET_CART,

@@ -41,7 +41,6 @@ const initialState = {
   show:[],
   candy:[],
   autorizado: '',
-  candy:[],
   storeCandy:[],
   role: 'guest',
   total: 0,
@@ -97,7 +96,7 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_TYPE:
       const carteleraToFilter = state.cartelera;
-      console.log(carteleraToFilter);
+      // console.log(carteleraToFilter);
       const filteredByType =
         action.payload === "All"
           ? carteleraToFilter
@@ -226,11 +225,6 @@ function rootReducer(state = initialState, action) {
       role: action.payload.role,
       id: action.payload.id
     }
-    case GET_CANDY:
-      return{
-        ...state,
-        candy: action.payload
-      }
     default:
       return state;
   }
