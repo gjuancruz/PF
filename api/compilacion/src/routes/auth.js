@@ -32,22 +32,31 @@ router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, functio
         if (user) {
             return res.status(400).send({ error: 'User already exists' });
         }
+        // const fecha:any = new Date()
         //Adding user to database
         const newUser = yield prisma.user.create({
             // @ts-ignore
             data: { username: username, email: email, password: hashedPassword, role: role }
         });
+        // @ts-ignore
+        const formatedUser = yield prisma.user.update({
+            where: { username: username },
+            data: {
+                // @ts-ignore
+                dateFormat: String(newUser.createdAt).slice(4, 15)
+            }
+        });
         console.log('este es el 34', newUser);
         //Adding new Cart to new User
         const theuser = yield prisma.user.findUnique({ where: { id: newUser.id } });
-        console.log('este es el 36', theuser);
+        // console.log('este es el 36', theuser);
         // @ts-ignore
         const newCart = yield prisma.cart.create({
             // @ts-ignore
             data: { userId: theuser.id, orderPrice: 0 }
         });
-        console.log('este es el 42', newCart);
-        console.log('este es el 44', newUser);
+        // console.log('este es el 42', newCart);
+        // console.log('este es el 44',newUser)
         return res.status(201).json({ ok: 'Usuario creado !' });
     }
     catch (error) {
@@ -140,14 +149,14 @@ router.get('/verifyrole', (req, res, next) => __awaiter(void 0, void 0, void 0, 
     try {
         const headerToken = req.headers.authorization;
         const token = headerToken.split(' ')[1];
-        console.log(token);
+        // console.log(token);
         // console.log(req)
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET || '');
-        console.log('soy decoded', decoded);
+        // console.log('soy decoded', decoded)
         // @ts-ignore
         req.user_id = decoded.user_id;
         //@ts-ignore
-        console.log(decoded.user_id);
+        // console.log(decoded.user_id)
         const user = yield prisma.user.findUnique({
             where: {
                 //@ts-ignore

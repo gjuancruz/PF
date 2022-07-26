@@ -28,6 +28,8 @@ export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
+export const GET_DAY_SHOW="GET_DAY_SHOW"
+
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -113,11 +115,11 @@ export function searchMovieName(title){
       }
 
     }
-    export function postPaymentMethod(ticket,show,userId){
-      console.log(userId)
+    export function postPaymentMethod(ticket,show,idUser){
+      // console.log(userId)
       return async function (dispatch){
         try{
-          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,amount:100,show:show,userId})
+          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,show,idUser})
           console.log('soy la action del payment method !!',json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
@@ -253,7 +255,7 @@ export function getShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.get('http://localhost:3001/show/one/'+movieId)
-      console.log(json.data)
+      // console.log(json.data)
       return dispatch({
         type: GET_SHOW,
         payload:json.data
@@ -264,12 +266,26 @@ export function getShow(movieId){
   }
 }
 
+export function getDayShow(day,id){
+  return async function(dispatch){
+    try{
+      const json = await axios.get(`http://localhost:3001/show/day?day=${day}&id=${id}`)
+      return dispatch({
+        type:GET_DAY_SHOW,
+        payload:json.data
+      })
+    }catch(err){
+      console.log(err)
+    }
+  }
+}
+
 export function deleteShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
       // console.log(json.data)
-      console.log(json.data)
+      // console.log(json.data)
     }catch(error){
       console.log(error)
     }
@@ -337,6 +353,7 @@ export function getUsers(){
     return dispatch ({type: GET_USERS, payload: get_Usuarios.data})
   }
 }
+
 export function searchUser(name){
   return async function (dispatch) {
       try {
@@ -373,7 +390,7 @@ export function deleteUser(email){
 
 export function createUser(user){
   return async function(dispatch){
-      const data = await axios.post("http://localhost:3001/admin/createUser", user)
+      const data = await axios.post("http://localhost:3001/auth/register", user)
       return data;
   }
 }
@@ -484,9 +501,12 @@ export function sumTotal(payload){
 
 export function sumEntradas(payload){
   return async function(dispatch){
+    console.log("info SumEntradas: ", payload);
+    const resp = await axios.post('/tickets/addTickets', payload)
+    console.log("respuesta Tickets:",resp);
     return dispatch({
       type: ENTRADAS,
-      payload: payload
+      payload: payload.seats
     })
   }
 }
@@ -513,3 +533,10 @@ export function postCandys(payload){
     }
   }
 }
+///////RUTAS CANDY//////
+// export function getCandy(){
+//   return async function(dispatch){
+//     var get_candy = await axios.get("http://localhost:3001/candy");
+//     return dispatch ({type: GET_CANDY, payload: get_candy.data})
+//   }
+// }

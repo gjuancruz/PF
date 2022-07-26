@@ -1,18 +1,17 @@
 import React,{ useEffect, useState }  from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardElement,useElements,useStripe} from "@stripe/react-stripe-js"
 import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
-import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, 
+import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, getDayShow,
   sumEntradas, getCardHistory } from "../../Redux/actions";
+// import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole,getDayShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Checkout } from '../Checkout/Checkout'
-
-
+import Stripe from './Stripe';
 
 export default function MovieDetail(){
     const dispatch = useDispatch()
@@ -21,19 +20,28 @@ export default function MovieDetail(){
     const premieres = useSelector((state) => state.premiere)
     const movieDet=useSelector(state=>state.movieDetail)
     const allUsers = useSelector ((state) => state.usuarios)
+    const days = useSelector(state=>state.day)
     const shows= useSelector(state=>state.show)
     const refresh= useSelector(state=>state.refresh)
     const [shown,setShown] = useState(false)
+    const [hourshown,setHourShown] = useState(false)
     const [showid,setShowid] = useState("")
     const allUser = useSelector((state) => state.usuarios);
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
-    const movieVideo=useSelector(state=>state.movieDetail.Trailer)
+    const movieVideo=useSelector(state=>state.movieDetail.Trailer);
     const [checkbtn, setcheckbtn] = useState(false);
     
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
+    // const idUser = useSelector(state => state.id)
+
+    const [horario, setHorario] = useState({
+      id: 0,
+      schedule: "00:00"
+    });
+
     const [toggle,setToggle] = useState(false)
 
     const storeCandy = useSelector(state => state.storeCandy)
@@ -60,53 +68,84 @@ export default function MovieDetail(){
       !!idUser && dispatch(getCardHistory({idUser: idUser}))
     },[idUser])
 
+   
     const selecthora = document.querySelector("#selectHora")
-    // console.log(shows)
-    // console.log(showid);
-
-    for(const show of shows){
-    if(shows.length==0){
-    }if(selecthora.lastChild.text!=shows[shows.length-1].schedule){
-        var option = document.createElement("option")
-        option.text = show.schedule
-        option.value = show.id
-        selecthora.add(option)
-        }
+    const selectdia = document.querySelector("#selectDia")
+    const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
+    console.log('this is line 46',days)
+    for(const show of showdays){
+      if(shows.length==0){
+      }if(selectdia.lastChild.text!=shows[shows.length-1].day){
+          var option = document.createElement("option")
+          option.text = show.day
+          option.value = show.day
+          selectdia.add(option)
+          }
     }
+    const createOptions = () => {
+      if (selecthora != null) {
+        console.log("entre a create options");
+        for (const show of shows) {
+          if (shows.length == 0) {
+            return;
+          }
+          if (selecthora.lastChild.text != shows[shows.length - 1].schedule) {
+            var option = document.createElement("option");
+            option.text = show.schedule;
+            option.value = show.id;
+            selecthora.add(option);
+          }
+        }
+      }
+    };
 
-    const CheckoutForm = () =>{
-        const dispatch = useDispatch()
-        const stripe = useStripe()
     
-        const elements = useElements()
-        // const userIdCheck = window.localStorage.getItem('userId')
-        // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-        // console.log('este seria el showid que le esta llegando',showid)
-        const handleStripe = async(e) =>{
-            e.preventDefault()
-            
-            const {error,paymentMethod} = await stripe.createPaymentMethod({
-                type:"card",
-                card: elements.getElement(CardElement)
-            })
-            // console.log('soy el paymentMethod',paymentMethod)
-            if(!error){
-                dispatch(postPaymentMethod(paymentMethod.id,showid,'855fa188-ed42-4eb3-80d9-aa1e99485e58'))
-            }else console.log(error)
-        }
-        return<form onSubmit={handleStripe}>
-            <CardElement className="form-control"/>
-            <button>Realizar pago</button>
-        </form>
-    }
+//renderizxar el form en un modal para hacer la parte de chechout
+  
+  console.log("fechas/horarios pelicula",shows);
+
     const handleSubmit = (e)=>{
         setShown(current=>!current)
     }
-    const handleChange=(e)=>{
+    const handleHourChange=(e)=>{
         e.preventDefault()
-        setShowid(e.target.value)  ///modificado default value
+        // setShowid(e.target.value)  ///modificado default value
+        setShowid(e.target.value)
+        setShown(true)
+      // createOptions() //agregado manualmente
+
     }
+    const handleDayChange=(e)=>{
+      e.preventDefault()
+      dispatch(getDayShow(e.target.value,idMovie.id))
+      setHourShown(true)
+      // deleteOptions()
+      // createOptions()
+    }
+
+    // const deleteOptions=()=>{
+    //   var i, L = selecthora.options.length - 1;
+    //   for(i = L; i >= 0; i--) {
+    //       selecthora.remove(i);
+    //   }
+    //   const option = document.createElement("option")
+    //   option.text="Seleccionar hora"
+    //   option.value=""
+    //   selecthora.add(option)
+    // }
     // console.log(toggle);
+
+    const handleChange = (e) => {
+      e.preventDefault()
+      if(e.target.value !== "selectHora"){
+        console.log("handleSelect:", e.target.name, e.target.value);
+        const pelicula = shows.find( item => item.id === e.target.value)
+        setHorario({
+          id: e.target.value,
+          schedule: pelicula.schedule
+        })
+      }
+    }
 
     console.log(JSON.stringify(storeCandy));
     const [num, setNum] = useState(0);
@@ -126,48 +165,15 @@ export default function MovieDetail(){
     function handleClickVideo(e){
       // e.preventDefault()
       window.parent.location.reload()
-      
-    
-      
-      
     }
 
-    // var tag = document.createElement('script');
-
-    //   tag.src = "https://www.youtube.com/iframe_api";
-    //   var firstScriptTag = document.getElementsByTagName('script')[0];
-    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // var player;
-    // function onYouTubeIframeAPIReady(e) {
-    //   const evento = e.YT
-    //   player = new evento.Player('player', {
-    //     height: '360',
-    //     width: '640',
-    //     videoId: 'M7lc1UVf-VE',
-    //     events: {
-    //       'onReady': onPlayerReady,
-    //       'onStateChange': onPlayerStateChange
-    //     }
-    //   });
-    // }
-    // function onPlayerReady(event) {
-    //   event.target.playVideo();
-    // }
-    // var done = false;
-    //   function onPlayerStateChange(event) {
-    //     if (event.data == YT.PlayerState.PLAYING && !done) {
-    //       setTimeout(stopVideo, 6000);
-    //       done = true;
-    //     }
-    //   }
-    //   function stopVideo() {
-    //     player.stopVideo();
-    //   }
-
+    console.log("Horario :",horario);
+    console.log("userId:", idUser);
     return(
         <div className="MovieDetail">
             <NavBar />
+            <Stripe showid={horario.id} />
+
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   */}
@@ -246,18 +252,23 @@ aria-hidden="true">
                 {premieres.find(m=>m.id ===movieDet.id )?  (<div className="estrenocontenedor"><b className="estrenopelicula" >Entradas disponibles a partir del {movieDet.Release}</b></div>):
                  <div className="select">
                  <div>
-                    <select className="selectHora"name="Hora" id="selectHora" onChange={handleChange}>
-                    <option value="">Selecciona Hora</option>
+                 <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
+                    <option value="">Seleccione Dia</option>
                     </select>
-                    <select className="selectDia" name="Dia" id="">
-                    <option value="">Hoy</option>
-                    <option value="">Mañana</option>
-                    <option value="">Proxima Fecha</option>
+                    {/* {hourshown?( */}
+                    <select className="selectHora"name="Horario" id="selectHora" onChange={handleChange}>
+                      <option value="selectHora">Selecciona Hora</option>
+                      {
+                        shows.length && (shows.map( h => 
+                          <option key={h.id} value={h.id} name={h.schedule}>{h.schedule}</option>
+                        ))
+                      }
                     </select>
-                    </div> 
+{/* // ):<></>} */}
+                    </div>
                     <div>
                 
-      {!currentUser[0] ? 
+      {!currentUser[0]? 
       <div>
 <button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 Comprar 
@@ -291,7 +302,7 @@ Comprar
       <button
         className="botoncomprar2"
         type="button"
-       
+        
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
       >
@@ -351,7 +362,7 @@ Comprar
                 Cerrar
               </button>
               <button type="button" class="btn btn-warning" data-bs-dismiss="modal" 
-                onClick={() => dispatch(sumEntradas(num),)}
+                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
               >
                 Agregar al carrito
               </button>
@@ -361,10 +372,15 @@ Comprar
       </div>
 
     </div>
-                {   shown &&   <div className="d-flex flex-column mb-3">
+                {   
+                  shown &&   <div className="d-flex flex-column mb-3">
+                    <Stripe showid={showid} />
+                  </div>
+                }
+                {/* {   shown &&   <div className="d-flex flex-column mb-3">
                             <CheckoutForm/>
                     </div>
-                }
+                } */}
                 <Comment />
                 {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
                     return(
