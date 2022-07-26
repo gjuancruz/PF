@@ -28,7 +28,6 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     var _a, _b, _c, _d, _e, _f;
     try {
         const { index, quantity, cartId, userId } = req.body;
-        console.log(index, quantity, userId);
         let newCandy;
         //buscar el card id del usuario
         const user = yield prisma.user.findUnique({
@@ -81,7 +80,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const cart = yield prisma.cart.findUnique({
             where: { id: (_d = user === null || user === void 0 ? void 0 : user.cart) === null || _d === void 0 ? void 0 : _d.id }
         });
-        console.log('this is cart :', cart);
+        // console.log('this is cart :',cart)
         const addNewCandy = yield prisma.cart.update({
             where: { id: (_e = user === null || user === void 0 ? void 0 : user.cart) === null || _e === void 0 ? void 0 : _e.id },
             data: {
@@ -96,7 +95,7 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 }
             }
         });
-        console.log('this is addNewCandy :', addNewCandy);
+        // console.log('this is addNewCandy :',addNewCandy)
         const newCart = yield prisma.cart.findUnique({
             where: { id: (_f = user === null || user === void 0 ? void 0 : user.cart) === null || _f === void 0 ? void 0 : _f.id }
         });
@@ -104,6 +103,24 @@ router.post('/add', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     catch (e) {
         console.log(e.message);
+        res.status(404).json(e.message);
+    }
+}));
+//http://localhost:3001/candy/searchCandy?name=coca
+router.get("/searchCandy", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { name } = req.query;
+        const searchProduct = yield prisma.menu.findMany({
+            where: {
+                name: {
+                    contains: `${name}`,
+                    mode: 'insensitive'
+                }
+            }
+        });
+        res.json(searchProduct);
+    }
+    catch (e) {
         res.status(404).json(e.message);
     }
 }));
@@ -168,134 +185,5 @@ router.delete('/delete', (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(404).json(e.message);
     }
 }));
-// http://localhost:3001/candy/delete
-router.delete('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _l, _m, _o, _p;
-    try {
-        const { index, quantity, cartId, userId } = req.body;
-        let newCandy;
-        //buscar el card id del usuario
-        const user = yield prisma.user.findUnique({
-            where: { id: userId },
-            include: {
-                cart: {
-                    include: {
-                        tickets: true,
-                        candy: true
-                    }
-                }
-            }
-        });
-        console.log("info user", user);
-        const product = yield prisma.menu.findUnique({
-            where: { id: index }
-        });
-        const userCandy = (_l = user === null || user === void 0 ? void 0 : user.cart) === null || _l === void 0 ? void 0 : _l.candy.find(item => item.name === product.name);
-        const userQuantity = userCandy === null || userCandy === void 0 ? void 0 : userCandy.quantity;
-        console.log('this is userQuantity :', userQuantity);
-        console.log('this is product :', product);
-        // @ts-ignore
-        const totalPrice = product.price * userQuantity;
-        if (userCandy) {
-            newCandy = yield prisma.candy.deleteMany({
-                where: {
-                    //@ts-ignore
-                    id: userCandy.id
-                    // cartId:user?.cart?.id
-                    // name:product.name
-                },
-            });
-        }
-        const cart = yield prisma.cart.findUnique({
-            where: { id: (_m = user === null || user === void 0 ? void 0 : user.cart) === null || _m === void 0 ? void 0 : _m.id }
-        });
-        console.log('this is cart :', cart);
-        yield prisma.cart.update({
-            where: { id: (_o = user === null || user === void 0 ? void 0 : user.cart) === null || _o === void 0 ? void 0 : _o.id },
-            data: {
-                // @ts-ignore
-                orderPrice: cart.orderPrice - totalPrice,
-                // @ts-ignore
-                userId: cart.userId,
-            }
-        });
-        const newCart = yield prisma.cart.findUnique({
-            where: { id: (_p = user === null || user === void 0 ? void 0 : user.cart) === null || _p === void 0 ? void 0 : _p.id }
-        });
-        return res.json(newCart);
-    }
-    catch (e) {
-        console.log(e.message);
-        res.status(404).json(e.message);
-    }
-}));
-// http://localhost:3001/candy/modify
-// router.put('/modify',  async (req:Request,res:Response)=>{
-//     try {
-//         const {index, quantity, cartId, userId} = req.body
-//         let newCandy;
-//         //buscar el card id del usuario
-//         const user = await prisma.user.findUnique({
-//             where: {id: userId},
-//             include: {
-//                 cart:  {
-//                     include : {
-//                         tickets: true,
-//                         candy: true
-//                     }
-//                 }
-//             }
-//         })
-//         console.log("info user", user);
-//         const product : any= await prisma.menu.findUnique({
-//             where:{id:index}
-//         })
-//         const userCandy = user?.cart?.candy.find(item => item.name === product.name);
-//         console.log('this is product :',product)
-//         const totalPrice = product.price*quantity
-//         if(userCandy){
-//             newCandy = await prisma.candy.update({
-//                 where:{
-//                     //@ts-ignore
-//                     id: userCandy.id
-//                     // cartId:user?.cart?.id
-//                     // name:product.name
-//                 },
-//                 data:{
-//                     name:product.name,
-//                     quantity: userCandy.quantity - quantity,
-//                     totalPrice: userCandy.totalPrice - totalPrice,
-//                     cartId: user?.cart?.id
-//                 }
-//             })
-//             console.log("Update Candy respuesta ", newCandy);        
-//         }
-//         const cart = await prisma.cart.findUnique({
-//             where:{id:user?.cart?.id}
-//         })
-//         console.log('this is cart :',cart)
-//         const deleteCandy = await prisma.cart.update({
-//             where:{id:user?.cart?.id},
-//             data:{
-//                 // @ts-ignore
-//                 orderPrice: cart.orderPrice - newCandy.totalPrice,
-//                 // @ts-ignore
-//                 userId: cart.userId,
-//                 candy:{
-//                     connect:{
-//                         id:newCandy?.id
-//                     }
-//                 }
-//             }
-//         })
-//         const newCart = await prisma.cart.findUnique({
-//             where:{id:user?.cart?.id}
-//         })
-//         return res.json(newCart)
-//     }catch(e:any){
-//         console.log(e.message)
-//         res.status(404).json(e.message)
-//     }
-// })
 exports.default = router;
 //# sourceMappingURL=candy.js.map

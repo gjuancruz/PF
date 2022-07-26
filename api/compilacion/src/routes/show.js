@@ -77,7 +77,7 @@ router.get("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const movieId = req.params.id;
     try {
         const shows = yield prisma.show.findMany({ where: { movieId: movieId } });
-        console.log(shows);
+        // console.log(shows)
         return res.send(shows);
     }
     catch (error) {
@@ -98,10 +98,10 @@ router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body.data;
     const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId, day: data.day, type: data.type };
-    console.log(data);
+    // console.log(data)
     try {
         const data = yield showGenerator(show);
-        const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true } });
+        const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true, day: true } });
         if (!showid.length) {
             // console.log(showid)
             const shows = yield prisma.show.createMany({
@@ -118,6 +118,18 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
         return res.status(200).send("Lista de shows generada");
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}));
+router.get("/day", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { day, id } = req.query;
+    console.log(day, id);
+    try {
+        const data = yield prisma.show.findMany({ where: { day: day, movieId: id } });
+        console.log(data);
+        res.status(200).send(data);
     }
     catch (error) {
         res.send(error.message);

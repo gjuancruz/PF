@@ -47,7 +47,8 @@ const initialState = {
   total: 0,
   entradas: 0,
   id:'',
-  cart: []
+  cart: [],
+  day:[]
 };
 
 function rootReducer(state = initialState, action) {
