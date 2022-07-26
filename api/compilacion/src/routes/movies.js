@@ -325,6 +325,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         // console.log(seat.id)
         const candy = yield prisma.candy.findUnique({ where: { id: "fdba5610-1559-4f15-9890-1da57ecb5c60" } });
         const newticket = yield prisma.ticket.createMany({
+            //@ts-ignore
             data: {
                 saleId: sale.id,
                 // seatId:seat.id,
