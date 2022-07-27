@@ -538,8 +538,10 @@ export function getTicketsHistory(idUser){
 
 //Ruta post que almacena los candys con el usuario en especifico
 export function postCandys(payload){
+
   return async function(dispatch){
     try {
+      console.log("soy payload candy",payload)
       let candyPost = await axios.post('/candy/add', payload)
       return console.log("dispatch candyPost " + JSON.stringify(candyPost))
     } catch (error) {
@@ -547,8 +549,6 @@ export function postCandys(payload){
     }
   }
 }
-
-
 ///////RUTAS CANDY//////
 // export function getCandy(){
 //   return async function(dispatch){

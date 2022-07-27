@@ -4,7 +4,7 @@ import {addCandy, sumTotal, getCardHistory, postCandys, deleteCandys, getUsers,
   getOrderPrice, delTickets} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
-export function Checkout({NumTickets, title, sala, idioma, toogle,close, entradas, boletos, horario, showId }) {
+export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, boletos, close ,horario, showId }) {
     // const sidebar = document.querySelector("#sidebar");
     // const container = document.querySelector(".my-container");
 
@@ -33,10 +33,8 @@ export function Checkout({NumTickets, title, sala, idioma, toogle,close, entrada
 
   const movie = useSelector(state => state.movieDetail)
 
-  // const tickets = useSelector(state => state.tickets)
-
   // const idUser = useSelector(state => state.id)
-console.log(movie)
+
   const obtenerCantidad = (nombre) => {
     let idCandy;
     let quantityCandy;
@@ -85,10 +83,12 @@ console.log(movie)
     dispatch(sumTotal(sumaPrecios));
   }
 
-  useEffect(() => {
-    sumaTotal();
-  },[stateCandy])
-
+//   useEffect(() => {
+//   //   sumaTotal();
+//   // },[stateCandy]
+//   if(idUser) dispatch(getOrderPrice({idUser: idUser}))
+// }, [dispatch])
+console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
   useEffect(() => {
     setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"));
     setNACHOS(obtenerCantidad("COMBO NACHOS"))
@@ -111,7 +111,8 @@ console.log(movie)
     if(event.target.name === "COMBO NACHOS") setNACHOS({...NACHOS,value: event.target.value});
     if(event.target.name === "COMBO GRANDE") setGRANDE({...GRANDE,value: event.target.value});
     if(event.target.name === "COMBO ICEE") setICEE({...ICEE,value: event.target.value});
-  }
+  }  
+
   const handleSubmit = (event) => {
     console.log(event.target.name);
     const productos = []
@@ -120,6 +121,9 @@ console.log(movie)
             productos.push("COMBO TRADICIONAL")
         }
         dispatch(postCandys({ index: TRADICIONAL.id, quantity: Number(TRADICIONAL.value), userId: idUser }))
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         console.log(productos);
         return dispatch(addCandy(productos))
     }
@@ -129,6 +133,9 @@ console.log(movie)
         }
         console.log(productos);
         dispatch(postCandys({ index: NACHOS.id, quantity: Number(NACHOS.value), userId: idUser }))
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO GRANDE"){
@@ -136,7 +143,9 @@ console.log(movie)
             productos.push("COMBO GRANDE")
         }
         dispatch(postCandys({ index: GRANDE.id, quantity: Number(GRANDE.value), userId: idUser }))
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO ICEE"){
@@ -144,31 +153,46 @@ console.log(movie)
             productos.push("COMBO ICEE")
         }
         dispatch(postCandys({ index: ICEE.id, quantity: Number(ICEE.value), userId: idUser }))
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "cafe"){
         for (let i = 0; i < cafe; i++) {
             productos.push("cafe")
         }
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "refresco"){
         for (let i = 0; i < refresco; i++) {
             productos.push("refresco")
         }
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "hotdog"){
         for (let i = 0; i < hotdog; i++) {
             productos.push("hotdog")
         }
-        console.log(productos);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
-  
+
+    if(event.target.name === "COMBO TRADICIONALdelete"){
+      productos.filter((p) => p !== 'COMBO TRADICIONAL')
+      setTimeout(() => {
+        dispatch(getOrderPrice({idUser: idUser}))
+      }, 500);
+      return dispatch(deleteCandys({index: TRADICIONAL.id, userId: idUser}))
+  }
 
   if(event.target.name === "COMBO NACHOSdelete"){
     productos.filter((p) => p !== 'COMBO NACHOS')
@@ -198,13 +222,11 @@ console.log(movie)
   }
 }
 
-
 const delTicketsEvent = (e) => {
   e.preventDefault()
   // console.log(e);
-  dispatch(delTickets({userId: idUser, showId: showId}))
-}//idUser
-
+  dispatch(delTickets({userId: idUser, showId: showId}))  //idUser
+}
 
 //   console.log(JSON.stringify(storeCandy[1].name));
 
@@ -243,8 +265,7 @@ const delTicketsEvent = (e) => {
 
           
 
-    <div>
-    <p className="promo">¡Ingresa a ver nuestros<p className="promo2">COMBOS!</p></p>
+          <div>
       <button
         type="button"
         class="btn btn-warning"
@@ -286,8 +307,8 @@ const delTicketsEvent = (e) => {
                                 src={item.picture}
                                 width={"120px"}
                             />
-                            <span style={{paddingRight: "10px"}}>Precio: ${item.price}</span>
-                            <input type="number" min='0' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
+                            <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
+                            <input type="number" min='1' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
                                 value={eval(item.name.split(' ')[1]).value}
                             />
                             <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
@@ -298,7 +319,7 @@ const delTicketsEvent = (e) => {
                     </button>
                         </div>
                     ))
-                
+                 
                 }
                 </div>
                 {/* <div class="col">One of three columns</div>
@@ -307,11 +328,67 @@ const delTicketsEvent = (e) => {
               
               <hr />
 
-              
+              <div class="row align-items-start">
+                <div class="col-12">
+                  <h3>Agregar productos</h3>
+                  <div class="">
+                    <img
+                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/2015525172827605.png"
+                        width={"120px"}
+                    />
+                    <input type="number" min='0' max="100" style={{width: '60px', display:"inline"}} name="cafe"
+                        onChange={handleClick} value={cafe}
+                    />
+                    <button type="button" className="btn btn-warning" onClick={handleSubmit} name="cafe"
+                    >
+                        Agregar
+                    </button>
+                  </div>
+
+                  <div>
+                    <img
+                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/20176713015578.png"
+                        width={"120px"}
+                    />
+                    <input type="number" min='0' max="100" style={{width: '60px'}} name="refresco"
+                        onChange={handleClick} value={refresco}
+                    />
+                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="refresco">
+                        Agregar
+                    </button>
+                  </div>
+
+                  <div>
+                    <img
+                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/201552517333172.png"
+                        width={"120px"}
+                    />
+                    <input type="number" min='0' max="100" style={{width: '60px'}} onChange={handleClick} value={hotdog} 
+                        name="hotdog"
+                    />
+                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="hotdog">
+                        Agregar
+                    </button>
+    
+                  </div>
+
+                </div>
+                {/* <div class="col">One of three columns</div>
+                <div class="col">One of three columns</div> */}
+              </div>
 
             </div>
             <div class="modal-footer">
-             
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-warning">
+                Ir al carrito
+              </button>
             </div>
           </div>
         </div>

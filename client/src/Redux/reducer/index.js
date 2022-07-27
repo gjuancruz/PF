@@ -51,7 +51,6 @@ const initialState = {
   entradas: 0,
   id:'',
   cart: [],
-  day:[],
   tickets:[]
 };
 
@@ -230,7 +229,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         usuarios: action.payload,
       }
-    
   
     case POST_COMMENT:
       console.log("sssssssssssssi")
