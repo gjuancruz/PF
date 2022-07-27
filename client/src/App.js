@@ -14,7 +14,7 @@ import Error404 from './Components/Error404/Error404';
 import CreateMovie from './Components/CreateMovie/CreateMovie';
 import Register from './Components/Register/Register';
 import Perfil from './Components/Profile/Profile';
-import Candy from './Components/Prueba Candy/PruebaCandy';
+import Candy from './Components/Candy/Candy';
 import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
 import Chatbot from 'react-chatbot-kit'

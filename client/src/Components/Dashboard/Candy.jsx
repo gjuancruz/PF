@@ -50,7 +50,7 @@ import InfoCandy from "./InfoCandy";
 
 export default function Candy(){
     const dispatch = useDispatch()
-    const candy = useSelector(state=>state.candy);
+    const candy = useSelector(state=>state.storeCandy);
     const [candyInfo, setCandyInfo] = useState('')
     
     const [input, setInput] = useState("")
