@@ -62,10 +62,7 @@ const NavBar = () =>{
               <a class="nav-link text-light" href="/home" onClick={(event)=>handleProx(event)}>Próximos estrenos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="/">Comida</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="/">Promos</a>
+              <a class="nav-link text-light" href="/candy">Promos</a>
             </li>
             <li class="nav-item dropdown">
             {currentUser.length?
