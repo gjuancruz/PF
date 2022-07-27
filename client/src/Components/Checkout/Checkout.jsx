@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import {addCandy, sumTotal, getCardHistory, postCandys, deleteCandys, getUsers, getOrderPrice} from '../../Redux/actions'
+import {addCandy, sumTotal, getCardHistory, postCandys, deleteCandys, getUsers,
+  getOrderPrice, delTickets} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
-export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entradas, hora }) {
+export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, boletos, horario, showId }) {
     // const sidebar = document.querySelector("#sidebar");
     // const container = document.querySelector(".my-container");
 
@@ -29,6 +30,8 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
   const cart = useSelector(state => state.cart);
 
   const idUser = useSelector(state => state.id)
+
+  // const tickets = useSelector(state => state.tickets)
 
   // const idUser = useSelector(state => state.id)
 
@@ -219,6 +222,11 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
   }
 }
 
+const delTicketsEvent = (e) => {
+  e.preventDefault()
+  // console.log(e);
+  dispatch(delTickets({userId: idUser, showId: showId}))  //idUser
+}
 
 //   console.log(JSON.stringify(storeCandy[1].name));
 
@@ -231,13 +239,13 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
 
         <ul className="navbar-nav d-flex flex-column mt-5 w-100">
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
-              {NumTickets || `Tickets: ${entradas} `}
-            </a>
+              {NumTickets || `Tickets: ${boletos} `} 
+              <input type="button" value="X" style={{backgroundColor: "red", padding:"0 5px"}} 
+                onClick={(e) => delTicketsEvent(e)} ></input>
           </li>
           <li className="nav-item w-100">
             <a href="#" className="nav-link text-light pl-4">
-              {hora ? `Fecha: Jueves ${hora.schedule}` : `Fecha: Jueves 0:00`}
+              {horario ? `Fecha: Jueves ${horario}` : `Fecha: Jueves 0:00`}
             </a>
           </li>
           <li className="nav-item w-100">

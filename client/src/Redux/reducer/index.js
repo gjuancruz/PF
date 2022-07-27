@@ -25,7 +25,9 @@ import {
   ENTRADAS,
   GET_CART,
   GET_DAY_SHOW,
-  TOTALMENTE
+  TOTALMENTE,
+  GET_TICKETS,
+  DEL_TICKET
 } from "../actions";
 
 const initialState = {
@@ -48,11 +50,24 @@ const initialState = {
   total: 0,
   entradas: 0,
   id:'',
-  cart: []
+  cart: [],
+  tickets:[]
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case DEL_TICKET:
+      return{
+        ...state,
+        tickets: []
+      }
+
+    case GET_TICKETS:
+      return{
+        ...state,
+        tickets: action.payload
+      }
+
     case GET_CART:
       return{
         ...state,

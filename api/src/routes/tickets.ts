@@ -121,6 +121,7 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
 
 router.post('/delete', async(req:Request, res:Response) => {
     const {userId, showId} = req.body;
+    console.log("userId :",userId, "showId :", showId);
     try {
         const user = await prisma.user.findUnique({
             where: {id: userId},
@@ -135,10 +136,10 @@ router.post('/delete', async(req:Request, res:Response) => {
         })
         console.log("info user :", user);
         
-        const cart = await prisma.cart.findUnique({ //parece que no es necesario porque ya esta en user
-            where:{id:user?.cart?.id}
-        })
-        console.log("entro a cart :", cart);
+        // const cart = await prisma.cart.findUnique({ //parece que no es necesario porque ya esta en user
+        //     where:{id:user?.cart?.id}
+        // })
+        // console.log("entro a cart :", cart);
 
         const userTickets = user?.cart?.tickets.find(item => item.showId === showId);
 
@@ -177,6 +178,7 @@ router.post('/delete', async(req:Request, res:Response) => {
         return res.json(userUpdate)
 
     } catch (error:any) {
+        console.log(error.message);
         return res.send(error.message)
     }
 })

@@ -29,7 +29,9 @@ export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
 export const GET_DAY_SHOW="GET_DAY_SHOW"
-export const TOTALMENTE='TOTALMENTE'
+export const TOTALMENTE='TOTALMENTE';
+export const GET_TICKETS='GET_TICKETS';
+export const DEL_TICKET="DEL_TICKET"
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -522,6 +524,18 @@ export function getCardHistory(idUser){
   }
 }
 
+export function getTicketsHistory(idUser){
+  return async function(dispatch){
+    console.log("estoy en actions/getTicketsHistory ", idUser);
+    let getTickets = await axios.post(`/cart/tickets`, idUser);
+    console.log("estoy en actions/getTicketsHistory RESPUESTA", getTickets.data)
+    return dispatch({
+      type: GET_TICKETS,
+      payload: getTickets.data
+    })
+  }
+}
+
 //Ruta post que almacena los candys con el usuario en especifico
 export function postCandys(payload){
   return async function(dispatch){
@@ -562,6 +576,22 @@ export function getOrderPrice(payload){
       })
     } catch (error) {
       console.log(error)
+    }
+  }
+}
+
+export function delTickets(payload){
+  return async function(dispatch){
+    try {
+      console.log("estoy en actions/delTIckets ", payload);   
+      const delTicket = await axios.post("http://localhost:3001/tickets/delete", payload)
+      console.log("estoy en actions/delTickets RESPUESTA", delTicket.data)
+      return dispatch({
+        type: DEL_TICKET,
+        payload: delTicket.data
+      })
+    } catch (error) {
+      console.log(error.message);
     }
   }
 }

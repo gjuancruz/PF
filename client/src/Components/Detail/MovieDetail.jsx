@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
 import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, getDayShow,
-  sumEntradas, getCardHistory } from "../../Redux/actions";
+  sumEntradas, getCardHistory, getTicketsHistory} from "../../Redux/actions";
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole,getDayShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
@@ -35,22 +35,44 @@ export default function MovieDetail(){
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
-    // const idUser = useSelector(state => state.id)
+    const idUser = useSelector(state => state.id)
+
+    const tickets = useSelector(state => state.tickets)
 
     const [horario, setHorario] = useState({
       id: 0,
       schedule: "00:00"
     });
 
+
     const [toggle,setToggle] = useState(false)
 
     const storeCandy = useSelector(state => state.storeCandy)
 
     const entradas = useSelector(state => state.entradas)
-
-    const idUser = useSelector(state => state.id)
     
     const cart = useSelector(state => state.cart);
+
+    const [num, setNum] = useState(0);
+
+    const sumar= () => {
+    setNum(num + 1);
+    }
+    const restar= () => {
+      setNum(num - 1);
+    }
+
+    useEffect(() => {
+      idUser && dispatch(getTicketsHistory({idUser: idUser}))
+    },[entradas])
+
+    useEffect(() => {
+      idUser && !tickets.length && dispatch(getTicketsHistory({idUser: idUser}))
+    },[idUser])
+
+    useEffect(() => {
+      tickets.length && setNum(tickets[0].seats)
+    },[tickets])
 
     useEffect(()=>{
         !storeCandy.length && dispatch(getCandy())
@@ -148,14 +170,7 @@ export default function MovieDetail(){
     }
 
     console.log(JSON.stringify(storeCandy));
-    const [num, setNum] = useState(0);
-
-    const sumar= () => {
-    setNum(num + 1);
-    }
-    const restar= () => {
-      setNum(num - 1);
-    }
+    
     const HoraPelicula = shows.find( item => item.id === showid)
     // console.log(HoraPelicula);
 
@@ -169,7 +184,9 @@ export default function MovieDetail(){
 
     console.log("Horario :",horario);
     console.log("userId:", idUser);
-    console.log(showid);
+    console.log("showId", showid);
+    console.log("tickets :",tickets);
+    console.log("estado TICKETs", num);
     return(
         <div className="MovieDetail">
             <NavBar />
@@ -182,7 +199,9 @@ export default function MovieDetail(){
           {num === 0 ? "": 
            checkbtn?
             <div className="Checkout-component">
-                <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart} />
+                <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart} 
+                  boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0} //showId={tickets[0].seats}
+                />
             </div>   : null 
            }
             <div className="contenedor" id={toggle && "checkout-active"}>
