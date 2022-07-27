@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Checkout.css";
-import {addCandy, sumTotal, getCardHistory, postCandys} from '../../Redux/actions'
+import {addCandy, sumTotal, getCardHistory, postCandys, deleteCandys, getUsers,
+  getOrderPrice, delTickets} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
-export function Checkout({NumTickets, close , title, horario, sala, idioma, toogle, entradas, hora }) {
+export function Checkout({NumTickets, title, sala, idioma, toogle,close, entradas, boletos, horario, showId }) {
     // const sidebar = document.querySelector("#sidebar");
     // const container = document.querySelector(".my-container");
 
@@ -30,7 +31,10 @@ export function Checkout({NumTickets, close , title, horario, sala, idioma, toog
 
   const idUser = useSelector(state => state.id)
 
-  const movie= useSelector(state=>state.movieDetail)
+  const movie = useSelector(state => state.movieDetail)
+
+  // const tickets = useSelector(state => state.tickets)
+
   // const idUser = useSelector(state => state.id)
 console.log(movie)
   const obtenerCantidad = (nombre) => {
@@ -107,8 +111,7 @@ console.log(movie)
     if(event.target.name === "COMBO NACHOS") setNACHOS({...NACHOS,value: event.target.value});
     if(event.target.name === "COMBO GRANDE") setGRANDE({...GRANDE,value: event.target.value});
     if(event.target.name === "COMBO ICEE") setICEE({...ICEE,value: event.target.value});
-  }  
-
+  }
   const handleSubmit = (event) => {
     console.log(event.target.name);
     const productos = []
@@ -165,7 +168,44 @@ console.log(movie)
         console.log(productos);
         return dispatch(addCandy(productos))
     }
+  
+
+  if(event.target.name === "COMBO NACHOSdelete"){
+    productos.filter((p) => p !== 'COMBO NACHOS')
+    dispatch(deleteCandys({index: NACHOS.id, userId: idUser}))
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    return dispatch(addCandy(productos))
   }
+
+  if(event.target.name === "COMBO GRANDEdelete"){
+    productos.filter((p) => p !== 'COMBO GRANDE')
+    dispatch(deleteCandys({index: GRANDE.id, userId: idUser}))
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    return dispatch(addCandy(productos))
+  }
+
+  if(event.target.name === "COMBO ICEEdelete"){
+    productos.filter((p) => p !== 'COMBO ICEE')
+    dispatch(deleteCandys({index: ICEE.id, userId: idUser}))
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    return dispatch(addCandy(productos))
+  }
+}
+
+
+const delTicketsEvent = (e) => {
+  e.preventDefault()
+  // console.log(e);
+  dispatch(delTickets({userId: idUser, showId: showId}))
+}//idUser
+
+
 //   console.log(JSON.stringify(storeCandy[1].name));
 
   console.log("estado candy: " + JSON.stringify(stateCandy));
@@ -179,13 +219,13 @@ console.log(movie)
          <iframe src={movie.Trailer} alt="" width="400px" height="300px"/>
         <ul className="navbar-nav d-flex flex-column mt-5 w-100">
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-white pl-4">
-              {NumTickets || <b>Tickets: {entradas} </b>}
-            </a>
+              {NumTickets || `Tickets: ${boletos} `} 
+              <input type="button" value="X" style={{backgroundColor: "red", padding:"0 5px"}} 
+                onClick={(e) => delTicketsEvent(e)} ></input>
           </li>
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-white pl-4">
-              {hora ? `Fecha: Jueves ${hora.schedule}` : `Fecha: Jueves 0:00`}
+            <a href="#" className="nav-link text-light pl-4">
+              {horario ? `Fecha: Jueves ${horario}` : `Fecha: Jueves 0:00`}
             </a>
           </li>
           <li className="nav-item w-100">
@@ -201,62 +241,10 @@ console.log(movie)
 
           <hr />
 
-          {/* <li className="nav-item dropdown w-100">
-            <a
-              href="#"
-              className="nav-link text-light pl-4 
-                  dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="true"
-            >
-              Dulceria
-              
-            </a>
-            <ul
-              className="dropdown-menu w-100"
-              aria-aria-labelledby="navbarDropdown"
-            >
-              <li>
-                <a href="#" class="dropdown-item text-light pl-4 p-2">
-                  Combo-1
-                </a>
-              </li>
-              <li>
-                <a href="#" class="dropdown-item text-light pl-4 p-2">
-                  Combo-02
-                </a>
-              </li>
-              <li>
-                <a href="#" class="dropdown-item text-light pl-4 p-2">
-                  Combo-03
-                </a>
-              </li>
-            </ul>
-          </li> */}
-
-        {/* <div>
-            <button type="button" className="mt-5 btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">Activar</button>
-            <div className="modal fade bg-white" id="Modal" tabIndex='-1' aria-hidden='true' aria-aria-labelledby="modalTitle">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h3 className="modal-title" id="modal-Title" >Prueba modal!!!</h3>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quaerat praesentium tenetur odio excepturi aperiam autem commodi velit adipisci illum, veniam facilis. Minima fugit a sint molestiae nesciunt. Illo, voluptatem!</p>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-primary" data-bs-dismiss='modal'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> */}
+          
 
     <div>
+    <p className="promo">¡Ingresa a ver nuestros<p className="promo2">COMBOS!</p></p>
       <button
         type="button"
         class="btn btn-warning"
@@ -305,6 +293,9 @@ console.log(movie)
                             <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
                                 Agregar
                             </button>
+                            <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name + 'delete'}>
+                        Eliminar
+                    </button>
                         </div>
                     ))
                 
@@ -342,7 +333,7 @@ console.log(movie)
       </nav>
 
   );
-}
+              }
 // <div class="container-fluid" >
 //     <div class="row">
 //         {/* Pruebasaaaaa */}
