@@ -55,7 +55,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
 
       const handleNotFound = () => {
         const botMessage = createChatBotMessage(
-            'No entiendo'
+            'Hmm... creo que no tengo una respuesta para eso.'
             );
     
         setState((prev) => ({

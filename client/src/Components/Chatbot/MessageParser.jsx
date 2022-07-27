@@ -7,23 +7,37 @@ const MessageParser = ({ children, actions }) => {
         actions.handleFantastic()
       }
 
-      if (message.includes('dog')) {
+      else if (message.includes('dog')) {
         actions.handleDog();
       }
 
-      if (message.includes('regis')) {
+      else if (message.includes('regis')) {
         actions.handleRegistro();
       }
 
-      const feedbackTriggers = ['queja', 'suger', 'opin']
-      feedbackTriggers.forEach(element => {
-        if (message.includes(element)) {
-            actions.handleFeedback();
-          }
-      });
-    //   if (!message.includes('fantastic', 'dog', 'registro', 'registrarse', 'registrar')){
-    //     actions.handleNotFound()
-    //   }
+      // const feedbackTriggers = ['queja', 'suger', 'opin']
+      // feedbackTriggers.forEach(element => {
+      //  if (message.includes(element)) {
+      //       actions.handleFeedback();
+      //     }
+      // });
+      
+      else if (message.includes('queja')) {
+        actions.handleFeedback();
+      }
+
+      else if (message.includes('suger')) {
+        actions.handleFeedback();
+      }
+
+      else if (message.includes('opin')) {
+        actions.handleFeedback();
+      }
+
+      else{
+        actions.handleNotFound();
+      }
+    
   };
 
   
