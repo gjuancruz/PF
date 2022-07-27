@@ -15,14 +15,19 @@ const router = (0, express_1.Router)();
 const prisma = new client_1.PrismaClient();
 // http://localhost:3001/tickets
 router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
+    var _a, _b, _c;
     try {
         const { userId, seats, showId, cartId } = req.body;
         console.log("vienen por body", userId, seats, showId, cartId);
         const user = yield prisma.user.findUnique({
             where: { id: userId },
             include: {
-                cart: true
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
             }
         });
         console.log("info user :", user);
@@ -41,19 +46,38 @@ router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, funct
             where: { id: (_a = user === null || user === void 0 ? void 0 : user.cart) === null || _a === void 0 ? void 0 : _a.id }
         });
         console.log("entro a cart :", cart);
-        const newTickets = yield prisma.tickets.create({
-            data: {
-                showId: show.id,
-                userId,
-                seats,
-                totalPrice: seats * 100,
-                // @ts-ignore
-                cartId: cart.id,
-            }
-        });
+        const userTickets = (_b = user === null || user === void 0 ? void 0 : user.cart) === null || _b === void 0 ? void 0 : _b.tickets.find(item => item.showId === showId);
+        let newTickets;
+        if (userTickets) {
+            newTickets = yield prisma.tickets.update({
+                where: {
+                    id: userTickets === null || userTickets === void 0 ? void 0 : userTickets.id,
+                },
+                data: {
+                    showId: show.id,
+                    userId,
+                    seats: userTickets.seats + seats,
+                    totalPrice: (userTickets.seats + seats) * 100,
+                    // @ts-ignore
+                    cartId: cart.id,
+                }
+            });
+        }
+        else {
+            newTickets = yield prisma.tickets.create({
+                data: {
+                    showId: show.id,
+                    userId,
+                    seats,
+                    totalPrice: seats * 100,
+                    // @ts-ignore
+                    cartId: cart.id,
+                }
+            });
+        }
         console.log("newTickets :", newTickets);
         const addNewTickets = yield prisma.cart.update({
-            where: { id: (_b = user === null || user === void 0 ? void 0 : user.cart) === null || _b === void 0 ? void 0 : _b.id },
+            where: { id: (_c = user === null || user === void 0 ? void 0 : user.cart) === null || _c === void 0 ? void 0 : _c.id },
             data: {
                 // @ts-ignore
                 orderPrice: cart.orderPrice + newTickets.totalPrice,
@@ -92,6 +116,62 @@ router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     catch (e) {
         res.json(e.message);
+    }
+}));
+router.post('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _d;
+    const { userId, showId } = req.body;
+    console.log("userId :", userId, "showId :", showId);
+    try {
+        const user = yield prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        console.log("info user :", user);
+        // const cart = await prisma.cart.findUnique({ //parece que no es necesario porque ya esta en user
+        //     where:{id:user?.cart?.id}
+        // })
+        // console.log("entro a cart :", cart);
+        const userTickets = (_d = user === null || user === void 0 ? void 0 : user.cart) === null || _d === void 0 ? void 0 : _d.tickets.find(item => item.showId === showId);
+        const deleteTickets = yield prisma.tickets.delete({
+            where: { id: userTickets === null || userTickets === void 0 ? void 0 : userTickets.id }
+        });
+        console.log(deleteTickets);
+        const show = yield prisma.show.findUnique({
+            where: { id: showId }
+        });
+        console.log("entro a show :", show);
+        //actualiza los asientos de la funcion en tal hora
+        const seatsAvailable = yield prisma.show.update({
+            where: { id: showId },
+            data: {
+                seats: show.seats + (userTickets === null || userTickets === void 0 ? void 0 : userTickets.seats)
+            }
+        });
+        console.log("seats Avaliable entro :", seatsAvailable);
+        const userUpdate = yield prisma.user.findUnique({
+            where: { id: userId },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        return res.json(userUpdate);
+    }
+    catch (error) {
+        console.log(error.message);
+        return res.send(error.message);
     }
 }));
 exports.default = router;

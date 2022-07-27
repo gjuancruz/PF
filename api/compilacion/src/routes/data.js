@@ -6,7 +6,7 @@ exports.cars = {
     Plot: "El aspirante a campeón de carreras Rayo McQueen parece que está a punto de conseguir el éxito. Su actitud arrogante se desvanece cuando llega a una pequeña comunidad olvidada que le enseña las cosas importantes de la vida que había olvidado",
     Genre: "Animación, Aventura, Comedia",
     Actors: "Owen Wilson, Bonnie Hunt, Paul Newman",
-    Language: "Español, Inglés, Italiano, Japones",
+    Language: "Español, Inglés",
     Director: "John Lasseter, Joe Ranft",
     Release: "09 Jun 2006",
     Poster: "https://m.media-amazon.com/images/M/MV5BMTg5NzY0MzA2MV5BMl5BanBnXkFtZTYwNDc3NTc2._V1_SX300.jpg",
@@ -34,12 +34,12 @@ exports.sonic = {
     Plot: "Después de establecerse en Green Hills, Sonic quiere demostrar que tiene madera de héroe. La prueba de fuego llega con el retorno del malvado Robotnik, y su nuevo compinche, Knuckles, en busca de una esmeralda que destruye civilizaciones",
     Genre: "Acción, Aventura, Comedia",
     Actors: "James Marsden, Jim Carrey, Ben Schwartz",
-    Language: "Español, Inglés, Ruso",
+    Language: "Español, Inglés",
     Director: "Jeff Fowler",
     Release: "08 Apr 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BMGI1NjA1MjUtNGQxNC00NDYyLThjODgtZjFkZjQ4OGM0NDc5XkEyXkFqcGdeQXVyMTM0NTUzNDIy._V1_SX300.jpg",
     Rated: "PG",
-    Type: "3D",
+    Type: "3D,2D",
     Trailer: "https://www.youtube.com/embed/2OMixTIRQcY",
     Runtime: 122
 };
@@ -81,7 +81,7 @@ exports.jurassic = {
     Release: "10 Jun 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
     Rated: "PG-13",
-    Type: "2D",
+    Type: "2D,3D",
     Trailer: "https://www.youtube.com/embed/rjQDdt5O99U",
     Runtime: 147
 };
@@ -109,7 +109,7 @@ exports.lightyear = {
     Release: "30 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BYTg2Zjk0ZTctM2ZmMi00MDRmLWJjOGYtNWM0YjBmZTBjMjRkXkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_SX300.jpg",
     Rated: "PG",
-    Type: "2D",
+    Type: "2D,3D",
     Trailer: "https://www.youtube.com/embed/lKLqrpYNfnA",
     Runtime: 100
 };
@@ -123,7 +123,7 @@ exports.topGun = {
     Release: "27 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BOWQwOTA1ZDQtNzk3Yi00ZmVmLWFiZGYtNjdjNThiYjJhNzRjXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
     Rated: "PG-13",
-    Type: "2D",
+    Type: "2D,3D",
     Trailer: "https://www.youtube.com/embed/S_QkFkOb_HE",
     Runtime: 130
 };
@@ -174,7 +174,7 @@ exports.SupermanSpidermanorBatman = {
     Plot: "Aron, un niño de cinco años de edad, desea poder salvar a su madre de una enfermedad cardiaca como el superhéroe de un libro de historietas cómicas.",
     Genre: "Drama",
     Actors: "Adriana Bailescu, Zsolt Bogdán, Ovidiu Crisan",
-    Language: "Romanian",
+    Language: "Español",
     Director: "Tudor Giurgiu",
     Release: "29 Jul 2022",
     Poster: "https://m.media-amazon.com/images/M/MV5BMjQ4MzcxNDU3N15BMl5BanBnXkFtZTgwOTE1MzMxNzE@._V1_SX300.jpg",

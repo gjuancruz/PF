@@ -41,6 +41,29 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(404).json("No hay usuarios que mostrar");
     }
 }));
+router.post("/tickets", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const { idUser } = req.body;
+    console.log("Tickets", idUser);
+    try {
+        const user = yield prisma.user.findUnique({
+            where: { id: idUser },
+            include: {
+                cart: {
+                    include: {
+                        tickets: true,
+                        candy: true
+                    }
+                }
+            }
+        });
+        // @ts-ignore
+        res.json((_a = user.cart) === null || _a === void 0 ? void 0 : _a.tickets);
+    }
+    catch (error) {
+        res.status(404).json("No hay usuarios que mostrar");
+    }
+}));
 router.post('/userCart', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { idUser } = req.body;
     console.log(idUser);
