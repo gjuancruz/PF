@@ -25,7 +25,7 @@ import {
   ENTRADAS,
   GET_CART,
   GET_DAY_SHOW,
-  SELECT_BY_TYPE
+  TOTALMENTE
 } from "../actions";
 
 const initialState = {
@@ -66,7 +66,7 @@ function rootReducer(state = initialState, action) {
         entradas: action.payload
       }
 
-    case TOTAL:
+    case TOTALMENTE:
       return{
         ...state,
         total: action.payload
@@ -215,20 +215,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         usuarios: action.payload,
       }
-    case SELECT_BY_TYPE:
-      const filterType=state.show
-      const selectByType=
-      action.payload === "" ?
-      filterType : filterType.filter(type=>{
-        let filmtype= type.type.map(f=>f.Type)
-        if(filmtype.includes(action.payload)){
-          return type
-        }
-      })
-      return{
-        ...state,
-       filterType: selectByType
-      }
+    
   
     case POST_COMMENT:
       console.log("sssssssssssssi")

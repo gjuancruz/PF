@@ -3,7 +3,7 @@ import "./Checkout.css";
 import {addCandy, sumTotal, getCardHistory, postCandys} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
 
-export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entradas, hora }) {
+export function Checkout({NumTickets, close , title, horario, sala, idioma, toogle, entradas, hora }) {
     // const sidebar = document.querySelector("#sidebar");
     // const container = document.querySelector(".my-container");
 
@@ -30,10 +30,9 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
 
   const idUser = useSelector(state => state.id)
 
-  const shows= useSelector(state=> state.show)
-
+  const movie= useSelector(state=>state.movieDetail)
   // const idUser = useSelector(state => state.id)
-
+console.log(movie)
   const obtenerCantidad = (nombre) => {
     let idCandy;
     let quantityCandy;
@@ -172,31 +171,31 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
   console.log("estado candy: " + JSON.stringify(stateCandy));
   return (
       // <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
-      <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id="Navcollapse" >
-          
+      <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-center" id="Navcollapse" >
+          <button onClick={()=>close(false)}>x</button>
         <h3 className="mt-4 ml-5 font-weight-bold text-white">{title || 'generic title'}</h3>
-
+         <iframe src={movie.Trailer} alt="" width="400px" height="300px"/>
         <ul className="navbar-nav d-flex flex-column mt-5 w-100">
-          {/* <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
-              {NumTickets || `Tickets: ${entradas} `}
+          <li className="nav-item w-100">
+            <a href="#" className="nav-link text-white pl-4">
+              {NumTickets || <b>Tickets: ${entradas} </b>}
             </a>
           </li>
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
+            <a href="#" className="nav-link text-white pl-4">
               {hora ? `Fecha: Jueves ${hora.schedule}` : `Fecha: Jueves 0:00`}
             </a>
           </li>
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
+            <a href="#" className="nav-link text-white pl-4">
               {sala || " Sala: 99"}
             </a>
           </li>
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
+            <a href="#" className="nav-link text-white pl-4">
               {idioma || 'Idioma: Español'}
             </a>
-          </li> */}
+          </li>
 
           <hr />
 
@@ -315,14 +314,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
               
               <hr />
 
-              <div class="row align-items-start">
-                <div class="col-12">
-                 
-
-                </div>
-                {/* <div class="col">One of three columns</div>
-                <div class="col">One of three columns</div> */}
-              </div>
+              
 
             </div>
             <div class="modal-footer">
@@ -336,7 +328,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
           <hr />
 
           <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
+            <a href="#" className="nav-link text-white pl-4">
             <b>Total a pagar : ${total}</b>
             </a>
           </li>

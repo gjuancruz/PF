@@ -125,11 +125,9 @@ select:hover{
     margin-right: 20px;
     }
 
-
-.botoncomprar2:hover, .botoncomprar2:focus{
-    border-color: rgb(99, 88, 26);
-    color: #000;
-    box-shadow: inset 11em 0 0 0 rgb(242, 238, 188);}
+.botoncomprar:hover {
+    cursor: pointer;
+}
 .botoncomprar2{
     background-color: rgb(255, 215, 0);
     border: none;
@@ -141,10 +139,6 @@ select:hover{
     font-weight: bold;
     margin-top: 5px;
     margin-right: 20px;
-    margin-left: 10px;
-    transition: 0.7s;
-    bottom: 60px;
-    
     }
 
     .botoncomprar2:hover {

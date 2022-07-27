@@ -28,9 +28,8 @@ export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
-export const GET_DAY_SHOW="GET_DAY_SHOW";
-export const SELECT_BY_TYPE='SELECT_BY_TYPE';
-
+export const GET_DAY_SHOW="GET_DAY_SHOW"
+export const TOTALMENTE='TOTALMENTE'
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -535,12 +534,7 @@ export function postCandys(payload){
   }
 }
 
-export function selectByType(payload) {
-  return {
-    type: SELECT_BY_TYPE,
-    payload,
-  };
-}
+
 ///////RUTAS CANDY//////
 // export function getCandy(){
 //   return async function(dispatch){
@@ -548,3 +542,28 @@ export function selectByType(payload) {
 //     return dispatch ({type: GET_CANDY, payload: get_candy.data})
 //   }
 // }
+
+export function deleteCandys(payload){
+  return async function(dispatch){
+    try {
+      await axios.post('http://localhost:3001/candy/delete', payload)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function getOrderPrice(payload){
+  return async function(dispatch){
+    try {
+      const userCart = await axios.post('http://localhost:3001/cart/userCart', payload)
+      
+      return dispatch({
+        type: TOTALMENTE,
+        payload: userCart.data.orderPrice
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
