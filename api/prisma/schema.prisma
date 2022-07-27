@@ -52,6 +52,7 @@ model Sale {
   id     String   @id @default(uuid()) @db.Uuid
   receipt String  @unique
   userId String   @db.Uuid
+  salePrice Int
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ticket Ticket[]
   candy  Candy[]
@@ -81,7 +82,6 @@ model Ticket {
   id       String   @id @default(uuid()) @db.Uuid
   saleId   String   @db.Uuid
   showId   String   @db.Uuid
-  candyId  String
   sale     Sale @relation(fields: [saleId],references: [id])
   show     Show @relation(fields: [showId], references: [id])
   cart     Cart? 
@@ -120,7 +120,7 @@ model Candy {
   quantity   Int
   totalPrice Int
   cartId     String? @db.Uuid
-  saleId     String? @db.Uuid @unique
+  saleId     String? @db.Uuid 
   cart       Cart? @relation(fields: [cartId],references: [id])
   sale       Sale? @relation(fields: [saleId],references: [id])
 }

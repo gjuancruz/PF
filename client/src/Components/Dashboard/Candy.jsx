@@ -44,13 +44,13 @@ imagen: "link"
 */ 
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCandy } from "../../Redux/actions";
+import { getCandy, searchCandy } from "../../Redux/actions";
 import CreateCandy from "./CreateCandy";
 import InfoCandy from "./InfoCandy";
 
 export default function Candy(){
     const dispatch = useDispatch()
-    const candy = useSelector(state=>state.candy);
+    const candy = useSelector(state=>state.storeCandy);
     const [candyInfo, setCandyInfo] = useState('')
     
     const [input, setInput] = useState("")
@@ -60,7 +60,7 @@ export default function Candy(){
       }
     const handleSubmitSearch = (e)=>{
         e.preventDefault()
-        // dispatch(searchCandy(input))
+        dispatch(searchCandy(input))
       }
 
     useEffect(()=>{
@@ -90,6 +90,7 @@ export default function Candy(){
             Agregar nuevo
           </button>
           <CreateCandy/>
+          {console.log(candy)}
         </div>
       </div>
       <div class="table-responsive">

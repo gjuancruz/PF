@@ -23,6 +23,7 @@ export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 export const ADD_CANDY="ADD_CANDY";
 export const GET_CANDY="GET_CANDY";
+export const SEARCH_CANDY="SEARCH_CANDY";
 export const TOTAL="TOTAL";
 export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
@@ -533,10 +534,20 @@ export function postCandys(payload){
     }
   }
 }
-///////RUTAS CANDY//////
-// export function getCandy(){
-//   return async function(dispatch){
-//     var get_candy = await axios.get("http://localhost:3001/candy");
-//     return dispatch ({type: GET_CANDY, payload: get_candy.data})
-//   }
-// }
+
+export function searchCandy(name){
+  return async function (dispatch) {
+      try {
+        var search = await axios.get(`http://localhost:3001/candy/searchCandy?name=${name}`)
+        return dispatch({
+          type: SEARCH_CANDY,
+          payload: search.data
+        })
+      } catch (error) {
+        dispatch({
+          type: SEARCH_CANDY,
+          payload: []
+        })
+      }
+    }
+}
