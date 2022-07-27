@@ -46,8 +46,14 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
                 seats,
                 totalPrice:seats*100,
                 // @ts-ignore
+            
+                // @ts-ignore
                 cartId: cart.id,
             }
+        })
+        const update = await prisma.tickets.update({
+            where:{id:newTickets.id},
+            data:{dateFormat: String(newTickets.createdAt).slice(4,15)}
         })
         console.log("newTickets :", newTickets);
 
@@ -94,6 +100,55 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
     }
 })
 
+router.get('/all',async(req:Request,res:Response)=>{
+    try {
+        const tickets = await prisma.tickets.findMany({include:{show:true}})
+        const data = tickets?.map((e:any)=>{
+            return{
+                totalPrice:e.totalPrice,
+                seats:e.seats,
+                movie:e.show.movieId,
+                type:e.show.type,
+                date:e.dateFormat.slice(0,3)
+            }
+        })
+        const total : any[] = []
+        const filter = data.forEach((e:any)=>{
+            if(total.find((el:any)=>e.date==el.date)==undefined){
+                console.log(e)
+                total.push(e)
+            }else{
+                let index = total.findIndex((el:any)=>e.date==el.date)
+                total[index].seats += e.seats
+                total[index].totalPrice += e.totalPrice
+            }
+        })
+            res.status(200).send(total)
+    } catch (error) {
+        res.send(error)
+    }
+})
 
+router.get('/all/detail',async(req:Request,res:Response)=>{
+    const {mes} = req.body;
+    console.log(mes)
+    try {
+        const tickets = await prisma.tickets.findMany({include:{show:true}})
+        const data = tickets?.map((e:any)=>{
+            return{
+                totalPrice:e.totalPrice,
+                seats:e.seats,
+                movie:e.show.movieId,
+                type:e.show.type,
+                date:e.dateFormat
+            }
+        })
+       
+        const filter = data.filter((e:any)=>e.date.slice(0,3)===mes)
+        res.status(200).send(filter)
+    } catch (error) {
+        res.send(error)
+    }
+})
 
 export default router;

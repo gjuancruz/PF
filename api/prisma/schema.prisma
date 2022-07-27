@@ -53,6 +53,8 @@ model Sale {
   receipt String  @unique
   userId String   @db.Uuid
   salePrice Int
+  createdAt DateTime @default(now())
+  dateFormat String? @db.Text
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ticket Ticket[]
   candy  Candy[]
@@ -92,6 +94,8 @@ model Tickets {
   showId String   @db.Uuid
   seats  Int     
   totalPrice  Int
+  createdAt DateTime @default(now())
+  dateFormat String? @db.Text
   userId  String   @db.Uuid
   cartId  String   @db.Uuid
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -29,6 +29,7 @@ export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
+export const GET_TICKETS="GET_TICKETS";
 export const GET_DAY_SHOW="GET_DAY_SHOW"
 
 
@@ -547,6 +548,23 @@ export function searchCandy(name){
       } catch (error) {
         dispatch({
           type: SEARCH_CANDY,
+          payload: []
+        })
+      }
+    }
+}
+
+export function getTicketsSales(){
+  return async function (dispatch) {
+      try {
+        var tickets = await axios.get('http://localhost:3001/tickets/all')
+        return dispatch({
+          type: GET_TICKETS,
+          payload: tickets.data
+        })
+      } catch (error) {
+        dispatch({
+          type: GET_TICKETS,
           payload: []
         })
       }

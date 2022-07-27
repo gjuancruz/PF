@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, searchUser, deleteUser} from "../../Redux/actions";
+import { getUsers, searchUser, deleteUser, getTicketsSales, getBillboard} from "../../Redux/actions";
 import ChartPie from "./Charts/ChartPie";
 import SegmentChart from "./Charts/SegmentChart";
 import InfoSalesMovies from "./InfoSalesMovies";
 
 export default function SalesBalanceMovies(){
   const [movieInfo, setMovieInfo] = useState({name:'',type:''})
+  const tickets = useSelector(state=>state.infoTickets)
+  const allMovies=useSelector(state=>state.cartelera)
 
   const dispatch = useDispatch();
   const dataMovies = [
@@ -76,9 +78,15 @@ export default function SalesBalanceMovies(){
     // dispatch(deleteUser(userDlt));
     setMovieInfo({name,type})
   }
+  const handleMovie = (movie)=>{
+   const data = allMovies.find(e=>e.id === movie)
+   return data.Title;
+  }
 
   useEffect(()=>{
     dispatch(getUsers())
+    dispatch(getTicketsSales())
+    dispatch(getBillboard())
   },[dispatch])
 
     return(
@@ -104,7 +112,8 @@ export default function SalesBalanceMovies(){
           </button>
         </div>
       </div>
-
+      {console.log(tickets)}
+      {console.log(allMovies)}
       <div class='row'>
         <div class='col-4 card text-center mx-4'>
             <div class='card-header'>
@@ -139,6 +148,7 @@ export default function SalesBalanceMovies(){
               <th scope="col">Nombre</th>
               <th scope="col">Tipo</th>
               <th scope="col">Entradas Vendidas</th>
+              <th scope="col">Mes</th>
               <th scope="col">T.Bruto</th>
               <th scope="col">T.Neto</th>
               <th scope="col">Detail</th>
@@ -146,14 +156,15 @@ export default function SalesBalanceMovies(){
           </thead>
           <tbody>
             {
-              dataMovies &&
-              dataMovies.map((u,i)=>
+              tickets &&
+              tickets.map((u,i)=>
                 (<tr key={i}>
-                  <td>{u.name}</td>
+                  <td>{handleMovie(u.movie)}</td>
                   <td>{u.type}</td>
-                  <td>{u.quantitySales}</td>
-                  <td>{u.total_gross}</td>
-                  <td>{u.total_net}</td>
+                  <td>{u.seats}</td>
+                  <td>{u.date}</td>
+                  <td>{u.totalPrice}</td>
+                  <td>{u.totalPrice * 0.6}</td>
                   <td>
                     <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.name,u.type)}><i class="bi bi-info-circle"></i></button>
                   </td>

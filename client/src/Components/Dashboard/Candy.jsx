@@ -30,16 +30,25 @@ imagen: "link"
 
 ///////// productos totales vendidos por mes de cada uno////////
 {
-    nombreProd:
-    cantidad:
-    montoTotal:
-    mes:
+    nombreProd: pochoclos
+    cantidad: 560
+    montoTotal: 648551
+    mes: 06
 }
-
+{
+    nombreProd: nachos
+    cantidad: 700
+    montoTotal: 216545
+    mes: 07
+}
 /////// ventas totales de todos los productos en el mes ///////
 {
-    mes:
-    monto:
+    mes: 07
+    monto: 981090
+}
+{
+    mes: 08
+    monto: 10056561
 }
 */ 
 import React, {useEffect, useState} from "react";

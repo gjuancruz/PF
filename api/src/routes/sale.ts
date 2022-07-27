@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Router,Request,Response } from "express";
 
-
 const router = Router()
 const prisma = new PrismaClient()
 

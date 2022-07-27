@@ -21,6 +21,7 @@ import {
   ADD_CANDY,
   GET_CANDY,
   SEARCH_CANDY,
+  GET_TICKETS,
   VERIFY_ROLE,
   TOTAL,
   ENTRADAS,
@@ -40,6 +41,7 @@ const initialState = {
   usuarios:[],
   shows:[],
   show:[],
+  infoTickets:[],
   candy:[],
   autorizado: '',
   storeCandy:[],
@@ -89,6 +91,11 @@ function rootReducer(state = initialState, action) {
         storeCandy: action.payload
       }
 
+    case GET_TICKETS:
+      return {
+        ...state,
+        infoTickets: action.payload
+      }
     case AUTORIZADO:
       return {
         ...state,
