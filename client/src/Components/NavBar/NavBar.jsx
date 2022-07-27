@@ -48,7 +48,7 @@ const NavBar = () =>{
       <div class="container-fluid">
         {/* <a class="navbar-brand text-light" href="/">Moon Cinema</a> */}
         <a class="navbar-brand text-light" href="/">
-          <img src={moonCinema} width="120px"></img>
+          <img src={moonCinema} width="120px" className='imgMooncinema'></img>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list text-light"></i>

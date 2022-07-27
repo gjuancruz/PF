@@ -3,6 +3,8 @@ import "./Checkout.css";
 import {addCandy, sumTotal, getCardHistory, postCandys, deleteCandys, getUsers,
   getOrderPrice, delTickets} from '../../Redux/actions'
 import { useDispatch, useSelector } from "react-redux";
+import Stripe from '../Detail/Stripe'
+import CheckoutForm from "../Detail/Stripe";
 
 export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, boletos, close ,horario, showId }) {
     // const sidebar = document.querySelector("#sidebar");
@@ -11,6 +13,7 @@ export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, bol
   const [cafe, setCafe] = useState(0)
   const [refresco, setRefresco] = useState(0)
   const [hotdog, setHotdog] = useState(0)
+  const [pay,setPay]=useState(false)
 
   
 
@@ -283,7 +286,7 @@ const delTicketsEvent = (e) => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg-mod">
           <div class="modal-content bg-dark">
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">
@@ -405,8 +408,8 @@ const delTicketsEvent = (e) => {
         </ul>
 
         <hr />
-        <button type="button" class="btn btn-warning">Realizar Pago</button>
-
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropay" onClick={()=>setPay(!pay)}>Realizar Pago</button>
+                
       </nav>
 
   );
