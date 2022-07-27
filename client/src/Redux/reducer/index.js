@@ -103,7 +103,7 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_TYPE:
       const carteleraToFilter = state.cartelera;
-      console.log(carteleraToFilter);
+      // console.log(carteleraToFilter);
       const filteredByType =
         action.payload === "All"
           ? carteleraToFilter

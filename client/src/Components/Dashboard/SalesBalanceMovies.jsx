@@ -132,7 +132,7 @@ export default function SalesBalanceMovies(){
         </div><br/>
 
       <div class="table-responsive">
-          {console.log(dataMovies)}
+          {/* {console.log(dataMovies)} */}
         <table class="table table-dark table-striped">
           <thead>
             <tr>

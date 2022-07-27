@@ -6,7 +6,7 @@ import { getFeedback } from "../../Redux/actions";
 export function Feedback (){
     const dispatch = useDispatch()
     const feedback = useSelector((state) => state.feedback)
-    console.log(feedback)
+    // console.log(feedback)
 
     useEffect(() => {
         dispatch(getFeedback())

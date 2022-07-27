@@ -35,4 +35,13 @@ router.post("/", async (req:Request, res:Response) =>{
     }
 })
 
+router.get("/all",async(req:Request,res:Response)=>{
+    try{
+        const cart = await prisma.cart.findMany({include:{candy:true}})
+        res.status(200).send(cart)
+    }catch(error:any){
+        res.send(error.message)
+    }
+})
+
 export default router;

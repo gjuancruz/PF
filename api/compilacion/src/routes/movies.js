@@ -301,9 +301,10 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { show, cartId, ticket } = req.body;
-    const cart = yield prisma.cart.findUnique({ where: { id: cartId } });
+    const { show, idUser, ticket } = req.body;
+    const cart = yield prisma.cart.findUnique({ where: { userId: idUser }, include: { candy: true } });
     const stripe = new stripe_1.default(STRIPE_KEY, { apiVersion: "2020-08-27" });
+    // console.log(cart)
     try {
         const payment = yield stripe.paymentIntents.create({
             amount: cart.orderPrice,
@@ -311,13 +312,17 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
             currency: "USD",
             confirm: true,
         });
-        console.log(payment);
+        // console.log(payment)
         const sale = yield prisma.sale.create({ data: {
-                receipt: ticket,
+                receipt: payment.id,
+                salePrice: cart.orderPrice,
                 user: {
                     connect: { id: cart.userId }
                 }
             } });
+        for (let i = 0; i < cart.candy.length; i++) {
+            const candy = yield prisma.candy.update({ where: { id: cart.candy[i].id }, data: { sale: { connect: { id: sale.id } }, cart: { disconnect: true } } });
+        }
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
         // console.log(room?.room.id)
         // console.log(seat.id)
@@ -329,7 +334,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
                 showId: show
             }
         });
-        const update = yield prisma.show.update({ where: { id: show }, data: { seats: room.seats - 1 } });
+        const update = yield prisma.cart.update({ where: { id: cart.id }, data: { orderPrice: 0 } });
         // console.log(update)
         // console.log(newticket)
         res.send("Payment received");

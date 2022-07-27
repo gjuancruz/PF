@@ -41,7 +41,7 @@ export default function Candy() {
                   <img
                     src="https://archivos-cms.cinecolombia.com/images/_aliases/poster_carousel/4/3/5/3/13534-15-esl-CO/PARA%20DOS.png"
                     width={"180px"}
-                  />
+                    alt=""/>
                   <select name="select">
                     <option value="value1">Value 1</option>
                     <option value="value2">Value 2</option>
