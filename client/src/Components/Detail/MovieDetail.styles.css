@@ -232,3 +232,26 @@ select:hover{
 .contenedorp{
     margin-top: 10px;
 }
+.closebutton2{
+    font-size: 16px; /* Cambiar el tamaño de la tipografia */
+      text-transform: uppercase; /* Texto en mayusculas */
+      font-weight: bold; /* Fuente en negrita o bold */
+      color: #e8f405; /* Color del texto */
+      border-radius: 5px; /* Borde del boton */
+      letter-spacing: 2px; /* Espacio entre letras */
+       /* Color de fondo */
+       /* Relleno del boton */
+       background-color: transparent;
+      position: absolute;
+      right: 40px;
+      transition: all 300ms ease 0ms;
+      border: none;
+      z-index: 99;
+  }
+  .closebutton2:hover{
+     /* Color de fondo al pasar el cursor */
+     
+      transform: translateY(-7px);
+  }
+  
+  
