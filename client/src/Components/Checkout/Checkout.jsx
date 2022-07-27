@@ -68,7 +68,7 @@ export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, bol
     }
   }
 
-  console.log(cart);
+  console.log("cart:",cart);
 
     // const [toggle,setToggle] = useState(true)
   const dispatch = useDispatch();  

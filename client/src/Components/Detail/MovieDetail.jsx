@@ -181,7 +181,7 @@ export default function MovieDetail(){
       // e.preventDefault()
       window.parent.location.reload()
     }
-
+    
     console.log("Horario :",horario);
     console.log("userId:", idUser);
     console.log("showId", showid);
