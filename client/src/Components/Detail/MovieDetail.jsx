@@ -30,14 +30,13 @@ export default function MovieDetail(){
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     const movieVideo=useSelector(state=>state.movieDetail.Trailer);
     const [checkbtn, setcheckbtn] = useState(false);
-    const filertype= useSelector(state=>state.cartelera)
-    const Type=useSelector(state=>state.movieDetail.Type)
+    
     console.log("soy",hourshown)
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
     // const idUser = useSelector(state => state.id)
-    const [pulsado, setPulsado] = useState(false)
+    
     const [horario, setHorario] = useState({
       id: 0,
       schedule: "00:00",
@@ -193,22 +192,11 @@ export default function MovieDetail(){
           {num === 0 ? "": 
            checkbtn?
             <div className="Checkout-component">
-                <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart} />
+                <Checkout title={movieDet.Title} toogle={toggle} close={setcheckbtn}entradas={entradas} hora={HoraPelicula} cart={cart} />
             </div>   : null 
            }
             <div className="contenedor" id={toggle && "checkout-active"}>
-           {premieres.find(m=>m.id ===movieDet.id ) ? "" :
-           <button
-            className="botoncheck"
-            disabled={num === 0}
-            onClick={()=> setcheckbtn((e)=> !e)}
-            > <p> Tickets {num === 0 ? "": num}</p>
-            <svg className="iconocheck" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-perforated" viewBox="0 0 16 16" >
-  <path d="M4 4.85v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Z"/>
-  <path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3h-13ZM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9V4.5Z"/>
-</svg>
-           </button>}
-                
+          
                  
                 {/* <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
                     Toogle Sidebar
@@ -229,36 +217,7 @@ export default function MovieDetail(){
                 
                 
                 </div>
-                <div className="divTrailer">
                 
-             
-<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-<b>Ver trailer</b>
-</button>
-
-
-
-<div class="modal faded" id="staticBackdrop1" 
-data-bs-backdrop="static" data-bs-keyboard="false" 
-tabindex="-1" aria-labelledby="staticBackdropLabel" 
-aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark">
-      <div class="modal-header">
-        
-        <button class="btn-close"  data-bs-dismiss="modal" aria-label="Close"  ></button>
-      </div>
-      <div class="modal-body">
-      <div class="ratio ratio-4x3">
-     
-  <iframe src={movieVideo} title="YouTube video" allowfullscreen></iframe>
-  
-</div>
-      </div>
-    </div>
-  </div>
-</div>
-                </div> 
               
                 
 
@@ -401,12 +360,12 @@ Comprar
                 Cerrar
               </button>
               
-              <button type="button" class="btn btn-warning" data-bs-dismiss="modal" 
-                // onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal12"
+                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
                 // onClick={()=> setPulsado(!pulsado)}
-                onClick={()=> setcheckbtn((e)=> !e)}
+                // onClick={()=> setcheckbtn((e)=> !e)}
               >
-                Agregar al carrito
+                Ir al Carrito
               </button>
                 {/* {pulsado ? 
                   (<Checkout></Checkout>) : ("")
@@ -448,3 +407,4 @@ Comprar
     )
               
 }
+
