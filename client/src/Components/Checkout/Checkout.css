@@ -81,3 +81,9 @@ li{
 	transform: translateY(-7px);
 }
 
+.promo{
+  font-size: 18px;
+}
+.promo2{
+  color: rgb(205, 205, 6);
+}
