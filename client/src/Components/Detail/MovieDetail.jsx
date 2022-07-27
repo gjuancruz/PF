@@ -228,10 +228,7 @@ export default function MovieDetail(){
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   */}
-          <button className="closebutton2" onClick={()=>setcheckbtn((e)=> !e)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-</svg></button>
+          
           {num === 0 ? "": 
            checkbtn?
             <div className="Checkout-component">
@@ -242,7 +239,17 @@ export default function MovieDetail(){
             </div>   : null 
            }
             <div className="contenedor" id={toggle && "checkout-active"}>
-          
+            {premieres.find(m=>m.id ===movieDet.id ) ? "" :
+           <button
+            className="botoncheck"
+            data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
+            disabled={num === 0}
+            onClick={()=> setcheckbtn((e)=> !e)}
+            > <p className="numbuton"> {num === 0 ? "": num}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="70" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+</svg>
+           </button>}
                  
                 {/* <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
                     Toogle Sidebar
@@ -406,14 +413,14 @@ Comprar
                 Cerrar
               </button>
               
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal12"
-                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
+                // onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},()=> setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
                 // onClick={()=> setPulsado(!pulsado)}
-                // onClick={()=> setcheckbtn((e)=> !e)}
+                onClick={()=> setcheckbtn((e)=> !e)}
               >
                 Ir al Carrito
               </button>
-                {/* {pulsado ? 
+                {/* {checkbtn ? 
                   (<Checkout></Checkout>) : ("")
                 } */}
             </div>
@@ -422,7 +429,7 @@ Comprar
       </div>
 
     </div>
-                {   
+    {   
                   shown &&   <div className="d-flex flex-column mb-3">
                     <Stripe showid={showid} />
                   </div>

@@ -48,7 +48,9 @@ li{
    /* overflow: auto; */
    /* overflow-y: auto; */
 }
-
+#staticBackdropcheck{
+  text-align: center;
+}
 
 /* .my-container{
   transition: 0.2s;
@@ -106,4 +108,16 @@ li{
    bottom: 0;
    left: 0;
    z-index: 10040;
+}
+
+.deletticket{
+  background-color: transparent;
+  border:none;
+}
+.deletticket:hover{
+  color: red;
+  transition: 0.8s;
+}
+#candyagregar{
+  padding: 2px;
 }
