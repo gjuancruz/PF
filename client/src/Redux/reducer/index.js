@@ -18,8 +18,13 @@ import {
   AUTORIZADO,
   DELETE_MOVIE,
   EDIT_MOVIE,
-  VERIFY_ROLE,
+  ADD_CANDY,
   GET_CANDY,
+  VERIFY_ROLE,
+  TOTAL,
+  ENTRADAS,
+  GET_CART,
+  GET_DAY_SHOW,
 } from "../actions";
 
 const initialState = {
@@ -36,12 +41,48 @@ const initialState = {
   show:[],
   candy:[],
   autorizado: '',
+  candy:[],
+  storeCandy:[],
   role: 'guest',
-  id:''
+  total: 0,
+  entradas: 0,
+  id:'',
+  cart: []
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_CART:
+      return{
+        ...state,
+        cart: action.payload
+      }
+
+    case ENTRADAS:
+      return{
+        ...state,
+        entradas: action.payload
+      }
+
+    case TOTAL:
+      return{
+        ...state,
+        total: action.payload
+      }
+
+    case ADD_CANDY:
+      return{
+        ...state,
+        candy: state.candy.concat(action.payload)
+        // candy: [...state.candy, action.payload]
+      }
+
+    case GET_CANDY:
+      return{
+        ...state,
+        storeCandy: action.payload
+      }
+
     case AUTORIZADO:
       return {
         ...state,
@@ -134,6 +175,12 @@ function rootReducer(state = initialState, action) {
           ...state,
           shows:action.payload
         }
+      case GET_DAY_SHOW:
+        // console.log(action.payload)
+        return{
+          ...state,
+          day:action.payload
+        }
       case DELETE_MOVIE:
           return{
             ...state,
@@ -147,7 +194,7 @@ function rootReducer(state = initialState, action) {
           refresh: !state.refresh
         }
       case GET_SHOW:
-        console.log(action.payload)
+        // console.log(action.payload)
         return{
           ...state,
           show:action.payload
@@ -172,18 +219,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         refresh: !state.refresh
       };
-
-    case GET_ALL_SHOWS:
-      return{
-        ...state,
-        shows:action.payload
-      }
-    case GET_SHOW:
-      console.log(action.payload)
-      return{
-        ...state,
-        show:action.payload
-      }
     case VERIFY_ROLE:
     return{
       ...state,

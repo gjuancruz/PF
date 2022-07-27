@@ -94,7 +94,7 @@ router.put("/updateUser", (req, res) => __awaiter(void 0, void 0, void 0, functi
 router.delete("/deleteUser", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email } = req.body;
-        console.log('esto es email', email);
+        // console.log('esto es email',email)
         const deleteUser = yield prisma.user.delete({
             where: { email: `${email}` },
         });

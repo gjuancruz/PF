@@ -16,7 +16,7 @@ export default function CreateFeedback(props) {
 const allUsers = useSelector ((state) => state.usuarios)
 let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUsers.filter(u =>u.id === userIdCheck)
-    console.log("este es currentUser",currentUser)
+    // console.log("este es currentUser",currentUser)
 
 
   function handleChange(e) {
