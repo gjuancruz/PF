@@ -267,7 +267,7 @@ export function Checkout({NumTickets, title, horario, sala, idioma, toogle, entr
         id="staticBackdrop1"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >

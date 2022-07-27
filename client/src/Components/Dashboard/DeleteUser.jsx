@@ -3,7 +3,7 @@ import React from "react";
 export default function DeleteUser({handleDltUser}){
 
     return(
-        <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="staticBackdrop" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-dark ">
                                     <div class="modal-header">

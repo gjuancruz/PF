@@ -53,7 +53,7 @@ let userIdCheck = useSelector ((state) => state.id)
           <div
             class="modal fade"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
@@ -118,7 +118,7 @@ let userIdCheck = useSelector ((state) => state.id)
           <div
             class="modal fade"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >

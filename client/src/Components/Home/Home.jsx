@@ -93,7 +93,7 @@ return(
     
     {carteleraActual?.map((c) => {
     return (
-        <div className={s.card}>
+        <div className={s.card} key={c.id} >
            <Link to={"/movies/" + c.id}>
             <Card
             Poster={c.Poster}
@@ -116,7 +116,7 @@ return(
 
 {premiereActual?.map((c) => {
     return(
-        <div className={s.card} >
+        <div className={s.card} key={c.id} >
             <Link to={"/movies/" + c.id}>
             <Card
             Poster={c.Poster}

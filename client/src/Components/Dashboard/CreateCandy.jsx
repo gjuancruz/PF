@@ -11,7 +11,7 @@ export default function CreateCandy() {
     <div
       class="modal fade"
       id="staticBackdroppp"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >

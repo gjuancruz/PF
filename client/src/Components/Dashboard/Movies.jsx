@@ -33,7 +33,7 @@ export default function Movies(){
                             <div class="col-md-auto pb-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary mx-5" data-bs-toggle="modal" data-bs-target="#form">Agregar Pelicula</button>
 
-                            <div class="modal fade" id="form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" id="form" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-xl">
                                     <div class="modal-content bg-dark text-white" >
                                         <div class="modal-header">
@@ -61,7 +61,7 @@ export default function Movies(){
                         <div class="col-md-auto pb-2">
                         <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="" style={{cursor:"pointer"}} onClick={() => {setMovieId(e.id)}}></img>
                     
-                        <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-xl">
                                 <div class="modal-content bg-dark text-white" >
                                     <div class="modal-header">
@@ -86,7 +86,7 @@ export default function Movies(){
                         // <div class="col-md-auto pb-2">
                         // <img src={e.Poster} class="rounded " width="100" height="150" data-bs-toggle="modal" data-bs-target={`#${e.Title.slice(0,3)}`} alt="cars" style={{cursor:"pointer"}} onClick={() => {setMovieId(e.id)}}></img>
                     
-                        // <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        // <div class="modal fade" id={e.Title.slice(0,3)} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         //     <div class="modal-dialog modal-dialog-centered modal-xl">
                         //         <div class="modal-content bg-dark text-white" >
                         //             <div class="modal-header">
@@ -98,7 +98,7 @@ export default function Movies(){
 
                         //                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={e=> {dispatch(deleteMovie(movieId)); setMovieId("")}}>Eliminar</button>
 
-                        //                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        //                     <div class="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         //                     <div class="modal-dialog">
                         //                         <div class="modal-content bg-dark text-white" >
                         //                         <div class="modal-header">

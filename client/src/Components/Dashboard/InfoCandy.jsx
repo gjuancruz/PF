@@ -5,7 +5,7 @@ export default function InfoCandy({InfoCandy}){
         <div
       class="modal fade"
       id="staticBackdropp"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
