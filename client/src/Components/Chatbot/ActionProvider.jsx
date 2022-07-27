@@ -64,6 +64,27 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
         }));
       };
 
+      const handleCompras = () =>{
+        const botMessage = createChatBotMessage(
+          'Para comprar tus entradas, dirígete a la sección CARTELERA del Home y selecciona la película que desees. Luego, selecciona fecha, hora y formato. Allí podras elegir un combo (o más) para disfrutar tu película'
+          );
+  
+      setState((prev) => ({
+        ...prev,
+        messages: [...prev.messages, botMessage],
+      }));
+    }
+      const handleGracias = () =>{
+        const botMessage = createChatBotMessage(
+          'de nada bro'
+          );
+  
+      setState((prev) => ({
+        ...prev,
+        messages: [...prev.messages, botMessage],
+      }));
+    }
+  
   return (
     <div>
       {React.Children.map(children, (child) => {
@@ -73,7 +94,9 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
             handleDog,
             handleRegistro,
             handleFeedback,
-            handleNotFound
+            handleNotFound,
+            handleCompras,
+            handleGracias
           },
         });
       })}

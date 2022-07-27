@@ -34,6 +34,14 @@ const MessageParser = ({ children, actions }) => {
         actions.handleFeedback();
       }
 
+      else if (message.includes('compr')) {
+        actions.handleCompras();
+      }
+
+      else if (message.includes('gracias')) {
+        actions.handleGracias();
+      }
+
       else{
         actions.handleNotFound();
       }
