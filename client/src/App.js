@@ -19,6 +19,8 @@ import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
 import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {Checkout} from './Components/Checkout/Checkout'
 import {ComprarModal} from './Components/Checkout/CandysModal'
@@ -29,6 +31,7 @@ const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qal
 function App() {
   return (
     <Elements stripe={stripePromise}>
+    <ToastContainer />
     <BrowserRouter>
       {/* <NavBar /> */}
 

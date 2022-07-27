@@ -12,6 +12,8 @@ import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Checkout } from '../Checkout/Checkout'
 import Stripe from './Stripe';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MovieDetail(){
     const dispatch = useDispatch()
@@ -51,6 +53,8 @@ export default function MovieDetail(){
     const idUser = useSelector(state => state.id)
     
     const cart = useSelector(state => state.cart);
+
+    const paymentState = useSelector(state=>state.payment)
 
     useEffect(()=>{
         !storeCandy.length && dispatch(getCandy())
@@ -169,9 +173,26 @@ export default function MovieDetail(){
 
     console.log("Horario :",horario);
     console.log("userId:", idUser);
+    const customId = 1
+    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId});
+    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId});
+
     return(
         <div className="MovieDetail">
             <NavBar />
+            {/* PAYMENT NOTIFICATION */}
+            <div>
+            {/* <button onClick={()=>notify()}>Notify !</button> */}
+        
+              {paymentState === 'Payment received' && 
+                notifySuccess()
+              }
+              {(paymentState !== 'Payment received' && paymentState !== '' && paymentState !== undefined) && 
+                notifyDecline()
+              }
+            </div>
+            {/* PAYMENT NOTIFICATION */}
+
             <Stripe showid={horario.id} />
 
 

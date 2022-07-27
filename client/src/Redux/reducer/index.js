@@ -25,7 +25,8 @@ import {
   ENTRADAS,
   GET_CART,
   GET_DAY_SHOW,
-  TOTALMENTE
+  TOTALMENTE,
+  POST_PAYMENT_METHOD
 } from "../actions";
 
 const initialState = {
@@ -48,7 +49,8 @@ const initialState = {
   total: 0,
   entradas: 0,
   id:'',
-  cart: []
+  cart: [],
+  payment:''
 };
 
 function rootReducer(state = initialState, action) {
@@ -231,6 +233,11 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         candy: action.payload
+      }
+    case POST_PAYMENT_METHOD:
+      return{
+        ...state,
+        payment: action.payload
       }
     default:
       return state;

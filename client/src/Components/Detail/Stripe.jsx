@@ -12,6 +12,7 @@ const CheckoutForm = ({showid}) =>{
     // const userIdCheck = window.localStorage.getItem('userId')
     // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
     console.log(showid)
+    const [checked, useChecked] = useState('')
     const handleStripe = async(e) =>{
         e.preventDefault()
         
@@ -22,13 +23,21 @@ const CheckoutForm = ({showid}) =>{
         // console.log('soy el paymentMethod',paymentMethod)
         if(!error){   //pasarle como tercerparametro el id del carrito del usuario
             dispatch(postPaymentMethod(paymentMethod.id,showid,idUser))
-        }else console.log(error)
+            // useChecked(true)
+        }else {
+            console.log(error)}
+            // useChecked(false)
     }
     return(
+        <div>
+
+        <div>
           <form onSubmit={handleStripe}>
             <CardElement className="form-control"/>
             <button>Realizar pago</button>
           </form>
+        </div>
+    </div>
     )
 }
 
