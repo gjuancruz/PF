@@ -70,7 +70,7 @@ console.log(movie)
     }
   }
 
-  console.log(cart);
+  console.log("cart:",cart);
 
     // const [toggle,setToggle] = useState(true)
   const dispatch = useDispatch();  
