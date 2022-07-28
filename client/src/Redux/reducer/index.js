@@ -54,7 +54,6 @@ const initialState = {
   entradas: 0,
   id:'',
   cart: [],
-  tickets:[],
   userCart: [],
   actualizarPrecio: "",
   payment:'',

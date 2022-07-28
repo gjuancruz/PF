@@ -436,7 +436,7 @@ export function Checkout({
 
         <li className="nav-item w-100">
           <a href="#" className="nav-link text-white pl-4">
-            <b>Total a pagar : ${total}</b>
+            <b>Total a pagar : ${granTotal}</b>
           </a>
         </li>
         <li></li>
