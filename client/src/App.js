@@ -54,6 +54,7 @@ function App() {
         <Route exact path='/candy' component={Candy}/>
         <Route exact path='/caja' component={CashRegister}/>
         <Route exact path='/about' component={Info}/>
+        <Route exact path='/changepassword' component={ChangePassword}/>
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>
