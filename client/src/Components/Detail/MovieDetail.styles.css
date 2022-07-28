@@ -167,11 +167,17 @@ select:hover{
     right: 40px; */
     top: 130px;
     z-index: 9999;
-    
+    bottom: -20px;
     border-color: rgb(255, 234, 0);
     border-radius: 12px;
-}
+    bottom: -20px;
+    right:2px;
+    position: fixed;
 
+}
+.navbar-checkout{
+    
+}
 .botoncheck{
     color: rgb(255, 234, 0);
     top: 10px;
@@ -182,7 +188,7 @@ select:hover{
     right: 40px;
     display: flex;
     flex-direction:column;
-    z-index: 9999;
+    
     align-items: center;
     cursor: pointer;
     border-radius: 10px;

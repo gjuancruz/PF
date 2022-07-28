@@ -23,6 +23,8 @@ export function Checkout({
   close,
   horario,
   showId,
+  dias,
+  room
 }) {
   // const sidebar = document.querySelector("#sidebar");
   // const container = document.querySelector(".my-container");
@@ -31,7 +33,6 @@ export function Checkout({
   const [refresco, setRefresco] = useState(0);
   const [hotdog, setHotdog] = useState(0);
   const [pay,setPay]=useState(false)
-
   // const [carrito,setCarrito] = useState(cart);
 
   const [TRADICIONAL, setTRADICIONAL] = useState({ id: 0, value: 0 });
@@ -275,15 +276,17 @@ export function Checkout({
     // console.log(e);
     dispatch(delTickets({ userId: idUser, showId: showId })); //idUser
   };
-
+  
   //   console.log(JSON.stringify(storeCandy[1].name));
 
   console.log("estado candy: " + JSON.stringify(stateCandy));
   return (
     // <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
-    <div class="modal fade" id="staticBackdropcheck" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    
-      {/* <div className="bton">
+    <nav
+      class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-center"
+      id="Navcollapse"
+    >
+      <div className="bton">
         {" "}
         <button className="closebutton" onClick={() => close(false)}>
           <svg
@@ -297,30 +300,25 @@ export function Checkout({
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
           </svg>
         </button>
-      </div> */}
-      <div class="modal-dialog">
-      <div class="modal-content bg-dark">
-      <div class="modal-header">
-      <h3 class="modal-title" id="staticBackdropLabel">
+      </div>
+      <h3 className="mt-4 ml-5 font-weight-bold text-white">
         {title || "generic title"}
       </h3>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
       <iframe src={movie.Trailer} alt="" width="400px" height="300px" />
       <ul className="navbar-nav d-flex flex-column mt-5 w-100">
         <li className="nav-item w-100">
           {NumTickets || `Tickets: ${boletos} `}
           
         </li>
+       
         <li className="nav-item w-100">
           <a href="#" className="nav-link text-light pl-4">
-            {horario ? `Fecha: Jueves ${horario}` : `Fecha: Jueves 0:00`}
+            {horario ? `Fecha: ${dias} ${horario}` : `Fecha: Jueves 0:00`}
           </a>
         </li>
         <li className="nav-item w-100">
           <a href="#" className="nav-link text-white pl-4">
-            {sala || " Sala: 99"}
+            {sala || `Sala :${room}`}
           </a>
         </li>
         <li className="nav-item w-100">
@@ -332,23 +330,39 @@ export function Checkout({
         <hr />
 
         <div>
-        <h5 class="modal-title" id="staticBackdropLabel121">
-                    ¡Disfruta de tu funcion con estas promos!
-                  </h5>
           <button
             type="button"
             class="btn btn-warning"
-            data-bs-toggle="collapse" data-bs-target="#collapseExamplecandy" aria-expanded="false" aria-controls="collapseExample"
-            
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop1"
           >
             Dulceria
           </button>
 
-          <div class="collapse" id="collapseExamplecandy">
-                  
-                 
-                
-                  
+          <div
+            class="modal fade"
+            id="staticBackdrop1"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-lg-prueba">
+              <div class="modal-content bg-dark">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    ¡Disfruta de tu funcion con estas promos!
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row align-items-start">
                     <div class="col-12">
                       {storeCandy.map((item) => (
                         <div>
@@ -368,8 +382,7 @@ export function Checkout({
                           />
                           <button
                             type="button"
-                            class="btn btn-outline-warning"
-                            
+                            class="btn btn-warning"
                             onClick={handleSubmit}
                             name={item.name}
                           >
@@ -377,7 +390,7 @@ export function Checkout({
                           </button>
                           <button
                             type="button"
-                            class="btn btn-outline-warning"
+                            class="btn btn-warning"
                             onClick={handleSubmit}
                             name={item.name + "delete"}
                           >
@@ -388,11 +401,24 @@ export function Checkout({
                     </div>
                     {/* <div class="col">One of three columns</div>
                 <div class="col">One of three columns</div> */}
-                  
+                  </div>
                 </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cerrar
+                  </button>
+                  <button type="button" class="btn btn-warning">
+                    Ir al carrito
+                  </button>
                 </div>
-                
-         
+              </div>
+            </div>
+          </div>
+        </div>
 
         <hr />
 
@@ -400,27 +426,21 @@ export function Checkout({
           <a href="#" className="nav-link text-white pl-4">
             <b>Total a pagar : ${total}</b>
           </a>
-          <input
+        </li>
+        <li><input
             type="button"
             className="deletticket"
             value="Borrar Tickets"
             
             onClick={(e) => delTicketsEvent(e)}
-          ></input>
-        </li>
+          ></input></li>
       </ul>
 
       <hr />
-      <div class="modal-footer">
       <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropay" onClick={()=>setPay(!pay)}>Realizar Pago</button>
-      </div>
-    </div>
-    </div>
-    </div>
-    </div>
+    </nav>
   );
 }
-
 // <div class="container-fluid" >
 //     <div class="row">
 //         {/* Pruebasaaaaa */}

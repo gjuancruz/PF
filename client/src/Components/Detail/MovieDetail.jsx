@@ -33,7 +33,7 @@ export default function MovieDetail(){
     const movieVideo=useSelector(state=>state.movieDetail.Trailer);
     const [checkbtn, setcheckbtn] = useState(false);
     
-    console.log("soy",hourshown)
+    console.log("soy el wacho",shows)
     // console.log("es la premier",allCartelera)
     // console.log(movieDet)
     //boton checkout 
@@ -234,7 +234,8 @@ export default function MovieDetail(){
             <div className="Checkout-component">
                 
                 <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart}  close={setcheckbtn}
-                  boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0} //showId={tickets[0].seats}
+                  boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0}  dias={shows.length ? shows[0].day : ""}
+                  room={shows.length ? shows[0].roomId : 0}//showId={tickets[0].seats}
                 />
             </div>   : null 
            }
