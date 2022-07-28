@@ -36,5 +36,5 @@ hr {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    min-height: 45vh;
+    min-height: 15vh;
 }
