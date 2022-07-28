@@ -29,26 +29,26 @@ export default function CreateCandy() {
 
   return (
     <div
-      className="modal fade"
+      class="modal fade"
       id="staticBackdroppp"
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog">
-        <div className="modal-content bg-dark ">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark ">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
               AGREGAR NUEVO PRODUCTO
             </h5>
             <button
               type="button"
-              className="btn-close"
+              class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
           </div>
-          <div className="modal-body">
+          <div class="modal-body">
             <Formik
               initialValues={{
                 username: "",
@@ -66,13 +66,13 @@ export default function CreateCandy() {
                   errors.quantity = "Por favor ingresa la cantidad *";
                 }
 
-                if (!val.email) {
-                  errors.email = "Por favor ingresa un email *";
+                if (!val.price) {
+                  errors.price = "Por favor ingresa un precio *";
                 }
 
-                if (val.role.length < 1) {
-                  errors.role
-                   = "Por favor ingresa el rol *";
+                if (!val.picture) {
+                  errors.picture
+                   = "Por favor ingresa una imagen *";
                 }
 
                 return errors;
@@ -88,17 +88,10 @@ export default function CreateCandy() {
               {({ errors, values, setFieldValue }) => (
                 <Form className="container my-5">
                   {/* {console.log(values)} */}
-<<<<<<< HEAD
                   <div class="form-group">
                     <div class="mb-3">
                       <label class="form-label" htmlFor="name">
                         Nombre: 
-=======
-                  <div className="form-group">
-                    <div className="mb-3">
-                      <label className="form-label" htmlFor="username">
-                        Usuario: 
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
                         <ErrorMessage
                           name="name"
                           component={() => (
@@ -117,15 +110,9 @@ export default function CreateCandy() {
                       />
                     </div>
 
-<<<<<<< HEAD
                     <div class="mb-3">
                       <label class="form-label" htmlFor="price">
                         Precio: 
-=======
-                    <div className="mb-3">
-                      <label className="form-label" htmlFor="password">
-                        Contraseña: 
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
                         <ErrorMessage
                           name="price"
                           component={() => (
@@ -136,7 +123,6 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-<<<<<<< HEAD
                         class="form-control"
                         type="text"
                         id="price"
@@ -148,19 +134,6 @@ export default function CreateCandy() {
                     <div class="mb-3">
                       <label class="form-label" htmlFor="quantity">
                         Cantidad: 
-=======
-                        className="form-control"
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Contraseña..."
-                      />
-                    </div>
-
-                    <div className="mb-3">
-                      <label className="form-label" htmlFor="email">
-                        Email: 
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
                         <ErrorMessage
                           name="quantity"
                           component={() => (
@@ -171,7 +144,6 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-<<<<<<< HEAD
                         class="form-control"
                         type="text"
                         id="quantity"
@@ -200,34 +172,6 @@ export default function CreateCandy() {
                     {/* {loading && (values.Poster = image)} */}
                     {(values.Picture = image)}
                         <div className={styles.contImage}><img src={image} className={styles.image} width="120px"/></div>
-=======
-                        className="form-control"
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Email..."
-                      />
-                    </div>
-
-                    <div className="mb-3">
-                      <label className="form-label">
-                        Rol:
-                        <ErrorMessage
-                          name="role"
-                          component={() => (
-                            <small style={{ color: "red" }}>{errors.role
-                            }</small>
-                          )}
-                        />
-                      </label>
-                      <Field className="form-select" name="role" as="select">
-                        <option key="seleccionar" disabled>
-                          Seleccionar
-                        </option>
-                        <option key="admin">admin</option>
-                        <option key="user">user</option>
-                      </Field>
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
                     </div>
 
                     <div className="mb-3">

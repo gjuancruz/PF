@@ -21,13 +21,9 @@ import {
   ADD_CANDY,
   GET_CANDY,
   SEARCH_CANDY,
-  GET_TICKETS,
-<<<<<<< HEAD
   GET_TICKETS_DETAIL,
-  ORDER_MORE_SALED,
-=======
   GET_TICKETS_HISTORY,
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
+  GET_TICKETS,
   SEARCH_MOVIES_SALES,
   VERIFY_ROLE,
   TOTAL,
@@ -37,7 +33,8 @@ import {
   REFRESH,
   TOTALMENTE,
   POST_PAYMENT_METHOD,
-  DEL_TICKET
+  DEL_TICKET,
+  ORDER_MORE_SALED
 } from "../actions";
 
 const initialState = {

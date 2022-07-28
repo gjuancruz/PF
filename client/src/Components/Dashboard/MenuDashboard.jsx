@@ -86,15 +86,9 @@ export default function MenuDashboard(){
             </li>
           </ul>
           <hr/>
-<<<<<<< HEAD
         <div class="dropdown">
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src={admin} alt="" width="32" height="32" class="rounded-circle me-2"/>
-=======
-        <div className="dropdown">
-          <a href="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2"/>
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
             <strong>admin</strong>
           </a>
           <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">

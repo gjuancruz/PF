@@ -694,7 +694,7 @@ export function getTicketsSalesDetails(month){
         })
       } catch (error) {
         dispatch({
-          type: GET_TICKETS,
+          type: GET_TICKETS_DETAIL,
           payload: []
         })
       }
@@ -707,10 +707,7 @@ export function searchMoviesSales(payload) {
     payload,
   };
 }
-<<<<<<< HEAD
 
 export function orderByMoreSaled(payload){
   return {type: ORDER_MORE_SALED, payload}
 }
-=======
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac

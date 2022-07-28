@@ -34,17 +34,7 @@ export default function Candy(){
         <div className="btn-toolbar mb-2 mb-md-0">
           <form onSubmit={(e)=>handleSubmitSearch(e)} className="btn-group me-2">
             <input type= "text" value={input} placeholder="Buscar producto..." onChange={(e)=>handleChangeSearch(e)}></input>
-<<<<<<< HEAD
             <button type="submit" class="btn btn-sm btn-outline-secondary">Buscar</button>
-=======
-            <button type="submit" className="btn btn-sm btn-outline-secondary">Buscar</button>
-            <label>Ordenar por: </label>
-            <select>
-                <option selected disabled>Seleccionar</option>
-                <option>Mas Vendidas</option>
-                <option>Menos Vendidas</option>
-            </select>
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
           </form>
           <button type="button" className="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getCandy())}>
             Ver todos
@@ -89,7 +79,6 @@ export default function Candy(){
             }
           </tbody>
         </table>
-<<<<<<< HEAD
         {/* <div class='d-flex row'>
             <div class='col-4'>
             <h1 class="h3">Peliculas mas vendidas</h1>
@@ -100,9 +89,6 @@ export default function Candy(){
             <SegmentChart/>
             </div>
         </div> */}
-=======
-        
->>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
        </div>
         </main>
     )
