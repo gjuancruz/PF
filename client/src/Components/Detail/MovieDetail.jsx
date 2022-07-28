@@ -425,7 +425,7 @@ Comprar
               </button>
               
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
-                // onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},()=> setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
+                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},()=> setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
                 // onClick={()=> setPulsado(!pulsado)}
                 // onClick={()=> setcheckbtn((e)=> !e)}
               >

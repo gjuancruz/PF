@@ -325,6 +325,8 @@ export function Checkout({
       <ul className="navbar-nav d-flex flex-column mt-5 w-100">
         <li className="nav-item w-100">
           {NumTickets || `Tickets: ${boletos} `}
+          <input type="button" value="X" style={{backgroundColor: "red", padding:"0 5px"}} 
+             onClick={(e) => delTicketsEvent(e)} ></input>
           
         </li>
        
@@ -435,13 +437,7 @@ export function Checkout({
             <b>Total a pagar : ${total}</b>
           </a>
         </li>
-        <li><input
-            type="button"
-            className="deletticket"
-            value="Borrar Tickets"
-            
-            onChange={(e) => delTicketsEvent(e)}
-          ></input></li>
+        <li></li>
       </ul>
 
       <hr />
