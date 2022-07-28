@@ -22,6 +22,7 @@ import {
   GET_CANDY,
   SEARCH_CANDY,
   GET_TICKETS,
+  SEARCH_MOVIES_SALES,
   VERIFY_ROLE,
   TOTAL,
   ENTRADAS,
@@ -42,6 +43,7 @@ const initialState = {
   shows:[],
   show:[],
   infoTickets:[],
+  copy_infoTickets:[],
   candy:[],
   autorizado: '',
   storeCandy:[],
@@ -94,7 +96,14 @@ function rootReducer(state = initialState, action) {
     case GET_TICKETS:
       return {
         ...state,
-        infoTickets: action.payload
+        infoTickets: action.payload,
+        copy_infoTickets: action.payload
+      }
+    case SEARCH_MOVIES_SALES:
+      const searchSale = state.copy_infoTickets.filter(e=>e.movie.toLowerCase().include(action.payload.toLowerCase()))
+      return {
+        ...state,
+        infoTickets: searchSale,
       }
     case AUTORIZADO:
       return {

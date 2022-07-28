@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, searchUser, deleteUser, getTicketsSales, getBillboard} from "../../Redux/actions";
+import { getTicketsSales, getBillboard, searchMoviesSales} from "../../Redux/actions";
 import ChartPie from "./Charts/ChartPie";
 import SegmentChart from "./Charts/SegmentChart";
 import InfoSalesMovies from "./InfoSalesMovies";
@@ -72,7 +72,7 @@ export default function SalesBalanceMovies(){
   }
   const handleSubmitSearch = (e)=>{
     e.preventDefault()
-    dispatch(searchUser(input))
+    dispatch(searchMoviesSales(input))
   }
   const handleInfo = (name,type)=>{
     // dispatch(deleteUser(userDlt));
@@ -84,7 +84,6 @@ export default function SalesBalanceMovies(){
   }
 
   useEffect(()=>{
-    dispatch(getUsers())
     dispatch(getTicketsSales())
     dispatch(getBillboard())
   },[dispatch])
@@ -96,7 +95,7 @@ export default function SalesBalanceMovies(){
         <h1 class="h3">Ventas de Peliculas</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <form onSubmit={(e)=>handleSubmitSearch(e)} class="btn-group me-2">
-            <input type= "text" value={input} placeholder="Buscar usuario..." onChange={(e)=>handleChangeSearch(e)}></input>
+            <input type= "text" value={input} placeholder="Buscar pelicula..." onChange={(e)=>handleChangeSearch(e)}></input>
             <button type="submit" class="btn btn-sm btn-outline-secondary">Buscar</button>
             <label>Ordenar por: </label>
             <select>

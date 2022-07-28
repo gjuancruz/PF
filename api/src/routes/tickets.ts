@@ -151,4 +151,5 @@ router.get('/all/detail',async(req:Request,res:Response)=>{
     }
 })
 
+
 export default router;
