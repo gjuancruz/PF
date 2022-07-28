@@ -44,12 +44,12 @@ export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, bol
   function sumaCarrito(){
     let totalCandys = 0; 
     let totalTickets = 0;
-    // if(userCarritoDetail.length){
+    if(userCarrito.length){
       totalTickets = userCarrito.tickets[0].totalPrice
       userCarrito.candy.forEach(item => {
         totalCandys = totalCandys + item.totalPrice
       })
-    // }
+    }
     return totalCandys + totalTickets;
   }
 
