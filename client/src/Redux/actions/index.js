@@ -322,7 +322,7 @@ export function getFeedback(){
       })
     } 
     catch (error) {
-      return errir
+      return error
     }
   }
 }
