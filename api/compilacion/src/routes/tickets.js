@@ -54,6 +54,7 @@ router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, funct
         });
         const update = yield prisma.tickets.update({
             where: { id: newTickets.id },
+            // @ts-ignore
             data: { dateFormat: String(newTickets.createdAt).slice(4, 15) }
         });
         console.log("newTickets :", newTickets);

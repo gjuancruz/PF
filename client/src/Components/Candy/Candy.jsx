@@ -25,13 +25,13 @@ export default function Candy() {
   return (
     <div>
       <NavBar />
-      <div class="container-lg text-center">
+      <div className="container-lg text-center">
       <h3>Para que disfrutes tu funcion:</h3>
-        <div class="row">
+        <div className="row">
           {allCandy &&
-            price.map((c) => {
+            price.map((c,index) => {
               return (
-                <div class="col-6 text-center my-2">
+                <div class="col-6 text-center my-2" key={index}>
                   <h5>{c.name}</h5>
                   <img src={c.picture} alt="img not found" />
                   <p>Precio: US${c.price}</p>

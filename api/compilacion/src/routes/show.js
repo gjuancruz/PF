@@ -15,7 +15,7 @@ const showGenerator = (show) => __awaiter(void 0, void 0, void 0, function* () {
     const data = [];
     show = { schedule: show.schedule, roomId: show.roomId, movieId: show.movieId, seats: 60, day: show.day, type: show.type };
     data.push(show);
-    // console.log(data)
+    console.log(data);
     const movie = yield prisma.movie.findUnique({ where: { id: show.movieId } });
     const time = movie === null || movie === void 0 ? void 0 : movie.Runtime;
     const hour = time ? Math.floor(time / 60) : 13;
@@ -98,6 +98,7 @@ router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body.data;
     const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId, day: data.day, type: data.type };
+    console.log(data);
     try {
         const data = yield showGenerator(show);
         console.log(data);
@@ -125,9 +126,10 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.get("/day", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { day, id } = req.query;
+    console.log(day, id);
     try {
         const data = yield prisma.show.findMany({ where: { day: day, movieId: id } });
-        // console.log(data)
+        console.log(data);
         res.status(200).send(data);
     }
     catch (error) {

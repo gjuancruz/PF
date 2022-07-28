@@ -6,19 +6,26 @@
 
 
 .navbar-checkout{
-  width: 350px;
-
-  height: 540px;
-   position: absolute; 
-  right: 0; 
-  background-color:rgb(29, 34, 34);
-  opacity: 0,5 !important;
+  width: 45vh;
+  position: relative;
+  justify-content: center;
+  min-height: 108vh;
+  overflow: hidden;
+  margin: 0px;
+  padding-bottom: 30px;
+  background-color: rgb(27, 29, 31) !important;
+  bottom: 14px;
   transition: width 1s;
-  /* width: auto; */
+  padding-bottom: 100px;
   text-align: center;
-  transition:width 2s;
-  border-radius: 10px;
   
+  
+  /* ; */
+  
+  
+}
+.navbar-checkout:hover{
+  width: 500px;
 }
 
 /* #sidebar-active{
@@ -30,30 +37,43 @@
 li{
   margin-left: 0px;
 }
-.btn-warning{
-  margin-left: 10px;
+
+
+
+
+
+.closebutton{
+  font-size: 16px; /* Cambiar el tamaño de la tipografia */
+	text-transform: uppercase; /* Texto en mayusculas */
+	font-weight: bold; /* Fuente en negrita o bold */
+	color: #ffffff; /* Color del texto */
+	border: none;
+	letter-spacing: 2px; /* Espacio entre letras */
+  background-color: transparent;
+	position: absolute;
+	right: 40px;
+	transition: all 300ms ease 0ms;
+	
+	z-index: 99;
+}
+.closebutton:hover{
+  /* Color de fondo al pasar el cursor */
+	
+	transform: translateY(-7px);
 }
 
+.promo{
+  font-size: 18px;
+}
+.promo2{
+  color: rgb(205, 205, 6);
+}
 
-
-
-
-/* .my-container{
-  transition: 0.2s;
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  width: 100%;
-} */
-
-
-
-/* for navbar */
-/* .active-nav{
-  margin-left: 10;
-} */
-
-/* for main section */
-/* .active-cont {
-  margin-left: 250px;
-} */
+.modal-lg-prueba {
+  position: absolute !important;
+   top: 0 ;
+   right: 130px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+}

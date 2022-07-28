@@ -329,6 +329,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         // console.log(payment)
         const sale = await prisma.sale.create({data:{
             receipt:payment.id,
+            // @ts-ignore
             salePrice:cart.orderPrice,
             user:{
                 connect:{id:cart.userId}
@@ -351,6 +352,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         const candy = await prisma.candy.update({where:{id:cart.candy[i].id},data:{sale:{connect:{id:sale.id}},cart:{disconnect:true}}})
         }
         for(let i=0;i<cart.tickets.length;i++){
+            //@ts-ignore
         const tickets = await prisma.tickets.update({where:{id:cart.tickets[i].id},data:{cart:{disconnect:true}}})
         }
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
@@ -371,6 +373,15 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         res.send("Payment received")
     }catch(error:any){
         res.send(error.message)
+    }
+})
+// http://localhost:3001/movies/getSales
+router.get('/getSales', async (req: Request, res:Response) =>{
+    try {
+        const sales = await prisma.sale.findMany({include:{user:true}})
+        return res.status(200).json(sales)
+    } catch (error) {
+        return res.status(404).json("no se encontraron ventas")
     }
 })
 
