@@ -24,10 +24,10 @@ const handleMovie = (movie)=>{
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content bg-dark ">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+      <div clasName="modal-dialog">
+        <div clasName="modal-content bg-dark ">
+          <div clasName="modal-header">
+            <h5 clasName="modal-title" id="exampleModalLabel">
               Detalles de ventas
             </h5>
             <button
@@ -37,8 +37,8 @@ const handleMovie = (movie)=>{
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
-<table class="table table-dark table-striped">
+          <div clasName="modal-body">
+<table clasName="table table-dark table-striped">
           <thead>
             <tr>
               <th scope="col">Nombre</th>

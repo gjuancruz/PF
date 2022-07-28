@@ -29,26 +29,26 @@ export default function CreateCandy() {
 
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="staticBackdroppp"
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content bg-dark ">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+      <div className="modal-dialog">
+        <div className="modal-content bg-dark ">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">
               AGREGAR NUEVO PRODUCTO
             </h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <Formik
               initialValues={{
                 username: "",
@@ -88,9 +88,9 @@ export default function CreateCandy() {
               {({ errors, values, setFieldValue }) => (
                 <Form className="container my-5">
                   {/* {console.log(values)} */}
-                  <div class="form-group">
-                    <div class="mb-3">
-                      <label class="form-label" htmlFor="name">
+                  <div className="form-group">
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor="name">
                         Nombre: 
                         <ErrorMessage
                           name="name"
@@ -110,8 +110,8 @@ export default function CreateCandy() {
                       />
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label" htmlFor="price">
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor="price">
                         Precio: 
                         <ErrorMessage
                           name="price"
@@ -123,7 +123,7 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-                        class="form-control"
+                        className="form-control"
                         type="text"
                         id="price"
                         name="price"
@@ -131,8 +131,8 @@ export default function CreateCandy() {
                       />
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label" htmlFor="quantity">
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor="quantity">
                         Cantidad: 
                         <ErrorMessage
                           name="quantity"
@@ -144,7 +144,7 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-                        class="form-control"
+                        className="form-control"
                         type="text"
                         id="quantity"
                         name="quantity"
@@ -152,8 +152,8 @@ export default function CreateCandy() {
                       />
                     </div>
 
-                    <div class="mb-3">
-                    <label class="form-label" htmlFor="Picture">
+                    <div className="mb-3">
+                    <label className="form-label" htmlFor="Picture">
                       Cargar Imagen:
                       <ErrorMessage
                         name="file"
@@ -163,7 +163,7 @@ export default function CreateCandy() {
                       />
                     </label>
                     <Field
-                      class="form-control form-control-sm"
+                      className="form-control form-control-sm"
                       id="Picture"
                       type="file"
                       name="file"
