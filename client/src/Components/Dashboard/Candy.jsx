@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCandy, searchCandy } from "../../Redux/actions";
 import CreateCandy from "./CreateCandy";
 import InfoCandy from "./InfoCandy";
+// import SegmentChart from "./Charts/SegmentChart";
+// import ChartPie from "./Charts/ChartPie";
 
 export default function Candy(){
     const dispatch = useDispatch()
@@ -32,13 +34,7 @@ export default function Candy(){
         <div className="btn-toolbar mb-2 mb-md-0">
           <form onSubmit={(e)=>handleSubmitSearch(e)} className="btn-group me-2">
             <input type= "text" value={input} placeholder="Buscar producto..." onChange={(e)=>handleChangeSearch(e)}></input>
-            <button type="submit" className="btn btn-sm btn-outline-secondary">Buscar</button>
-            <label>Ordenar por: </label>
-            <select>
-                <option selected disabled>Seleccionar</option>
-                <option>Mas Vendidas</option>
-                <option>Menos Vendidas</option>
-            </select>
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Buscar</button>
           </form>
           <button type="button" className="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getCandy())}>
             Ver todos
@@ -81,7 +77,16 @@ export default function Candy(){
             }
           </tbody>
         </table>
-        
+        {/* <div class='d-flex row'>
+            <div class='col-4'>
+            <h1 class="h3">Peliculas mas vendidas</h1>
+            <ChartPie/>
+            </div>
+            <div class='col-6'>
+            <h1 class="h3">Ventas mensuales totales</h1>
+            <SegmentChart/>
+            </div>
+        </div> */}
        </div>
         </main>
     )

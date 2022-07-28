@@ -26,12 +26,12 @@ export default function InfoCandy({InfoCandy}){
 <lable>Filtrar por dia: </lable>
 <input type="date"></input>
 <button>Ver todos</button><br/>
-<label>Ordenar por: </label>
+{/* <label>Ordenar por: </label>
 <select>
     <option disabled selected>Seleccionar</option>
     <option>Dias de mayores ventas</option>
     <option>Dias de menores ventas</option>
-</select>
+</select> */}
           </div>
           <div className="modal-footer">
             <button

@@ -34,6 +34,8 @@ export const TOTALMENTE='TOTALMENTE';
 export const DEL_TICKET="DEL_TICKET"
 export const GET_TICKETS_HISTORY="GET_TICKETS_HISTORY"
 export const GET_TICKETS="GET_TICKETS";
+export const GET_TICKETS_DETAIL="GET_TICKETS_DETAIL";
+export const ORDER_MORE_SALED="ORDER_MORE_SALED";
 export const SEARCH_MOVIES_SALES ="SEARCH_MOVIES_SALES";
 export const REFRESH='REFRESH'
 
@@ -656,9 +658,30 @@ export function getTicketsSales(){
     }
 }
 
+export function getTicketsSalesDetails(month){
+  return async function (dispatch) {
+      try {
+        var ticketsDetails = await axios.get(`/tickets/all/detail?mes=${month}`)
+        return dispatch({
+          type: GET_TICKETS_DETAIL,
+          payload: ticketsDetails.data
+        })
+      } catch (error) {
+        dispatch({
+          type: GET_TICKETS_DETAIL,
+          payload: []
+        })
+      }
+    }
+}
+
 export function searchMoviesSales(payload) {
   return {
     type: SEARCH_MOVIES_SALES,
     payload,
   };
+}
+
+export function orderByMoreSaled(payload){
+  return {type: ORDER_MORE_SALED, payload}
 }
