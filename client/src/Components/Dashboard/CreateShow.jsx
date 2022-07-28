@@ -96,7 +96,7 @@ export default function CreateShow() {
                     //   console.log(values);
                     setFormSend(true);
                     resetForm();
-                    dispatch(getAllShows());
+                    dispatch(getAllShows())
                     setTimeout(() => setFormSend(false), 5000);
                   }}
                 >
@@ -209,7 +209,7 @@ export default function CreateShow() {
                                 Seleccionar pelicula
                               </option>
                             )}
-                            {console.log(movies)}
+                            {/* {console.log(movies)} */}
                             {movies?.map((e) => (
                               <option key={e.id} value={e.id}>
                                 {e.Title}
@@ -325,6 +325,7 @@ export default function CreateShow() {
                   type="button"
                   class="btn btn-danger"
                   data-bs-dismiss="modal"
+                  // onClick={dispatch(getAllShows())}
                 >
                   Volver
                 </button>

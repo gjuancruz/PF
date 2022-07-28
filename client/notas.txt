@@ -1,0 +1,23 @@
+BUGS A SOLUCIONAR
+
+*bot deberia mandar que no encuentra respuesta para una palabra no registrada.
+
+*una ruta no autorizada debe mandar al home al user
+
+*implementar recuperar contraseña.
+
+*footer placeholder con email.
+
+*eliminar warnings en consola.
+
+*cuando se crea una funcion que recargue automaticamente la pagina.
+
+
+//PREGUNTAS DE LA DEMO FINAL//
+
+que estuvieron trabajando.
+
+que dirias que fue lo mas complicado o mas facil.
+
+en que dirias que eres mejor o peor que tus compañeros.
+

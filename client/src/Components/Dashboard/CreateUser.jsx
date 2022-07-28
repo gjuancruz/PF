@@ -67,7 +67,7 @@ export default function CreateUser() {
             >
               {({ errors, values, setFieldValue }) => (
                 <Form className="container my-5">
-                  {console.log(values)}
+                  {/* {console.log(values)} */}
                   <div class="form-group">
                     <div class="mb-3">
                       <label class="form-label" htmlFor="username">

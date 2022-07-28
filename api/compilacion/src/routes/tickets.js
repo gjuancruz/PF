@@ -48,8 +48,13 @@ router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, funct
                 seats,
                 totalPrice: seats * 100,
                 // @ts-ignore
+                // @ts-ignore
                 cartId: cart.id,
             }
+        });
+        const update = yield prisma.tickets.update({
+            where: { id: newTickets.id },
+            data: { dateFormat: String(newTickets.createdAt).slice(4, 15) }
         });
         console.log("newTickets :", newTickets);
         const addNewTickets = yield prisma.cart.update({
@@ -92,6 +97,57 @@ router.post('/addTickets', (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     catch (e) {
         res.json(e.message);
+    }
+}));
+router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const tickets = yield prisma.tickets.findMany({ include: { show: true } });
+        const data = tickets === null || tickets === void 0 ? void 0 : tickets.map((e) => {
+            return {
+                totalPrice: e.totalPrice,
+                seats: e.seats,
+                movie: e.show.movieId,
+                type: e.show.type,
+                date: e.dateFormat.slice(0, 3)
+            };
+        });
+        const total = [];
+        const filter = data.forEach((e) => {
+            if (total.find((el) => e.date == el.date) == undefined) {
+                console.log(e);
+                total.push(e);
+            }
+            else {
+                let index = total.findIndex((el) => e.date == el.date);
+                total[index].seats += e.seats;
+                total[index].totalPrice += e.totalPrice;
+            }
+        });
+        res.status(200).send(total);
+    }
+    catch (error) {
+        res.send(error);
+    }
+}));
+router.get('/all/detail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { mes } = req.body;
+    console.log(mes);
+    try {
+        const tickets = yield prisma.tickets.findMany({ include: { show: true } });
+        const data = tickets === null || tickets === void 0 ? void 0 : tickets.map((e) => {
+            return {
+                totalPrice: e.totalPrice,
+                seats: e.seats,
+                movie: e.show.movieId,
+                type: e.show.type,
+                date: e.dateFormat
+            };
+        });
+        const filter = data.filter((e) => e.date.slice(0, 3) === mes);
+        res.status(200).send(filter);
+    }
+    catch (error) {
+        res.send(error);
     }
 }));
 exports.default = router;

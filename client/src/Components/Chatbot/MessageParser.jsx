@@ -26,8 +26,6 @@ const MessageParser = ({ children, actions }) => {
     //   }
   };
 
-  
-
   return (
     <div>
       {React.Children.map(children, (child) => {
