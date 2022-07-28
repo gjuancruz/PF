@@ -87,3 +87,12 @@ li{
 .promo2{
   color: rgb(205, 205, 6);
 }
+
+.modal-lg-prueba {
+  position: absolute !important;
+   top: 0 ;
+   right: 130px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+}

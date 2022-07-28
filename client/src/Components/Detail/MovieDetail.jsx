@@ -12,6 +12,8 @@ import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Checkout } from '../Checkout/Checkout'
 import Stripe from './Stripe';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MovieDetail(){
     const dispatch = useDispatch()
@@ -58,6 +60,8 @@ export default function MovieDetail(){
 
     const actualizarPrecio = useSelector(state => state.actualizarPrecio);
 
+    const paymentState = useSelector(state=>state.payment)
+    
     const [num, setNum] = useState(0);
 
     const sumar= () => {
@@ -200,25 +204,35 @@ export default function MovieDetail(){
       // e.preventDefault()
       window.parent.location.reload()
     }
-
-    function sumaCarrito(){
-      let totalCandys = 0; 
-      const totalTickets = userCarritoDetail.tickets[0].totalPrice
-      userCarritoDetail.candy.forEach(item => {
-        totalCandys = totalCandys + item.totalPrice
-      })
-      return totalCandys + totalTickets;
-    }
     
     console.log("Horario :",horario);
     console.log("userId:", idUser);
+
+    const customId = 1
+    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId});
+    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId});
+
     console.log("showId", showid);
     console.log("tickets :",tickets);
     console.log("estado TICKETs", num);
     console.log("userCarritoDetail :", userCarritoDetail);
+    // console.log(sumaCarrito());
     return(
         <div className="MovieDetail">
             <NavBar />
+            {/* PAYMENT NOTIFICATION */}
+            <div>
+            {/* <button onClick={()=>notify()}>Notify !</button> */}
+        
+              {paymentState === 'Payment received' && 
+                notifySuccess()
+              }
+              {(paymentState !== 'Payment received' && paymentState !== '' && paymentState !== undefined) && 
+                notifyDecline()
+              }
+            </div>
+            {/* PAYMENT NOTIFICATION */}
+
             <Stripe showid={horario.id} />
 
 
@@ -234,7 +248,7 @@ export default function MovieDetail(){
                 
                 <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart}  close={setcheckbtn}
                   boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0} //showId={tickets[0].seats}
-                  totalCarrito={sumaCarrito}
+                  // totalCarrito={sumaCarrito}
                 />
             </div>   : null 
            }

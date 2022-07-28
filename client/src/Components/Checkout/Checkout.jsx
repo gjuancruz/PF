@@ -16,113 +16,141 @@ export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, bol
 
   // const [carrito,setCarrito] = useState(cart);
 
-  const [TRADICIONAL,setTRADICIONAL ] = useState({ id: 0, value: 0 })
-  const [NACHOS,setNACHOS ] = useState({ id: 0, value: 0 })
-  const [GRANDE,setGRANDE ] = useState({ id: 0, value: 0 })
-  const [ICEE,setICEE] = useState({ id: 0, value: 0 })
+  const [TRADICIONAL, setTRADICIONAL] = useState({ id: 0, value: 0 });
+  const [NACHOS, setNACHOS] = useState({ id: 0, value: 0 });
+  const [GRANDE, setGRANDE] = useState({ id: 0, value: 0 });
+  const [ICEE, setICEE] = useState({ id: 0, value: 0 });
 
-  const [granTotal, setGranTotal] = useState(totalCarrito());
+  const [granTotal, setGranTotal] = useState(0);
 
   const stateCandy = useSelector(state => state.candy);
 
-  const storeCandy = useSelector(state => state.storeCandy)
-  
-  const total = useSelector(state => state.total);
+  const storeCandy = useSelector((state) => state.storeCandy);
 
-  const cart = useSelector(state => state.cart);
+  const total = useSelector((state) => state.total);
 
-  const idUser = useSelector(state => state.id)
+  const cart = useSelector((state) => state.cart);
 
-  const movie = useSelector(state => state.movieDetail)
+  const idUser = useSelector((state) => state.id);
+
+  const movie = useSelector((state) => state.movieDetail);
 
   const userCarrito = useSelector(state => state.userCart)
+
+  const actualizarPrecio = useSelector(state => state.actualizarPrecio);
+
   // const idUser = useSelector(state => state.id)
+
+  function sumaCarrito(){
+    let totalCandys = 0; 
+    let totalTickets = 0;
+    // if(userCarritoDetail.length){
+      totalTickets = userCarrito.tickets[0].totalPrice
+      userCarrito.candy.forEach(item => {
+        totalCandys = totalCandys + item.totalPrice
+      })
+    // }
+    return totalCandys + totalTickets;
+  }
 
   const obtenerCantidad = (nombre) => {
     let idCandy;
     let quantityCandy;
-    let productos = []
+    let productos = [];
 
-    if(storeCandy.length) {
-      idCandy = storeCandy.find( item => item.name === nombre);
-      quantityCandy = cart.length ? cart.find( item => item.name === nombre) : 0
-      
+    if (storeCandy.length) {
+      idCandy = storeCandy.find((item) => item.name === nombre);
+      quantityCandy = cart.length
+        ? cart.find((item) => item.name === nombre)
+        : 0;
+
       const state = {
         id: idCandy.id,
-        value: quantityCandy ? quantityCandy.quantity : 0
-      }
+        value: quantityCandy ? quantityCandy.quantity : 0,
+      };
 
       //eval(item.name.split(' ')[1])  eval(item.name.split(' ')[1]).value
-      if(quantityCandy){
+      if (quantityCandy) {
         for (let i = 0; i < quantityCandy.quantity; i++) {
-          productos.push(nombre)
+          productos.push(nombre);
         }
-        dispatch(addCandy(productos))
+        dispatch(addCandy(productos));
       }
-      console.log("estoy dentro de obtenerCantidad de candys que vienen del back");
+      console.log(
+        "estoy dentro de obtenerCantidad de candys que vienen del back"
+      );
 
       return state;
     } else {
       const defaultState = {
         id: 0,
-        value: 0
-      }
+        value: 0,
+      };
       return defaultState;
     }
-  }
+  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setGranTotal(totalCarrito());
+    idUser && dispatch(userCart({idUser:idUser}))
+  },[actualizarPrecio])
+
+  useEffect(() => {
+    setGranTotal(sumaCarrito());
   },[userCarrito])
 
   console.log("cart:",cart);
+  // console.log("cart:", cart);
 
-    // const [toggle,setToggle] = useState(true)
-  const dispatch = useDispatch();  
-  
+  // const [toggle,setToggle] = useState(true)
+
   const sumaTotal = () => {
     let sumaPrecios = 0;
-    stateCandy.forEach( name => {
-        const nameCandy = storeCandy.find( item => item.name === name );
-        sumaPrecios = sumaPrecios + nameCandy.price
+    stateCandy.forEach((name) => {
+      const nameCandy = storeCandy.find((item) => item.name === name);
+      sumaPrecios = sumaPrecios + nameCandy.price;
     });
-    console.log(sumaPrecios)
+    console.log(sumaPrecios);
     dispatch(sumTotal(sumaPrecios));
-  }
+  };
 
-//   useEffect(() => {
-//   //   sumaTotal();
-//   // },[stateCandy]
-//   if(idUser) dispatch(getOrderPrice({idUser: idUser}))
-// }, [dispatch])
-console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
+  //   useEffect(() => {
+  //   //   sumaTotal();
+  //   // },[stateCandy]
+  //   if(idUser) dispatch(getOrderPrice({idUser: idUser}))
+  // }, [dispatch])
+  console.log("SOY USER IDDDDDDDDDDDDDD", typeof idUser);
   useEffect(() => {
     setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"));
-    setNACHOS(obtenerCantidad("COMBO NACHOS"))
-    setGRANDE(obtenerCantidad("COMBO GRANDE"))
-    setICEE(obtenerCantidad("COMBO ICEE"))
-  },[cart])
+    setNACHOS(obtenerCantidad("COMBO NACHOS"));
+    setGRANDE(obtenerCantidad("COMBO GRANDE"));
+    setICEE(obtenerCantidad("COMBO ICEE"));
+  }, [cart]);
   // useEffect(() => {
   //   dispatch(getCardHistory(idUser))
   // })
 
-  const delayTotalPrice = async() => {
-    await setTimeout(5000);
-    console.log("entre al delayTotalPrice");
-    dispatch(userCart({idUser:idUser}));
-  }
+  // const delayTotalPrice = async() => {
+  //   await setTimeout(5000);
+  //   console.log("entre al delayTotalPrice");
+  //   dispatch(userCart({idUser:idUser}));
+  // }
 
   const handleClick = (event) => {
     console.log(event.target.name, event.target.value);
-    if(event.target.name === "cafe") setCafe(event.target.value);
-    if(event.target.name === "refresco") setRefresco(event.target.value);
-    if(event.target.name === "hotdog") setHotdog(event.target.value);
+    if (event.target.name === "cafe") setCafe(event.target.value);
+    if (event.target.name === "refresco") setRefresco(event.target.value);
+    if (event.target.name === "hotdog") setHotdog(event.target.value);
 
-    if(event.target.name === "COMBO TRADICIONAL") setTRADICIONAL({...TRADICIONAL,value: event.target.value});
-    if(event.target.name === "COMBO NACHOS") setNACHOS({...NACHOS,value: event.target.value});
-    if(event.target.name === "COMBO GRANDE") setGRANDE({...GRANDE,value: event.target.value});
-    if(event.target.name === "COMBO ICEE") setICEE({...ICEE,value: event.target.value});
-  }  
+    if (event.target.name === "COMBO TRADICIONAL")
+      setTRADICIONAL({ ...TRADICIONAL, value: event.target.value });
+    if (event.target.name === "COMBO NACHOS")
+      setNACHOS({ ...NACHOS, value: event.target.value });
+    if (event.target.name === "COMBO GRANDE")
+      setGRANDE({ ...GRANDE, value: event.target.value });
+    if (event.target.name === "COMBO ICEE")
+      setICEE({ ...ICEE, value: event.target.value });
+  };
 
   const handleSubmit = (event) => {
     console.log(event.target.name);
@@ -245,198 +273,197 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
   // dispatch(userCart({idUser:idUser}));
 }
 
-const delTicketsEvent = (e) => {
-  e.preventDefault()
-  // console.log(e);
-  dispatch(delTickets({userId: idUser, showId: showId}))  //idUser
-}
+  
 
-//   console.log(JSON.stringify(storeCandy[1].name));
+  const delTicketsEvent = (e) => {
+    e.preventDefault();
+    // console.log(e);
+    dispatch(delTickets({ userId: idUser, showId: showId })); //idUser
+  };
+
+  //   console.log(JSON.stringify(storeCandy[1].name));
 
   console.log("estado candy: " + JSON.stringify(stateCandy));
   console.log("userCarrito:", userCarrito);
   return (
       // <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
       <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-center" id="Navcollapse" >
-         <div className="bton"> <button className="closebutton" onClick={()=>close(false)}><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      <div className="bton"> <button className="closebutton" onClick={()=>close(false)}><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 </svg></button></div>
-        <h3 className="mt-4 ml-5 font-weight-bold text-white">{title || 'generic title'}</h3>
-         <iframe src={movie.Trailer} alt="" width="400px" height="300px"/>
-        <ul className="navbar-nav d-flex flex-column mt-5 w-100">
-          <li className="nav-item w-100">
-              {NumTickets || `Tickets: ${boletos} `} 
-              <input type="button" value="X" style={{backgroundColor: "red", padding:"0 5px"}} 
-                onClick={(e) => delTicketsEvent(e)} ></input>
-          </li>
-          <li className="nav-item w-100">
-            <a href="#" className="nav-link text-light pl-4">
-              {horario ? `Fecha: Jueves ${horario}` : `Fecha: Jueves 0:00`}
-            </a>
-          </li>
-          <li className="nav-item w-100">
-            <a href="#" className="nav-link text-white pl-4">
-              {sala || " Sala: 99"}
-            </a>
-          </li>
-          <li className="nav-item w-100">
-            <a href="#" className="nav-link text-white pl-4">
-              {idioma || 'Idioma: Español'}
-            </a>
-          </li>
-          <li>
-            <imput type="button" onClick={() => dispatch(userCart({idUser:idUser}))} style={{backgroundColor: 'pink'}}>Actualizar</imput>
-          </li>
-          <hr />
+     <h3 className="mt-4 ml-5 font-weight-bold text-white">{title || 'generic title'}</h3>
+      <iframe src={movie.Trailer} alt="" width="400px" height="300px"/>
+     <ul className="navbar-nav d-flex flex-column mt-5 w-100">
+       <li className="nav-item w-100">
+           {NumTickets || `Tickets: ${boletos} `} 
+           <input type="button" value="X" style={{backgroundColor: "red", padding:"0 5px"}} 
+             onClick={(e) => delTicketsEvent(e)} ></input>
+       </li>
+       <li className="nav-item w-100">
+         <a href="#" className="nav-link text-light pl-4">
+           {horario ? `Fecha: Jueves ${horario}` : `Fecha: Jueves 0:00`}
+         </a>
+       </li>
+       <li className="nav-item w-100">
+         <a href="#" className="nav-link text-white pl-4">
+           {sala || " Sala: 99"}
+         </a>
+       </li>
+       <li className="nav-item w-100">
+         <a href="#" className="nav-link text-white pl-4">
+           {idioma || 'Idioma: Español'}
+         </a>
+       </li>
 
-          
+       <hr />
 
-          <div>
-      <button
-        type="button"
-        class="btn btn-warning"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop1"
-      >Dulceria
-      </button>
+       
 
-      <div
-        class="modal fade"
-        id="staticBackdrop1"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content bg-dark">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
-                ¡Disfruta de tu funcion con estas promos!
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div class="row align-items-start">
-                <div class="col-12">
-                {
-                    storeCandy.map( item => (
-                        <div>
-                            <h4>{item.name}</h4>
-                            <img
-                                src={item.picture}
-                                width={"120px"}
-                            />
-                            <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
-                            <input type="number" min='1' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
-                                value={eval(item.name.split(' ')[1]).value}
-                            />
-                            <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
-                                Agregar
-                            </button>
-                            <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name + 'delete'}>
-                        Eliminar
-                    </button>
-                        </div>
-                    ))
-                 
-                }
-                </div>
-                {/* <div class="col">One of three columns</div>
-                <div class="col">One of three columns</div> */}
-              </div>
+       <div>
+   <button
+     type="button"
+     class="btn btn-warning"
+     data-bs-toggle="modal"
+     data-bs-target="#staticBackdrop1"
+   >Dulceria
+   </button>
+
+   <div
+     class="modal fade"
+     id="staticBackdrop1"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     tabindex="-1"
+     aria-labelledby="staticBackdropLabel"
+     aria-hidden="true"
+   >
+     <div class="modal-dialog modal-lg">
+       <div class="modal-content bg-dark">
+         <div class="modal-header">
+           <h5 class="modal-title" id="staticBackdropLabel">
+             ¡Disfruta de tu funcion con estas promos!
+           </h5>
+           <button
+             type="button"
+             class="btn-close"
+             data-bs-dismiss="modal"
+             aria-label="Close"
+           ></button>
+         </div>
+         <div class="modal-body">
+           <div class="row align-items-start">
+             <div class="col-12">
+             {
+                 storeCandy.map( item => (
+                     <div>
+                         <h4>{item.name}</h4>
+                         <img
+                             src={item.picture}
+                             width={"120px"}
+                         />
+                         <span style={{paddingRight: "10px"}}>Price: {item.price}</span>
+                         <input type="number" min='1' max="100" style={{width: '60px'}} name={item.name} onChange={handleClick} 
+                             value={eval(item.name.split(' ')[1]).value}
+                         />
+                         <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name} >
+                             Agregar
+                         </button>
+                         <button type="button" class="btn btn-warning" onClick={handleSubmit} name={item.name + 'delete'}>
+                     Eliminar
+                 </button>
+                     </div>
+                 ))
               
-              <hr />
+             }
+             </div>
+             {/* <div class="col">One of three columns</div>
+             <div class="col">One of three columns</div> */}
+           </div>
+           
+           <hr />
 
-              <div class="row align-items-start">
-                <div class="col-12">
-                  <h3>Agregar productos</h3>
-                  <div class="">
-                    <img
-                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/2015525172827605.png"
-                        width={"120px"}
-                    />
-                    <input type="number" min='0' max="100" style={{width: '60px', display:"inline"}} name="cafe"
-                        onChange={handleClick} value={cafe}
-                    />
-                    <button type="button" className="btn btn-warning" onClick={handleSubmit} name="cafe"
-                    >
-                        Agregar
-                    </button>
-                  </div>
+           <div class="row align-items-start">
+             <div class="col-12">
+               <h3>Agregar productos</h3>
+               <div class="">
+                 <img
+                     src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/2015525172827605.png"
+                     width={"120px"}
+                 />
+                 <input type="number" min='0' max="100" style={{width: '60px', display:"inline"}} name="cafe"
+                     onChange={handleClick} value={cafe}
+                 />
+                 <button type="button" className="btn btn-warning" onClick={handleSubmit} name="cafe"
+                 >
+                     Agregar
+                 </button>
+               </div>
 
-                  <div>
-                    <img
-                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/20176713015578.png"
-                        width={"120px"}
-                    />
-                    <input type="number" min='0' max="100" style={{width: '60px'}} name="refresco"
-                        onChange={handleClick} value={refresco}
-                    />
-                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="refresco">
-                        Agregar
-                    </button>
-                  </div>
+               <div>
+                 <img
+                     src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/20176713015578.png"
+                     width={"120px"}
+                 />
+                 <input type="number" min='0' max="100" style={{width: '60px'}} name="refresco"
+                     onChange={handleClick} value={refresco}
+                 />
+                 <button type="button" class="btn btn-warning" onClick={handleSubmit} name="refresco">
+                     Agregar
+                 </button>
+               </div>
 
-                  <div>
-                    <img
-                        src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/201552517333172.png"
-                        width={"120px"}
-                    />
-                    <input type="number" min='0' max="100" style={{width: '60px'}} onChange={handleClick} value={hotdog} 
-                        name="hotdog"
-                    />
-                    <button type="button" class="btn btn-warning" onClick={handleSubmit} name="hotdog">
-                        Agregar
-                    </button>
-    
-                  </div>
+               <div>
+                 <img
+                     src="https://static.cinepolis.com/marcas/dulceria/imagenes/productos/8/201552517333172.png"
+                     width={"120px"}
+                 />
+                 <input type="number" min='0' max="100" style={{width: '60px'}} onChange={handleClick} value={hotdog} 
+                     name="hotdog"
+                 />
+                 <button type="button" class="btn btn-warning" onClick={handleSubmit} name="hotdog">
+                     Agregar
+                 </button>
+ 
+               </div>
 
-                </div>
-                {/* <div class="col">One of three columns</div>
-                <div class="col">One of three columns</div> */}
-              </div>
+             </div>
+             {/* <div class="col">One of three columns</div>
+             <div class="col">One of three columns</div> */}
+           </div>
 
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-warning">
-                Ir al carrito
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+         </div>
+         <div class="modal-footer">
+           <button
+             type="button"
+             class="btn btn-secondary"
+             data-bs-dismiss="modal"
+           >
+             Close
+           </button>
+           <button type="button" class="btn btn-warning">
+             Ir al carrito
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
 
-          <hr />
+       <hr />
 
-          <li className="nav-item w-100">
-            <a href="#" className="nav-link text-white pl-4">
-            <b>Total a pagar : ${granTotal}</b>
-            </a>
-          </li>
-        </ul>
+       <li className="nav-item w-100">
+         <a href="#" className="nav-link text-white pl-4">
+         <b>Total a pagar : ${granTotal}</b>
+         </a>
+       </li>
+     </ul>
 
-        <hr />
-        <button type="button" class="btn btn-warning">Realizar Pago</button>
+     <hr />
+     <button type="button" class="btn btn-warning">Realizar Pago</button>
 
-      </nav>
-
-  );
-              }
+   </nav>  
+  )
+}
 // <div class="container-fluid" >
 //     <div class="row">
 //         {/* Pruebasaaaaa */}
