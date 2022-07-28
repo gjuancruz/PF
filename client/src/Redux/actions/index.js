@@ -128,7 +128,7 @@ export function searchMovieName(title){
       // console.log(userId)
       return async function (dispatch){
         try{
-          var json = await axios.post("http://localhost:3001/movies/checkout",{ticket,show,idUser})
+          var json = await axios.post("/movies/checkout",{ticket,show,idUser})
           console.log(json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
@@ -172,14 +172,14 @@ export function autorizado () {
 
 // export function postMovie(payload) {
 //   return async function (dispatch) {
-//     const logged = await axios.get("http://localhost:3001/auth/verify", {
+//     const logged = await axios.get("/auth/verify", {
 //       headers: {
 //         Authorization: `Bearer ${window.localStorage.getItem("sw-token")}`,
 //       },
 //     });
 //     console.log("aca toi");
 //     try {
-//       await axios.post("http://localhost:3001/movies/createMovie", payload, {
+//       await axios.post("/movies/createMovie", payload, {
 //         headers: {
 //           Authorization: `Bearer ${window.localStorage.getItem("sw-token")}`,
 //         },
@@ -263,7 +263,7 @@ export function deleteComment(id){
 export function getShow(movieId){
   return async function(dispatch){
     try{
-      const json = await axios.get('http://localhost:3001/show/one/'+movieId)
+      const json = await axios.get('/show/one/'+movieId)
       // console.log(json.data)
       return dispatch({
         type: GET_SHOW,
@@ -278,7 +278,7 @@ export function getShow(movieId){
 export function getDayShow(day,id){
   return async function(dispatch){
     try{
-      const json = await axios.get(`http://localhost:3001/show/day?day=${day}&id=${id}`)
+      const json = await axios.get(`/show/day?day=${day}&id=${id}`)
       return dispatch({
         type:GET_DAY_SHOW,
         payload:json.data
@@ -292,7 +292,7 @@ export function getDayShow(day,id){
 export function deleteShow(movieId){
   return async function(dispatch){
     try{
-      const json = await axios.delete('http://localhost:3001/show/one/'+movieId)
+      const json = await axios.delete('/show/one/'+movieId)
       // console.log(json.data)
       // console.log(json.data)
       return json.data
@@ -305,7 +305,7 @@ export function deleteShow(movieId){
 export function getAllShows(){
   return async function(dispatch){
     try{
-      const json = await axios.get('http://localhost:3001/show/all')
+      const json = await axios.get('/show/all')
       return dispatch({
         type: GET_ALL_SHOWS,
         payload:json.data
@@ -321,7 +321,7 @@ export function postShow(data){
   // console.log(data)
   return async function(){
     try{
-      const json = await axios.post('http://localhost:3001/show',{data})
+      const json = await axios.post('/show',{data})
       // console.log(json.data)
     }catch(error){
       console.log(error)
@@ -368,7 +368,7 @@ export function getUsers(){
 export function searchUser(name){
   return async function (dispatch) {
       try {
-        var search = await axios.get(`http://localhost:3001/admin/searchUser?username=${name}`)
+        var search = await axios.get(`/admin/searchUser?username=${name}`)
         return dispatch({
           type: SEARCH_USER,
           payload: search.data
@@ -390,7 +390,7 @@ export function deleteUser(email){
             body: JSON.stringify(email)
         };
   
-    var userDelete = fetch("http://localhost:3001/admin/deleteUser",requestOptions)
+    var userDelete = fetch("/admin/deleteUser",requestOptions)
     .then(data => data.json())
       .then(json => {
           dispatch({ type: DELETE_USER, payload: json})
@@ -401,7 +401,7 @@ export function deleteUser(email){
 
 export function createUser(user){
   return async function(dispatch){
-      const data = await axios.post("http://localhost:3001/auth/register", user)
+      const data = await axios.post("/auth/register", user)
       return data;
   }
 }
@@ -410,7 +410,7 @@ export function updateUser(data){
   
   return async function(dispatch){
     // console.log(data)
-    var updateDelete = await axios.put("http://localhost:3001/admin/updateUser",data);
+    var updateDelete = await axios.put("/admin/updateUser",data);
     return updateDelete
   }
 }
@@ -424,7 +424,7 @@ export function updateUser(data){
 //   };
 
 //   return function (dispatch){
-//       return fetch('http://localhost:3001/movies/createMovie', requestOptions)
+//       return fetch('/movies/createMovie', requestOptions)
 //       .then(data => data.json())
 //       .then(json => {
 //           dispatch({ type: POST_MOVIE, payload: json})
@@ -478,7 +478,7 @@ export function addCandy(payload){
 
 export function getCandy(){
   return async function(dispatch){
-    const candys = await axios.get('http://localhost:3001/candy')
+    const candys = await axios.get('/candy')
     return dispatch({
       type: GET_CANDY,
       payload: candys.data
@@ -488,7 +488,7 @@ export function getCandy(){
 
 export function verifyRole(){
   return async function(dispatch){
-    const data = await axios.get('http://localhost:3001/auth/verifyrole' , {
+    const data = await axios.get('/auth/verifyrole' , {
       headers : {
         Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
       }
@@ -562,7 +562,7 @@ export function postCandys(payload){
 export function deleteCandys(payload){
   return async function(dispatch){
     try {
-      await axios.post('http://localhost:3001/candy/delete', payload)
+      await axios.post('/candy/delete', payload)
     } catch (error) {
       console.log(error)
     }
@@ -572,7 +572,7 @@ export function deleteCandys(payload){
 export function getOrderPrice(payload){
   return async function(dispatch){
     try {
-      const userCart = await axios.post('http://localhost:3001/cart/userCart', payload)
+      const userCart = await axios.post('/cart/userCart', payload)
       
       return dispatch({
         type: TOTALMENTE,
@@ -588,7 +588,7 @@ export function delTickets(payload){
   return async function(dispatch){
     try {
       console.log("estoy en actions/delTIckets ", payload);   
-      const delTicket = await axios.post("http://localhost:3001/tickets/delete", payload)
+      const delTicket = await axios.post("/tickets/delete", payload)
       console.log("estoy en actions/delTickets RESPUESTA", delTicket.data)
       return dispatch({
         type: DEL_TICKET,
@@ -608,7 +608,7 @@ export function addToNewsletter (email) {
             body: JSON.stringify(email)
         };
   
-    var addtoNews = fetch('http://localhost:3001/mailing/newsletter', requestOptions)
+    var addtoNews = fetch('/mailing/newsletter', requestOptions)
     .then(alert('El usuario ha sido añadido al newsletter'))
 
     .catch(err => console.log(err))
@@ -623,7 +623,7 @@ export function addToNewsletter (email) {
 //       body: JSON.stringify(email)
 //   };
 
-//     var recuperarPass = fetch('http://localhost:3001/mailing/recuperarpassword', requestOptions)
+//     var recuperarPass = fetch('/mailing/recuperarpassword', requestOptions)
 //     .then(response => {
 //       alert('Se han enviado los datos para recuperar la cuenta al usuario')
 //     })
@@ -636,7 +636,7 @@ export function addToNewsletter (email) {
 export function recuperarPassword (email) {
   return async function (dispatch) {
     try {
-      const response = await axios.post('http://localhost:3001/mailing/recuperarpassword', email)
+      const response = await axios.post('/mailing/recuperarpassword', email)
       alert('El mail ha sido enviado a la casilla indicada.')
       return dispatch ({
         type: REFRESH,
@@ -653,7 +653,7 @@ export function recuperarPassword (email) {
 export function searchCandy(name){
   return async function (dispatch) {
       try {
-        var search = await axios.get(`http://localhost:3001/candy/searchCandy?name=${name}`)
+        var search = await axios.get(`/candy/searchCandy?name=${name}`)
         return dispatch({
           type: SEARCH_CANDY,
           payload: search.data
@@ -670,7 +670,7 @@ export function searchCandy(name){
 export function getTicketsSales(){
   return async function (dispatch) {
       try {
-        var tickets = await axios.get('http://localhost:3001/tickets/all')
+        var tickets = await axios.get('/tickets/all')
         return dispatch({
           type: GET_TICKETS,
           payload: tickets.data
