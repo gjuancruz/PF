@@ -130,7 +130,7 @@ router.get('/all',async(req:Request,res:Response)=>{
 })
 
 router.get('/all/detail',async(req:Request,res:Response)=>{
-    const {mes} = req.body;
+    const {mes} = req.query;
     console.log(mes)
     try {
         const tickets = await prisma.tickets.findMany({include:{show:true}})

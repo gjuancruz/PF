@@ -30,6 +30,8 @@ export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
 export const GET_TICKETS="GET_TICKETS";
+export const GET_TICKETS_DETAIL="GET_TICKETS_DETAIL";
+export const ORDER_MORE_SALED="ORDER_MORE_SALED";
 export const SEARCH_MOVIES_SALES ="SEARCH_MOVIES_SALES";
 export const GET_DAY_SHOW="GET_DAY_SHOW";
 
@@ -572,9 +574,30 @@ export function getTicketsSales(){
     }
 }
 
+export function getTicketsSalesDetails(month){
+  return async function (dispatch) {
+      try {
+        var ticketsDetails = await axios.get(`http://localhost:3001/tickets/all/detail?mes=${month}`)
+        return dispatch({
+          type: GET_TICKETS_DETAIL,
+          payload: ticketsDetails.data
+        })
+      } catch (error) {
+        dispatch({
+          type: GET_TICKETS,
+          payload: []
+        })
+      }
+    }
+}
+
 export function searchMoviesSales(payload) {
   return {
     type: SEARCH_MOVIES_SALES,
     payload,
   };
+}
+
+export function orderByMoreSaled(payload){
+  return {type: ORDER_MORE_SALED, payload}
 }

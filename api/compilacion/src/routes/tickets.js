@@ -130,7 +130,7 @@ router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 }));
 router.get('/all/detail', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { mes } = req.body;
+    const { mes } = req.query;
     console.log(mes);
     try {
         const tickets = yield prisma.tickets.findMany({ include: { show: true } });
