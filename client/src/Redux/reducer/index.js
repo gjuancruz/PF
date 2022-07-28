@@ -27,7 +27,9 @@ import {
   GET_DAY_SHOW,
   TOTALMENTE,
   GET_TICKETS,
-  DEL_TICKET
+  DEL_TICKET,
+  USER_CART,
+  ACTUALIZAR_PRECIO_TOTAL
 } from "../actions";
 
 const initialState = {
@@ -51,11 +53,25 @@ const initialState = {
   entradas: 0,
   id:'',
   cart: [],
-  tickets:[]
+  tickets:[],
+  userCart: [],
+  actualizarPrecio: "",
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case ACTUALIZAR_PRECIO_TOTAL:
+      return{
+        ...state,
+        actualizarPrecio: action.payload
+      }
+
+    case USER_CART:
+      return{
+        ...state,
+        userCart: action.payload
+      }
+
     case DEL_TICKET:
       return{
         ...state,

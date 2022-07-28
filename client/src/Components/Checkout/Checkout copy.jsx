@@ -12,7 +12,7 @@ export function Checkout({NumTickets, title, sala, idioma, toogle, entradas, bol
   const [refresco, setRefresco] = useState(0)
   const [hotdog, setHotdog] = useState(0)
 
-  const [pay,setPay]=useState(false)
+  
 
   // const [carrito,setCarrito] = useState(cart);
 
@@ -107,7 +107,6 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
   // })
 
   const delayTotalPrice = async() => {
-    await setTimeout(5000);
     console.log("entre al delayTotalPrice");
     dispatch(userCart({idUser:idUser}));
   }
@@ -136,9 +135,8 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
           dispatch(getOrderPrice({idUser: idUser}))
         }, 500);
         console.log(productos);
-        return dispatch(addCandy(productos))
-        // return delayTotalPrice();
-        // return delayTotalPrice();
+        dispatch(addCandy(productos))
+        return delayTotalPrice();
     }
     if(event.target.name === "COMBO NACHOS"){
         for (let i = 0; i < NACHOS.value; i++) {
@@ -146,10 +144,10 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
         }
         console.log(productos);
         dispatch(postCandys({ index: NACHOS.id, quantity: Number(NACHOS.value), userId: idUser }))
-        // setTimeout(() => {
-        //   dispatch(getOrderPrice({idUser: idUser}))
-        // }, 500);
-        // delayTotalPrice();
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
+        delayTotalPrice();
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO GRANDE"){
@@ -157,10 +155,10 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
             productos.push("COMBO GRANDE")
         }
         dispatch(postCandys({ index: GRANDE.id, quantity: Number(GRANDE.value), userId: idUser }))
-        // setTimeout(() => {
-        //   dispatch(getOrderPrice({idUser: idUser}))
-        // }, 500);
-        // delayTotalPrice();
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
+        delayTotalPrice();
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "COMBO ICEE"){
@@ -168,76 +166,76 @@ console.log('SOY USER IDDDDDDDDDDDDDD', typeof idUser)
             productos.push("COMBO ICEE")
         }
         dispatch(postCandys({ index: ICEE.id, quantity: Number(ICEE.value), userId: idUser }))
-        // setTimeout(() => {
-        //   dispatch(getOrderPrice({idUser: idUser}))
-        // }, 500);
-        // delayTotalPrice();
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
+        delayTotalPrice();
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "cafe"){
         for (let i = 0; i < cafe; i++) {
             productos.push("cafe")
         }
-        // setTimeout(() => {
-        //   dispatch(getOrderPrice({idUser: idUser}))
-        // }, 500);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "refresco"){
         for (let i = 0; i < refresco; i++) {
             productos.push("refresco")
         }
-        // setTimeout(() => {
-        //   dispatch(getOrderPrice({idUser: idUser}))
-        // }, 500);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
     if(event.target.name === "hotdog"){
         for (let i = 0; i < hotdog; i++) {
             productos.push("hotdog")
         }
-        // setTimeout(() => {
-        //   dispatch(getOrderPrice({idUser: idUser}))
-        // }, 500);
+        setTimeout(() => {
+          dispatch(getOrderPrice({idUser: idUser}))
+        }, 500);
         return dispatch(addCandy(productos))
     }
 
     if(event.target.name === "COMBO TRADICIONALdelete"){
       productos.filter((p) => p !== 'COMBO TRADICIONAL')
-      // setTimeout(() => {
-      //   dispatch(getOrderPrice({idUser: idUser}))
-      // }, 500);
-      // delayTotalPrice();
+      setTimeout(() => {
+        dispatch(getOrderPrice({idUser: idUser}))
+      }, 500);
+      delayTotalPrice();
       return dispatch(deleteCandys({index: TRADICIONAL.id, userId: idUser}))
   }
 
   if(event.target.name === "COMBO NACHOSdelete"){
     productos.filter((p) => p !== 'COMBO NACHOS')
     dispatch(deleteCandys({index: NACHOS.id, userId: idUser}))
-    // setTimeout(() => {
-    //   dispatch(getOrderPrice({idUser: idUser}))
-    // }, 500);
-    // delayTotalPrice();
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    delayTotalPrice();
     return dispatch(addCandy(productos))
   }
 
   if(event.target.name === "COMBO GRANDEdelete"){
     productos.filter((p) => p !== 'COMBO GRANDE')
     dispatch(deleteCandys({index: GRANDE.id, userId: idUser}))
-    // setTimeout(() => {
-    //   dispatch(getOrderPrice({idUser: idUser}))
-    // }, 500);
-    // delayTotalPrice();
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    delayTotalPrice();
     return dispatch(addCandy(productos))
   }
 
   if(event.target.name === "COMBO ICEEdelete"){
     productos.filter((p) => p !== 'COMBO ICEE')
     dispatch(deleteCandys({index: ICEE.id, userId: idUser}))
-    // setTimeout(() => {
-    //   dispatch(getOrderPrice({idUser: idUser}))
-    // }, 500);
-    // delayTotalPrice();
+    setTimeout(() => {
+      dispatch(getOrderPrice({idUser: idUser}))
+    }, 500);
+    delayTotalPrice();
     return dispatch(addCandy(productos))
   }
 
@@ -284,9 +282,7 @@ const delTicketsEvent = (e) => {
               {idioma || 'Idioma: Español'}
             </a>
           </li>
-          <li>
-            <imput type="button" onClick={() => dispatch(userCart({idUser:idUser}))} style={{backgroundColor: 'pink'}}>Actualizar</imput>
-          </li>
+
           <hr />
 
           

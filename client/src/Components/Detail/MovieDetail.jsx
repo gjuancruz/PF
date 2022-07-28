@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
 import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, getDayShow,
-  sumEntradas, getCardHistory, getTicketsHistory} from "../../Redux/actions";
+  sumEntradas, getCardHistory, getTicketsHistory, userCart} from "../../Redux/actions";
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole,getDayShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
@@ -29,7 +29,7 @@ export default function MovieDetail(){
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     const movieVideo=useSelector(state=>state.movieDetail.Trailer);
-    const [checkbtn, setcheckbtn] = useState(false);
+    const [checkbtn, setcheckbtn] = useState(true);
     
     console.log("soy",hourshown)
     // console.log("es la premier",allCartelera)
@@ -54,6 +54,10 @@ export default function MovieDetail(){
     
     const cart = useSelector(state => state.cart);
 
+    const userCarritoDetail = useSelector(state => state.userCart)
+
+    const actualizarPrecio = useSelector(state => state.actualizarPrecio);
+
     const [num, setNum] = useState(0);
 
     const sumar= () => {
@@ -62,6 +66,10 @@ export default function MovieDetail(){
     const restar= () => {
       setNum(num - 1);
     }
+
+    useEffect(() => {
+      idUser && dispatch(userCart({idUser:idUser}))
+    },[idUser,actualizarPrecio])
 
     useEffect(() => {
       idUser && dispatch(getTicketsHistory({idUser: idUser}))
@@ -192,12 +200,22 @@ export default function MovieDetail(){
       // e.preventDefault()
       window.parent.location.reload()
     }
+
+    function sumaCarrito(){
+      let totalCandys = 0; 
+      const totalTickets = userCarritoDetail.tickets[0].totalPrice
+      userCarritoDetail.candy.forEach(item => {
+        totalCandys = totalCandys + item.totalPrice
+      })
+      return totalCandys + totalTickets;
+    }
     
     console.log("Horario :",horario);
     console.log("userId:", idUser);
     console.log("showId", showid);
     console.log("tickets :",tickets);
     console.log("estado TICKETs", num);
+    console.log("userCarritoDetail :", userCarritoDetail);
     return(
         <div className="MovieDetail">
             <NavBar />
@@ -216,6 +234,7 @@ export default function MovieDetail(){
                 
                 <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart}  close={setcheckbtn}
                   boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0} //showId={tickets[0].seats}
+                  totalCarrito={sumaCarrito}
                 />
             </div>   : null 
            }
@@ -289,7 +308,7 @@ export default function MovieDetail(){
       !currentUser[0]?  
       <div>
         
-<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
+<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 Comprar 
 </button>
 

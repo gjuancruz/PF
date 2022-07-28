@@ -32,6 +32,8 @@ export const GET_DAY_SHOW="GET_DAY_SHOW"
 export const TOTALMENTE='TOTALMENTE';
 export const GET_TICKETS='GET_TICKETS';
 export const DEL_TICKET="DEL_TICKET"
+export const USER_CART="USER_CART";
+export const ACTUALIZAR_PRECIO_TOTAL="ACTUALIZAR_PRECIO_TOTAL";
 
 export function getBillboard() {
   return async function (dispatch) {
@@ -543,7 +545,12 @@ export function postCandys(payload){
     try {
       console.log("soy payload candy",payload)
       let candyPost = await axios.post('/candy/add', payload)
-      return console.log("dispatch candyPost " + JSON.stringify(candyPost))
+      console.log("dispatch candyPost " + JSON.stringify(candyPost))
+
+      return dispatch({
+        type: ACTUALIZAR_PRECIO_TOTAL,
+        payload: candyPost.data
+      })
     } catch (error) {
       console.log(error)
     }
@@ -560,7 +567,12 @@ export function postCandys(payload){
 export function deleteCandys(payload){
   return async function(dispatch){
     try {
-      await axios.post('http://localhost:3001/candy/delete', payload)
+      const delCandy = await axios.post('http://localhost:3001/candy/delete', payload)
+
+      return dispatch({
+        type: ACTUALIZAR_PRECIO_TOTAL,
+        payload: delCandy.data
+      })
     } catch (error) {
       console.log(error)
     }
@@ -594,6 +606,22 @@ export function delTickets(payload){
       })
     } catch (error) {
       console.log(error.message);
+    }
+  }
+}
+
+export function userCart(payload){
+  return async function(dispatch){
+    try {
+      console.log("userCartAction", payload);
+      const carritoUser = await axios.post("http://localhost:3001/cart/userCart", payload);
+      console.log("userCartAction Respuesta", carritoUser);
+      return dispatch({
+        type: USER_CART,
+        payload: carritoUser.data
+      })
+    } catch (error) {
+      return console.log(error.message);
     }
   }
 }
