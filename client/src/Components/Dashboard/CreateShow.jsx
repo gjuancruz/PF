@@ -93,7 +93,6 @@ export default function CreateShow() {
                   }}
                   onSubmit={(values, { resetForm }) => {
                     dispatch(postShow(values));
-                    //   console.log(values);
                     setFormSend(true);
                     resetForm();
                     dispatch(getAllShows())
@@ -102,7 +101,6 @@ export default function CreateShow() {
                 >
                   {({ errors, values, setFieldValue }) => (
                     <Form className="container my-5">
-                      {/* {console.log(values)} */}
                       <div className="form-group">
                         <div className="mb-3">
                           <label className="form-label" htmlFor="schedule">
@@ -209,7 +207,6 @@ export default function CreateShow() {
                                 Seleccionar pelicula
                               </option>
                             )}
-                            {/* {console.log(movies)} */}
                             {movies?.map((e) => (
                               <option key={e.id} value={e.id}>
                                 {e.Title}

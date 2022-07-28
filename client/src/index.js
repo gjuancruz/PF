@@ -9,9 +9,6 @@ import axios from 'axios';
 // import dotenv from 'dotenv'
 // dotenv.config();
 
-// console.log(process.env)
-// console.log("rama axeloneta")
-
 axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001/';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

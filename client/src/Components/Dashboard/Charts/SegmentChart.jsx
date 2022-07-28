@@ -35,7 +35,6 @@ export default function SegmentChart(){
                     // backgroundColor: 'rgba(255, 255, 0, 0.6)',//color relleno debajo de la curva
                     segment:{
                         borderColor: function(context){
-                            // console.log(context)
                             if(context.type==='segment'){//por si no se pasa parametro context
                                 return context.p1DataIndex % 2 === 0 ? 'rgba(255, 255, 0, 0.6)' : 'rgba(253, 253, 150, 0.445)';
                             }

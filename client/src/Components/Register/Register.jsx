@@ -17,7 +17,6 @@ const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const usuarios = useSelector((state) => state.usuarios);
-  console.log("total usuarios", usuarios);
   const [errors, setErrors] = useState({
     Title: "",
   });

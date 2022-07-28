@@ -191,7 +191,6 @@ export default function CreateMovie({ data }) {
         values.id = data.id;
         values.Poster = image;
         dispatch(editMovie(values));
-        console.log(values);
         setFormSend(true);
         resetForm();
         setTimeout(() => setFormSend(false), 5000);
@@ -200,7 +199,6 @@ export default function CreateMovie({ data }) {
      
       {({ errors, values, setFieldValue }) => (
         <Form className="container my-5">
-          {/* {console.log(values)} */}
           <div className="form-group">
             <div className="mb-3">
               <label className="form-label" htmlFor="Title">
@@ -244,7 +242,6 @@ export default function CreateMovie({ data }) {
               <div className="col mb-2">
                 <label className="form-label" htmlFor="Language">
                   Idioma:{" "}
-                  {/* {console.log(data)} */}
                   <ErrorMessage
                     name="Language"
                     component={() => (

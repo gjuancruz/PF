@@ -72,7 +72,7 @@ export function getMovieDetail(idMovie){
                 payload: res.data
         })
         } catch(error){
-            console.log(error)
+          return error
         }
     }
 }
@@ -99,7 +99,7 @@ export function filterGenre(genre) {
                 payload: json.data,
             });
         } catch (error) {
-            console.log(error);
+            return error
         }
             
         }
@@ -123,11 +123,9 @@ export function searchMovieName(title){
 
     }
     export function postPaymentMethod(ticket,show,idUser){
-      // console.log(userId)
       return async function (dispatch){
         try{
           var json = await axios.post("/movies/checkout",{ticket,show,idUser})
-          console.log(json.data)
           return dispatch({
             type:POST_PAYMENT_METHOD,
             payload: json.data
@@ -175,7 +173,6 @@ export function autorizado () {
 //         Authorization: `Bearer ${window.localStorage.getItem("sw-token")}`,
 //       },
 //     });
-//     console.log("aca toi");
 //     try {
 //       await axios.post("/movies/createMovie", payload, {
 //         headers: {
@@ -183,15 +180,12 @@ export function autorizado () {
 //         },
 //       });
 //     } catch (error) {
-//       console.log(error);
 //     }
 //   };
 // }
 
 export function postMovie(payload){
-  // console.log("hola")
   return async function(dispatch){
-    // console.log(payload)
     try {
       const Authorization = {
         headers : {
@@ -199,14 +193,12 @@ export function postMovie(payload){
         }
       }
       const json = await axios.post('/movies/createMovie', payload, Authorization);
-      // console.log("prueba console.log");
       return dispatch ({
         type: POST_MOVIE,
         payload: json.data
       })
     
     } catch (error) {
-      console.log(error)
     }
   }
 }
@@ -232,8 +224,8 @@ export function editMovie(movie){
         })
 
      } catch (error) {
-       console.log(error)
-   }
+        return error
+      }
    }
 }
 
@@ -249,7 +241,6 @@ export function getComments(){
 
 export function deleteComment(id){
   return async function(dispatch){
-    // console.log(id)
     var json = await axios.delete(`/comments/delete/${id}`);
     return dispatch ({
       type: DELETE_COMMENT,
@@ -262,13 +253,12 @@ export function getShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.get('/show/one/'+movieId)
-      // console.log(json.data)
       return dispatch({
         type: GET_SHOW,
         payload:json.data
       })
     }catch(error){
-      console.log(error)
+      return (error)
     }
   }
 }
@@ -282,7 +272,7 @@ export function getDayShow(day,id){
         payload:json.data
       })
     }catch(err){
-      console.log(err)
+      return err
     }
   }
 }
@@ -291,11 +281,9 @@ export function deleteShow(movieId){
   return async function(dispatch){
     try{
       const json = await axios.delete('/show/one/'+movieId)
-      // console.log(json.data)
-      // console.log(json.data)
       return json.data
     }catch(error){
-      console.log(error)
+      return error
     }
   }
 }
@@ -309,20 +297,17 @@ export function getAllShows(){
         payload:json.data
       })
     }catch(error){
-      console.log(error)
+      return error
     }
   }
 }
 
 export function postShow(data){
-  console.log("PostShow",{data})
-  // console.log(data)
   return async function(){
     try{
       const json = await axios.post('/show',{data})
-      // console.log(json.data)
     }catch(error){
-      console.log(error)
+      return error
     }
   }
 }
@@ -337,7 +322,7 @@ export function getFeedback(){
       })
     } 
     catch (error) {
-      console.log(error);
+      return error
     }
   }
 }
@@ -349,7 +334,7 @@ export function postFeedback([idUser, input]){
       return json
     } 
     catch (error) {
-      console.log(error)
+      return error
     }
   }
 }
@@ -393,7 +378,7 @@ export function deleteUser(email){
       .then(json => {
           dispatch({ type: DELETE_USER, payload: json})
       })
-      .catch(err => console.log(err))
+      .catch(err => {return err})
   }
 }
 
@@ -407,7 +392,6 @@ export function createUser(user){
 export function updateUser(data){
   
   return async function(dispatch){
-    // console.log(data)
     var updateDelete = await axios.put("/admin/updateUser",data);
     return updateDelete
   }
@@ -427,7 +411,6 @@ export function updateUser(data){
 //       .then(json => {
 //           dispatch({ type: POST_MOVIE, payload: json})
 //       })
-//       .catch(err => console.log(err))
 //   }
 // }
 
@@ -443,7 +426,7 @@ export function postComment( Text, movieId, userId){
       })
     } 
     catch (error) {
-      console.log(error)
+      return error
     }
   }
 }
@@ -460,7 +443,7 @@ export function register(payload){
           var json = await axios.post(`/auth/register`, payload)
           return json
       } catch (error) {
-          console.log(error)
+        return error
       }
   }
 }
@@ -510,9 +493,7 @@ export function sumTotal(payload){
 
 export function sumEntradas(payload){
   return async function(dispatch){
-    // console.log("info SumEntradas: ", payload);
     const resp = await axios.post('/tickets/addTickets', payload)
-    // console.log("respuesta Tickets:",resp);
     return dispatch({
       type: ENTRADAS,
       payload: payload.seats
@@ -522,7 +503,6 @@ export function sumEntradas(payload){
 
 export function getCardHistory(idUser){
   return async function(dispatch){
-    // console.log("estoy en actions " + idUser);
     var getCart = await axios.post(`/cart`, idUser)
     return dispatch({
       type: GET_CART,
@@ -533,9 +513,7 @@ export function getCardHistory(idUser){
 
 export function getTicketsHistory(idUser){
   return async function(dispatch){
-    console.log("estoy en actions/getTicketsHistory ", idUser);
     let getTickets = await axios.post(`/cart/tickets`, idUser);
-    console.log("estoy en actions/getTicketsHistory RESPUESTA", getTickets.data)
     return dispatch({
       type: GET_TICKETS_HISTORY,
       payload: getTickets.data
@@ -548,11 +526,9 @@ export function postCandys(payload){
 
   return async function(dispatch){
     try {
-      console.log("soy payload candy",payload)
       let candyPost = await axios.post('/candy/add', payload)
-      return console.log("dispatch candyPost " + JSON.stringify(candyPost))
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 }
@@ -562,7 +538,7 @@ export function deleteCandys(payload){
     try {
       await axios.post('/candy/delete', payload)
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 }
@@ -577,7 +553,7 @@ export function getOrderPrice(payload){
         payload: userCart.data.orderPrice
       })
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 }
@@ -585,15 +561,13 @@ export function getOrderPrice(payload){
 export function delTickets(payload){
   return async function(dispatch){
     try {
-      console.log("estoy en actions/delTIckets ", payload);   
       const delTicket = await axios.post("/tickets/delete", payload)
-      console.log("estoy en actions/delTickets RESPUESTA", delTicket.data)
       return dispatch({
         type: DEL_TICKET,
         payload: delTicket.data
       })
     } catch (error) {
-      console.log(error.message);
+      return error
     }
   }
 }
@@ -609,7 +583,7 @@ export function addToNewsletter (email) {
     var addtoNews = fetch('/mailing/newsletter', requestOptions)
     .then(alert('El usuario ha sido añadido al newsletter'))
 
-    .catch(err => console.log(err))
+    .catch(err => {return err})
   }
 }
 
