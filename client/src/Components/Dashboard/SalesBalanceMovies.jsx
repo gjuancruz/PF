@@ -159,7 +159,7 @@ export default function SalesBalanceMovies(){
           </thead>
           <tbody>
             {
-              tickets &&
+              tickets.length &&
               tickets.map((u,i)=>
                 (<tr key={i}>
                   <td>{handleMovie(u.movie)}</td>
