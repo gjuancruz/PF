@@ -133,6 +133,8 @@ function rootReducer(state = initialState, action) {
         })
       console.log(days)
       console.log(daysformatArray)
+      // const asdasd = orderDaysMoreSales.forEach(e=>allMovies.filter(p=>p.date.slice(4,7)==e[1]));
+      // console.log(asdasd)
       return {
         ...state,
         detailTickets: orderDaysMoreSales

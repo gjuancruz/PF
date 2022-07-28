@@ -21,11 +21,7 @@ router.use('/show',show)
 router.use('/candy', candyRoutes)
 router.use('/tickets', ticketsRoutes)
 router.use('/cart', cart )
-<<<<<<< HEAD
-router.use('/sale',sale)
-=======
 // router.use('/sale',sale)
->>>>>>> c3c62ef8af72c1a6ca0df47e0f810f10330c137d
 
 
 

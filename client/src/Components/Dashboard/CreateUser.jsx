@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createUser, getUsers } from "../../Redux/actions";
+import { createUser, getUsers, register } from "../../Redux/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 export default function CreateUser() {
@@ -58,7 +58,7 @@ export default function CreateUser() {
                 return errors;
               }}
               onSubmit={(values, { resetForm }) => {
-                dispatch(createUser(values));
+                dispatch(register(values));
                 console.log(values);
                 setFormSend(true);
                 resetForm();

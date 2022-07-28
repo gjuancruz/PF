@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTicketsSales, getBillboard, searchMoviesSales, orderByMoreSaled} from "../../Redux/actions";
+import { getTicketsSales, getBillboard, searchMoviesSales} from "../../Redux/actions";
 import ChartPie from "./Charts/ChartPie";
 import SegmentChart from "./Charts/SegmentChart";
 import InfoSalesMovies from "./InfoSalesMovies";
@@ -65,7 +65,6 @@ export default function SalesBalanceMovies(){
 ]
 
   const [input, setInput] = useState("")
-  const [,setOrder] = useState();
  
   const handleChangeSearch = (e)=>{
     e.preventDefault();
@@ -82,10 +81,10 @@ export default function SalesBalanceMovies(){
    const data = allMovies.find(e=>e.id === movie)
    return data.Title;
   }
-  function handleOrderMoreSaled(e){
-    setOrder("Order" + e.target.value)
-    dispatch(orderByMoreSaled(e.target.value))
-  }
+  // function handleOrderMoreSaled(e){
+  //   setOrder("Order" + e.target.value)
+  //   dispatch(orderByMoreSaled(e.target.value))
+  // }
 
   useEffect(()=>{
     dispatch(getTicketsSales())
@@ -171,7 +170,7 @@ export default function SalesBalanceMovies(){
                   <td>
                     <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.movie,u.type)}><i class="bi bi-info-circle"></i></button>
                   </td>
-                  <InfoSalesMovies handleOrderMoreSaled={handleOrderMoreSaled} allMovies={allMovies} month={u.date}/>
+                  <InfoSalesMovies allMovies={allMovies} month={u.date}/>
                 </tr>
                 )
               )

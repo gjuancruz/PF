@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getTicketsSalesDetails } from "../../Redux/actions";
 
-export default function InfoSalesMovies({handleOrderMoreSaled, allMovies, month}){
+export default function InfoSalesMovies({ allMovies, month}){
 
 const dispatch = useDispatch();
 const ticketsDetails = useSelector(state=>state.detailTickets)
@@ -38,12 +38,6 @@ const handleMovie = (movie)=>{
             ></button>
           </div>
           <div class="modal-body">
-<label>Ordenar por: </label>
-<select onChange={handleOrderMoreSaled}>
-    <option disabled selected>Seleccionar</option>
-    <option value='max'>Dias de mayores ventas</option>
-    <option value='min' >Dias de menores ventas</option>
-</select>
 <table class="table table-dark table-striped">
           <thead>
             <tr>
