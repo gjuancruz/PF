@@ -82,8 +82,6 @@ const NavBar = () =>{
                 {userIdCheck? 
                 <div>
                 <li><a class="dropdown-item" href="/profile">Mi perfil</a></li>
-                <li><a class="dropdown-item" href="#">Mis comentarios</a></li>
-                <li><a class="dropdown-item" href="#">Membresía</a></li>
                 <li><hr class="dropdown-divider"/></li>
                 <li><a class="dropdown-item" onClick={logout()} href='/home'>Cerrar sesión</a></li>
                 </div>
