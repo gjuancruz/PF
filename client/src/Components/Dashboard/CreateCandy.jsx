@@ -9,26 +9,26 @@ export default function CreateCandy() {
 
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="staticBackdroppp"
-      tabindex="-1"
+      tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content bg-dark ">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+      <div className="modal-dialog">
+        <div className="modal-content bg-dark ">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">
               AGREGAR NUEVO PRODUCTO
             </h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <Formik
               initialValues={{
                 username: "",
@@ -68,9 +68,9 @@ export default function CreateCandy() {
               {({ errors, values, setFieldValue }) => (
                 <Form className="container my-5">
                   {/* {console.log(values)} */}
-                  <div class="form-group">
-                    <div class="mb-3">
-                      <label class="form-label" htmlFor="username">
+                  <div className="form-group">
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor="username">
                         Usuario: 
                         <ErrorMessage
                           name="username"
@@ -82,7 +82,7 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-                        class="form-control"
+                        className="form-control"
                         type="text"
                         id="username"
                         name="username"
@@ -90,8 +90,8 @@ export default function CreateCandy() {
                       />
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label" htmlFor="password">
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor="password">
                         Contraseña: 
                         <ErrorMessage
                           name="password"
@@ -103,7 +103,7 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-                        class="form-control"
+                        className="form-control"
                         type="password"
                         id="password"
                         name="password"
@@ -111,8 +111,8 @@ export default function CreateCandy() {
                       />
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label" htmlFor="email">
+                    <div className="mb-3">
+                      <label className="form-label" htmlFor="email">
                         Email: 
                         <ErrorMessage
                           name="email"
@@ -124,7 +124,7 @@ export default function CreateCandy() {
                         />
                       </label>
                       <Field
-                        class="form-control"
+                        className="form-control"
                         type="email"
                         id="email"
                         name="email"
@@ -132,8 +132,8 @@ export default function CreateCandy() {
                       />
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label">
+                    <div className="mb-3">
+                      <label className="form-label">
                         Rol:
                         <ErrorMessage
                           name="role"
@@ -143,7 +143,7 @@ export default function CreateCandy() {
                           )}
                         />
                       </label>
-                      <Field class="form-select" name="role" as="select">
+                      <Field className="form-select" name="role" as="select">
                         <option key="seleccionar" disabled>
                           Seleccionar
                         </option>
@@ -152,8 +152,8 @@ export default function CreateCandy() {
                       </Field>
                     </div>
 
-                    <div class="mb-3">
-                      <button type="submit" class="btn btn-warning mb-3">
+                    <div className="mb-3">
+                      <button type="submit" className="btn btn-warning mb-3">
                         Crear usuario
                       </button>
                       {formSend && (
@@ -167,10 +167,10 @@ export default function CreateCandy() {
               )}
             </Formik>
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-danger"
+              className="btn btn-danger"
               data-bs-dismiss="modal"
               onClick={()=>dispatch(getUsers())}
             >

@@ -231,9 +231,9 @@ export default function MovieDetail(){
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   */}
-          <button className="closebutton2" onClick={()=>setcheckbtn((e)=> !e)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+          <button className="closebutton2" onClick={()=>setcheckbtn((e)=> !e)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-chevron-double-left" viewBox="0 0 16 16">
+  <path fillRule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+  <path fillRule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
 </svg></button>
           {num === 0 ? "": 
            checkbtn?
@@ -274,11 +274,11 @@ export default function MovieDetail(){
                  <div className="select">
                   <p className="contenedorp">
   
-  <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+  <button className="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
   <b>Elige el dia de la funcion para comprar</b>
   </button>
 </p>
-<div class="collapse" id="collapseExample1">
+<div className="collapse" id="collapseExample1">
                  <div>
                  <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
                     <option value="">Seleccione Dia</option>
@@ -301,13 +301,7 @@ export default function MovieDetail(){
                     <option value={horario.type}>{horario.type}</option>
                     </select>):""}
 
-                    {/* {horario.type?(
-                    <select className="selectIdioma" >
-                    
-                    {movieDet.Language?.split(",").map(d=>{
-                  return (<option value={d}>{d}</option>)
-                  })}
-                  Idioma</select>):""} */}
+                   
                   </div>
                     <div>
                     {horario.id === 0 ? "":           
@@ -319,26 +313,26 @@ Comprar
 </button>
 
 <div
-        class="modal faded"
+        className="modal faded"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-  <div class="modal-dialog">
-  <div class="modal-content bg-dark">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Inicia Sesion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div className="modal-dialog">
+  <div className="modal-content bg-dark">
+      <div className="modal-header">
+        <h5 className="modal-title" id="staticBackdropLabel">Inicia Sesion</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div className="modal-body">
       <p>Debes iniciar sesion para Comprar</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-warning" > <a href="/login" >Inicia Sesion</a></button>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" className="btn btn-warning" > <a href="/login" >Inicia Sesion</a></button>
       </div>
     </div>
   </div>
@@ -358,30 +352,30 @@ Comprar
       </div>
 }
       <div
-        class="modal fade"
+        className="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
+        <div className="modal-dialog">
+          <div className="modal-content bg-dark">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
                 ¡Disfruta esta Pelicula!
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              <div class="row align-items-start">
-                <div class="col-12">
+            <div className="modal-body">
+              <div className="row align-items-start">
+                <div className="col-12">
                   <h3>{movieDet.Title}</h3>
                   <p>Selecciona la cantidad de Boletos</p>
                   <img
@@ -390,26 +384,26 @@ Comprar
                     width={"150px"}
                   />
                   
-                <button class="btn btn-warning" type="submit" disabled={num===0 || num < 1}onClick={restar}>-</button>
+                <button className="btn btn-warning" type="submit" disabled={num===0 || num < 1}onClick={restar}>-</button>
                     
                     <b className="num">{num}</b>
-                    <button class="btn btn-warning" type="submit" onClick={sumar}>+</button>
+                    <button className="btn btn-warning" type="submit" onClick={sumar}>+</button>
                 
                 </div>
-                {/* <div class="col">One of three columns</div>
-                <div class="col">One of three columns</div> */}
+                {/* <div className="col">One of three columns</div>
+                <div className="col">One of three columns</div> */}
               </div>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Cerrar
               </button>
               
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal12"
+              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal12"
                 onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
                 // onClick={()=> setPulsado(!pulsado)}
                 // onClick={()=> setcheckbtn((e)=> !e)}
@@ -435,15 +429,15 @@ Comprar
                     </div>
                 } */}
                 <Comment />
-                {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
+                {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map((e,index)=>{
                     return(
-                        <div class="card p-3">
-                        <div class="d-flex justify-content-between align-items-center"/>
-                        <div class="user d-flex flex-row align-items-center"/>
-                        <span><small class="font-weight-bold text-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <div className="card p-3" key={index}>
+                        <div className="d-flex justify-content-between align-items-center"/>
+                        <div className="user d-flex flex-row align-items-center"/>
+                        <span><small className="font-weight-bold text-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg>  {e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
+  <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>  {e.user.username}:</small> <small className="font-weight-bold">{e.Text}</small></span>
                         </div>
                     )
                 }): <div>NO HAY COMENTARIOS</div>}

@@ -84,16 +84,16 @@ return(
 <div className={s.contenedorcartelera} >
 <h3 className={s.title}>EN CARTELERA</h3>
 <div className={s.cartelera}>
-<div className={s.contenedorpag}> {contador > 0 && <i class="bi bi-chevron-left" style={{fontSize: "32px"}} onClick={prevBillboard}></i>} </div>
+<div className={s.contenedorpag}> {contador > 0 && <i className="bi bi-chevron-left" style={{fontSize: "32px"}} onClick={prevBillboard}></i>} </div>
     {carteleraActual.length === 0 && <div>
         <h2>El título que estás buscando no se encuentra disponible en este momento. Prueba corrigiendo tu búsqueda o inténtalo de nuevo más tarde.</h2>
         <br/>
-        <button class="btn btn-warning" onClick={(event)=>handleVolverBtn(event)}>Volver</button>
+        <button className="btn btn-warning" onClick={(event)=>handleVolverBtn(event)}>Volver</button>
         </div>}
     
-    {carteleraActual?.map((c) => {
+        {carteleraActual?.map((c) => {
     return (
-        <div className={s.card}>
+        <div className={s.card} key={c.id} >
            <Link to={"/movies/" + c.id}>
             <Card
             Poster={c.Poster}
@@ -105,18 +105,18 @@ return(
 })
 }
 
-<div className={s.contenedorpag}>{contador < allCartelera.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextBillboard}></i>}</div>
+<div className={s.contenedorpag}>{contador < allCartelera.length -4 && <i className="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextBillboard}></i>}</div>
 
 </div>
 </div>
 
 <h3 className={s.title}>PRÓXIMOS ESTRENOS</h3>
 <div className={s.cartelera}>
-<div className={s.contenedorpag}> {counterPremiere > 0 && <i class="bi bi-chevron-left" style={{fontSize: "32px"}} onClick={prevPremiere}></i>} </div>
+<div className={s.contenedorpag}> {counterPremiere > 0 && <i className="bi bi-chevron-left" style={{fontSize: "32px"}} onClick={prevPremiere}></i>} </div>
 
 {premiereActual?.map((c) => {
     return(
-        <div className={s.card} >
+        <div className={s.card} key={c.id} >
             <Link to={"/movies/" + c.id}>
             <Card
             Poster={c.Poster}
@@ -128,7 +128,7 @@ return(
     )
 })}
  
-<div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <i class="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextPremiere}></i>}</div>
+<div className={s.contenedorpag}>{counterPremiere < premiere.length -4 && <i className="bi bi-chevron-right" style={{fontSize: "32px"}} onClick={nextPremiere}></i>}</div>
 
 
 

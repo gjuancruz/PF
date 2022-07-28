@@ -201,9 +201,9 @@ export default function CreateMovie({ data }) {
       {({ errors, values, setFieldValue }) => (
         <Form className="container my-5">
           {/* {console.log(values)} */}
-          <div class="form-group">
-            <div class="mb-3">
-              <label class="form-label" htmlFor="Title">
+          <div className="form-group">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="Title">
                 Titulo:{" "}
                 <ErrorMessage
                   name="Title"
@@ -213,7 +213,7 @@ export default function CreateMovie({ data }) {
                 />
               </label>
               <Field
-                class="form-control"
+                className="form-control"
                 type="text"
                 id="Title"
                 name="Title"
@@ -221,8 +221,8 @@ export default function CreateMovie({ data }) {
               />
             </div>
 
-            <div class="mb-2">
-              <label class="form-label" htmlFor="Plot">
+            <div className="mb-2">
+              <label className="form-label" htmlFor="Plot">
                 Sinopsis:{" "}
                 <ErrorMessage
                   name="Plot"
@@ -232,7 +232,7 @@ export default function CreateMovie({ data }) {
                 />
               </label>
               <Field
-                class="form-control"
+                className="form-control"
                 type="text"
                 id="Plot"
                 name="Plot"
@@ -241,8 +241,8 @@ export default function CreateMovie({ data }) {
             </div>
 
             <div className="row">
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Language">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Language">
                   Idioma:{" "}
                   {/* {console.log(data)} */}
                   <ErrorMessage
@@ -253,7 +253,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control"
+                  className="form-control"
                   type="text"
                   id="Language"
                   name="Language"
@@ -261,8 +261,8 @@ export default function CreateMovie({ data }) {
                 />
               </div>
 
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Director">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Director">
                   Director:{" "}
                   <ErrorMessage
                     name="Director"
@@ -272,7 +272,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control"
+                  className="form-control"
                   type="text"
                   id="Director"
                   name="Director"
@@ -280,8 +280,8 @@ export default function CreateMovie({ data }) {
                 />
               </div>
 
-              <div class="col mb-2">
-                <label class="form-label">
+              <div className="col mb-2">
+                <label className="form-label">
                   Género/s:{" "}
                   <ErrorMessage
                     name="Genre"
@@ -291,7 +291,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-select"
+                  className="form-select"
                   name="Genre"
                   as="select"
                   onChange={(e) => handleSelectGenres(e, values)}
@@ -329,8 +329,8 @@ export default function CreateMovie({ data }) {
               ))}
             </div>
 
-            <div class="mb-2">
-              <label class="form-label" htmlFor="Actors">
+            <div className="mb-2">
+              <label className="form-label" htmlFor="Actors">
                 Actores:{" "}
                 <ErrorMessage
                   name="Actors"
@@ -340,7 +340,7 @@ export default function CreateMovie({ data }) {
                 />
               </label>
               <Field
-                class="form-control"
+                className="form-control"
                 type="text"
                 id="Actors"
                 name="Actors"
@@ -349,8 +349,8 @@ export default function CreateMovie({ data }) {
             </div>
 
             <div className="row">
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Release">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Release">
                   Fecha de Estreno:{" "}
                   <ErrorMessage
                     name="Release"
@@ -360,7 +360,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control"
+                  className="form-control"
                   type="date"
                   id="Release"
                   name="Release"
@@ -368,8 +368,8 @@ export default function CreateMovie({ data }) {
                 />
               </div>
 
-              <div class="col mb-2">
-                <label class="form-label">
+              <div className="col mb-2">
+                <label className="form-label">
                   Clasificación:{" "}
                   <ErrorMessage
                     name="Rated"
@@ -378,7 +378,7 @@ export default function CreateMovie({ data }) {
                     )}
                   />
                 </label>
-                <Field class="form-select" name="Rated" as="select">
+                <Field className="form-select" name="Rated" as="select">
                   {!values.Rated.length ? (
                     <option key="select">Seleccionar</option>
                   ) : (
@@ -394,8 +394,8 @@ export default function CreateMovie({ data }) {
                 </Field>
               </div>
 
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Type">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Type">
                   Tipos de salas:{" "}
                   <ErrorMessage
                     name="Type"
@@ -405,7 +405,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control"
+                  className="form-control"
                   type="text"
                   id="Type"
                   name="Type"
@@ -415,8 +415,8 @@ export default function CreateMovie({ data }) {
             </div>
 
             <div className="row">
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Runtime">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Runtime">
                   Duración:{" "}
                   <ErrorMessage
                     name="Runtime"
@@ -426,7 +426,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control form-control-sm"
+                  className="form-control form-control-sm"
                   type="text"
                   id="Runtime"
                   name="Runtime"
@@ -434,8 +434,8 @@ export default function CreateMovie({ data }) {
                 />
               </div>
 
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Poster">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Poster">
                   Cargar Poster:
                   <ErrorMessage
                     name="file"
@@ -445,7 +445,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control form-control-sm"
+                  className="form-control form-control-sm"
                   id="Poster"
                   type="file"
                   name="file"
@@ -466,8 +466,8 @@ export default function CreateMovie({ data }) {
                 )}
               </div>
 
-              <div class="col mb-2">
-                <label class="form-label" htmlFor="Trailer">
+              <div className="col mb-2">
+                <label className="form-label" htmlFor="Trailer">
                   Trailer:{" "}
                   <ErrorMessage
                     name="Trailer"
@@ -477,7 +477,7 @@ export default function CreateMovie({ data }) {
                   />
                 </label>
                 <Field
-                  class="form-control form-control-sm"
+                  className="form-control form-control-sm"
                   type="text"
                   id="Trailer"
                   name="Trailer"
@@ -486,8 +486,8 @@ export default function CreateMovie({ data }) {
               </div>
             </div>
 
-            <div class="mb-2 d-flex justify-content-center">
-              <button type="submit" class="btn btn-warning mb-3">
+            <div className="mb-2 d-flex justify-content-center">
+              <button type="submit" className="btn btn-warning mb-3">
                 Guardar cambios
               </button>
               {formSend && (

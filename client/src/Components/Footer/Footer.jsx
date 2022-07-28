@@ -34,90 +34,90 @@ const Footer = () => {
   return (
     <div>
       {/* <!-- Footer --> */}
-      <footer class="bg-dark text-center text-white">
+      <footer className="bg-dark text-center text-white">
         {/* <!-- Grid container --> */}
-        <div class="container p-4">
+        <div className="container p-4">
           {/* <!-- Section: Social media --> */}
-          <section class="mb-4">
+          <section className="mb-4">
             {/* <!-- Facebook --> */}
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              className="btn btn-outline-light btn-floating m-1"
               target="_blank"
               role="button"
             >
-              <i class="bi bi-facebook"></i>
+              <i className="bi bi-facebook"></i>
             </a>
             {/* <!-- Twitter --> */}
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              className="btn btn-outline-light btn-floating m-1"
               href="#!"
               role="button"
             >
-              <i class="bi bi-twitter"></i>
+              <i className="bi bi-twitter"></i>
             </a>
 
             {/* <!-- Google --> */}
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              className="btn btn-outline-light btn-floating m-1"
               href="#!"
               role="button"
             >
-              <i class="bi bi-google"></i>
+              <i className="bi bi-google"></i>
             </a>
 
             {/* <!-- Instagram --> */}
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              className="btn btn-outline-light btn-floating m-1"
               href="#!"
               role="button"
             >
-              <i class="bi bi-instagram"></i>
+              <i className="bi bi-instagram"></i>
             </a>
 
             {/* <!-- Linkedin --> */}
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              className="btn btn-outline-light btn-floating m-1"
               href="#!"
               role="button"
             >
-              <i class="bi bi-linkedin"></i>
+              <i className="bi bi-linkedin"></i>
             </a>
 
             {/* <!-- Github --> */}
             <a
-              class="btn btn-outline-light btn-floating m-1"
+              className="btn btn-outline-light btn-floating m-1"
               href="#!"
               role="button"
             >
-              <i class="bi bi-github"></i>
+              <i className="bi bi-github"></i>
             </a>
           </section>
           {/* <!-- Section: Social media --> */}
 
           {/* <!-- Section: Form --> */}
-          <section class="d-flex row">
+          <section className="d-flex row">
             <form action="" onSubmit={(e) => addMailToNewsletter(e)}>
               {/* <!--Grid row--> */}
-              <div class="row d-flex justify-content-center align-items-start mb-4">
+              <div className="row d-flex justify-content-center align-items-start mb-4">
                 {/* <!--Grid column--> */}
-                <div class="col-3">
-                  <p class="pt-2">
+                <div className="col-3">
+                  <p className="pt-2">
                     <strong>Suscríbete a nuestro boletín</strong>
                   </p>
                 </div>
                 {/* <!--Grid column--> */}
 
                 {/* <!--Grid column--> */}
-                <div class="col-6">
+                <div className="col-6">
                   {/* <!-- Email input --> */}
-                  <div class="form-outline form-white mb-4">
+                  <div className="form-outline form-white mb-4">
                     <input
                       name="email"
                       value={input.email}
                       type="email"
                       placeholder="Ingrese su mail"
                       id="form5Example21"
-                      class="form-control"
+                      className="form-control"
                       onChange={(e) => handleChange(e)}
                     />
                   </div>
@@ -125,9 +125,9 @@ const Footer = () => {
                 {/* <!--Grid column--> */}
 
                 {/* <!--Grid column--> */}
-                <div class="col-2">
+                <div className="col-2">
                   {/* <!-- Submit button --> */}
-                  <button type="submit" class="btn btn-outline-warning mb-4">
+                  <button type="submit" className="btn btn-outline-warning mb-4">
                     Suscribirse
                   </button>
                 </div>
@@ -144,7 +144,7 @@ const Footer = () => {
           {/* <!-- Section: Form --> */}
 
           {/* <!-- Section: Text --> */}
-          <section class="mb-4">
+          <section className="mb-4">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
               distinctio earum repellat quaerat voluptatibus placeat nam,

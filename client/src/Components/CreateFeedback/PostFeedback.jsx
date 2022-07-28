@@ -41,7 +41,7 @@ let userIdCheck = useSelector ((state) => state.id)
   
           <button
             type="button"
-            class="btn btn-warning"
+            className="btn btn-warning"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
@@ -49,27 +49,27 @@ let userIdCheck = useSelector ((state) => state.id)
           </button>
   
           <div
-            class="modal fade"
+            className="modal fade"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-dialog-centered ">
-              <div class="modal-content bg-dark ">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="exampleModalLabel">
+            <div className="modal-dialog modal-dialog-centered ">
+              <div className="modal-content bg-dark ">
+                <div className="modal-header">
+                  <h4 className="modal-title" id="exampleModalLabel">
                     Dejar un feedback
                   </h4>
-                  {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                  {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                 </div>
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-4">
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-4">
                         <h5>Tu feedback: </h5>
                       </div>
-                      <div class="col">
+                      <div className="col">
                         <input
                           type="text"
                           value={input.Text}
@@ -81,17 +81,17 @@ let userIdCheck = useSelector ((state) => state.id)
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
                     Cerrar
                   </button>
                   <button
                     type="submit"
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     onClick={(e) => handleSubmit(e)}
                   >
                     Enviar Feedback
@@ -106,7 +106,7 @@ let userIdCheck = useSelector ((state) => state.id)
   
           <button
             type="button"
-            class="btn btn-warning"
+            className="btn btn-warning"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
@@ -114,34 +114,34 @@ let userIdCheck = useSelector ((state) => state.id)
           </button>
   
           <div
-            class="modal fade"
+            className="modal fade"
             id="exampleModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-dialog-centered ">
-              <div class="modal-content bg-dark ">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="exampleModalLabel">
+            <div className="modal-dialog modal-dialog-centered ">
+              <div className="modal-content bg-dark ">
+                <div className="modal-header">
+                  <h4 className="modal-title" id="exampleModalLabel">
                     Debes iniciar sesion para dejar Feedback !
                   </h4>
-                  {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                  {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                 </div>
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col">
+                <div className="modal-body">
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col">
                         <button className="btn btn-warning"> <a href="/login">Inicia Sesion</a></button>
                       </div>
                       
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
                     Cerrar

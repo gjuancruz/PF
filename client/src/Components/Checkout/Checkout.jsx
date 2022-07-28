@@ -279,9 +279,9 @@ export function Checkout({
 
   console.log("estado candy: " + JSON.stringify(stateCandy));
   return (
-    // <nav class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
+    // <nav className="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
     <nav
-      class="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-center"
+      className="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-center"
       id="Navcollapse"
     >
       <div className="bton">
@@ -292,7 +292,7 @@ export function Checkout({
             width="40"
             height="40"
             fill="currentColor"
-            class="bi bi-x"
+            className="bi bi-x"
             viewBox="0 0 16 16"
           >
             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
@@ -334,7 +334,7 @@ export function Checkout({
         <div>
           <button
             type="button"
-            class="btn btn-warning"
+            className="btn btn-warning"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop1"
           >
@@ -342,30 +342,30 @@ export function Checkout({
           </button>
 
           <div
-            class="modal fade"
+            className="modal fade"
             id="staticBackdrop1"
             data-bs-backdrop="static"
             data-bs-keyboard="false"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog modal-lg-prueba">
-              <div class="modal-content bg-dark">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="staticBackdropLabel">
+            <div className="modal-dialog modal-lg-prueba">
+              <div className="modal-content bg-dark">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="staticBackdropLabel">
                     ¡Disfruta de tu funcion con estas promos!
                   </h5>
                   <button
                     type="button"
-                    class="btn-close"
+                    className="btn-close"
                     data-bs-dismiss="modal"
                     aria-label="Close"
                   ></button>
                 </div>
-                <div class="modal-body">
-                  <div class="row align-items-start">
-                    <div class="col-12">
+                <div className="modal-body">
+                  <div className="row align-items-start">
+                    <div className="col-12">
                       {storeCandy.map((item) => (
                         <div>
                           <h4>{item.name}</h4>
@@ -384,7 +384,7 @@ export function Checkout({
                           />
                           <button
                             type="button"
-                            class="btn btn-warning"
+                            className="btn btn-warning"
                             onClick={handleSubmit}
                             name={item.name}
                           >
@@ -392,7 +392,7 @@ export function Checkout({
                           </button>
                           <button
                             type="button"
-                            class="btn btn-warning"
+                            className="btn btn-warning"
                             onClick={handleSubmit}
                             name={item.name + "delete"}
                           >
@@ -401,19 +401,19 @@ export function Checkout({
                         </div>
                       ))}
                     </div>
-                    {/* <div class="col">One of three columns</div>
-                <div class="col">One of three columns</div> */}
+                    {/* <div className="col">One of three columns</div>
+                <div className="col">One of three columns</div> */}
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
                     Close
                   </button>
-                  <button type="button" class="btn btn-warning">
+                  <button type="button" className="btn btn-warning">
                     Ir al carrito
                   </button>
                 </div>
@@ -432,16 +432,16 @@ export function Checkout({
       </ul>
 
       <hr />
-      <button type="button" class="btn btn-warning">
+      <button type="button" className="btn btn-warning">
         Realizar Pago
       </button>
     </nav>
   );
 }
-// <div class="container-fluid" >
-//     <div class="row">
+// <div className="container-fluid" >
+//     <div className="row">
 //         {/* Pruebasaaaaa */}
-//         <nav class="col-md-6 col-lg-2 d-md-block bg-dark sidebar collapse">
+//         <nav className="col-md-6 col-lg-2 d-md-block bg-dark sidebar collapse">
 //             <h1>Insertando datooooos</h1>
 //         </nav>
 //     </div>

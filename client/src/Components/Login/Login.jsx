@@ -68,9 +68,9 @@ const Login = () => {
             <div className="container">
                 <form className={styles.formLogin} onSubmit={(e) => handleSubmit(e)}>
                     <h1 className="h3 mb-3 font-weight-normal">Log In</h1>
-                    <label for="inputEmail" className="sr-only">Email de Usuario</label>
+                    <label htmlFor="inputEmail" className="sr-only">Email de Usuario</label>
                     <input type="email" id="inputEmail" className="form-control mb-2" placeholder="Email" required="true" autofocus="" value={email} onChange={(event) => setEmail(event.target.value)}/>
-                    <label for="inputPassword" className="sr-only" >Contraseña</label>
+                    <label htmlFor="inputPassword" className="sr-only" >Contraseña</label>
                     <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Contraseña" required="true" value={password} onChange={(event) => setPassword(event.target.value)}/>
                     <div className="checkbox mb-3">
                         <label>
@@ -93,7 +93,7 @@ const Login = () => {
 
                             {/* <button
                                 type="button"
-                                class="btn btn-warning"
+                                className="btn btn-warning"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
                             >
@@ -102,27 +102,27 @@ const Login = () => {
 
 
                             <div
-                                class="modal fade"
+                                className="modal fade"
                                 id="exampleModal"
-                                tabindex="-1"
+                                tabIndex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true"
                             >
-                                <div class="modal-dialog modal-dialog-centered ">
-                                <div class="modal-content bg-dark ">
-                                    <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel">
+                                <div className="modal-dialog modal-dialog-centered ">
+                                <div className="modal-content bg-dark ">
+                                    <div className="modal-header">
+                                    <h4 className="modal-title" id="exampleModalLabel">
                                         RECUPERAR CONTRASEÑA
                                     </h4>
-                                    {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                                    {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
                                     </div>
-                                    <div class="modal-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                        <div class="col-4">
+                                    <div className="modal-body">
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                        <div className="col-4">
                                             <h5>Ingresa tu dirección de correo electrónico: </h5>
                                         </div>
-                                        <div class="col">
+                                        <div className="col">
                                             <input
                                             type="email"
                                             value={inputRecover.email}
@@ -138,17 +138,17 @@ const Login = () => {
                                         </div>
                                     </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    <div className="modal-footer">
                                     <button
                                         type="button"
-                                        class="btn btn-secondary"
+                                        className="btn btn-secondary"
                                         data-bs-dismiss="modal"
                                     >
                                         Cerrar
                                     </button>
                                     <button
                                         type="button"
-                                        class="btn btn-warning"
+                                        className="btn btn-warning"
                                         onClick={(e) => handleRecuperacion(e)}
                                         data-bs-dismiss="modal"
                                     >
@@ -163,30 +163,6 @@ const Login = () => {
                     }
                     <p className="mt-5 mb-3 text-muted">© Moon Cinema - 2022 </p>
                 </form>
-
-                {/* <form className={styles.formLogin}>
-                    <div className="text-center mb-4">
-                        <h1 className="h3 mb-3 font-weight-normal">Sign In</h1>
-                    </div>
-
-                    <div className="form-label-group mb-3">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" id="inputEmail" className="form-control" placeholder="Correo electrónico" required="" autofocus="" />
-                    </div>
-
-                    <div className="form-label-group mb-3">
-                        <label for="inputPassword">Contraseña</label>
-                        <input type="password" id="inputPassword" className="form-control" placeholder="Contraseña" required="" />
-                    </div>
-
-                    <div className="checkbox mb-3">
-                        <label>
-                        <input type="checkbox" value="remember-me" /> Recordarme
-                        </label>
-                    </div>
-                    <button className="btn btn-lg btn-warning btn-block" type="submit">Ingresar</button>
-                    <p className="mt-5 mb-3 text-muted text-center">© Moon Cinema - 2022</p>
-                    </form> */}
 
             </div>
         </div>
