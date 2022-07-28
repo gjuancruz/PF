@@ -352,6 +352,7 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         const candy = await prisma.candy.update({where:{id:cart.candy[i].id},data:{sale:{connect:{id:sale.id}},cart:{disconnect:true}}})
         }
         for(let i=0;i<cart.tickets.length;i++){
+            //@ts-ignore
         const tickets = await prisma.tickets.update({where:{id:cart.tickets[i].id},data:{cart:{disconnect:true}}})
         }
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})

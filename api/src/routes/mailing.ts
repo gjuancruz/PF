@@ -42,6 +42,7 @@ router.post("/send", async (req: Request, res: Response) => {
 router.post("/newsletter", async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
+    
     console.log(email)
     const mailOptions = {
       from: EMAIL,

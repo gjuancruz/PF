@@ -339,6 +339,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
             const candy = yield prisma.candy.update({ where: { id: cart.candy[i].id }, data: { sale: { connect: { id: sale.id } }, cart: { disconnect: true } } });
         }
         for (let i = 0; i < cart.tickets.length; i++) {
+            //@ts-ignore
             const tickets = yield prisma.tickets.update({ where: { id: cart.tickets[i].id }, data: { cart: { disconnect: true } } });
         }
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });

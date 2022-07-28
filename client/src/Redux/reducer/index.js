@@ -22,6 +22,7 @@ import {
   GET_CANDY,
   SEARCH_CANDY,
   GET_TICKETS,
+  GET_TICKETS_HISTORY,
   SEARCH_MOVIES_SALES,
   VERIFY_ROLE,
   TOTAL,
@@ -29,6 +30,9 @@ import {
   GET_CART,
   GET_DAY_SHOW,
   REFRESH,
+  TOTALMENTE,
+  POST_PAYMENT_METHOD,
+  DEL_TICKET
 } from "../actions";
 
 const initialState = {
@@ -52,11 +56,25 @@ const initialState = {
   total: 0,
   entradas: 0,
   id:'',
-  cart: []
+  cart: [],
+  payment:'',
+  tickets:[]
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case DEL_TICKET:
+      return{
+        ...state,
+        tickets: []
+      }
+
+    case GET_TICKETS_HISTORY:
+      return{
+        ...state,
+        tickets: action.payload
+      }
+
     case GET_CART:
       return{
         ...state,
@@ -69,7 +87,7 @@ function rootReducer(state = initialState, action) {
         entradas: action.payload
       }
 
-    case TOTAL:
+    case TOTALMENTE:
       return{
         ...state,
         total: action.payload
@@ -253,6 +271,16 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         refresh: !state.refresh
+        }
+    case GET_CANDY:
+      return{
+        ...state,
+        candy: action.payload
+      }
+    case POST_PAYMENT_METHOD:
+      return{
+        ...state,
+        payment: action.payload
       }
     default:
       return state;
