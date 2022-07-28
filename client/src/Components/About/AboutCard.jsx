@@ -1,7 +1,7 @@
 import React from React
 
 
-export default  function AboutCard(){
+export default  function AboutCard(img,name,git,lin){
 return(
     <div className="aboutCard">
         <img src={img} alt="fotoequipo" />
