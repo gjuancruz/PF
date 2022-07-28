@@ -92,14 +92,14 @@ export default function SalesBalanceMovies(){
   },[dispatch])
 
     return(
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Ventas de Peliculas</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <form onSubmit={(e)=>handleSubmitSearch(e)} class="btn-group me-2">
+      <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 className="h3">Ventas de Peliculas</h1>
+        <div className="btn-toolbar mb-2 mb-md-0">
+          <form onSubmit={(e)=>handleSubmitSearch(e)} className="btn-group me-2">
             <input type= "text" value={input} placeholder="Buscar pelicula..." onChange={(e)=>handleChangeSearch(e)}></input>
-            <button type="submit" class="btn btn-sm btn-outline-secondary">Buscar</button>
+            <button type="submit" className="btn btn-sm btn-outline-secondary">Buscar</button>
             <label>Ordenar por: </label>
             <select>
                 <option selected disabled>Seleccionar</option>
@@ -109,42 +109,42 @@ export default function SalesBalanceMovies(){
                 <option>3D</option>
             </select>
           </form>
-          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getTicketsSales())}>
+          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getTicketsSales())}>
             Ver todos
           </button>
         </div>
       </div>
       {console.log(tickets)}
       {console.log(allMovies)}
-      <div class='row'>
-        <div class='col-4 card text-center mx-4'>
-            <div class='card-header'>
+      <div className='row'>
+        <div className='col-4 card text-center mx-4'>
+            <div className='card-header'>
             <h4>Peliculas mas vendidas</h4>
             </div>
-            <div class='card-body'>
+            <div className='card-body'>
             <ChartPie/>
             </div>
-            <div class='card-footer text-muted'>
+            <div className='card-footer text-muted'>
             Top 6 mas vendidas
             </div>
         </div>
 
-        <div class='col-7 card text-center'>
-            <div class='card-header'>
+        <div className='col-7 card text-center'>
+            <div className='card-header'>
             <h4>Ventas mensuales</h4>
             </div>
-            <div class='card-body'>
+            <div className='card-body'>
             <SegmentChart/>
             </div>
-            <div class='card-footer text-muted'>
+            <div className='card-footer text-muted'>
             Total de ventas de los ultimos meses
             </div>
         </div>
         </div><br/>
 
-      <div class="table-responsive">
+      <div className="table-responsive">
           {/* {console.log(dataMovies)} */}
-        <table class="table table-dark table-striped">
+        <table className="table table-dark table-striped">
           <thead>
             <tr>
               <th scope="col">Nombre</th>
@@ -168,7 +168,11 @@ export default function SalesBalanceMovies(){
                   <td>{u.totalPrice}</td>
                   <td>{u.totalPrice * 0.6}</td>
                   <td>
+<<<<<<< HEAD
                     <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.movie,u.type)}><i class="bi bi-info-circle"></i></button>
+=======
+                    <button className="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.name,u.type)}><i className="bi bi-info-circle"></i></button>
+>>>>>>> a95b2408651889def146a92b85ecaac002bbe4ac
                   </td>
                   <InfoSalesMovies allMovies={allMovies} month={u.date}/>
                 </tr>

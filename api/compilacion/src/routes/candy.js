@@ -119,10 +119,11 @@ router.get("/searchCandy", (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 }));
 // http://localhost:3001/candy/delete
-router.delete('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/delete', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _g, _h, _j, _k;
     try {
-        const { index, quantity, cartId, userId } = req.body;
+        const { index, userId } = req.body;
+        console.log(index, userId);
         let newCandy;
         //buscar el card id del usuario
         const user = yield prisma.user.findUnique({

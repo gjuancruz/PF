@@ -45,3 +45,7 @@ body{
 .react-chatbot-kit-chat-bot-avatar-container {
   background-color: #fbde21!important;
 }
+
+.Toastify__progress-bar-theme--colored.Toastify__progress-bar--info, .Toastify__progress-bar-theme--colored.Toastify__progress-bar--success, .Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning, .Toastify__progress-bar-theme--colored.Toastify__progress-bar--error {
+  background: #fbde21!important;
+}

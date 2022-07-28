@@ -122,10 +122,10 @@ router.get("/searchCandy", async (req: Request, res:Response) =>{
 })
 
 // http://localhost:3001/candy/delete
-router.delete('/delete',  async (req:Request,res:Response)=>{
+router.post('/delete',  async (req:Request,res:Response)=>{
     try {
-        const {index, quantity, cartId, userId} = req.body
-        
+        const {index, userId} = req.body
+        console.log(index, userId)
         let newCandy;
         //buscar el card id del usuario
         const user = await prisma.user.findUnique({

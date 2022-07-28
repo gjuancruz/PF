@@ -54,7 +54,7 @@ const Register = () => {
         <form className={styles.formRegister} onSubmit={(e) => handleSubmit(e)}>
           <h1 className="h3 mb-3 font-weight-normal">Regístrate</h1>
           <div>
-            <label for="inputEmail" className="sr-only">
+            <label htmlFor="inputEmail" className="sr-only">
               Email de Usuario
             </label>
             <input
@@ -69,7 +69,7 @@ const Register = () => {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <label for="inputUsername" className="sr-only">
+          <label htmlFor="inputUsername" className="sr-only">
             Nombre de usuario
           </label>
           <input
@@ -83,7 +83,7 @@ const Register = () => {
             value={post.username}
             onChange={(e) => handleChange(e)}
           />
-          <label for="inputPassword" className="sr-only">
+          <label htmlFor="inputPassword" className="sr-only">
             Contraseña
           </label>
           <input

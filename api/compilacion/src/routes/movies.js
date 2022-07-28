@@ -316,6 +316,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         // console.log(payment)
         const sale = yield prisma.sale.create({ data: {
                 receipt: payment.id,
+                // @ts-ignore
                 salePrice: cart.orderPrice,
                 user: {
                     connect: { id: cart.userId }
@@ -338,6 +339,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
             const candy = yield prisma.candy.update({ where: { id: cart.candy[i].id }, data: { sale: { connect: { id: sale.id } }, cart: { disconnect: true } } });
         }
         for (let i = 0; i < cart.tickets.length; i++) {
+            //@ts-ignore
             const tickets = yield prisma.tickets.update({ where: { id: cart.tickets[i].id }, data: { cart: { disconnect: true } } });
         }
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
@@ -358,6 +360,16 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         res.send(error.message);
+    }
+}));
+// http://localhost:3001/movies/getSales
+router.get('/getSales', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const sales = yield prisma.sale.findMany({ include: { user: true } });
+        return res.status(200).json(sales);
+    }
+    catch (error) {
+        return res.status(404).json("no se encontraron ventas");
     }
 }));
 exports.default = router;

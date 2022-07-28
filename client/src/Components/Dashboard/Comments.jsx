@@ -32,52 +32,49 @@ export default function Comments(){
     let a = {}
     
     return(
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Comentarios</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          {/* <div class="btn-group me-2">
-            <input type= "text" placeholder="Buscar usuario..."></input>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Buscar</button>
-          </div> */}
+<main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 className="h3">Comentarios</h1>
+        <div className="btn-toolbar mb-2 mb-md-0">
+          
         </div>
       </div>
-      <div class="bg-dark p-5 m-5 text-white row">
+      <div className="bg-dark p-5 m-5 text-white row">
             
             { allCartelera && allCartelera.map(e=>{
                 return(
-                <div class="card bg-dark mb-2">
-                    <h5 class="card-header">{e.Title}</h5>
-                    <div class="card-body row">
-                        <div class="col-3">
+                <div className="card bg-dark mb-2">
+                    <h5 className="card-header">{e.Title}</h5>
+                    <div className="card-body row">
+                        <div className="col-3">
                             <img src={e.Poster} width="auto" height="200"></img>
                         </div>
-                        {/* <p class="card-text col-9">With supporting</p> */}
-                        <div class="col-9 py-3" style={{height: 200, overflowY:"scroll"}}>
+                        {/* <p className="card-text col-9">With supporting</p> */}
+                        <div className="col-9 py-3" style={{height: 200, overflowY:"scroll"}}>
                         {e.comments && e.comments.length>0 ? e.comments.map(f=>{
                             return(
                                 <>
-                                <div class="row">  
-                                    <i class="bi bi-person-circle px-3 col-1"></i>
-                                    <span class="col-3">{f.user.username}</span>
-                                    <span class="col-6">{f.Text}</span>
-                                    <i class="bi bi-trash3-fill mx-3 col-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
+                                <div className="row">  
+                                    <i className="bi bi-person-circle px-3 col-1"></i>
+                                    <span className="col-3">{f.user.username}</span>
+                                    <span className="col-6">{f.Text}</span>
+                                    <i className="bi bi-trash3-fill mx-3 col-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={e => setComentDel(f.id)}></i>
                                 </div><br/>
     
-                                <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content bg-dark ">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Borrar Comentario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div className="modal fade" id="staticBackdrop" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog">
+                                    <div className="modal-content bg-dark ">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLabel">Borrar Comentario</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
+                                    <div className="modal-body">
                                         ¿ Estás seguro que deseas borrar el comentario ?
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("a")}}>Borrar</button>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" className="btn btn-primary"  data-bs-dismiss="modal" onClick={e=>{(dispatch(deleteComment(commentDel)));setComentDel("a")}}>Borrar</button>
                                     </div>
                                     </div>
                                 </div>

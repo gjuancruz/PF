@@ -1,5 +1,6 @@
 import {Router, Request, Response, NextFunction}  from 'express'
 import { PrismaClient, Prisma} from '@prisma/client'
+import bcrypt from 'bcrypt';
 
 
 const prisma = new PrismaClient()
@@ -74,16 +75,17 @@ router.post("/createUser", async (req:Request, res:Response) =>{
 //http://localhost:3001/admin/updateUser
 router.put("/updateUser", async (req:Request, res:Response) =>{
     try{
-        const {username, email, role, id} = req.body;
-        
+        const {id, password, email} = req.body;
+        const hashedPassword = await bcrypt.hash(
+            password,
+            Number(process.env.SALT_ROUNDS)
+          );
         const updateUser = await prisma.user.updateMany({
             where: {
                 id: id
               },
               data: {
-                username:`${username}`,
-                email:`${email}`,
-                role: role,
+                password:`${hashedPassword}`,
               },
     })
     
@@ -91,6 +93,7 @@ router.put("/updateUser", async (req:Request, res:Response) =>{
     
     }catch(e:any){
         res.status(404).json(e.message)
+        console.log(e)
     }
 })
 

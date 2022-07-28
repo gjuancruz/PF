@@ -64,12 +64,12 @@ const Comment = () => {
           <div>
             <form onSubmit={(e) => handleSubmit(e)}>
               <div>
-                <div class="mb-4 mt-5">
-                  <label for="exampleFormControlTextarea1" class="form-label">
+                <div className="mb-4 mt-5">
+                  <label htmlFor="exampleFormControlTextarea1" className="form-label">
                   {currentUser[0].username} escribe un comentario
                   </label>
                   <input
-                    class="form-control"
+                    className="form-control"
                     id="exampleFormControlTextarea1"
                     rows="3"
                     name="Text"
