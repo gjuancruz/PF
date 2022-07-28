@@ -75,13 +75,16 @@ export default function SalesBalanceMovies(){
     dispatch(searchMoviesSales(input))
   }
   const handleInfo = (name,type)=>{
-    // dispatch(deleteUser(userDlt));
     setMovieInfo({name,type})
   }
   const handleMovie = (movie)=>{
    const data = allMovies.find(e=>e.id === movie)
    return data.Title;
   }
+  // function handleOrderMoreSaled(e){
+  //   setOrder("Order" + e.target.value)
+  //   dispatch(orderByMoreSaled(e.target.value))
+  // }
 
   useEffect(()=>{
     dispatch(getTicketsSales())
@@ -97,14 +100,6 @@ export default function SalesBalanceMovies(){
           <form onSubmit={(e)=>handleSubmitSearch(e)} className="btn-group me-2">
             <input type= "text" value={input} placeholder="Buscar pelicula..." onChange={(e)=>handleChangeSearch(e)}></input>
             <button type="submit" className="btn btn-sm btn-outline-secondary">Buscar</button>
-            <label>Ordenar por: </label>
-            <select>
-                <option selected disabled>Seleccionar</option>
-                <option>Mas Vendidas</option>
-                <option>Menos Vendidas</option>
-                <option>2D</option>
-                <option>3D</option>
-            </select>
           </form>
           <button type="button" className="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getTicketsSales())}>
             Ver todos
@@ -162,9 +157,9 @@ export default function SalesBalanceMovies(){
                   <td>{u.totalPrice}</td>
                   <td>{u.totalPrice * 0.6}</td>
                   <td>
-                    <button className="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.name,u.type)}><i className="bi bi-info-circle"></i></button>
+                    <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style={{cursor:"pointer"}} onClick={(e)=>handleInfo(u.movie,u.type)}><i class="bi bi-info-circle"></i></button>
                   </td>
-                  <InfoSalesMovies nameMovie={movieInfo.name} type={movieInfo.type}/>
+                  <InfoSalesMovies allMovies={allMovies} month={u.date}/>
                 </tr>
                 )
               )

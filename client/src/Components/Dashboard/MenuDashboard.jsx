@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, getUsers, verifyRole } from "../../Redux/actions";
 import Candy from "./Candy";
 import SalesBalanceMovies from "./SalesBalanceMovies";
+import admin from '../../Assets/favicon.svg'
 
 
 export default function MenuDashboard(){
@@ -85,9 +86,9 @@ export default function MenuDashboard(){
             </li>
           </ul>
           <hr/>
-        <div className="dropdown">
-          <a href="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2"/>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src={admin} alt="" width="32" height="32" class="rounded-circle me-2"/>
             <strong>admin</strong>
           </a>
           <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">

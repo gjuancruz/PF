@@ -21,7 +21,9 @@ import {
   ADD_CANDY,
   GET_CANDY,
   SEARCH_CANDY,
+  GET_TICKETS_DETAIL,
   GET_TICKETS_HISTORY,
+  GET_TICKETS,
   SEARCH_MOVIES_SALES,
   VERIFY_ROLE,
   TOTAL,
@@ -34,7 +36,8 @@ import {
   GET_TICKETS,
   DEL_TICKET,
   USER_CART,
-  ACTUALIZAR_PRECIO_TOTAL
+  ACTUALIZAR_PRECIO_TOTAL,
+  ORDER_MORE_SALED
 } from "../actions";
 
 const initialState = {
@@ -51,6 +54,7 @@ const initialState = {
   show:[],
   infoTickets:[],
   copy_infoTickets:[],
+  detailTickets:[],
   candy:[],
   autorizado: '',
   storeCandy:[],
@@ -134,6 +138,43 @@ function rootReducer(state = initialState, action) {
         ...state,
         infoTickets: action.payload,
         copy_infoTickets: action.payload
+      }
+    case GET_TICKETS_DETAIL:
+      return {
+        ...state,
+        detailTickets: action.payload
+      }
+    case ORDER_MORE_SALED:
+      //const days = {01:234,02:3423,03:1561};
+    const days = {};
+    const allMovies = state.detailTickets;
+    allMovies.forEach(e => {
+    if(days.hasOwnProperty(e.date.slice(4,7))){
+      days[e.date.slice(4,7)] += e.totalPrice
+    }
+    else{
+      days[e.date.slice(4,7)] = e.totalPrice
+    }});
+
+    const daysformatArray = Object.entries(days)
+    const orderDaysMoreSales = action.payload === 'min' ?
+        daysformatArray.sort((a,b)=>{
+            if(Number(a[1]) < Number(b[1]))return -1
+            if(Number(a[1]) > Number(b[1]))return 1
+            return 0
+        }) :
+        daysformatArray.sort((a,b)=>{
+            if(Number(a[1])  < Number(b[1]))return 1
+            if(Number(a[1])  > Number(b[1]))return -1
+            return 0
+        })
+      console.log(days)
+      console.log(daysformatArray)
+      // const asdasd = orderDaysMoreSales.forEach(e=>allMovies.filter(p=>p.date.slice(4,7)==e[1]));
+      // console.log(asdasd)
+      return {
+        ...state,
+        detailTickets: orderDaysMoreSales
       }
     case SEARCH_MOVIES_SALES:
       const searchSale = state.copy_infoTickets.filter(e=>e.movie.toLowerCase().include(action.payload.toLowerCase()))
