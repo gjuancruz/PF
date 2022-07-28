@@ -77,7 +77,7 @@ router.post("/recuperarpassword", (req, res) => __awaiter(void 0, void 0, void 0
             },
         });
         if (!user)
-            return res.send(" Este usuario no existe , intente ingresando uno correcto");
+            throw new Error('Usuario no encontrado');
         // const ksuidFromSync1 = KSUID.randomSync(new Date()).string;
         const newPassword = ksuid_1.default.randomSync(new Date()).string;
         const hashedPassword = yield bcrypt_1.default.hash(newPassword, Number(process.env.SALT_ROUNDS));
@@ -132,7 +132,7 @@ router.post("/recuperarpassword", (req, res) => __awaiter(void 0, void 0, void 0
         };
         const info = yield transporter.sendMail(mailOptions);
         console.log("Mail enviado: %s", info.messageId);
-        res.send("Mail enviado: %s");
+        return res.send("Mail enviado: %s");
         // console.log("New user password hashed", newUser);
         // return res.status(200).send({
         //   newUser,
@@ -141,9 +141,7 @@ router.post("/recuperarpassword", (req, res) => __awaiter(void 0, void 0, void 0
     }
     catch (error) {
         console.log(error);
-        return res.status(500).send({
-            message: error || "Error interno.",
-        });
+        return res.status(500).send('Error de envio');
     }
 }));
 exports.default = router;

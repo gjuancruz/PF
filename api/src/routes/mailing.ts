@@ -67,7 +67,8 @@ router.post("/recuperarpassword", async (req: Request, res: Response) => {
         email: email,
       },
     });
-    if (!user) return res.send(" Este usuario no existe , intente ingresando uno correcto");
+    if (!user) throw new Error ('Usuario no encontrado')
+
 
     // const ksuidFromSync1 = KSUID.randomSync(new Date()).string;
     const newPassword: string = KSUID.randomSync(new Date()).string
@@ -128,7 +129,7 @@ router.post("/recuperarpassword", async (req: Request, res: Response) => {
   }
     const info = await transporter.sendMail(mailOptions);
     console.log("Mail enviado: %s", info.messageId);
-    res.send("Mail enviado: %s");
+    return res.send("Mail enviado: %s");
     // console.log("New user password hashed", newUser);
     // return res.status(200).send({
     //   newUser,
@@ -136,9 +137,7 @@ router.post("/recuperarpassword", async (req: Request, res: Response) => {
     // });
   } catch (error) {
     console.log(error);
-    return res.status(500).send({
-      message: error || "Error interno.",
-    });
+    return res.status(500).send('Error de envio');
   }
 });
 

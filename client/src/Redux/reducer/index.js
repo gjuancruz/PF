@@ -28,6 +28,7 @@ import {
   ENTRADAS,
   GET_CART,
   GET_DAY_SHOW,
+  REFRESH,
 } from "../actions";
 
 const initialState = {
@@ -248,6 +249,11 @@ function rootReducer(state = initialState, action) {
       role: action.payload.role,
       id: action.payload.id
     }
+    case REFRESH:
+      return {
+        ...state,
+        refresh: !state.refresh
+      }
     default:
       return state;
   }

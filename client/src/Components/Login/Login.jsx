@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import styles from './Login.module.css';
 import { login } from "../../Redux/actions";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import NavBar from "../NavBar/NavBar";
 import {useHistory} from 'react-router-dom'
@@ -15,7 +16,7 @@ const Login = () => {
     const [errors, setErrors] = useState('')
     const dispatch = useDispatch();
     const history = useHistory()
-
+    const refresh = useSelector(state => state.refresh)
     const [inputRecover, setInputRecover] = useState({
         email : '',
     })
@@ -27,7 +28,7 @@ const Login = () => {
         });
       }
 
-    const {goBack} = useHistory()
+    
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -52,12 +53,15 @@ const Login = () => {
     const handleRecuperacion = async (e) => {
         e.preventDefault()
         try {
-           dispatch(recuperarPassword(inputRecover))
-           
+            dispatch(recuperarPassword(inputRecover))
         } catch (error) {
-            alert('Error al intentar recuperar contraseña. Intente nuevamente')
+            alert('Hubo problemas. Intente nuevamente.')
         }
     }
+
+    useEffect(() => {
+        
+    }, [refresh])
     return (
         <div>
             <NavBar />
@@ -146,6 +150,7 @@ const Login = () => {
                                         type="button"
                                         class="btn btn-warning"
                                         onClick={(e) => handleRecuperacion(e)}
+                                        data-bs-dismiss="modal"
                                     >
                                         Enviar Código de recuperación
                                     </button>

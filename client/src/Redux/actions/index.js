@@ -32,6 +32,7 @@ export const POST_CANDYS="POST_CANDYS";
 export const GET_TICKETS="GET_TICKETS";
 export const SEARCH_MOVIES_SALES ="SEARCH_MOVIES_SALES";
 export const GET_DAY_SHOW="GET_DAY_SHOW";
+export const REFRESH='REFRESH'
 
 
 export function getBillboard() {
@@ -553,20 +554,40 @@ export function addToNewsletter (email) {
   }
 }
 
+// export function recuperarPassword (email) {
+//   return function (dispatch) {
+//     const requestOptions = {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(email)
+//   };
+
+//     var recuperarPass = fetch('http://localhost:3001/mailing/recuperarpassword', requestOptions)
+//     .then(response => {
+//       alert('Se han enviado los datos para recuperar la cuenta al usuario')
+//     })
+//     .catch(error => {
+//       alert('Ha habido un error. Intentar nuevamente.')
+//     })
+//   }
+// }
+
 export function recuperarPassword (email) {
-  return function (dispatch) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(email)
-  };
-
-    var recuperarPass = fetch('http://localhost:3001/mailing/recuperarpassword', requestOptions)
-    .then(alert('El correo de recuperación ha sido enviado al mail ingresado'))
-
-    .catch(err => console.log(err))
+  return async function (dispatch) {
+    try {
+      const response = await axios.post('http://localhost:3001/mailing/recuperarpassword', email)
+      alert('El mail ha sido enviado a la casilla indicada.')
+      return dispatch ({
+        type: REFRESH,
+        
+      })
+    } catch (error) {
+      alert('Error al verificar casilla. Intente nuevamente.')
+    }
+    
   }
 }
+
 
 export function searchCandy(name){
   return async function (dispatch) {
