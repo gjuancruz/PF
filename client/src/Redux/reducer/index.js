@@ -21,7 +21,6 @@ import {
   ADD_CANDY,
   GET_CANDY,
   SEARCH_CANDY,
-  GET_TICKETS,
   GET_TICKETS_HISTORY,
   SEARCH_MOVIES_SALES,
   VERIFY_ROLE,
@@ -32,7 +31,10 @@ import {
   REFRESH,
   TOTALMENTE,
   POST_PAYMENT_METHOD,
-  DEL_TICKET
+  GET_TICKETS,
+  DEL_TICKET,
+  USER_CART,
+  ACTUALIZAR_PRECIO_TOTAL
 } from "../actions";
 
 const initialState = {
@@ -57,16 +59,31 @@ const initialState = {
   entradas: 0,
   id:'',
   cart: [],
+  userCart: [],
+  actualizarPrecio: "",
   payment:'',
   tickets:[]
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    case ACTUALIZAR_PRECIO_TOTAL:
+      return{
+        ...state,
+        actualizarPrecio: action.payload
+      }
+
+    case USER_CART:
+      return{
+        ...state,
+        userCart: action.payload
+      }
+
     case DEL_TICKET:
       return{
         ...state,
-        tickets: []
+        tickets: [],
+        actualizarPrecio: action.payload
       }
 
     case GET_TICKETS_HISTORY:

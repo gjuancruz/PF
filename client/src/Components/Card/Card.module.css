@@ -28,3 +28,7 @@
 max-width: 100%; */
     
 }
+
+.image::before{
+    background: linear-gradient(90deg,#101110,#f8f8f8);
+}
