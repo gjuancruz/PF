@@ -75,9 +75,6 @@ export function Checkout({
         }
         dispatch(addCandy(productos));
       }
-      console.log(
-        "estoy dentro de obtenerCantidad de candys que vienen del back"
-      );
 
       return state;
     } else {
@@ -89,7 +86,6 @@ export function Checkout({
     }
   };
 
-  console.log("cart:", cart);
 
   // const [toggle,setToggle] = useState(true)
   const dispatch = useDispatch();
@@ -100,7 +96,6 @@ export function Checkout({
       const nameCandy = storeCandy.find((item) => item.name === name);
       sumaPrecios = sumaPrecios + nameCandy.price;
     });
-    console.log(sumaPrecios);
     dispatch(sumTotal(sumaPrecios));
   };
 
@@ -109,7 +104,6 @@ export function Checkout({
   //   // },[stateCandy]
   //   if(idUser) dispatch(getOrderPrice({idUser: idUser}))
   // }, [dispatch])
-  console.log("SOY USER IDDDDDDDDDDDDDD", typeof idUser);
   useEffect(() => {
     setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"));
     setNACHOS(obtenerCantidad("COMBO NACHOS"));
@@ -121,7 +115,6 @@ export function Checkout({
   // })
 
   const handleClick = (event) => {
-    console.log(event.target.name, event.target.value);
     if (event.target.name === "cafe") setCafe(event.target.value);
     if (event.target.name === "refresco") setRefresco(event.target.value);
     if (event.target.name === "hotdog") setHotdog(event.target.value);
@@ -137,7 +130,6 @@ export function Checkout({
   };
 
   const handleSubmit = (event) => {
-    console.log(event.target.name);
     const productos = [];
     if (event.target.name === "COMBO TRADICIONAL") {
       for (let i = 0; i < TRADICIONAL.value; i++) {
@@ -153,14 +145,12 @@ export function Checkout({
       setTimeout(() => {
         dispatch(getOrderPrice({ idUser: idUser }));
       }, 500);
-      console.log(productos);
       return dispatch(addCandy(productos));
     }
     if (event.target.name === "COMBO NACHOS") {
       for (let i = 0; i < NACHOS.value; i++) {
         productos.push("COMBO NACHOS");
       }
-      console.log(productos);
       dispatch(
         postCandys({
           index: NACHOS.id,
@@ -271,13 +261,10 @@ export function Checkout({
 
   const delTicketsEvent = (e) => {
     e.preventDefault();
-    // console.log(e);
     dispatch(delTickets({ userId: idUser, showId: showId })); //idUser
   };
 
-  //   console.log(JSON.stringify(storeCandy[1].name));
 
-  console.log("estado candy: " + JSON.stringify(stateCandy));
   return (
     // <nav className="navbar-checkout navbar-collapse collapse d-flex flex-column justify-content-start" id={toogle ? "sidebar-active" : null} >
     <nav

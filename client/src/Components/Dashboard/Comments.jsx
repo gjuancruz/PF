@@ -14,10 +14,8 @@ export default function Comments(){
 
 
     const getUserName = (id)=>{
-        console.log(id)
         getComments()
         let comment = commen.find(e=> e.id === id.id)
-        console.log(comment)
         return comment.user.username
     }
 

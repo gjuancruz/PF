@@ -9,13 +9,11 @@ export default function FilterCartelera () {
 
     const handleSelectGenre = (e) => {
         e.preventDefault();
-        // console.log('Filter by genre changed');
         dispatch(filterGenre(e.target.value));
     }
 
     const handleSelectType = (e) => {
         e.preventDefault();
-        // console.log('Filter by Type changed');
         dispatch(filterByType(e.target.value))
     }
 

@@ -33,7 +33,6 @@ export default function SegmentChartGradient(){
     if(!chart){
     return ;
     }
-console.log(chart)
     function CreateGradientColor(color){
         const ctx = chart.ctx
         const gradient = ctx.createLinearGradient(0,0,0,400);

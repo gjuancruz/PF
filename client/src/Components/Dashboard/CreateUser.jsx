@@ -59,7 +59,6 @@ export default function CreateUser() {
               }}
               onSubmit={(values, { resetForm }) => {
                 dispatch(createUser(values));
-                console.log(values);
                 setFormSend(true);
                 resetForm();
                 setTimeout(() => setFormSend(false), 5000);
@@ -67,7 +66,6 @@ export default function CreateUser() {
             >
               {({ errors, values, setFieldValue }) => (
                 <Form className="container my-5">
-                  {/* {console.log(values)} */}
                   <div className="form-group">
                     <div className="mb-3">
                       <label className="form-label" htmlFor="username">
