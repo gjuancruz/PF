@@ -420,16 +420,7 @@ export function Checkout({
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cerrar
-                  </button>
-                  <button type="button" class="btn btn-warning">
-                    Ir al carrito
-                  </button>
+                  
                 </div>
               </div>
             </div>
@@ -448,7 +439,7 @@ export function Checkout({
             className="deletticket"
             value="Borrar Tickets"
             
-            onClick={(e) => delTicketsEvent(e)}
+            onChange={(e) => delTicketsEvent(e)}
           ></input></li>
       </ul>
 
