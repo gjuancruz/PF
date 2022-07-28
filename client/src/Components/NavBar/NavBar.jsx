@@ -44,11 +44,11 @@ const NavBar = () =>{
   
     return(
       <div>
-      <nav className="navbar navbar-expand-lg bg-dark text-light">
-      <div className="container-fluid">
-        {/* <a className="navbar-brand text-light" href="/">Moon Cinema</a> */}
-        <a className="navbar-brand text-light" href="/">
-          <img src={moonCinema} width="120px" alt=''></img>
+      <nav class="navbar navbar-expand-lg bg-dark text-light">
+      <div class="container-fluid">
+        {/* <a class="navbar-brand text-light" href="/">Moon Cinema</a> */}
+        <a class="navbar-brand text-light" href="/">
+          <img src={moonCinema} width="120px" className='imgMooncinema'></img>
         </a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i className="bi bi-list text-light"></i>

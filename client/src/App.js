@@ -21,7 +21,7 @@ import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Info from './Components/About/Info'
 import {Checkout} from './Components/Checkout/Checkout'
 import {ComprarModal} from './Components/Checkout/CandysModal'
 import ChangePassword from './Components/ChangePassword/ChangePassword';
@@ -53,6 +53,7 @@ function App() {
         <Route exact path='/CandyModal' component={ComprarModal} />
         <Route exact path='/candy' component={Candy}/>
         <Route exact path='/caja' component={CashRegister}/>
+        <Route exact path='/about' component={Info}/>
         <Route exact path='/changepassword' component={ChangePassword}/>
         <Route path='*' component={Error404} />
       </Switch>

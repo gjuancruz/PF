@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, getCandy } from "../../Redux/actions";
 import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole, getCandy, getDayShow,
-  sumEntradas, getCardHistory, getTicketsHistory} from "../../Redux/actions";
+  sumEntradas, getCardHistory, getTicketsHistory, userCart} from "../../Redux/actions";
 // import { getMovieDetail,postPaymentMethod,getShow,getUsers,getPremiere, getBillboard, verifyRole,getDayShow } from "../../Redux/actions";
 import '../Detail/MovieDetail.styles.css'
 import Comment from "../Comment/Comment";
@@ -31,7 +31,8 @@ export default function MovieDetail(){
     let userIdCheck = useSelector ((state) => state.id)
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     const movieVideo=useSelector(state=>state.movieDetail.Trailer);
-    const [checkbtn, setcheckbtn] = useState(false);
+    const [checkbtn, setcheckbtn] = useState(true);
+    const userCarrito = useSelector(state => state.userCart)
     
     //boton checkout 
     const idUser = useSelector(state => state.id)
@@ -53,6 +54,10 @@ export default function MovieDetail(){
     
     const cart = useSelector(state => state.cart);
 
+    const userCarritoDetail = useSelector(state => state.userCart)
+
+    const actualizarPrecio = useSelector(state => state.actualizarPrecio);
+
     const paymentState = useSelector(state=>state.payment)
     
     const [num, setNum] = useState(0);
@@ -63,6 +68,10 @@ export default function MovieDetail(){
     const restar= () => {
       setNum(num - 1);
     }
+
+    useEffect(() => {
+      idUser && dispatch(userCart({idUser:idUser}))
+    },[idUser,actualizarPrecio])
 
     useEffect(() => {
       idUser && dispatch(getTicketsHistory({idUser: idUser}))
@@ -188,15 +197,14 @@ export default function MovieDetail(){
     
 
     const customId = 1
-    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId});
-    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId});
-
+    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId, position: toast.POSITION.TOP_CENTER});
+    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId, position: toast.POSITION.TOP_CENTER});;
 
     return(
         <div className="MovieDetail">
             <NavBar />
             {/* PAYMENT NOTIFICATION */}
-            <div>
+            <div className="contenedoropayment">
             {/* <button onClick={()=>notify()}>Notify !</button> */}
         
               {paymentState === 'Payment received' && 
@@ -213,21 +221,29 @@ export default function MovieDetail(){
 
           {/* <iframe id="player" type="text/html" width="560" height="315" src="https://www.youtube.com/embed/ctcQ6b037k0?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; 
             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>   */}
-          <button className="closebutton2" onClick={()=>setcheckbtn((e)=> !e)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-chevron-double-left" viewBox="0 0 16 16">
-  <path fillRule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-  <path fillRule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-</svg></button>
+          
           {num === 0 ? "": 
            checkbtn?
             <div className="Checkout-component">
                 
                 <Checkout title={movieDet.Title} toogle={toggle} entradas={entradas} hora={HoraPelicula} cart={cart}  close={setcheckbtn}
-                  boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0} //showId={tickets[0].seats}
+                  boletos={num} horario={horario.schedule} showId={tickets.length ? tickets[0].showId : 0}  dias={shows.length ? shows[0].day : ""}
+                  room={shows.length ? shows[0].roomId : 0}//showId={tickets[0].seats}
                 />
             </div>   : null 
            }
             <div className="contenedor" id={toggle && "checkout-active"}>
-          
+            {premieres.find(m=>m.id ===movieDet.id ) ? "" :
+           <button
+            className="botoncheck"
+            data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
+            disabled={num === 0}
+            onClick={()=> setcheckbtn((e)=> !e)}
+            >    
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="70" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+</svg>
+           </button>}
                  
                 {/* <button className="btn btn-primary my-4 text-white" id="menu-btn" onClick={() =>  setToggle(!toggle)}>
                     Toogle Sidebar
@@ -290,7 +306,7 @@ export default function MovieDetail(){
       !currentUser[0]?  
       <div>
         
-<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
+<button type="button" className="botoncomprar" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 Comprar 
 </button>
 
@@ -385,14 +401,14 @@ Comprar
                 Cerrar
               </button>
               
-              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal12"
-                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
+                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
                 // onClick={()=> setPulsado(!pulsado)}
                 // onClick={()=> setcheckbtn((e)=> !e)}
               >
                 Ir al Carrito
               </button>
-                {/* {pulsado ? 
+                {/* {checkbtn ? 
                   (<Checkout></Checkout>) : ("")
                 } */}
             </div>
@@ -401,7 +417,7 @@ Comprar
       </div>
 
     </div>
-                {   
+    {   
                   shown &&   <div className="d-flex flex-column mb-3">
                     <Stripe showid={showid} />
                   </div>

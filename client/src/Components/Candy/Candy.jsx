@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCandy } from "../../Redux/actions";
 import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import '../Candy/Candy.css'
 
 export default function Candy() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function Candy() {
               return (
                 <div class="col-6 text-center my-2" key={index}>
                   <h5>{c.name}</h5>
-                  <img src={c.picture} alt="img not found" />
+                  <img src={c.picture} alt="img not found" className="picture" />
                   <p>Precio: US${c.price}</p>
                 </div>
               );

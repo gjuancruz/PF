@@ -90,6 +90,7 @@ a:hover{
 }
 .card{
     background-color: #1a1a1a;
+    margin-top: 20px;
 }
 .text-primary{
     color:rgb(255, 215, 0) !important;
