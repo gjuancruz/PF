@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers, verifyRole, getComments } from "../../Redux/actions";
 import NavBar from "../NavBar/NavBar";
 import styles from "./Profile.module.css";
+import {useHistory} from 'react-router-dom'
 
 const Perfil = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,11 @@ const Perfil = () => {
   const allUsers = useSelector((state) => state.usuarios);
   let userIdCheck = useSelector((state) => state.id);
   const currentUser = allUsers.filter((u) => u.id === userIdCheck);
-  // console.log("este es el currentUser",currentUser)
 
   const comments = useSelector((state) => state.comments);
   const commentUser = comments.filter((u) => u.userId === currentUser[0].id);
 
+  const history = useHistory()
   useEffect(() => {
     dispatch(getComments());
   }, []);
@@ -26,75 +27,64 @@ const Perfil = () => {
     <div>
       <NavBar />
       <div className={styles.headerDiv}>
-        <i class="bi bi-person-circle" style={{ fontSize: "64px" }}></i>
+        <i className="bi bi-person-circle" style={{ fontSize: "64px" }}></i>
         <h1 className="display-5 fw-bold ml-4">
           {currentUser.length && currentUser[0].username}
         </h1>
       </div>
 
       <div>
-        <hr class="bg-warning" />
+        <hr className="bg-warning" />
       </div>
 
       {currentUser.length ? (
         <div>
-          <div className={styles.minheight}>
-            <h4>Tu e-mail:</h4> <p>{currentUser[0].email}</p>
-            <h4>Membresía:</h4>{" "}
-            {currentUser[0].role === "user" ||
-            currentUser[0].role === "admin" ? (
-              <p>Actualmente no cuentas con ninguna membresía</p>
-            ) : (
-              <p>Miembro del club de cine</p>
-            )}
-            <h4>Tus comentarios:</h4>
+          <div className={styles.accionesDiv}>
+          <i className="bi bi-envelope" style={{ fontSize: "50px" }}></i><h3 className={styles.miPerfil}>Tu e-mail:</h3> 
+          </div>
+          <div className="container d-flex">
+          <p className="fs-5 ps-5">{currentUser[0].email}</p>
+          </div>
+          <div>
+            <hr className="bg-warning" />
+          </div>
+          {/* <div className="container"> */}
+            <div className={styles.accionesDiv}>
+          <i className="bi bi-chat-quote" style={{ fontSize: "50px" }}></i><h3 className={styles.miPerfil}>Tus comentarios:</h3>
+          </div>
             {commentUser.length ? (
               commentUser.map((c) => {
                 return (
-                  <div className="my-1">
-                    <div class="container text-center">
-                      <div class="row align-items-start">
-                        <div class="col-7">
-                          <h6>{c.movie.Title}:</h6>
+                  // <div >
+                    <div className="container d-flex justify-content-around">
+                        <div className="col-5">
+                          <h4 className="ps-5">{c.movie.Title}:</h4>
                         </div>
-                        <div class="col">
-                          <p>"{c.Text}"</p>
-                        </div>
-                      </div>
+                        <div className="col">
+                          <p className="fs-5">"{c.Text}"</p>
+                      {/* </div> */}
                     </div>
                   </div>
                 );
               })
             ) : (
-              <p>No has comentado nada todavía</p>
+              <p className={styles.miPerfil}>No has comentado nada todavía</p>
             )}
-            {(currentUser[0].role === "user" ||
-              currentUser[0].role === "admin") && (
-              <button type="submit" class="btn btn-outline-warning mb-4">
-                Hazte miembro del club de cine
-              </button>
-            )}
-          </div>
+            {/* </div> */}
           <div>
-            <hr class="bg-warning" />
+            <hr className="bg-warning" />
           </div>
 
           <div className={styles.accionesDiv}>
             <i
-              class="bi bi-wrench-adjustable-circle"
+              className="bi bi-wrench-adjustable-circle"
               style={{ fontSize: "64px" }}
             ></i>
             <h2 className={styles.miPerfil}>Acciones</h2>
           </div>
           <div className={styles.buttons}>
-            <button type="submit" class="btn btn-warning">
+            <button type="submit" className="btn btn-warning" onClick={()=>history.push('/changepassword')}>
               Cambiar contraseña
-            </button>
-            <button type="submit" class="btn btn-warning">
-              Cambiar dirección e-mail
-            </button>
-            <button type="submit" class="btn btn-warning">
-              Últimas operaciones
             </button>
           </div>
         </div>

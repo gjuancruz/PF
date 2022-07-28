@@ -16,22 +16,22 @@ export default function Shows(){
   }
 
   useEffect(()=>{
-    dispatch(getAllShows())
-  },[dispatch,showDlt])
+   dispatch(getAllShows())
+  },[showDlt])
 
     return(
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h3">Funciones</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-sm btn-outline-secondary mx-5" data-bs-toggle="modal" data-bs-target="#form">Agregar Funcion</button>
+      <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 className="h3">Funciones</h1>
+        <div className="btn-toolbar mb-2 mb-md-0">
+        <button type="button" className="btn btn-sm btn-outline-secondary mx-5" data-bs-toggle="modal" data-bs-target="#form">Agregar Funcion</button>
         </div>
         <CreateShow/>
       </div>
       
-      <div class="table-responsive">
-        <table class="table table-dark table-striped">
+      <div className="table-responsive">
+        <table className="table table-dark table-striped">
           <thead>
             <tr>
               <th scope="col">Horarios</th>
@@ -55,7 +55,7 @@ export default function Shows(){
                   <td>{s.type}</td>
                   <td>{s.seats}</td>
                   <td>
-                  <button class="btn btn-outline-warning"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => setShowDlt(s.id)}></i></button>
+                  <button className="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => setShowDlt(s.id)}><i className="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => setShowDlt(s.id)}></i></button>
                   </td>
                   <DeleteShow handleDltShow={handleDltShow}/>
                 </tr>)

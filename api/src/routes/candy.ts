@@ -48,17 +48,11 @@ router.post('/add',  async (req:Request,res:Response)=>{
         const totalPrice = product.price*quantity
 
         if(userCandy){
-            newCandy = await prisma.candy.update({
-                where:{
-                    //@ts-ignore
-                    id: userCandy.id
-                    // cartId:user?.cart?.id
-                    // name:product.name
-                },
+            newCandy = await prisma.candy.create({
                 data:{
                     name:product.name,
-                    quantity: userCandy.quantity + quantity,
-                    totalPrice: userCandy.totalPrice + totalPrice,
+                    quantity:quantity,
+                    totalPrice:totalPrice,
                     cartId: user?.cart?.id
                 }
             })
@@ -128,10 +122,10 @@ router.get("/searchCandy", async (req: Request, res:Response) =>{
 })
 
 // http://localhost:3001/candy/delete
-router.delete('/delete',  async (req:Request,res:Response)=>{
+router.post('/delete',  async (req:Request,res:Response)=>{
     try {
-        const {index, quantity, cartId, userId} = req.body
-        
+        const {index, userId} = req.body
+        console.log(index, userId)
         let newCandy;
         //buscar el card id del usuario
         const user = await prisma.user.findUnique({

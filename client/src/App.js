@@ -19,9 +19,12 @@ import CashRegister from './Components/Cash Register/CashRegister';
 import { Redirect } from 'react-router-dom';
 import Chatbot from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Info from './Components/About/Info'
 import {Checkout} from './Components/Checkout/Checkout'
 import {ComprarModal} from './Components/Checkout/CandysModal'
+import ChangePassword from './Components/ChangePassword/ChangePassword';
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 
@@ -29,6 +32,7 @@ const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qal
 function App() {
   return (
     <Elements stripe={stripePromise}>
+    <ToastContainer />
     <BrowserRouter>
       {/* <NavBar /> */}
 
@@ -49,6 +53,8 @@ function App() {
         <Route exact path='/CandyModal' component={ComprarModal} />
         <Route exact path='/candy' component={Candy}/>
         <Route exact path='/caja' component={CashRegister}/>
+        <Route exact path='/about' component={Info}/>
+        <Route exact path='/changepassword' component={ChangePassword}/>
         <Route path='*' component={Error404} />
       </Switch>
     </BrowserRouter>

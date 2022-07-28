@@ -76,6 +76,6 @@ app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () 
     //    create:{schedule:data[i].schedule,movieId:data[i].movieId,roomId:data[i].roomId}
     // })
     // }
-    console.log(`Server ready at: http://localhost:3001`);
+    console.log(`Server ready at: ${PORT}`);
 }));
 //# sourceMappingURL=index.js.map

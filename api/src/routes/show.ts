@@ -5,7 +5,7 @@ const showGenerator = async(show:any) => {
     const data = []
     show = {schedule:show.schedule,roomId:show.roomId,movieId:show.movieId,seats:60,day:show.day,type:show.type}
     data.push(show)
-    // console.log(data)
+    console.log(data)
     
     const movie = await prisma.movie.findUnique({where:{id:show.movieId}})
     const time = movie?.Runtime
@@ -22,7 +22,7 @@ const showGenerator = async(show:any) => {
        data.reverse()
        const lasthour = parseInt(last ? last.schedule.slice(0,2):"13")
        const lastminute = parseInt(last ? last.schedule.slice(3,5):"00")
-       
+
        var newhour = lasthour+hour
        var newminute = lastminute + minute + 10 
        if(newminute>=60) {
@@ -97,19 +97,20 @@ router.delete("/one/:id",async(req:Request,res:Response)=>{
 router.post("/",async(req:Request,res:Response)=>{
     const data : any= req.body.data
     const show = {schedule:data.schedule,roomId:parseInt(data.roomId),movieId:data.movieId,day:data.day,type:data.type} 
-    // console.log(data)
+    console.log(data)
     try{
         const data = await showGenerator(show)
-        const showid : any = await prisma.show.findMany({where:{id!:undefined},select:{id:true,schedule:true,day:true}})
+        console.log(data)
+        const showid : any = await prisma.show.findMany({where:{id!:undefined},select:{id:true,schedule:true,day:true,roomId:true}})
+        console.log(showid)
         if(!showid.length){
-            // console.log(showid)
             const shows = await prisma.show.createMany({
                 data
             })
             return res.status(200).send("Lista de shows generada")
         }
         for(let i=0;i<data.length;i++){
-            const finder = showid.find((e:any)=>e.schedule==data[i].schedule||e.day===data[i].day)
+            const finder = showid.find((e:any)=>e.day===data[i].day&&e.roomId===data[i].roomId)
             if(finder==undefined){
                 const shows = await prisma.show.create({
                     data:data[i] 
@@ -124,14 +125,17 @@ router.post("/",async(req:Request,res:Response)=>{
 
 router.get("/day",async(req:Request,res:Response)=>{
     const {day,id} :any= req.query
+    console.log(day,id)
     try{
         const data = await prisma.show.findMany({where:{day:day,movieId:id}})
-        // console.log(data)
+        console.log(data)
         res.status(200).send(data)
     }
     catch(error:any){
         res.send(error.message)
     }
 })
+
+
 
 export default router
