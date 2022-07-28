@@ -661,7 +661,7 @@ export function getTicketsSales(){
 export function getTicketsSalesDetails(month){
   return async function (dispatch) {
       try {
-        var ticketsDetails = await axios.get(`http://localhost:3001/tickets/all/detail?mes=${month}`)
+        var ticketsDetails = await axios.get(`/tickets/all/detail?mes=${month}`)
         return dispatch({
           type: GET_TICKETS_DETAIL,
           payload: ticketsDetails.data
