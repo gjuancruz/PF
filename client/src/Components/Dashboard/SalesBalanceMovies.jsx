@@ -106,7 +106,7 @@ export default function SalesBalanceMovies(){
                 <option>3D</option>
             </select>
           </form>
-          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getUsers())}>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={()=>dispatch(getTicketsSales())}>
             Ver todos
           </button>
         </div>
