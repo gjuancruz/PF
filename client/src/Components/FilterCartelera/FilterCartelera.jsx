@@ -30,7 +30,7 @@ export default function FilterCartelera () {
               <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
                 Filtro por Género
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" style={{cursor:"pointer"}}>
                 <li><a class="dropdown-item"><option value="All" onClick={(e) => handleSelectGenre(e)}>Todos</option></a></li>
                 <li><a class="dropdown-item"><option value="Animación" onClick={(e) => handleSelectGenre(e)}>Animación</option></a></li>
                 <li><a class="dropdown-item"><option value="Aventura" onClick={(e) => handleSelectGenre(e)}>Aventura</option></a></li>
@@ -42,7 +42,7 @@ export default function FilterCartelera () {
               </ul>
             </div> 
 
-            <div class="dropdown">
+            <div class="dropdown" style={{cursor:"pointer"}}>
               <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
                 Filtro por Tipo 
               </button>

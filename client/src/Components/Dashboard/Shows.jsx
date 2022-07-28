@@ -11,6 +11,7 @@ export default function Shows(){
   const [showDlt,setShowDlt] = useState('')
 
   const handleDltShow=(e)=>{
+    console.log(showDlt)
     dispatch(deleteShow(showDlt))
     setShowDlt('')
   }
@@ -55,7 +56,7 @@ export default function Shows(){
                   <td>{s.type}</td>
                   <td>{s.seats}</td>
                   <td>
-                  <button class="btn btn-outline-warning"><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => setShowDlt(s.id)}></i></button>
+                  <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() => setShowDlt(s.id)}><i class="bi bi-trash3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style={{cursor:"pointer"}} onClick={() => setShowDlt(s.id)}></i></button>
                   </td>
                   <DeleteShow handleDltShow={handleDltShow}/>
                 </tr>)

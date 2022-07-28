@@ -316,7 +316,7 @@ router.get('/search', async (req: Request, res:Response) =>{
 router.post("/checkout",async(req:Request,res:Response)=>{
 
     const {show,idUser,ticket} = req.body
-    const cart :any = await prisma.cart.findUnique({where:{userId:idUser},include:{candy:true}})
+    const cart :any = await prisma.cart.findUnique({where:{userId:idUser},include:{candy:true,tickets:true}})
     const stripe = new Stripe(STRIPE_KEY,{apiVersion:"2020-08-27"})
      console.log(cart)
     try{
@@ -349,7 +349,10 @@ router.post("/checkout",async(req:Request,res:Response)=>{
         })
         for(let i=0;i<cart.candy.length;i++){
         const candy = await prisma.candy.update({where:{id:cart.candy[i].id},data:{sale:{connect:{id:sale.id}},cart:{disconnect:true}}})
-    }
+        }
+        for(let i=0;i<cart.tickets.length;i++){
+        const tickets = await prisma.tickets.update({where:{id:cart.tickets[i].id},data:{cart:{disconnect:true}}})
+        }
         const room : any= await prisma.show.findUnique({where:{id:show},include:{room:{select:{id:true}}}})
         // console.log(room?.room.id)
         // console.log(seat.id)

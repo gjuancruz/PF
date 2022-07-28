@@ -13,7 +13,6 @@ const show_1 = __importDefault(require("./show"));
 const candy_1 = __importDefault(require("./candy"));
 const tickets_1 = __importDefault(require("./tickets"));
 const cart_1 = __importDefault(require("./cart"));
-const infoSalesCandies_1 = __importDefault(require("./infoSalesCandies"));
 const router = (0, express_1.Router)();
 router.use('/movies', movies_1.default);
 router.use('/auth', auth_1.default);
@@ -25,6 +24,5 @@ router.use('/candy', candy_1.default);
 router.use('/tickets', tickets_1.default);
 router.use('/cart', cart_1.default);
 // router.use('/sale',sale)
-router.use('/salesCandies', infoSalesCandies_1.default);
 exports.default = router;
 //# sourceMappingURL=index.js.map
