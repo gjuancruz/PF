@@ -1,6 +1,36 @@
-import React from "react";
+import {React, useState} from "react";
 import CreateFeedback from "../CreateFeedback/PostFeedback";
+import { useDispatch } from "react-redux";
+import { addToNewsletter } from "../../Redux/actions";
+
 const Footer = () => {
+
+  const dispatch = useDispatch();
+  const [input, setInput] = useState({
+    email: ''
+  })
+  
+  const addMailToNewsletter = (e) => {
+    try {
+      e.preventDefault();
+      dispatch(addToNewsletter(input));
+      setInput({
+        email: ''
+      })
+    } catch (error) {
+      alert(`El usuario con el input ${input.email} no se ha agregado a nuestro newsletter. Intente nuevamente`)
+    }
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    console.log(input.email)
+  }
+
   return (
     <div>
       {/* <!-- Footer --> */}
@@ -66,7 +96,7 @@ const Footer = () => {
 
           {/* <!-- Section: Form --> */}
           <section class="d-flex row">
-            <form action="">
+            <form action="" onSubmit={(e) => addMailToNewsletter(e)}>
               {/* <!--Grid row--> */}
               <div class="row d-flex justify-content-center align-items-start mb-4">
                 {/* <!--Grid column--> */}
@@ -82,13 +112,14 @@ const Footer = () => {
                   {/* <!-- Email input --> */}
                   <div class="form-outline form-white mb-4">
                     <input
+                      name="email"
+                      value={input.email}
                       type="email"
+                      placeholder="Ingrese su mail"
                       id="form5Example21"
                       class="form-control"
+                      onChange={(e) => handleChange(e)}
                     />
-                    <label class="form-label" for="form5Example21">
-                      Direccion de Email
-                    </label>
                   </div>
                 </div>
                 {/* <!--Grid column--> */}

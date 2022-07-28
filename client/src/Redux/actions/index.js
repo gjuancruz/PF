@@ -540,3 +540,47 @@ export function postCandys(payload){
 //     return dispatch ({type: GET_CANDY, payload: get_candy.data})
 //   }
 // }
+
+//Ruta para el despacho del newsletter, le manda el mail ingresado por body
+/* export function addToNewsletter (email) {
+  console.log('estoy en la action de addnewsletter')
+  console.log(email)
+  return async function (dispatch) {
+    try {
+      const addToNewsletter = await axios.post('http://localhost:3001/mailing/newsletter', email)
+      return alert(`El mail: ${email} forma parte de nuestro newsletter ! `)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+ */
+export function addToNewsletter (email) {
+  return  function(dispatch){
+    const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(email)
+        };
+  
+    var addtoNews = fetch('http://localhost:3001/mailing/newsletter', requestOptions)
+    .then(alert('El usuario ha sido añadido al newsletter'))
+
+    .catch(err => console.log(err))
+  }
+}
+
+export function recuperarPassword (email) {
+  return function (dispatch) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(email)
+  };
+
+    var recuperarPass = fetch('http://localhost:3001/mailing/recuperarpassword', requestOptions)
+    .then(alert('El correo de recuperación ha sido enviado al mail ingresado'))
+
+    .catch(err => console.log(err))
+  }
+}

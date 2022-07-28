@@ -24,12 +24,10 @@ let userIdCheck = useSelector ((state) => state.id)
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(input);
     dispatch(postFeedback([currentUser[0].id, input]));
     alert("Feedback creado");
   }
