@@ -40,10 +40,12 @@ const Perfil = () => {
 
       {currentUser.length ? (
         <div>
-          <div className={styles.minheight}>
-            <h4 className="text-warning">Tu e-mail:</h4> <p>{currentUser[0].email}</p>
+          <div className={styles.accionesDiv}>
+          <i class="bi bi-envelope" style={{ fontSize: "50px" }}></i><h3 className={styles.miPerfil}>Tu e-mail:</h3> 
           </div>
-
+          <div class="container d-flex">
+          <p class="fs-5 ps-5">{currentUser[0].email}</p>
+          </div>
           <div>
             <hr class="bg-warning" />
           </div>
@@ -84,12 +86,6 @@ const Perfil = () => {
           <div className={styles.buttons}>
             <button type="submit" class="btn btn-warning" onClick={()=>history.push('/changepassword')}>
               Cambiar contraseña
-            </button>
-            <button type="submit" class="btn btn-warning">
-              Cambiar dirección e-mail
-            </button>
-            <button type="submit" class="btn btn-warning">
-              Últimas operaciones
             </button>
           </div>
         </div>

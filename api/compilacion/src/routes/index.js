@@ -23,5 +23,6 @@ router.use('/show', show_1.default);
 router.use('/candy', candy_1.default);
 router.use('/tickets', tickets_1.default);
 router.use('/cart', cart_1.default);
+// router.use('/sale',sale)
 exports.default = router;
 //# sourceMappingURL=index.js.map

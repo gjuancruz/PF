@@ -12,7 +12,7 @@ export default function CreateMovie() {
 
     //renderizado condicional componente
     const autorizacion = useSelector( state => state.autorizado);
-    console.log('autorizacion: ' + typeof(autorizacion));
+    // console.log('autorizacion: ' + typeof(autorizacion));
     // let permitir;
 
     useEffect(() => {
@@ -164,7 +164,7 @@ export default function CreateMovie() {
         >
           {({ errors, values, setFieldValue }) => (
             <Form className="container my-5">
-              {console.log(values)}
+              {/* {console.log(values)} */}
               <div class="form-group">
                 <div class="mb-3">
                   <label class="form-label" htmlFor="Title">

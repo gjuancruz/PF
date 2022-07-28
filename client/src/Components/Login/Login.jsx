@@ -28,6 +28,7 @@ const Login = () => {
         if(data.token) {
             localStorage.setItem('sw-token', data.token)
           
+            // history.push(goBack());
             history.push('/home')
         }  
         } catch (error){

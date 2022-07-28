@@ -13,6 +13,7 @@ const CheckoutForm = ({showid}) =>{
     // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
     console.log(showid)
     const [checked, useChecked] = useState('')
+    // console.log(showid)
     const handleStripe = async(e) =>{
         e.preventDefault()
         

@@ -20,6 +20,9 @@ import {
   EDIT_MOVIE,
   ADD_CANDY,
   GET_CANDY,
+  SEARCH_CANDY,
+  GET_TICKETS,
+  SEARCH_MOVIES_SALES,
   VERIFY_ROLE,
   TOTAL,
   ENTRADAS,
@@ -27,7 +30,6 @@ import {
   GET_DAY_SHOW,
   TOTALMENTE,
   POST_PAYMENT_METHOD,
-  GET_TICKETS,
   DEL_TICKET
 } from "../actions";
 
@@ -43,9 +45,10 @@ const initialState = {
   usuarios:[],
   shows:[],
   show:[],
+  infoTickets:[],
+  copy_infoTickets:[],
   candy:[],
   autorizado: '',
-  candy:[],
   storeCandy:[],
   role: 'guest',
   total: 0,
@@ -100,7 +103,25 @@ function rootReducer(state = initialState, action) {
         ...state,
         storeCandy: action.payload
       }
+    
+    case SEARCH_CANDY:
+      return{
+        ...state,
+        storeCandy: action.payload
+      }
 
+    case GET_TICKETS:
+      return {
+        ...state,
+        infoTickets: action.payload,
+        copy_infoTickets: action.payload
+      }
+    case SEARCH_MOVIES_SALES:
+      const searchSale = state.copy_infoTickets.filter(e=>e.movie.toLowerCase().include(action.payload.toLowerCase()))
+      return {
+        ...state,
+        infoTickets: searchSale,
+      }
     case AUTORIZADO:
       return {
         ...state,
@@ -115,7 +136,7 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_TYPE:
       const carteleraToFilter = state.cartelera;
-      console.log(carteleraToFilter);
+      // console.log(carteleraToFilter);
       const filteredByType =
         action.payload === "All"
           ? carteleraToFilter

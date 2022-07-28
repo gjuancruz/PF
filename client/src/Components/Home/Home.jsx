@@ -20,7 +20,7 @@ export default function Home(){
 const dispatch = useDispatch()
 const allCartelera = useSelector ((state) => state.carteleraFiltered)
 const premiere = useSelector((state) => state.premiere)
-console.log("es la premier", premiere)
+// console.log("es la premier", premiere)
 const [contador, setContador] = useState(0)
 const [pelisActual, setPelisActual] = useState(1)
 const [pelisPorPag, setPelisPorPag] = useState (4)

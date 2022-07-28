@@ -24,7 +24,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {Checkout} from './Components/Checkout/Checkout'
 import {ComprarModal} from './Components/Checkout/CandysModal'
-import ChangePassword from './ChangePassword/ChangePassword';
+import ChangePassword from './Components/ChangePassword/ChangePassword';
 
 const stripePromise = loadStripe("pk_test_51LKmPfJSzK67IevuPbWPySSkTZkbIKMk89qalSxH06sTUPsU8UeojNRIT11QhjW7yheUsm4BBjtkYc2jD6Q9O8KQ00IWWYeOtN")
 

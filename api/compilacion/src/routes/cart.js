@@ -86,5 +86,14 @@ router.post('/userCart', (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log(error);
     }
 }));
+router.get("/all", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const cart = yield prisma.cart.findMany({ include: { candy: true } });
+        res.status(200).send(cart);
+    }
+    catch (error) {
+        res.send(error.message);
+    }
+}));
 exports.default = router;
 //# sourceMappingURL=cart.js.map

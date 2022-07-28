@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import { updateUser } from "../Redux/actions";
+import { updateUser } from "../../Redux/actions";
 import { useDispatch } from "react-redux";
 import styles from './ChangePassword.module.css';
-import NavBar from "../Components/NavBar/NavBar";
-import Footer from "../Components/Footer/Footer";
+import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 export default function ChangePassword(){
 

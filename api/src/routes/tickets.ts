@@ -15,12 +15,7 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
         const user = await prisma.user.findUnique({
             where: {id: userId},
             include: {
-                cart: {
-                    include : {
-                        tickets: true,
-                        candy: true
-                    }
-                }
+                cart: true
             }
         })
 
@@ -44,36 +39,23 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
         })
         console.log("entro a cart :", cart);
 
-        const userTickets = user?.cart?.tickets.find(item => item.showId === showId);
-
-        let newTickets;
-        if(userTickets){
-            newTickets = await prisma.tickets.update({
-                where: {
-                    id: userTickets?.id,
-                },
-                data: {
-                    showId: show.id,
-                    userId,
-                    seats: userTickets.seats + seats,
-                    totalPrice:(userTickets.seats + seats)*100,
-                    // @ts-ignore
-                    cartId: cart.id,
-                }
-            })
-        } else {
-            newTickets = await prisma.tickets.create({
-                data:{
-                    showId: show.id,
-                    userId,
-                    seats,
-                    totalPrice:seats*100,
-                    // @ts-ignore
-                    cartId: cart.id,
-                }
-            })
-        }
-
+        const newTickets = await prisma.tickets.create({
+            data:{
+                showId: show.id,
+                userId,
+                seats,
+                totalPrice:seats*100,
+                // @ts-ignore
+            
+                // @ts-ignore
+                cartId: cart.id,
+            }
+        })
+        const update = await prisma.tickets.update({
+            where:{id:newTickets.id},
+                // @ts-ignore
+            data:{dateFormat: String(newTickets.createdAt).slice(4,15)}
+        })
         console.log("newTickets :", newTickets);
 
         const addNewTickets = await prisma.cart.update({
@@ -119,67 +101,54 @@ router.post('/addTickets', async (req:Request, res:Response)=>{
     }
 })
 
-router.post('/delete', async(req:Request, res:Response) => {
-    const {userId, showId} = req.body;
-    console.log("userId :",userId, "showId :", showId);
+router.get('/all',async(req:Request,res:Response)=>{
     try {
-        const user = await prisma.user.findUnique({
-            where: {id: userId},
-            include: {
-                cart: {
-                    include : {
-                        tickets: true,
-                        candy: true
-                    }
-                }
+        const tickets = await prisma.tickets.findMany({include:{show:true}})
+        const data = tickets?.map((e:any)=>{
+            return{
+                totalPrice:e.totalPrice,
+                seats:e.seats,
+                movie:e.show.movieId,
+                type:e.show.type,
+                date:e.dateFormat.slice(0,3)
             }
         })
-        console.log("info user :", user);
-        
-        // const cart = await prisma.cart.findUnique({ //parece que no es necesario porque ya esta en user
-        //     where:{id:user?.cart?.id}
-        // })
-        // console.log("entro a cart :", cart);
-
-        const userTickets = user?.cart?.tickets.find(item => item.showId === showId);
-
-        const deleteTickets = await prisma.tickets.delete({
-            where: {id: userTickets?.id}
-        })
-        console.log(deleteTickets);
-        
-
-        const show: any = await prisma.show.findUnique({
-            where:{id:showId}
-        })
-        console.log("entro a show :",show);
-
-        //actualiza los asientos de la funcion en tal hora
-        const seatsAvailable = await prisma.show.update({
-            where:{id:showId},
-            data:{
-                seats: show.seats + userTickets?.seats
+        const total : any[] = []
+        const filter = data.forEach((e:any)=>{
+            if(total.find((el:any)=>e.date==el.date)==undefined){
+                console.log(e)
+                total.push(e)
+            }else{
+                let index = total.findIndex((el:any)=>e.date==el.date)
+                total[index].seats += e.seats
+                total[index].totalPrice += e.totalPrice
             }
         })
-        console.log("seats Avaliable entro :", seatsAvailable);
+            res.status(200).send(total)
+    } catch (error) {
+        res.send(error)
+    }
+})
 
-        const userUpdate = await prisma.user.findUnique({
-            where: {id: userId},
-            include: {
-                cart: {
-                    include : {
-                        tickets: true,
-                        candy: true
-                    }
-                }
+router.get('/all/detail',async(req:Request,res:Response)=>{
+    const {mes} = req.body;
+    console.log(mes)
+    try {
+        const tickets = await prisma.tickets.findMany({include:{show:true}})
+        const data = tickets?.map((e:any)=>{
+            return{
+                totalPrice:e.totalPrice,
+                seats:e.seats,
+                movie:e.show.movieId,
+                type:e.show.type,
+                date:e.dateFormat
             }
         })
-
-        return res.json(userUpdate)
-
-    } catch (error:any) {
-        console.log(error.message);
-        return res.send(error.message)
+       
+        const filter = data.filter((e:any)=>e.date.slice(0,3)===mes)
+        res.status(200).send(filter)
+    } catch (error) {
+        res.send(error)
     }
 })
 
