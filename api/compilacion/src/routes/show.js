@@ -98,19 +98,19 @@ router.delete("/one/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body.data;
     const show = { schedule: data.schedule, roomId: parseInt(data.roomId), movieId: data.movieId, day: data.day, type: data.type };
-    // console.log(data)
     try {
         const data = yield showGenerator(show);
-        const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true, day: true } });
+        console.log(data);
+        const showid = yield prisma.show.findMany({ where: { id: undefined }, select: { id: true, schedule: true, day: true, roomId: true } });
+        console.log(showid);
         if (!showid.length) {
-            // console.log(showid)
             const shows = yield prisma.show.createMany({
                 data
             });
             return res.status(200).send("Lista de shows generada");
         }
         for (let i = 0; i < data.length; i++) {
-            const finder = showid.find((e) => e.schedule == data[i].schedule || e.day === data[i].day);
+            const finder = showid.find((e) => e.day === data[i].day && e.roomId === data[i].roomId);
             if (finder == undefined) {
                 const shows = yield prisma.show.create({
                     data: data[i]

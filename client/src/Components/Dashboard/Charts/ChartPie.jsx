@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import {Pie} from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import { useSelector } from "react-redux";
 
 const labels = ['Cars', 'Thor', 'Spiderman', 'Minions', 'Lightyear', 'Sonic'];//eje x
 const scores = [200, 900, 350, 300, 400, 600] //eje y , ventas de una pelicula.
@@ -31,7 +32,9 @@ export const data = {
       },
     ],
   };
-
+  
   export default function ChartPie() {
+    const tickets = useSelector(state=>state.tickets)
+    console.log(tickets)
     return <Pie data={data} />;
   }
