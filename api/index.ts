@@ -4,6 +4,7 @@ import app from './src/app';
 import {PrismaClient} from '@prisma/client'
 import {cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman} from "./src/routes/data"
 import { comboUno, comboFamiliar, palomitas, gaseosas } from './src/routes/dataCandy';
+
 const PORT = process.env.PORT || 3001;
 
 const prisma = new PrismaClient()
@@ -72,5 +73,5 @@ app.listen(PORT, async () => {
 //    create:{schedule:data[i].schedule,movieId:data[i].movieId,roomId:data[i].roomId}
 // })
 // }
-   console.log(`Server ready at: http://localhost:3001`);
+   console.log(`Server ready at: ${PORT}`);
 })
