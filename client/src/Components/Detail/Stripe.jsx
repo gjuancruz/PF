@@ -11,6 +11,7 @@ const CheckoutForm = ({showid}) =>{
     const elements = useElements()
     // const userIdCheck = window.localStorage.getItem('userId')
     // const currentUser = allUsers.filter(u =>u.id === userIdCheck)
+    console.log(showid)
     const [checked, useChecked] = useState('')
     const handleStripe = async(e) =>{
         e.preventDefault()
@@ -19,10 +20,12 @@ const CheckoutForm = ({showid}) =>{
             type:"card",
             card: elements.getElement(CardElement)
         })
+        // console.log('soy el paymentMethod',paymentMethod)
         if(!error){   //pasarle como tercerparametro el id del carrito del usuario
             dispatch(postPaymentMethod(paymentMethod.id,showid,idUser))
             // useChecked(true)
         }else {
+            console.log(error)}
             // useChecked(false)
     }
     return(
@@ -54,5 +57,5 @@ const CheckoutForm = ({showid}) =>{
 </div>
     )
 }
-}
+
 export default CheckoutForm

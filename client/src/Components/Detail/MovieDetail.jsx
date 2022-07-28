@@ -197,14 +197,14 @@ export default function MovieDetail(){
     
 
     const customId = 1
-    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId});
-    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId});
+    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId, position: toast.POSITION.TOP_CENTER});
+    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId, position: toast.POSITION.TOP_CENTER});;
 
     return(
         <div className="MovieDetail">
             <NavBar />
             {/* PAYMENT NOTIFICATION */}
-            <div>
+            <div className="contenedoropayment">
             {/* <button onClick={()=>notify()}>Notify !</button> */}
         
               {paymentState === 'Payment received' && 
