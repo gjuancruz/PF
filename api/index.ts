@@ -4,7 +4,6 @@ import app from './src/app';
 import {PrismaClient} from '@prisma/client'
 import {cars, spider, sonic, iceAge, thor, jurassic, MinionsTheRiseofGru, lightyear, topGun, DrStranger, Minions, MinionsHolidaySpecial, SupermanSpidermanorBatman} from "./src/routes/data"
 import { comboUno, comboFamiliar, palomitas, gaseosas } from './src/routes/dataCandy';
-
 const PORT = process.env.PORT || 3001;
 
 const prisma = new PrismaClient()

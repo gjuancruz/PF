@@ -72,7 +72,7 @@ export default function MovieDetail(){
     const selecthora = document.querySelector("#selectHora")
     const selectdia = document.querySelector("#selectDia")
     const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
-    console.log('this is line 46',days)
+    // console.log('this is line 46',days)
     for(const show of showdays){
       if(shows.length==0){
       }if(selectdia.lastChild.text!=shows[shows.length-1].day){
@@ -84,7 +84,7 @@ export default function MovieDetail(){
     }
     const createOptions = () => {
       if (selecthora != null) {
-        console.log("entre a create options");
+        // console.log("entre a create options");
         for (const show of shows) {
           if (shows.length == 0) {
             return;
@@ -102,7 +102,7 @@ export default function MovieDetail(){
     
 //renderizxar el form en un modal para hacer la parte de chechout
   
-  console.log("fechas/horarios pelicula",shows);
+  // console.log("fechas/horarios pelicula",shows);
 
     const handleSubmit = (e)=>{
         setShown(current=>!current)
@@ -138,7 +138,7 @@ export default function MovieDetail(){
     const handleChange = (e) => {
       e.preventDefault()
       if(e.target.value !== "selectHora"){
-        console.log("handleSelect:", e.target.name, e.target.value);
+        // console.log("handleSelect:", e.target.name, e.target.value);
         const pelicula = shows.find( item => item.id === e.target.value)
         setHorario({
           id: e.target.value,
@@ -147,7 +147,7 @@ export default function MovieDetail(){
       }
     }
 
-    console.log(JSON.stringify(storeCandy));
+    // console.log(JSON.stringify(storeCandy));
     const [num, setNum] = useState(0);
 
     const sumar= () => {
@@ -167,8 +167,8 @@ export default function MovieDetail(){
       window.parent.location.reload()
     }
 
-    console.log("Horario :",horario);
-    console.log("userId:", idUser);
+    // console.log("Horario :",horario);
+    // console.log("userId:", idUser);
     return(
         <div className="MovieDetail">
             <NavBar />

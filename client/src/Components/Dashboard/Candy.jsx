@@ -30,21 +30,30 @@ imagen: "link"
 
 ///////// productos totales vendidos por mes de cada uno////////
 {
-    nombreProd:
-    cantidad:
-    montoTotal:
-    mes:
+    nombreProd: pochoclos
+    cantidad: 560
+    montoTotal: 648551
+    mes: 06
 }
-
+{
+    nombreProd: nachos
+    cantidad: 700
+    montoTotal: 216545
+    mes: 07
+}
 /////// ventas totales de todos los productos en el mes ///////
 {
-    mes:
-    monto:
+    mes: 07
+    monto: 981090
+}
+{
+    mes: 08
+    monto: 10056561
 }
 */ 
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCandy } from "../../Redux/actions";
+import { getCandy, searchCandy } from "../../Redux/actions";
 import CreateCandy from "./CreateCandy";
 import InfoCandy from "./InfoCandy";
 
@@ -60,7 +69,7 @@ export default function Candy(){
       }
     const handleSubmitSearch = (e)=>{
         e.preventDefault()
-        // dispatch(searchCandy(input))
+        dispatch(searchCandy(input))
       }
 
     useEffect(()=>{
@@ -90,10 +99,11 @@ export default function Candy(){
             Agregar nuevo
           </button>
           <CreateCandy/>
+          {console.log(candy)}
         </div>
       </div>
       <div class="table-responsive">
-          {console.log(candy)}
+          {/* {console.log(candy)} */}
         <table class="table table-dark table-striped">
           <thead>
             <tr>

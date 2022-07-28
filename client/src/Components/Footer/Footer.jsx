@@ -100,7 +100,7 @@ const Footer = () => {
               {/* <!--Grid row--> */}
               <div class="row d-flex justify-content-center align-items-start mb-4">
                 {/* <!--Grid column--> */}
-                <div class="col-2">
+                <div class="col-3">
                   <p class="pt-2">
                     <strong>Suscríbete a nuestro boletín</strong>
                   </p>
@@ -108,7 +108,7 @@ const Footer = () => {
                 {/* <!--Grid column--> */}
 
                 {/* <!--Grid column--> */}
-                <div class="col-7">
+                <div class="col-6">
                   {/* <!-- Email input --> */}
                   <div class="form-outline form-white mb-4">
                     <input

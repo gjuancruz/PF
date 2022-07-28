@@ -10,7 +10,7 @@ export default function Movies(){
 
     const cartelera = useSelector((state) => state.cartelera)
     const premiere = useSelector((state) => state.premiere)
-    const refresh = useSelector((state) => state.refresh)
+    // const refresh = useSelector((state) => state.refresh)
     const allmovies = cartelera.concat(premiere)
     const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ export default function Movies(){
     useEffect(() =>{
         dispatch(getBillboard())
         dispatch(getPremiere())
-    },[refresh])
+    },[dispatch])
 
 
     return (
@@ -69,7 +69,7 @@ export default function Movies(){
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body border-3" >
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onClick={e=> {dispatch(deleteMovie(movieId)); setMovieId("")}}>Eliminar</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onClick={()=> {dispatch(deleteMovie(movieId)); setMovieId("")}}>Eliminar</button>
                                 
                                         <ModifyMovie data={e}></ModifyMovie>
                             

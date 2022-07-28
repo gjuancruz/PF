@@ -3,7 +3,7 @@ import '../NavBar/NavBar.css'
 import { useDispatch, useSelector } from "react-redux";
 import { logout, searchMovieName, verifyRole } from '../../Redux/actions';
 import { getUsers } from "../../Redux/actions";
-import setContador from '../Home/Home.jsx'
+// import setContador from '../Home/Home.jsx'
 import moonCinema from '../../Assets/moonCinema.svg'
 
 const NavBar = () =>{
@@ -18,7 +18,7 @@ const NavBar = () =>{
     useEffect(() =>{
         dispatch(getUsers());
         dispatch(verifyRole())
-    },[])
+    },[dispatch])
 
   let userIdCheck = useSelector ((state) => state.id)
   const currentUser = allUsers.filter(u =>u.id === userIdCheck)
@@ -48,7 +48,7 @@ const NavBar = () =>{
       <div class="container-fluid">
         {/* <a class="navbar-brand text-light" href="/">Moon Cinema</a> */}
         <a class="navbar-brand text-light" href="/">
-          <img src={moonCinema} width="120px"></img>
+          <img src={moonCinema} width="120px" alt=''></img>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list text-light"></i>
@@ -82,8 +82,6 @@ const NavBar = () =>{
                 {userIdCheck? 
                 <div>
                 <li><a class="dropdown-item" href="/profile">Mi perfil</a></li>
-                <li><a class="dropdown-item" href="#">Mis comentarios</a></li>
-                <li><a class="dropdown-item" href="#">Membresía</a></li>
                 <li><hr class="dropdown-divider"/></li>
                 <li><a class="dropdown-item" onClick={logout()} href='/home'>Cerrar sesión</a></li>
                 </div>

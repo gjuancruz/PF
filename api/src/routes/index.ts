@@ -23,4 +23,5 @@ router.use('/tickets', ticketsRoutes)
 router.use('/cart', cart )
 router.use('/mailing', mailing)
 
+
 export default router;

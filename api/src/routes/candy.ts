@@ -48,17 +48,11 @@ router.post('/add',  async (req:Request,res:Response)=>{
         const totalPrice = product.price*quantity
 
         if(userCandy){
-            newCandy = await prisma.candy.update({
-                where:{
-                    //@ts-ignore
-                    id: userCandy.id
-                    // cartId:user?.cart?.id
-                    // name:product.name
-                },
+            newCandy = await prisma.candy.create({
                 data:{
                     name:product.name,
-                    quantity: userCandy.quantity + quantity,
-                    totalPrice: userCandy.totalPrice + totalPrice,
+                    quantity:quantity,
+                    totalPrice:totalPrice,
                     cartId: user?.cart?.id
                 }
             })
