@@ -38,43 +38,38 @@ const Perfil = () => {
 
       {currentUser.length ? (
         <div>
-          <div className={styles.minheight}>
-            <h4>Tu e-mail:</h4> <p>{currentUser[0].email}</p>
-            <h4>Membresía:</h4>{" "}
-            {currentUser[0].role === "user" ||
-            currentUser[0].role === "admin" ? (
-              <p>Actualmente no cuentas con ninguna membresía</p>
-            ) : (
-              <p>Miembro del club de cine</p>
-            )}
-            <h4>Tus comentarios:</h4>
+          <div className={styles.accionesDiv}>
+          <i class="bi bi-envelope" style={{ fontSize: "50px" }}></i><h3 className={styles.miPerfil}>Tu e-mail:</h3> 
+          </div>
+          <div class="container d-flex">
+          <p class="fs-5 ps-5">{currentUser[0].email}</p>
+          </div>
+          <div>
+            <hr class="bg-warning" />
+          </div>
+          {/* <div class="container"> */}
+            <div className={styles.accionesDiv}>
+          <i class="bi bi-chat-quote" style={{ fontSize: "50px" }}></i><h3 className={styles.miPerfil}>Tus comentarios:</h3>
+          </div>
             {commentUser.length ? (
               commentUser.map((c) => {
                 return (
-                  <div className="my-1">
-                    <div class="container text-center">
-                      <div class="row align-items-start">
-                        <div class="col-7">
-                          <h6>{c.movie.Title}:</h6>
+                  // <div >
+                    <div class="container d-flex justify-content-around">
+                        <div class="col-5">
+                          <h4 className="ps-5">{c.movie.Title}:</h4>
                         </div>
                         <div class="col">
-                          <p>"{c.Text}"</p>
-                        </div>
-                      </div>
+                          <p class="fs-5">"{c.Text}"</p>
+                      {/* </div> */}
                     </div>
                   </div>
                 );
               })
             ) : (
-              <p>No has comentado nada todavía</p>
+              <p className={styles.miPerfil}>No has comentado nada todavía</p>
             )}
-            {(currentUser[0].role === "user" ||
-              currentUser[0].role === "admin") && (
-              <button type="submit" class="btn btn-outline-warning mb-4">
-                Hazte miembro del club de cine
-              </button>
-            )}
-          </div>
+            {/* </div> */}
           <div>
             <hr class="bg-warning" />
           </div>

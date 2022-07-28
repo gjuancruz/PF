@@ -23,12 +23,15 @@ export const DELETE_MOVIE="DELETE_MOVIE";
 export const EDIT_MOVIE="EDIT_MOVIE";
 export const ADD_CANDY="ADD_CANDY";
 export const GET_CANDY="GET_CANDY";
+export const SEARCH_CANDY="SEARCH_CANDY";
 export const TOTAL="TOTAL";
 export const ENTRADAS="ENTRADAS";
 export const VERIFY_ROLE='VERIFY_ROLE';
 export const GET_CART="GET_CART";
 export const POST_CANDYS="POST_CANDYS";
-export const GET_DAY_SHOW="GET_DAY_SHOW"
+export const GET_TICKETS="GET_TICKETS";
+export const SEARCH_MOVIES_SALES ="SEARCH_MOVIES_SALES";
+export const GET_DAY_SHOW="GET_DAY_SHOW";
 
 
 export function getBillboard() {
@@ -534,10 +537,44 @@ export function postCandys(payload){
     }
   }
 }
-///////RUTAS CANDY//////
-// export function getCandy(){
-//   return async function(dispatch){
-//     var get_candy = await axios.get("http://localhost:3001/candy");
-//     return dispatch ({type: GET_CANDY, payload: get_candy.data})
-//   }
-// }
+
+export function searchCandy(name){
+  return async function (dispatch) {
+      try {
+        var search = await axios.get(`http://localhost:3001/candy/searchCandy?name=${name}`)
+        return dispatch({
+          type: SEARCH_CANDY,
+          payload: search.data
+        })
+      } catch (error) {
+        dispatch({
+          type: SEARCH_CANDY,
+          payload: []
+        })
+      }
+    }
+}
+
+export function getTicketsSales(){
+  return async function (dispatch) {
+      try {
+        var tickets = await axios.get('http://localhost:3001/tickets/all')
+        return dispatch({
+          type: GET_TICKETS,
+          payload: tickets.data
+        })
+      } catch (error) {
+        dispatch({
+          type: GET_TICKETS,
+          payload: []
+        })
+      }
+    }
+}
+
+export function searchMoviesSales(payload) {
+  return {
+    type: SEARCH_MOVIES_SALES,
+    payload,
+  };
+}

@@ -248,6 +248,7 @@ router.get("/search/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
                 }
             }
         });
+        console.log(movie);
         res.json(movie);
     }
     catch (e) {
@@ -304,7 +305,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
     const { show, idUser, ticket } = req.body;
     const cart = yield prisma.cart.findUnique({ where: { userId: idUser }, include: { candy: true } });
     const stripe = new stripe_1.default(STRIPE_KEY, { apiVersion: "2020-08-27" });
-    // console.log(cart)
+    console.log(cart);
     try {
         const payment = yield stripe.paymentIntents.create({
             amount: cart.orderPrice,
@@ -320,6 +321,19 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
                     connect: { id: cart.userId }
                 }
             } });
+        // const sale = await prisma.sale.create({data:{
+        //     receipt:ticket,
+        //     user:{
+        //         connect:{id:cart.userId}
+        //     }
+        // }})
+        const formatedSale = yield prisma.sale.update({
+            where: { id: sale.id },
+            data: {
+                // @ts-ignore
+                dateFormat: String(sale.createdAt).slice(4, 15)
+            }
+        });
         for (let i = 0; i < cart.candy.length; i++) {
             const candy = yield prisma.candy.update({ where: { id: cart.candy[i].id }, data: { sale: { connect: { id: sale.id } }, cart: { disconnect: true } } });
         }

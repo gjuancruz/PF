@@ -22,7 +22,6 @@ router.post('/register', async (req:Request, res:Response) => {
             // @ts-ignore 
             where: { email: email }
         })
-    
         if ( user ) {
             return res.status(400).send({ error: 'User already exists' });
         }

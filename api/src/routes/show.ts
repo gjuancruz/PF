@@ -134,4 +134,6 @@ router.get("/day",async(req:Request,res:Response)=>{
     }
 })
 
+
+
 export default router
