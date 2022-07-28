@@ -50,6 +50,8 @@ export function Checkout({
 
   const actualizarPrecio = useSelector(state => state.actualizarPrecio);
 
+  
+
   // const idUser = useSelector(state => state.id)
 
   function sumaCarrito(){
@@ -324,7 +326,7 @@ export function Checkout({
       <iframe src={movie.Trailer} alt="" width="400px" height="300px" />
       <ul className="navbar-nav d-flex flex-column mt-5 w-100">
         <li className="nav-item w-100">
-          {NumTickets || `Tickets: ${boletos} `}
+        {NumTickets || `Tickets: ${userCarrito.tickets.length ? userCarrito.tickets[0].seats : 0} `}
           <input type="button" value="X" style={{backgroundColor: "red", padding:"0 5px"}} 
              onClick={(e) => delTicketsEvent(e)} ></input>
           
