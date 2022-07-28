@@ -178,7 +178,6 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_TYPE:
       const carteleraToFilter = state.cartelera;
-      // console.log(carteleraToFilter);
       const filteredByType =
         action.payload === "All"
           ? carteleraToFilter
@@ -257,7 +256,6 @@ function rootReducer(state = initialState, action) {
           shows:action.payload
         }
       case GET_DAY_SHOW:
-        // console.log(action.payload)
         return{
           ...state,
           day:action.payload
@@ -275,7 +273,6 @@ function rootReducer(state = initialState, action) {
           // refresh: !state.refresh
         }
       case GET_SHOW:
-        // console.log(action.payload)
         return{
           ...state,
           show:action.payload
@@ -296,7 +293,6 @@ function rootReducer(state = initialState, action) {
       }
   
     case POST_COMMENT:
-      console.log("sssssssssssssi")
       return{
         ...state,
         refresh: !state.refresh

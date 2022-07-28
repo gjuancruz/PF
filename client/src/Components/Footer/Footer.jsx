@@ -28,7 +28,6 @@ const Footer = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input.email)
   }
 
   return (

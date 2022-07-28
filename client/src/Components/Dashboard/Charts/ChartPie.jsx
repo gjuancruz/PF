@@ -35,6 +35,5 @@ export const data = {
   
   export default function ChartPie() {
     const tickets = useSelector(state=>state.tickets)
-    console.log(tickets)
     return <Pie data={data} />;
   }

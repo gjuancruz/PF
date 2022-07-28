@@ -43,11 +43,9 @@ export default function Candy(){
             Agregar nuevo
           </button>
           <CreateCandy/>
-          {console.log(candy)}
         </div>
       </div>
       <div className="table-responsive">
-          {/* {console.log(candy)} */}
         <table className="table table-dark table-striped">
           <thead>
             <tr>

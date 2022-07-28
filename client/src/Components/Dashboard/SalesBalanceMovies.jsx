@@ -106,8 +106,6 @@ export default function SalesBalanceMovies(){
           </button>
         </div>
       </div>
-      {console.log(tickets)}
-      {console.log(allMovies)}
       <div className='row'>
         <div className='col-4 card text-center mx-4'>
             <div className='card-header'>
@@ -135,7 +133,6 @@ export default function SalesBalanceMovies(){
         </div><br/>
 
       <div className="table-responsive">
-          {/* {console.log(dataMovies)} */}
         <table className="table table-dark table-striped">
           <thead>
             <tr>

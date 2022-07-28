@@ -12,24 +12,12 @@ export default function CreateMovie() {
 
     //renderizado condicional componente
     const autorizacion = useSelector( state => state.autorizado);
-    // console.log('autorizacion: ' + typeof(autorizacion));
-    // let permitir;
 
     useEffect(() => {
       dispatch(autorizado());
     },[])
 
-    //   axios.get("http://localhost:3001/auth/acceder", {
-    //     headers : {
-    //       Authorization : `Bearer ${window.localStorage.getItem('sw-token')}`
-    //     }
-    //   })  
-    //   .then( item => {
-    //     // permitir = item.data.permitir
-    //     console.log(item.data.permitir); 
-    //   }) .catch( error => {
-    //       console.log(error); 
-    //   })
+  
 
 
     const clasificaciones = ['+13','+16','+18','ATP']
@@ -44,12 +32,10 @@ export default function CreateMovie() {
 
     data.append('file', files[0]);
     data.append('upload_preset', 'magqqp6o');
-    console.log(data)
     setLoading(true);
     const res = await fetch("https://api.cloudinary.com/v1_1/henrysecurityapp/image/upload", { method: "POST", body: data })
     const file = await res.json();
 
-    console.log(file)
 
         setImage(file.secure_url);
         setLoading(false)
@@ -71,7 +57,6 @@ export default function CreateMovie() {
     return values.Genre = values.Genre.filter(g=>g!==name)
 }
 
-    // console.log(permitir);
 
 
     return (
@@ -156,7 +141,6 @@ export default function CreateMovie() {
           onSubmit={(values, { resetForm }) => {
             values.Genre = values.Genre.join(",");
             dispatch(postMovie(values));
-            console.log(values);
             setFormSend(true);
             resetForm();
             setTimeout(() => setFormSend(false), 5000);
@@ -164,7 +148,6 @@ export default function CreateMovie() {
         >
           {({ errors, values, setFieldValue }) => (
             <Form className="container my-5">
-              {/* {console.log(values)} */}
               <div className="form-group">
                 <div className="mb-3">
                   <label className="form-label" htmlFor="Title">

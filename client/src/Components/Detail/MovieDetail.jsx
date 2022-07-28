@@ -33,9 +33,6 @@ export default function MovieDetail(){
     const movieVideo=useSelector(state=>state.movieDetail.Trailer);
     const [checkbtn, setcheckbtn] = useState(false);
     
-    console.log("soy",hourshown)
-    // console.log("es la premier",allCartelera)
-    // console.log(movieDet)
     //boton checkout 
     const idUser = useSelector(state => state.id)
 
@@ -88,7 +85,6 @@ export default function MovieDetail(){
         dispatch(getBillboard())
         dispatch(getPremiere())
         dispatch(verifyRole())
-        // idUser && dispatch(getCardHistory({idUser: idUser}))
     },[dispatch, refresh])
 
     useEffect(() => {
@@ -99,7 +95,6 @@ export default function MovieDetail(){
     const selecthora = document.querySelector("#selectHora")
     const selectdia = document.querySelector("#selectDia")
     const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
-    // console.log('this is line 46',days)
     for(const show of showdays){
       if(shows.length==0){
       }if(selectdia.lastChild.text!=shows[shows.length-1].day){
@@ -111,7 +106,6 @@ export default function MovieDetail(){
     }
     const createOptions = () => {
       if (selecthora != null) {
-        // console.log("entre a create options");
         for (const show of shows) {
           if (shows.length == 0) {
             return;
@@ -129,7 +123,6 @@ export default function MovieDetail(){
     
 //renderizxar el form en un modal para hacer la parte de chechout
   
-  // console.log("fechas/horarios pelicula",shows);
 
     const handleSubmit = (e)=>{
         setShown(current=>!current)
@@ -160,7 +153,6 @@ export default function MovieDetail(){
     //   option.value=""
     //   selecthora.add(option)
     // }
-    // console.log(toggle);
     // const [type, setType]= useState({
     //   id:0,
     //   type:"",
@@ -178,7 +170,6 @@ export default function MovieDetail(){
     const handleChange = (e) => {
       e.preventDefault()
       if(e.target.value !== "selectHora"){
-        // console.log("handleSelect:", e.target.name, e.target.value);
         const pelicula = shows.find( item => item.id === e.target.value)
         setHorario({
           id: e.target.value,
@@ -187,8 +178,6 @@ export default function MovieDetail(){
         })
       }
     }
-    console.log("soy",horario)
-    console.log(JSON.stringify(storeCandy));
     
     const HoraPelicula = shows.find( item => item.id === showid)
    
@@ -197,19 +186,12 @@ export default function MovieDetail(){
       window.parent.location.reload()
     }
     
-    console.log("Horario :",horario);
-    console.log("userId:", idUser);
 
     const customId = 1
     const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId});
     const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId});
 
-    console.log("showId", showid);
-    console.log("tickets :",tickets);
-    console.log("estado TICKETs", num);
 
-    // console.log("Horario :",horario);
-    // console.log("userId:", idUser);
     return(
         <div className="MovieDetail">
             <NavBar />

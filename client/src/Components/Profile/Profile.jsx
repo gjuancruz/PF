@@ -14,7 +14,6 @@ const Perfil = () => {
   const allUsers = useSelector((state) => state.usuarios);
   let userIdCheck = useSelector((state) => state.id);
   const currentUser = allUsers.filter((u) => u.id === userIdCheck);
-  // console.log("este es el currentUser",currentUser)
 
   const comments = useSelector((state) => state.comments);
   const commentUser = comments.filter((u) => u.userId === currentUser[0].id);

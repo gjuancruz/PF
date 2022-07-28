@@ -7,7 +7,6 @@ import NavBar from "../NavBar/NavBar";
 export default function Candy() {
   const dispatch = useDispatch();
   const allCandy = useSelector((state) => state.storeCandy);
-  console.log("estos son los candys", allCandy);
   const price = allCandy.map((c)=>{
     var str1 = JSON.stringify(c.price).slice(-2)
     var str2 = JSON.stringify(c.price).slice(0, -2)
