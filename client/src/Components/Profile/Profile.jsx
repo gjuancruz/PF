@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers, verifyRole, getComments } from "../../Redux/actions";
 import NavBar from "../NavBar/NavBar";
 import styles from "./Profile.module.css";
+import {useHistory} from 'react-router-dom'
 
 const Perfil = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Perfil = () => {
   const comments = useSelector((state) => state.comments);
   const commentUser = comments.filter((u) => u.userId === currentUser[0].id);
 
+  const history = useHistory()
   useEffect(() => {
     dispatch(getComments());
   }, []);
@@ -80,7 +82,7 @@ const Perfil = () => {
             <h2 className={styles.miPerfil}>Acciones</h2>
           </div>
           <div className={styles.buttons}>
-            <button type="submit" class="btn btn-warning">
+            <button type="submit" class="btn btn-warning" onClick={()=>history.push('/changepassword')}>
               Cambiar contraseña
             </button>
             <button type="submit" class="btn btn-warning">
