@@ -57,7 +57,7 @@ export default function CreateUser() {
 
                 return errors;
               }}
-              onSubmit={(values, { resetForm }) => {
+              onSubmit={(values, { resetForm }) =>{
                 dispatch(register(values));
                 console.log(values);
                 setFormSend(true);
