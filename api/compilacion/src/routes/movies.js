@@ -303,7 +303,7 @@ router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { show, idUser, ticket } = req.body;
-    const cart = yield prisma.cart.findUnique({ where: { userId: idUser }, include: { candy: true } });
+    const cart = yield prisma.cart.findUnique({ where: { userId: idUser }, include: { candy: true, tickets: true } });
     const stripe = new stripe_1.default(STRIPE_KEY, { apiVersion: "2020-08-27" });
     console.log(cart);
     try {
@@ -338,6 +338,9 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         for (let i = 0; i < cart.candy.length; i++) {
             const candy = yield prisma.candy.update({ where: { id: cart.candy[i].id }, data: { sale: { connect: { id: sale.id } }, cart: { disconnect: true } } });
         }
+        for (let i = 0; i < cart.tickets.length; i++) {
+            const tickets = yield prisma.tickets.update({ where: { id: cart.tickets[i].id }, data: { cart: { disconnect: true } } });
+        }
         const room = yield prisma.show.findUnique({ where: { id: show }, include: { room: { select: { id: true } } } });
         // console.log(room?.room.id)
         // console.log(seat.id)
@@ -358,6 +361,7 @@ router.post("/checkout", (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.send(error.message);
     }
 }));
+// http://localhost:3001/movies/getSales
 router.get('/getSales', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sales = yield prisma.sale.findMany({ include: { user: true } });

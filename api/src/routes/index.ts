@@ -9,6 +9,7 @@ import candyRoutes from './candy'
 import ticketsRoutes from './tickets';
 import cart from './cart';
 import mailing from './mailing';
+import sale from './sale'
 
 const router = Router();
 
@@ -22,5 +23,8 @@ router.use('/candy', candyRoutes)
 router.use('/tickets', ticketsRoutes)
 router.use('/cart', cart )
 router.use('/mailing', mailing)
+// router.use('/sale',sale)
+
+
 
 export default router;
