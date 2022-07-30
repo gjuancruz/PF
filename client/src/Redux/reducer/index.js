@@ -77,7 +77,7 @@ function rootReducer(state = initialState, action) {
     case DEL_TICKET:
       return{
         ...state,
-        tickets: [],
+        // tickets: [],
         actualizarPrecio: action.payload
       }
 

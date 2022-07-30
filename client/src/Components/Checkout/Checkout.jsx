@@ -58,7 +58,7 @@ export function Checkout({
     let totalCandys = 0; 
     let totalTickets = 0;
     // if(userCarrito.length){
-      totalTickets = userCarrito.tickets[0].totalPrice
+      totalTickets = userCarrito.tickets[0].length ? userCarrito.tickets[0].totalPrice : 0
       userCarrito.candy.forEach(item => {
         totalCandys = totalCandys + item.totalPrice
       })
@@ -134,6 +134,7 @@ export function Checkout({
   //   if(idUser) dispatch(getOrderPrice({idUser: idUser}))
   // }, [dispatch])
   console.log("SOY USER IDDDDDDDDDDDDDD", typeof idUser);
+
   useEffect(() => {
     setTRADICIONAL(obtenerCantidad("COMBO TRADICIONAL"));
     setNACHOS(obtenerCantidad("COMBO NACHOS"));
@@ -174,9 +175,9 @@ export function Checkout({
             productos.push("COMBO TRADICIONAL")
         }
         dispatch(postCandys({ index: TRADICIONAL.id, quantity: Number(TRADICIONAL.value), userId: idUser }))
-        setTimeout(() => {
-          dispatch(getOrderPrice({idUser: idUser}))
-        }, 500);
+        // setTimeout(() => {
+        //   dispatch(getOrderPrice({idUser: idUser}))
+        // }, 500);
         console.log(productos);
         return dispatch(addCandy(productos))
         // return delayTotalPrice();
