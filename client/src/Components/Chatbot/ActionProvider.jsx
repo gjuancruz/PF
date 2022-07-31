@@ -13,7 +13,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
 
       const handleDog = () => {
         const botMessage = createChatBotMessage(
-          "Here's a nice dog picture for you!",
+          "Aquí hay una linda imagen de un perro para vos!",
           {
             widget: 'dogPicture',
           }

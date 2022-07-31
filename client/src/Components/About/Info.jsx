@@ -2,9 +2,12 @@ import  '../About/Info.css'
 import AboutCard from "./AboutCard";
 import  Buga  from '../About/AssetsAbout/Buga.jpeg'
 import  juan  from '../About/AssetsAbout/juan.jpg'
-import  Elias  from '../About/AssetsAbout/Elias.jpg'
+import  Elias  from '../About/AssetsAbout/Elias2.jpeg'
 import  Ezequiel  from '../About/AssetsAbout/Ezequiel.png'
 import Axel from '../About/AssetsAbout/axel.png'
+import Lauti from '../About/AssetsAbout/Lauti.jpg'
+import Nacho from '../About/AssetsAbout/Nacho.jpeg'
+
 
 
 
@@ -49,9 +52,9 @@ export default function Info(){
             />
             <AboutCard
             name={"Lautaro Ezequiel Ocampo"}
-            img={""}
+            img={Lauti}
             git={"https://github.com/LautiOcampo"}
-            lin={""}
+            lin={"https://www.linkedin.com/in/lautaro-ocampo-full-stack-developer/"}
             />
             <AboutCard
             name={"Luis David Patiño"}

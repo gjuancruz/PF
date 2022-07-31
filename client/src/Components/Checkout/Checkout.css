@@ -9,7 +9,7 @@
   width: 31%;
   position: fixed;
   justify-content: center;
-  min-height: 108vh;
+  min-height: 78vh;
   overflow: hidden;
   margin: 0px;
   padding-bottom: 30px;
@@ -18,7 +18,7 @@
   transition: width 1s;
   padding-bottom: 100px;
   text-align: center;
-  
+  z-index: 1040;
   right:2px
 }
   
@@ -55,25 +55,6 @@ li{
   text-align: center;
 }
 
-/* .my-container{
-  transition: 0.2s;
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  width: 100%;
-} */
-
-
-
-/* for navbar */
-/* .active-nav{
-  margin-left: 10;
-} */
-
-/* for main section */
-/* .active-cont {
-  margin-left: 250px;
-} */
 
 .closebutton{
   font-size: 16px; /* Cambiar el tamaño de la tipografia */

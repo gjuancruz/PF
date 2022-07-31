@@ -8,8 +8,6 @@ import { useEffect } from "react";
 const Comment = () => {
   const dispatch = useDispatch();
   const movieId = useParams();
-  // console.log("este es el movieId", movieId)
-  // console.log("este es el id de la movie", movieId.id)
 
   useEffect(() => {
     dispatch(getUsers());
@@ -19,11 +17,9 @@ const Comment = () => {
   const allUsers = useSelector((state) => state.usuarios);
   let userIdCheck = useSelector ((state) => state.id)
   const currentUser = allUsers.filter((u) => u.id === userIdCheck);
-  // console.log("este es mi id",currentUser)
   
 
   const [input, setInput] = useState({
-    // email:"",
     Text: "",
   });
 
@@ -32,7 +28,6 @@ const Comment = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   }
 
   function handleSubmit(e) {
@@ -40,7 +35,6 @@ const Comment = () => {
       e.preventDefault() 
       return alert("Escriba un comentario")
     }
-    // console.log(input,movieId.id,currentUser[0]);
     dispatch(postComment(input, movieId.id, currentUser[0].id));
   
 
@@ -64,12 +58,12 @@ const Comment = () => {
           <div>
             <form onSubmit={(e) => handleSubmit(e)}>
               <div>
-                <div class="mb-4 mt-5">
-                  <label for="exampleFormControlTextarea1" class="form-label">
+                <div className="mb-4 mt-5">
+                  <label htmlFor="exampleFormControlTextarea1" className="form-label">
                   {currentUser[0].username} escribe un comentario
                   </label>
                   <input
-                    class="form-control"
+                    className="form-control"
                     id="exampleFormControlTextarea1"
                     rows="3"
                     name="Text"

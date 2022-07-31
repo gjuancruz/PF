@@ -32,10 +32,8 @@ export default function MovieDetail(){
     const currentUser = allUser.filter((u) => u.id === userIdCheck);
     const movieVideo=useSelector(state=>state.movieDetail.Trailer);
     const [checkbtn, setcheckbtn] = useState(true);
+    // const userCarrito = useSelector(state => state.userCart)
     
-    console.log("soy el wacho",shows)
-    // console.log("es la premier",allCartelera)
-    // console.log(movieDet)
     //boton checkout 
     const idUser = useSelector(state => state.id)
 
@@ -56,7 +54,7 @@ export default function MovieDetail(){
     
     const cart = useSelector(state => state.cart);
 
-    const userCarritoDetail = useSelector(state => state.userCart)
+    // const userCarritoDetail = useSelector(state => state.userCart)
 
     const actualizarPrecio = useSelector(state => state.actualizarPrecio);
 
@@ -71,17 +69,17 @@ export default function MovieDetail(){
       setNum(num - 1);
     }
 
-    useEffect(() => {
-      idUser && dispatch(userCart({idUser:idUser}))
-    },[idUser,actualizarPrecio])
+    // useEffect(() => {
+    //   idUser && dispatch(userCart({idUser:idUser}))
+    // },[idUser,actualizarPrecio])
 
     useEffect(() => {
       idUser && dispatch(getTicketsHistory({idUser: idUser}))
-    },[entradas])
+    },[entradas,idUser])
 
-    useEffect(() => {
-      idUser && !tickets.length && dispatch(getTicketsHistory({idUser: idUser}))
-    },[idUser])
+    // useEffect(() => {
+    //   idUser && !tickets.length && dispatch(getTicketsHistory({idUser: idUser}))
+    // },[idUser])
 
     useEffect(() => {
       tickets.length && setNum(tickets[0].seats)
@@ -96,7 +94,6 @@ export default function MovieDetail(){
         dispatch(getBillboard())
         dispatch(getPremiere())
         dispatch(verifyRole())
-        // idUser && dispatch(getCardHistory({idUser: idUser}))
     },[dispatch, refresh])
 
     useEffect(() => {
@@ -107,7 +104,6 @@ export default function MovieDetail(){
     const selecthora = document.querySelector("#selectHora")
     const selectdia = document.querySelector("#selectDia")
     const showdays = shows.filter((e,i,v)=>v.findIndex(e2=>(e2.day===e.day))===i)
-    console.log('this is line 46',days)
     for(const show of showdays){
       if(shows.length==0){
       }if(selectdia.lastChild.text!=shows[shows.length-1].day){
@@ -119,7 +115,6 @@ export default function MovieDetail(){
     }
     const createOptions = () => {
       if (selecthora != null) {
-        console.log("entre a create options");
         for (const show of shows) {
           if (shows.length == 0) {
             return;
@@ -137,7 +132,6 @@ export default function MovieDetail(){
     
 //renderizxar el form en un modal para hacer la parte de chechout
   
-  console.log("fechas/horarios pelicula",shows);
 
     const handleSubmit = (e)=>{
         setShown(current=>!current)
@@ -168,7 +162,6 @@ export default function MovieDetail(){
     //   option.value=""
     //   selecthora.add(option)
     // }
-    // console.log(toggle);
     // const [type, setType]= useState({
     //   id:0,
     //   type:"",
@@ -186,7 +179,6 @@ export default function MovieDetail(){
     const handleChange = (e) => {
       e.preventDefault()
       if(e.target.value !== "selectHora"){
-        console.log("handleSelect:", e.target.name, e.target.value);
         const pelicula = shows.find( item => item.id === e.target.value)
         setHorario({
           id: e.target.value,
@@ -195,8 +187,6 @@ export default function MovieDetail(){
         })
       }
     }
-    console.log("soy",horario)
-    console.log(JSON.stringify(storeCandy));
     
     const HoraPelicula = shows.find( item => item.id === showid)
    
@@ -205,23 +195,16 @@ export default function MovieDetail(){
       window.parent.location.reload()
     }
     
-    console.log("Horario :",horario);
-    console.log("userId:", idUser);
 
     const customId = 1
-    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId});
-    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId});
+    const notifySuccess = () => toast("Pago realizado con éxito", {toastId: customId, position: toast.POSITION.TOP_CENTER});
+    const notifyDecline = () => toast("Su tarjeta ha sido rechazada. Intente nuevamente", {toastId: customId, position: toast.POSITION.TOP_CENTER});;
 
-    console.log("showId", showid);
-    console.log("tickets :",tickets);
-    console.log("estado TICKETs", num);
-    console.log("userCarritoDetail :", userCarritoDetail);
-    // console.log(sumaCarrito());
     return(
         <div className="MovieDetail">
             <NavBar />
             {/* PAYMENT NOTIFICATION */}
-            <div>
+            <div className="contenedoropayment">
             {/* <button onClick={()=>notify()}>Notify !</button> */}
         
               {paymentState === 'Payment received' && 
@@ -256,7 +239,7 @@ export default function MovieDetail(){
             data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
             disabled={num === 0}
             onClick={()=> setcheckbtn((e)=> !e)}
-            > <p className="numbuton"> {num === 0 ? "": num}</p>
+            >    
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="70" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
   <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
 </svg>
@@ -289,11 +272,11 @@ export default function MovieDetail(){
                  <div className="select">
                   <p className="contenedorp">
   
-  <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+  <button className="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
   <b>Elige el dia de la funcion para comprar</b>
   </button>
 </p>
-<div class="collapse" id="collapseExample1">
+<div className="collapse" id="collapseExample1">
                  <div>
                  <select className="selectDia" name="Dia" id="selectDia" onChange={handleDayChange}>
                     <option value="">Seleccione Dia</option>
@@ -316,13 +299,7 @@ export default function MovieDetail(){
                     <option value={horario.type}>{horario.type}</option>
                     </select>):""}
 
-                    {/* {horario.type?(
-                    <select className="selectIdioma" >
-                    
-                    {movieDet.Language?.split(",").map(d=>{
-                  return (<option value={d}>{d}</option>)
-                  })}
-                  Idioma</select>):""} */}
+                   
                   </div>
                     <div>
                     {horario.id === 0 ? "":           
@@ -334,26 +311,26 @@ Comprar
 </button>
 
 <div
-        class="modal faded"
+        className="modal faded"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-  <div class="modal-dialog">
-  <div class="modal-content bg-dark">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Inicia Sesion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div className="modal-dialog">
+  <div className="modal-content bg-dark">
+      <div className="modal-header">
+        <h5 className="modal-title" id="staticBackdropLabel">Inicia Sesion</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div className="modal-body">
       <p>Debes iniciar sesion para Comprar</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-warning" > <a href="/login" >Inicia Sesion</a></button>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" className="btn btn-warning" > <a href="/login" >Inicia Sesion</a></button>
       </div>
     </div>
   </div>
@@ -373,30 +350,30 @@ Comprar
       </div>
 }
       <div
-        class="modal fade"
+        className="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content bg-dark">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
+        <div className="modal-dialog">
+          <div className="modal-content bg-dark">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
                 ¡Disfruta esta Pelicula!
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              <div class="row align-items-start">
-                <div class="col-12">
+            <div className="modal-body">
+              <div className="row align-items-start">
+                <div className="col-12">
                   <h3>{movieDet.Title}</h3>
                   <p>Selecciona la cantidad de Boletos</p>
                   <img
@@ -405,27 +382,27 @@ Comprar
                     width={"150px"}
                   />
                   
-                <button class="btn btn-warning" type="submit" disabled={num===0 || num < 1}onClick={restar}>-</button>
+                <button className="btn btn-warning" type="submit" disabled={num===0 || num < 1}onClick={restar}>-</button>
                     
                     <b className="num">{num}</b>
-                    <button class="btn btn-warning" type="submit" onClick={sumar}>+</button>
+                    <button className="btn btn-warning" type="submit" onClick={sumar}>+</button>
                 
                 </div>
-                {/* <div class="col">One of three columns</div>
-                <div class="col">One of three columns</div> */}
+                {/* <div className="col">One of three columns</div>
+                <div className="col">One of three columns</div> */}
               </div>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Cerrar
               </button>
               
               <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropcheck"
-                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id},()=> setcheckbtn((e)=> !e)))}  //idUser, num, horario.id
+                onClick={() => dispatch(sumEntradas({userId: idUser, seats: num, showId: horario.id}))}  //idUser, num, horario.id
                 // onClick={()=> setPulsado(!pulsado)}
                 // onClick={()=> setcheckbtn((e)=> !e)}
               >
@@ -450,15 +427,15 @@ Comprar
                     </div>
                 } */}
                 <Comment />
-                {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map(e=>{
+                {movieDet.comments && movieDet.comments.length>0 ? movieDet.comments.map((e,index)=>{
                     return(
-                        <div class="card p-3">
-                        <div class="d-flex justify-content-between align-items-center"/>
-                        <div class="user d-flex flex-row align-items-center"/>
-                        <span><small class="font-weight-bold text-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <div className="card p-3" key={index}>
+                        <div className="d-flex justify-content-between align-items-center"/>
+                        <div className="user d-flex flex-row align-items-center"/>
+                        <span><small className="font-weight-bold text-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-</svg>  {e.user.username}:</small> <small class="font-weight-bold">{e.Text}</small></span>
+  <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>  {e.user.username}:</small> <small className="font-weight-bold">{e.Text}</small></span>
                         </div>
                     )
                 }): <div>NO HAY COMENTARIOS</div>}

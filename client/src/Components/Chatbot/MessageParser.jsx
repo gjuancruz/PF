@@ -2,7 +2,6 @@ import React from 'react';
 
 const MessageParser = ({ children, actions }) => {
   const parse = (message) => {
-    console.log(message);
     if (message.includes('fantastic')) {
         actions.handleFantastic()
       }
@@ -47,8 +46,6 @@ const MessageParser = ({ children, actions }) => {
       }
     
   };
-
-  
 
   return (
     <div>

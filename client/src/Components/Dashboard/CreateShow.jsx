@@ -39,28 +39,28 @@ export default function CreateShow() {
     <>
       {autorizacion === true ? (
         <div
-          class="modal fade"
+          className="modal fade"
           id="form"
           data-bs-backdrop="static"
           data-bs-keyboard="false"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content bg-dark text-white">
-              <div class="modal-header">
-                <h5 class="modal-title " id="staticBackdropLabel">
+          <div className="modal-dialog modal-dialog-centered modal-xl">
+            <div className="modal-content bg-dark text-white">
+              <div className="modal-header">
+                <h5 className="modal-title " id="staticBackdropLabel">
                   Crear Funciones
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
+                  className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body border-3">
+              <div className="modal-body border-3">
                 <Formik
                   initialValues={{
                     schedule: "",
@@ -93,19 +93,17 @@ export default function CreateShow() {
                   }}
                   onSubmit={(values, { resetForm }) => {
                     dispatch(postShow(values));
-                    //   console.log(values);
                     setFormSend(true);
                     resetForm();
-                    dispatch(getAllShows());
+                    dispatch(getAllShows())
                     setTimeout(() => setFormSend(false), 5000);
                   }}
                 >
                   {({ errors, values, setFieldValue }) => (
                     <Form className="container my-5">
-                      {/* {console.log(values)} */}
-                      <div class="form-group">
-                        <div class="mb-3">
-                          <label class="form-label" htmlFor="schedule">
+                      <div className="form-group">
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="schedule">
                             Horario inicial:
                             <ErrorMessage
                               name="schedule"
@@ -117,7 +115,7 @@ export default function CreateShow() {
                             />
                           </label>
                           <Field
-                            class="form-control"
+                            className="form-control"
                             type="text"
                             id="schedule"
                             name="schedule"
@@ -125,8 +123,8 @@ export default function CreateShow() {
                           />
                         </div>
 
-                        <div class="mb-3">
-                          <label class="form-label" htmlFor="day">
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="day">
                             Dia:
                             <ErrorMessage
                               name="day"
@@ -138,7 +136,7 @@ export default function CreateShow() {
                             />
                           </label>
                           <Field
-                            class="form-control"
+                            className="form-control"
                             as="select"
                             id="day"
                             name="day"
@@ -179,8 +177,8 @@ export default function CreateShow() {
                           </Field>
                         </div>
 
-                        <div class="mb-3">
-                          <label class="form-label" htmlFor="movieId">
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="movieId">
                             Pelicula:
                             <ErrorMessage
                               name="movieId"
@@ -192,7 +190,7 @@ export default function CreateShow() {
                             />
                           </label>
                           <Field
-                            class="form-control"
+                            className="form-control"
                             as="select"
                             id="movieId"
                             name="movieId"
@@ -209,7 +207,6 @@ export default function CreateShow() {
                                 Seleccionar pelicula
                               </option>
                             )}
-                            {console.log(movies)}
                             {movies?.map((e) => (
                               <option key={e.id} value={e.id}>
                                 {e.Title}
@@ -218,8 +215,8 @@ export default function CreateShow() {
                           </Field>
                         </div>
 
-                        <div class="mb-3">
-                          <label class="form-label" htmlFor="roomId">
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="roomId">
                             Sala:
                             <ErrorMessage
                               name="roomId"
@@ -231,7 +228,7 @@ export default function CreateShow() {
                             />
                           </label>
                           <Field
-                            class="form-control"
+                            className="form-control"
                             as="select"
                             id="roomId"
                             name="roomId"
@@ -266,8 +263,8 @@ export default function CreateShow() {
                           </Field>
                         </div>
 
-                        <div class="mb-3">
-                          <label class="form-label" htmlFor="type">
+                        <div className="mb-3">
+                          <label className="form-label" htmlFor="type">
                             Tipo:
                             <ErrorMessage
                               name="type"
@@ -279,7 +276,7 @@ export default function CreateShow() {
                             />
                           </label>
                           <Field
-                            class="form-control"
+                            className="form-control"
                             as="select"
                             id="type"
                             name="type"
@@ -305,8 +302,8 @@ export default function CreateShow() {
                           </Field>
                         </div>
 
-                        <div class="mb-3">
-                          <button type="submit" class="btn btn-warning mb-3">
+                        <div className="mb-3">
+                          <button type="submit" className="btn btn-warning mb-3">
                             Agregar nueva funcion
                           </button>
                           {formSend && (
@@ -320,11 +317,12 @@ export default function CreateShow() {
                   )}
                 </Formik>
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-danger"
+                  className="btn btn-danger"
                   data-bs-dismiss="modal"
+                  // onClick={dispatch(getAllShows())}
                 >
                   Volver
                 </button>
